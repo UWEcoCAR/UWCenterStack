@@ -3,6 +3,7 @@ var tl;
 var tr;
 var bl;
 var br;
+var corners;
 
 var width;
 var height;
@@ -22,7 +23,7 @@ var directness = 1.2;
 
 var c;
 
-function onStart(){
+function onStart() {
 	document.addEventListener("touchstart", onTouchStart, false);
 	document.addEventListener("touchmove", onTouchMove, false);
 	document.addEventListener("touchend", onTouchEnd, false);
@@ -33,9 +34,14 @@ function onStart(){
 	tr = document.getElementById("tr");
 	bl = document.getElementById("bl");
 	br = document.getElementById("br");
+	corners = document.getElementsByClassName("corner");
 	
 	width = window.innerWidth;
 	height = window.innerHeight;
+	
+	for (var i = 0; i < 4; i++){
+		corners[i].style.setProperty("-webkit-transition", "width 0s, height 0s, margin 0s");
+	}
 }
 
 function onTouchStart(e){
@@ -49,6 +55,10 @@ function onTouchStart(e){
 	isDown = true;
 	debug.style.background="blue";
 	debug.innerHTML = "started";
+	
+	for (var i = 0; i < 4; i++){
+		corners[i].style.setProperty("-webkit-transition", "width 0s, height 0s, margin 0s");
+	}
 }
 
 function onTouchMove(e){
@@ -76,10 +86,17 @@ function onTouchEnd(e){
 	} else {
 		debug.style.background = "red";
 	}
-	shrinkCorner(parseInt(tl.style.width), 200, tl);
-	shrinkCorner(parseInt(tr.style.width), 200, tr);
-	shrinkCorner(parseInt(bl.style.width), 200, bl);
-	shrinkCorner(parseInt(br.style.width), 200, br);
+
+	for (var i = 0; i < 4; i++){
+		corners[i].style.setProperty("-webkit-transition", "width .6s, height .6s, margin .6s");
+	}
+
+	
+	for (var i = 0; i < 4; i++){
+		corners[i].style.width="200px";
+		corners[i].style.height="200px";
+		corners[i].style.margin="-100px";
+	}
 }
 
 function click(x, y){
@@ -98,23 +115,7 @@ function click(x, y){
 	if (c != "no"){
 		return true;
 	}
-	return false;
-	
-}
-
-function shrinkCorner(state, goal, corner){
-	if (state > goal){
-//		debug.innerHTML += ", " + corner.style.width;
-		s = new Date();
-		updateCorner(state, corner);
-		setTimeout(shrinkCorner(state-1, goal, corner), 10000);
-	}
-}
-
-function updateCorner(state, corner){
-	corner.style.width =  state + "px";
-	corner.style.height = state + "px";
-	corner.style.margin = -state/2 +"px";
+	return false;	
 }
 
 function drawCorner(distance, corner){
