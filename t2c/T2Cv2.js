@@ -89,7 +89,7 @@ function onStart(x, y) {
 	lastY = y;
 	startX = lastX;
 	startY = lastY;
-	startTime = new Date().getTime();
+	startTime = currentTime();
 	pathL = 0;
 	isDown = true;
 	debug.css("background", "blue");
@@ -162,12 +162,6 @@ function drawCorner(distance, corner) {
 // takes in the x+y location of both points
 function distance(x1, y1, x2, y2) {
 	return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
-}
-
-// returns the time elapsed since the 'begin' object was created
-// 'begin' object should be created from new Date().getTime();
-function timeFrom(begin) {
-	return new Date().getTime() - begin;
 }
 
 function onTouchStart(e) {
