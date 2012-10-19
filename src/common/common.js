@@ -16,3 +16,26 @@ function timeFrom(begin) {
 function currentTime() {
 	return new Date().getTime()
 }
+
+/**
+ * Represents a position (or point) in 2D space.
+ * @param x The x coordinate
+ * @param y The y coordinate
+ * @returns Position object
+ */
+function Position(x, y) {
+	this.x = x;
+	this.y = y;
+	
+	/**
+	 * @param position The position in which to determine the distance from.
+	 * @returns The distance between this position and the given position.
+	 * If the given position is undefined, then undefined is returned.
+	 */
+	this.distanceFrom = function(position) {
+		if (position) {
+			return Math.sqrt(Math.pow(this.x-position.x, 2) + Math.pow(this.y-position.y, 2));
+		}
+		return undefined;
+	}
+}
