@@ -18,6 +18,13 @@ function currentTime() {
 }
 
 /**
+ * @returns the average of @param a and @param b
+ */
+function average(a,b) {
+	return (a + b)/2;
+}
+
+/**
  * Represents a position (or point) in 2D space.
  * @param x The x coordinate
  * @param y The y coordinate

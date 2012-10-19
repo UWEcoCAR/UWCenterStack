@@ -3,33 +3,28 @@
 var debug; // paragraph to print debug info
 
 // refers to corner images
-var tl; //top left
-var tr; //top right
-var bl; //bottom left
-var br; //bottom right
+var tl, //top left
+	tr, //top right
+	bl, //bottom left
+	br; //bottom right
 
 var corners; // array of corner images
 
 var buttons; // array of all buttons
 
-var width; // width of window
-var height; // height of window
+var width, // width of window
+	height; // height of window
 
-// variable for touch move to store where it came from for calculating pathL
-// keep global because it saves space...
-var lastX;
-var lastY;
-
-//saves initial touch location onStart
-var startX; 
-var startY;
+var lastPos,
+	startPos;
 
 var startTime; // saves start time of touch
 var pathL; // distance travelled over entire touch sequence
 var isDown = false; // true if finger is on screen or mouse button is down
 
-var CORNER_SIZE = 200; // diameter of corner
-var SENSITIVITY = 150; // distance from edge of corner to start scaling corner
+var NORMAL_SIZE = 100; // normal radius of corner
+var SENSITIVITY = 200; // distance from edge of corner to start scaling corner
+var MAX_SIZE = 200; // maximum radius of the corner
 
 var MAX_TIME = 1000; // maximum time a swipe to the corner will register as a valid swipe
 var DIRECTNESS = 1.2; // minimum value for distance/displacement for the swipe to register
@@ -43,7 +38,6 @@ function onLoad() {
 	document.addEventListener("touchstart", onTouchStart, false);
 	document.addEventListener("touchmove", onTouchMove, false);
 	document.addEventListener("touchend", onTouchEnd, false);
-//	document.addEventListener("touchcancel", onTouchCancel, false);
 	
 	// NONE OF THESE ARE NEEDED FOR TOUCHSCREEN
 	document.addEventListener("mousedown", onMouseDown, false);
@@ -62,13 +56,11 @@ function onLoad() {
 	height = window.innerHeight;
 	
 	buttons.onclick = clicked;
-	buttons.touchenter = touchEnter;
-	buttons.touchleave = touchLeave;
 	
 	corners.css("-webkit-transition", "width 0s, height 0s, margin 0s");
-	corners.width(CORNER_SIZE);
-	corners.height(CORNER_SIZE);
-	corners.css("margin", -CORNER_SIZE/2 + "px");
+	corners.width(NORMAL_SIZE*2);
+	corners.height(NORMAL_SIZE*2);
+	corners.css("margin", -NORMAL_SIZE + "px");
 }
 
 function clicked() {
@@ -85,10 +77,8 @@ function touchLeave() {
 
 
 function onStart(x, y) {
-	lastX = x;
-	lastY = y;
-	startX = lastX;
-	startY = lastY;
+	posLast = new Position(x,y);
+	posStart = new Position(x,y);
 	startTime = currentTime();
 	pathL = 0;
 	isDown = true;
@@ -98,14 +88,14 @@ function onStart(x, y) {
 }
 
 function onMove(x, y) {
-	pathL += Math.sqrt(Math.pow(lastX -x, 2) + Math.pow(lastY-y, 2));
-	lastX = x;
-	lastY = y;
-	debug.html("(" + lastX + "/" + width +", " + lastY + "/" + height +")");
-	drawCorner(distance(0,0,lastX,lastY), tl);
-	drawCorner(distance(width,0,lastX,lastY), tr);
-	drawCorner(distance(0,height,lastX,lastY), bl);
-	drawCorner(distance(width,height,lastX,lastY), br);
+	pathL += posLast.distanceFrom(new Position(x,y));
+	posLast.x = x;
+	posLast.y = y;
+	debug.html("(" + posLast.x + "/" + width +", " + posLast.y + "/" + height +")");
+	drawCorner(distance(0,0,posLast.x,posLast.y), tl);
+	drawCorner(distance(width,0,posLast.x,posLast.y), tr);
+	drawCorner(distance(0,height,posLast.x,posLast.y), bl);
+	drawCorner(distance(width,height,posLast.x,posLast.y), br);
 }
 
 
@@ -113,33 +103,34 @@ function onEnd() {
 	isDown = false;
 	debug.html("Time = " + timeFrom(startTime) + 
 	"<br />Distance = " + pathL + 
-	"<br />Displacement = " + distance(lastX, lastY, startX, startY) + 
-	"<br />Distance/Displacement = " + pathL/distance(lastX, lastY, startX, startY));
+	"<br />Displacement = " + distance(posLast.x, posLast.y, posStart.x, posStart.y) + 
+	"<br />Distance/Displacement = " + pathL/distance(posLast.x, posLast.y, posStart.x, posStart.y));
 	
-	if(timeFrom(startTime)  <= MAX_TIME && distance(lastX, lastY, startX, startY)*DIRECTNESS > pathL && click(lastX, lastY)){
+	if(timeFrom(startTime)  <= MAX_TIME && distance(posLast.x, posLast.y, posStart.x, posStart.y)*DIRECTNESS > pathL && click(posLast.x, posLast.y)){
 		debug.css("background", "green");
 	} else {
 		debug.css("background", "red");
 	}
 	
 	corners.css("-webkit-transition", "width .6s, height .6s, margin .6s");
-	corners.width(CORNER_SIZE);
-	corners.height(CORNER_SIZE);
-	corners.css("margin", -CORNER_SIZE/2 + "px");
+	corners.width(NORMAL_SIZE*2);
+	corners.height(NORMAL_SIZE*2);
+	corners.css("margin", -NORMAL_SIZE + "px");
 }
 
 // appends the name of the corner that was swiped to the debug.innerHTML
 // takes in ending x and y coordinates of pointer
 // returns true if the touch sequence ended on a corner
 function click(x, y) {
+	var clickDistance = average(NORMAL_SIZE*2, MAX_SIZE*2);
 	var c;
-	if (distance(x,y, 0, 0) < 136){
+	if (distance(x,y, 0, 0) < clickDistance){
 		c = "tl";
-	} else if (distance(x,y, width, 0) < 136){
+	} else if (distance(x,y, width, 0) < clickDistance){
 		c = "tr";
-	} else if (distance(x,y, 0, height) < 136){
+	} else if (distance(x,y, 0, height) < clickDistance){
 		c = "bl";
-	} else if (distance(x,y, width, height) < 136){
+	} else if (distance(x,y, width, height) < clickDistance){
 		c = "br";
 	} else {
 		c = "no"
@@ -152,7 +143,7 @@ function click(x, y) {
 // scales the corner based off the "magic" equation
 function drawCorner(distance, corner) {
 	// TODO: make this equation make sense...
-	var size = Math.max((((2*SENSITIVITY+CORNER_SIZE)/2-distance)/(2*SENSITIVITY))*CORNER_SIZE+CORNER_SIZE, CORNER_SIZE);
+	var size = Math.max(NORMAL_SIZE*2+SENSITIVITY-distance, 0)/(NORMAL_SIZE*2+SENSITIVITY)*(MAX_SIZE*2-NORMAL_SIZE*2) + NORMAL_SIZE*2
 	corner.width(size); 
 	corner.height(size);
 	corner.css("margin", -size/2 +"px");
