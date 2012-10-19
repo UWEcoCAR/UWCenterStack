@@ -50,41 +50,37 @@ function onLoad() {
 	document.addEventListener("mouseup", onMouseUp, false);
 	document.addEventListener("mousemove", onMouseMove, false);
 	
-	debug = document.getElementById("coord");
-	tl = document.getElementById("tl");
-	tr = document.getElementById("tr");
-	bl = document.getElementById("bl");
-	br = document.getElementById("br");
-	corners = document.getElementsByClassName("corner");
-	buttons = document.getElementsByClassName("btn");
+	debug = $("#coord");
+	tl = $("#tl");
+	tr = $("#tr");
+	bl = $("#bl");
+	br = $("#br");
+	corners = $(".corner");
+	buttons = $(".btn");
 	
 	width = window.innerWidth;
 	height = window.innerHeight;
 	
-	for (var i = 0; i < buttons.length; i++){
-		buttons[i].onclick = clicked;
-		buttons[i].touchenter = touchEnter;
-		buttons[i].touchleave = touchLeave;
-	}
-
-	for (var i = 0; i < 4; i++){
-		corners[i].style.setProperty("-webkit-transition", "width 0s, height 0s, margin 0s");
-		corners[i].style.width=CORNER_SIZE + "px";
-		corners[i].style.height=CORNER_SIZE + "px";
-		corners[i].style.margin= -CORNER_SIZE/2 + "px";
-	}
+	buttons.onclick = clicked;
+	buttons.touchenter = touchEnter;
+	buttons.touchleave = touchLeave;
+	
+	corners.css("-webkit-transition", "width 0s, height 0s, margin 0s");
+	corners.width(CORNER_SIZE);
+	corners.height(CORNER_SIZE);
+	corners.css("margin", -CORNER_SIZE/2 + "px");
 }
 
 function clicked() {
-	this.innerHTML = "CLICKED";
+	this.html("CLICKED");
 }
 
 function touchEnter() {
-	this.innerHTML = "entered";
+	this.html("entered");
 }
 
 function touchLeave() {
-	this.innerHTML = "left";
+	this.html("left");
 }
 
 
@@ -96,19 +92,16 @@ function onStart(x, y) {
 	startTime = new Date().getTime();
 	pathL = 0;
 	isDown = true;
-	debug.style.background="blue";
-	debug.innerHTML = "started";
-	
-	for (var i = 0; i < 4; i++){
-		corners[i].style.setProperty("-webkit-transition", "width 0s, height 0s, margin 0s");
-	}
+	debug.css("background", "blue");
+	debug.html("started");
+	corners.css("-webkit-transition", "width 0s, height 0s, margin 0s");
 }
 
 function onMove(x, y) {
 	pathL += Math.sqrt(Math.pow(lastX -x, 2) + Math.pow(lastY-y, 2));
 	lastX = x;
 	lastY = y;
-	debug.innerHTML = "(" + lastX + "/" + width +", " + lastY + "/" + height +")";
+	debug.html("(" + lastX + "/" + width +", " + lastY + "/" + height +")");
 	drawCorner(distance(0,0,lastX,lastY), tl);
 	drawCorner(distance(width,0,lastX,lastY), tr);
 	drawCorner(distance(0,height,lastX,lastY), bl);
@@ -118,28 +111,21 @@ function onMove(x, y) {
 
 function onEnd() {
 	isDown = false;
-	debug.innerHTML = "Time = " + timeFrom(startTime) + 
+	debug.html("Time = " + timeFrom(startTime) + 
 	"<br />Distance = " + pathL + 
 	"<br />Displacement = " + distance(lastX, lastY, startX, startY) + 
-	"<br />Distance/Displacement = " + pathL/distance(lastX, lastY, startX, startY);
+	"<br />Distance/Displacement = " + pathL/distance(lastX, lastY, startX, startY));
 	
 	if(timeFrom(startTime)  <= MAX_TIME && distance(lastX, lastY, startX, startY)*DIRECTNESS > pathL && click(lastX, lastY)){
-		debug.style.background = "green";
+		debug.css("background", "green");
 	} else {
-		debug.style.background = "red";
-	}
-
-	for (var i = 0; i < 4; i++){
-		corners[i].style.setProperty("-webkit-transition", "width .6s, height .6s, margin .6s");
+		debug.css("background", "red");
 	}
 	
-
-	
-	for (var i = 0; i < 4; i++){
-		corners[i].style.width=CORNER_SIZE + "px";
-		corners[i].style.height=CORNER_SIZE + "px";
-		corners[i].style.margin= -CORNER_SIZE/2 + "px";
-	}
+	corners.css("-webkit-transition", "width .6s, height .6s, margin .6s");
+	corners.width(CORNER_SIZE);
+	corners.height(CORNER_SIZE);
+	corners.css("margin", -CORNER_SIZE/2 + "px");
 }
 
 // appends the name of the corner that was swiped to the debug.innerHTML
@@ -158,7 +144,7 @@ function click(x, y) {
 	} else {
 		c = "no"
 	}
-	debug.innerHTML = debug.innerHTML + "<br />" + c;
+	debug.html(debug.html() + "<br />" + c);
 	return c != "no"
 }
 
@@ -167,8 +153,9 @@ function click(x, y) {
 function drawCorner(distance, corner) {
 	// TODO: make this equation make sense...
 	var size = Math.max((((2*SENSITIVITY+CORNER_SIZE)/2-distance)/(2*SENSITIVITY))*CORNER_SIZE+CORNER_SIZE, CORNER_SIZE);
-	corner.style.width = corner.style.height = size + "px";
-	corner.style.margin = -size/2 +"px";
+	corner.width(size); 
+	corner.height(size);
+	corner.css("margin", -size/2 +"px");
 }
 
 // returns the distance in pixels from point1 to point2
