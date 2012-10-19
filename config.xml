@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:rim="http://www.blackberry.com/ns/widgets"
+        version="1.0.0.0">  
+    <name>ttc</name>
+    <author>University of Washington</author>
+    <description>ttc test</description>
+    <icon src="icon.png"/>
+    <content src="srcs/ttc/coord.html"/>
+    <rim:permissions>
+	<rim:permit>read_geolocation</rim:permit>
+    </rim:permissions>
+</widget>
