@@ -121,16 +121,15 @@ function onEnd() {
 // appends the name of the corner that was swiped to the debug.innerHTML
 // takes in ending x and y coordinates of pointer
 // returns true if the touch sequence ended on a corner
-function click(x, y) {
-	var clickDistance = average(NORMAL_SIZE*2, MAX_SIZE*2);
+function click(x, y) { 
 	var c;
-	if (distance(x,y, 0, 0) < clickDistance){
+	if (distance(x,y, 0, 0) < sizeEquation(distance(x,y,0,0))/2){
 		c = "tl";
-	} else if (distance(x,y, width, 0) < clickDistance){
+	} else if (distance(x,y, width, 0) < sizeEquation(distance(x,y,width,0))/2){
 		c = "tr";
-	} else if (distance(x,y, 0, height) < clickDistance){
+	} else if (distance(x,y, 0, height) < sizeEquation(distance(x,y,0,height))){
 		c = "bl";
-	} else if (distance(x,y, width, height) < clickDistance){
+	} else if (distance(x,y, width, height) < sizeEquation(distance(x,y,width,height))/2){
 		c = "br";
 	} else {
 		c = "no"
@@ -143,10 +142,14 @@ function click(x, y) {
 // scales the corner based off the "magic" equation
 function drawCorner(distance, corner) {
 	// TODO: make this equation make sense...
-	var size = Math.max(NORMAL_SIZE*2+SENSITIVITY-distance, 0)/(NORMAL_SIZE*2+SENSITIVITY)*(MAX_SIZE*2-NORMAL_SIZE*2) + NORMAL_SIZE*2
+	var size = sizeEquation(distance);
 	corner.width(size); 
 	corner.height(size);
 	corner.css("margin", -size/2 +"px");
+}
+
+function sizeEquation(distance){
+	return Math.max(NORMAL_SIZE*2+SENSITIVITY-distance, 0)/(NORMAL_SIZE*2+SENSITIVITY)*(MAX_SIZE*2-NORMAL_SIZE*2) + NORMAL_SIZE*2;
 }
 
 // returns the distance in pixels from point1 to point2
