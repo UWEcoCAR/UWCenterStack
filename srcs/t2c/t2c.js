@@ -1,112 +1,116 @@
 /**
- * @author Nicholas Clawson & Mitchell Loeppky
+ * Touch-2-Corners algorithm. Determines if a 
+ * finger or mouse moving across the screen is
+ * a Touch-2-Corners event based on several criteria including,
+ * total movement time, directedness, and where the movement ends.
+ * 
+ * Depends on: common.js
  */
 
 // ELEMENTS
-/**
- * paragraph element to print debug info
- */
-var debug;
 
-/**
- * corner image elements
- */
+// Corner image elements
 var tl, //top left
 	tr, //top right
 	bl, //bottom left
 	br; //bottom right
 
-/**
- * array of all corner image elements
- */
-var corners; // array of corner images
+var debug; 		// paragraph element to print debug info
+
+var corners; 	// corner images
 
 // VARIABLES
-/**
- * width and height of window
- */
-var width,
+
+var width,		// dimensions of window
 	height;
 
-/**
- * Position objects for last known position and starting position of pointer event
- */
-var lastPos,
-	startPos;
-
-/**
- * time in milliseconds since unix epoch, set every call to onStart()
- */
-var startTime; // saves start time of touch
-
-/**
- * distance travelled, set to 0 on onStart() increased onMove()
- */
-var pathL; // distance travelled over entire touch sequence
-
-/**
- * flag, true when mouse is held down or finger on screen
- */
-var isDown = false; // true if finger is on screen or mouse button is down
+var drag;
 
 // CONSTANTS
-/**
- * Normal radius of the corner element in pixels
- */
-var NORMAL_SIZE = 100;
+
+var NORMAL_SIZE = 100;	// normal radius of the corner element in pixels
+var SENSITIVITY = 200;	// pixels from edge of outer corner to start scaling up
+var MAX_SIZE = 200;		// maximum radius of corner, when pointer is at extreme corner
+var MAX_TIME = 1000; 	// maximum time a valid swipe can take
+var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swipe
+						// DO NOT GO BELOW 1
 
 /**
- * pixels from edge of outer corner to start scaling up
- */
-var SENSITIVITY = 200;
-
-/**
- *  maximum radius of corner, when pointer is at extreme corner
- */
-var MAX_SIZE = 200;
-
-/**
- * maximum time a valid swipe can take
- */
-var MAX_TIME = 1000;
-
-/**
- * maximum ration of distance/displacement for a valid swipe
- * DO NOT GO BELOW 1
- */
-var DIRECTNESS = 1.2;
-
-window.onload = onLoad;
-
-/**
- * Called when window is initially loaded
+ * @class Represents a mouse or finger dragging across the screen.
+ * Contains time, distance, and displacement information about the drag.
  * 
- * Adds all necessary event listeners for touch and mouse control
- * retrieves necessary element doms from html file
- * gets window height and width
- * sets size and margin of each corner element
+ * @param {Position} The starting position of the drag.
  */
-function onLoad() {
+function Drag(startingPosition) {
+	this.startTime = currentTime();		// the start time (in milliseconds) of the Drag
+	this.duration = 0;					// the elapsed time (in milliseconds) of the Drag
+	this.distance = 0;					// distance traveled over entire Drag
+	this.displacement = 0;				// distance between the beginning and end of the Drag
+	this.inProgress = true;				// true if Drag is still in progress
+	this.currentPos = startingPosition;	// The last know position of the Drag
+	this.startPos = startingPosition;	// The position where the Drag started
+	
+	/**
+	 * Adds the given position to the Drag. 
+	 * Should be called when the user moves the mouse or their finger.
+	 */
+	this.addPosition = function(position) {
+		this.pathLength += this.currentPos.distanceFrom(position);
+		this.displacement = this.startPos.distanceFrom(position);
+		this.currentPos = position;
+		this.duration = timeFrom(this.startTime);
+	}
+	
+	/**
+	 * Ends the Drag.
+	 * Should be called when the user releases the mouse or removes their finger.
+	 */
+	this.end = function() {
+		this.inProgress = false;
+		this.duration = timeFrom(this.startTime);
+	}
+}
+
+/**
+ * Called when window is initially loaded.
+ * 
+ * Adds all necessary event listeners for touch and mouse control,
+ * retrieves necessary element doms from html file,
+ * gets window height and width,
+ * and sets size and margin of each corner element.
+ */
+window.onload = function onLoad() {
+	
+	// Add touch handlers
 	document.addEventListener("touchstart", onTouchStart, false);
 	document.addEventListener("touchmove", onTouchMove, false);
 	document.addEventListener("touchend", onTouchEnd, false);
 	
+	// Add mouse handlers
 	// NONE OF THESE ARE NEEDED FOR TOUCHSCREEN
 	document.addEventListener("mousedown", onMouseDown, false);
 	document.addEventListener("mouseup", onMouseUp, false);
 	document.addEventListener("mousemove", onMouseMove, false);
 	
+	// Get DOM elements
 	debug = $("#coord");
 	tl = $("#tl");
 	tr = $("#tr");
 	bl = $("#bl");
-	br = $("#br");
+	br = $("#br"); 
 	corners = $(".corner");
-	buttons = $(".btn");
 	
+	// Get window dimensions
 	width = window.innerWidth;
 	height = window.innerHeight;
-		
+	
+	// Set corner positions
+	tl.center = new Position(0, 0);
+	tr.center = new Position(width, 0);
+	bl.center = new Position(0, height);
+	br.center = new Position(width, height);
+	
+	// Initialize corners
 	corners.css("-webkit-transition", "width 0s, height 0s, margin 0s");
 	corners.width(NORMAL_SIZE*2);
 	corners.height(NORMAL_SIZE*2);
@@ -114,68 +118,51 @@ function onLoad() {
 }
 
 /**
- * Called when pointer sequence starts
+ * Starts a new drag
+ * Should be called any time the mouse is down or a touch starts.
  * 
- * Should be started by onMouseDown or onTouchStart
- * Creates position object to represent starting coordinates
- * Creates duplicate object to represent last known position
- * Gets time in milliseconds since the unix epoch
- * Sets path traveled to 0
- * Sets isDown flag to true
- * Changes css transition
- *
- * @param x x-coordinate of pointer event
- * @param y y-coordinate of pointer event
+ * @param {Position} position The current position of the drag.
  */
-function onStart(x, y) {
-	posLast = new Position(x,y);
-	posStart = new Position(x,y);
-	startTime = currentTime();
-	pathL = 0;
-	isDown = true;
+function onStart(position) {
+	drag = new Drag(position);
 	debug.css("background", "blue");
 	debug.html("started");
 	corners.css("-webkit-transition", "width 0s, height 0s, margin 0s");
 }
 
 /**
- * Called every time pointer position moves in order to calculate path traveled
+ * Advances the drag and updates the corner sizes.
+ * Should be called any time the mouse or finger moves during a drag.
  * 
- * Adds on distance travelled from last position to pathL
- * changes last known position to current position
- * 
- * @param x current x-coordinate of pointer
- * @param y current y-coordinate of pointer
+ * @param {Position} position The current position of the drag.
  */
-function onMove(x, y) {
-	pathL += posLast.distanceFrom(new Position(x,y));
-	posLast.x = x;
-	posLast.y = y;
-	debug.html("(" + posLast.x + "/" + width +", " + posLast.y + "/" + height +")");
-	drawCorner(posLast.distanceFrom(new Position(0,0)), tl);
-	drawCorner(posLast.distanceFrom(new Position(width,0)), tr);
-	drawCorner(posLast.distanceFrom(new Position(0,height)), bl);
-	drawCorner(posLast.distanceFrom(new Position(width,height)), br);
+function onMove(position) {
+	drag.addPosition(position);
+	
+	debug.html("(" + drag.currentPos.x + "/" + width +", " + drag.currentPos.y + "/" + height +")");
+	
+	var cornersArray = getCornersArray();
+	for (var i = 0; i < cornersArray.length; i++) {
+		drawCorner(position.distanceFrom(cornersArray[i].center), cornersArray[i]);
+	}
 }
 
 /**
- *  Called when pointer sequence ends, either from unclicking or lifting finger
- *  
- *  sets isDown flag to false
- *  TODO should call click() if duration of pointer sequence is less than MAX_TIME and path is straight enough
- *  Changes css transition values
- *  Changes each corners size and margin
+ * Ends the drag, updates the corner sizes, and determines if the drag was a
+ * Touch-2-Corner.
+ * Should be called when the user relases the mouse or removes their finger.
  */
 function onEnd() {
-	isDown = false;
-	debug.html("Time = " + timeFrom(startTime) + 
-	"<br />Distance = " + pathL + 
-	"<br />Displacement = " + posLast.distanceFrom(posStart) + 
-	"<br />Distance/Displacement = " + pathL/posLast.distanceFrom(posStart));
+	drag.end();
 	
-	if(timeFrom(startTime)  <= MAX_TIME && posLast.distanceFrom(posStart)*DIRECTNESS > pathL && click(posLast.x, posLast.y)){
+	debug.html("Time = " + drag.duration + 
+	"<br />Distance = " + drag.distance + 
+	"<br />Displacement = " + drag.displacement + 
+	"<br />Distance/Displacement = " + drag.distance / drag.displacement);
+	
+	if(isT2c()){
 		debug.css("background", "green");
-		// click(posLast.x, posLast.y)
+		// var corner = isT2c();
 	} else {
 		debug.css("background", "red");
 	}
@@ -187,35 +174,28 @@ function onEnd() {
 }
 
 /**
- * Called to see if a valid swipe ended in a corner
+ * Determines if the drag was a Touch-2-Corner (t2c).
  * 
- * checks the distance of the click from each corner
- * saves which corner was clicked to c
- * 
- * @returns {Boolean} true if swipe ended in corner
+ * @returns {Element|Boolean} If the drag was a t2c, then the corner element, otherwise false.
  */
-function click() { 
-	var c;
-	if (posLast.distanceFrom(new Position(0,0)) < sizeEquation(posLast.distanceFrom(new Position(0,0)))/2){
-		c = "tl";
-	} else if (posLast.distanceFrom(new Position(width,0)) < sizeEquation(posLast.distanceFrom(new Position(width,0)))/2){
-		c = "tr";
-	} else if (posLast.distanceFrom(new Position(0,height)) < sizeEquation(posLast.distanceFrom(new Position(0,height)))/2){
-		c = "bl";
-	} else if (posLast.distanceFrom(new Position(width,height)) < sizeEquation(posLast.distanceFrom(new Position(width,height)))/2){
-		c = "br";
+function isT2c() {
+	if (drag.dragTime <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
+		var cornersArray = getCornersArray();
+		for (var i = 0; i < cornersArray.length; i++) {
+			if (drag.curentPos.distanceFrom(cornersArray[i].center) < sizeEquation(cornersArray[i].center)/2) {
+				return cornersArray[i];
+			}
+		}
 	} else {
-		c = "no"
+		return false;
 	}
-	debug.html(debug.html() + "<br />" + c);
-	return c != "no"
 }
 
 /**
- * Sets the size and margin for a corner
+ * Sets the size and margin for a corner.
  * 
- * @param distance distance from pointer event to corner
- * @param corner corner element in question
+ * @param {Number} distance Distance from pointer event to corner.
+ * @param {Element} corner Corner element to draw.
  */
 function drawCorner(distance, corner) {
 	var size = sizeEquation(distance);
@@ -227,81 +207,64 @@ function drawCorner(distance, corner) {
 /**
  * THE MAGIC SIZE EQUATION
  * 
- * @param distance from corner
- * @returns {Number} ideal size of corner
+ * @param {Number} distance Distance from corner.
+ * @returns {Number} Ideal size of corner.
  */
 function sizeEquation(distance){
 	return Math.max(NORMAL_SIZE*2+SENSITIVITY-distance, 0)/(NORMAL_SIZE*2+SENSITIVITY)*(MAX_SIZE*2-NORMAL_SIZE*2) + NORMAL_SIZE*2;
 }
+
 /**
- * Event handler for when finger touches screen
- * 
- * Calls onStart()
- * 
- * @param e touch event
+ * @see onStart(position)
  */
 function onTouchStart(e) {
-//	e.preventDefault();
-	onStart(e.targetTouches[0].pageX, e.targetTouches[0].pageY);
+	onStart(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
 	
 }
 
 /**
- * Event handler for when finger is dragged
- * 
- * Calls onMove()
- * 
- * @param e touch event
+ * @see onMove(position)
  */
 function onTouchMove(e) {
 	if (e.targetTouches.length == 1){
 		e.preventDefault();
-		onMove(e.targetTouches[0].pageX, e.targetTouches[0].pageY);
+		onMove(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
 	}
 }
 
 /**
- * Event handler for when finger is lifted
- * 
- * Calls onEnd()
- * 
- * @param e touch event
+ * @see onEnd()
  */
 function onTouchEnd(e) {
-//	e.preventDefault();
 	onEnd();
 }
 
 /**
- * Event handler for when left mouse button is held down
- * 
- * Calls onStart()
- * @param e click event
+ * @see onStart(position)
  */
 function onMouseDown(e) {
-	onStart(e.pageX, e.pageY);
+	onStart(new Position(e.pageX, e.pageY));
 }
 
 /**
- * Event handler for when mouse pointer is moved
- * 
- * Calls onMove()
- * 
- * @param e mouse event
+ * @see onMove(position)
  */
 function onMouseMove(e) {
-	if (isDown){
-		onMove(e.pageX, e.pageY);
+	if (drag && drag.inProgress){
+		onMove(new Position(e.pageX, e.pageY));
 	}
 }
 
 /**
- * Event handler for when left mouse button is lifted
- * 
- * Calls onEnd()
- * 
- * @param e mouse event
+ * @see onEnd()
  */
 function onMouseUp(e) {
 	onEnd();
+}
+
+/**
+ * @returns {Array} The corner elements as an Array.
+ */
+function getCornersArray() {
+	return [tl, tr, bl, br];
 }

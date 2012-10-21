@@ -3,7 +3,7 @@
  */
 
 /**
- * @param begin The time (in milliseconds since the UNIX epoch) to compare against the current time.
+ * @param begin The time (in milliseconds) to compare against the current time.
  * @returns The number of milliseconds elapsed since the given begin time.
  */
 function timeFrom(begin) {
@@ -11,21 +11,22 @@ function timeFrom(begin) {
 }
 
 /**
- * @returns The current time in milliseconds since the UNIX epoch.
+ * @returns The current time in milliseconds.
  */
 function currentTime() {
 	return new Date().getTime()
 }
 
 /**
- * @returns the average of @param a and @param b
+ * @returns The average of @param a and @param b.
  */
 function average(a,b) {
 	return (a + b)/2;
 }
 
 /**
- * Represents a position (or point) in 2D space.
+ * Creates a new Position.
+ * @class Represents a position (or point) in 2D space.
  * @param x The x coordinate
  * @param y The y coordinate
  * @returns Position object
