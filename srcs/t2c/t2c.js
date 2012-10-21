@@ -100,7 +100,7 @@ function onLoad() {
 	tl = $("#tl");
 	tr = $("#tr");
 	bl = $("#bl");
-	br = $("#br");
+	br = $("#br"); 
 	corners = $(".corner");
 	buttons = $(".btn");
 	
