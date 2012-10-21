@@ -55,7 +55,7 @@ function Drag(startingPosition) {
 	 * Should be called when the user moves the mouse or their finger.
 	 */
 	this.addPosition = function(position) {
-		this.pathLength += this.currentPos.distanceFrom(position);
+		this.distance += this.currentPos.distanceFrom(position);
 		this.displacement = this.startPos.distanceFrom(position);
 		this.currentPos = position;
 		this.duration = timeFrom(this.startTime);
@@ -179,16 +179,15 @@ function onEnd() {
  * @returns {Element|Boolean} If the drag was a t2c, then the corner element, otherwise false.
  */
 function isT2c() {
-	if (drag.dragTime <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
+	if (drag.duration <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
 		var cornersArray = getCornersArray();
 		for (var i = 0; i < cornersArray.length; i++) {
-			if (drag.curentPos.distanceFrom(cornersArray[i].center) < sizeEquation(cornersArray[i].center)/2) {
+			if (drag.currentPos.distanceFrom(cornersArray[i].center) < sizeEquation(drag.currentPos.distanceFrom(cornersArray[i].center))/2) {
 				return cornersArray[i];
 			}
 		}
-	} else {
-		return false;
 	}
+	return false;
 }
 
 /**
