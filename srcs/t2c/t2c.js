@@ -4,7 +4,7 @@
  * a Touch-2-Corners event based on several criteria including,
  * total movement time, directedness, and where the movement ends.
  * 
- * Depends on: common.js
+ * Depends on: common.js, jquery-1.8.2.min.js
  */
 
 // ELEMENTS

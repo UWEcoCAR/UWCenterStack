@@ -2,6 +2,7 @@
  * Unit tests for common.js.
  */
 
+//FUNCTION OVERRIDES
 Date.prototype.getTime = function() {
 	return 10000;
 }
