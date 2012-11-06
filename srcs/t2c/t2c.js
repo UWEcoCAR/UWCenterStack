@@ -4,20 +4,21 @@
  * a Touch-2-Corners event based on several criteria including,
  * total movement time, directedness, and where the movement ends.
  * 
- * Depends on: common.js, jquery-1.8.2.min.js
+ * Depends on: common.js
  */
 
 // ELEMENTS
 
-// Corner image elements
-var tl, //top left
-	tr, //top right
-	bl, //bottom left
-	br; //bottom right
-
 var debug; 		// paragraph element to print debug info
+var page;
 
-var corners; 	// corner images
+var canvas;
+var ctx;
+
+var image;
+
+var corners; 	// corner locations
+var cornerSizes; // corner sizes
 
 // VARIABLES
 
@@ -28,12 +29,13 @@ var drag;
 
 // CONSTANTS
 
-var NORMAL_SIZE = 100;	// normal radius of the corner element in pixels
+var NORMAL_SIZE = 200;	// normal radius of the corner element in pixels
 var SENSITIVITY = 200;	// pixels from edge of outer corner to start scaling up
-var MAX_SIZE = 200;		// maximum radius of corner, when pointer is at extreme corner
+var MAX_SIZE = 300;		// maximum radius of corner, when pointer is at extreme corner
 var MAX_TIME = 1000; 	// maximum time a valid swipe can take
 var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swipe
 						// DO NOT GO BELOW 1
+var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
 
 /**
  * @class Represents a mouse or finger dragging across the screen.
@@ -47,6 +49,7 @@ function Drag(startingPosition) {
 	this.distance = 0;					// distance traveled over entire Drag
 	this.displacement = 0;				// distance between the beginning and end of the Drag
 	this.inProgress = true;				// true if Drag is still in progress
+	this.isScroll = false;				// true if two fingers are down
 	this.currentPos = startingPosition;	// The last know position of the Drag
 	this.startPos = startingPosition;	// The position where the Drag started
 	
@@ -67,6 +70,7 @@ function Drag(startingPosition) {
 	 */
 	this.end = function() {
 		this.inProgress = false;
+		this.isDrag = false;
 		this.duration = timeFrom(this.startTime);
 	}
 }
@@ -80,6 +84,7 @@ function Drag(startingPosition) {
  * and sets size and margin of each corner element.
  */
 window.onload = function onLoad() {
+	page = $("#page");
 	
 	// Add touch handlers
 	document.addEventListener("touchstart", onTouchStart, false);
@@ -92,29 +97,81 @@ window.onload = function onLoad() {
 	document.addEventListener("mouseup", onMouseUp, false);
 	document.addEventListener("mousemove", onMouseMove, false);
 	
-	// Get DOM elements
-	debug = $("#coord");
-	tl = $("#tl");
-	tr = $("#tr");
-	bl = $("#bl");
-	br = $("#br"); 
-	corners = $(".corner");
 	
 	// Get window dimensions
 	width = window.innerWidth;
 	height = window.innerHeight;
 	
-	// Set corner positions
-	tl.center = new Position(0, 0);
-	tr.center = new Position(width, 0);
-	bl.center = new Position(0, height);
-	br.center = new Position(width, height);
+	// Get DOM elements
+	debug = $("#coord");
+	canvas = document.getElementById("canvas");
+	corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
+	cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
 	
-	// Initialize corners
-	corners.css("-webkit-transition", "width 0s, height 0s, margin 0s");
-	corners.width(NORMAL_SIZE*2);
-	corners.height(NORMAL_SIZE*2);
-	corners.css("margin", -NORMAL_SIZE + "px");
+	// sets the iframe height
+	page.height(height);
+	
+	// sets up canvas
+	canvas.width = width;
+	canvas.height = height;
+	ctx = canvas.getContext('2d');
+	cornerImage = new Image();
+	cornerImage.src = 'circle.png';
+	
+	// draws the corners initially
+	ctx.clearRect(0,0,width,height);
+	for (var i = 0; i < corners.length; i++){
+		drawCorner(Number.MAX_VALUE, i);
+	}
+}
+
+/**
+ * Caps animation to 60 FPS
+ * 
+ */
+window.requestAnimFrame = (function(callback) {
+	 return window.requestAnimationFrame || window.webkitRequestAnimationFrame || 
+	 window.mozRequestAnimationFrame || window.oRequestAnimationFrame || 
+    window.msRequestAnimationFrame ||
+    function(callback) {
+      window.setTimeout(callback, 1000 / 60);
+    };
+})();
+
+/**
+ * Smoothly transitions the corners back to NORMAL_SIZE
+ * 
+ * Checks to see if any animation is needed, if none then it terminates
+ * Shrinks all corners that needs scaling by SHRINK_SPEED
+ * Redraws all corners
+ * Recursive call
+ */
+function animate() {
+	var needsScaling = false;	// boolean flag to see if animation is needed
+	
+	// checks each corner to see if it is the right size yet
+	for (var i = 0; i < cornerSizes.length; i++){
+		needsScaling =  needsScaling || cornerSizes[i] != NORMAL_SIZE*2;
+	}
+	
+	if (needsScaling){
+		ctx.clearRect(0,0,width,height); // clear canvas
+		// shrink each corner if necessary
+		for (var i = 0; i < cornerSizes.length; i++){
+			if (cornerSizes[i] != NORMAL_SIZE*2){
+				cornerSizes[i] = Math.max(cornerSizes[i]-SHRINK_PPF, NORMAL_SIZE*2);
+			}
+		}
+		// draw each corner
+		for (var i = 0; i < cornerSizes.length; i++){
+			ctx.drawImage(cornerImage, corners[i].x-cornerSizes[i]/2, corners[i].y-cornerSizes[i]/2,
+					cornerSizes[i], cornerSizes[i]);
+		}
+		// call again
+		requestAnimFrame(function() {
+			animate();
+		});
+	}
 }
 
 /**
@@ -127,7 +184,6 @@ function onStart(position) {
 	drag = new Drag(position);
 	debug.css("background", "blue");
 	debug.html("started");
-	corners.css("-webkit-transition", "width 0s, height 0s, margin 0s");
 }
 
 /**
@@ -137,14 +193,32 @@ function onStart(position) {
  * @param {Position} position The current position of the drag.
  */
 function onMove(position) {
+	drag.isScroll = false;
+	drag.inProgress = true;
 	drag.addPosition(position);
 	
-	debug.html("(" + drag.currentPos.x + "/" + width +", " + drag.currentPos.y + "/" + height +")");
+//	debug.html("(" + drag.currentPos.x + "/" + width +", " + drag.currentPos.y + "/" + height +")");
 	
-	var cornersArray = getCornersArray();
-	for (var i = 0; i < cornersArray.length; i++) {
-		drawCorner(position.distanceFrom(cornersArray[i].center), cornersArray[i]);
+	ctx.clearRect(0,0,width,height);
+	for (var i = 0; i < corners.length; i++) {
+		drawCorner(position.distanceFrom(corners[i]), i);
 	}
+}
+
+/**
+ * Scrolls the iframe element
+ * Should be called whenever the user drags the screen with two fingers
+ * 
+ * @param {Position} position The position of the drag, calculated from the average of both fingers coordinates
+ */
+function onScroll(position){
+	drag.inProgress = false;
+	if (drag.isScroll){
+		page[0].contentWindow.scrollBy(drag.currentPos.x - position.x, drag.currentPos.y - position.y);
+	} else {
+		drag.isScroll = true;
+	}
+	drag.addPosition(position);
 }
 
 /**
@@ -166,11 +240,7 @@ function onEnd() {
 	} else {
 		debug.css("background", "red");
 	}
-	
-	corners.css("-webkit-transition", "width .6s, height .6s, margin .6s");
-	corners.width(NORMAL_SIZE*2);
-	corners.height(NORMAL_SIZE*2);
-	corners.css("margin", -NORMAL_SIZE + "px");
+	animate();
 }
 
 /**
@@ -180,10 +250,9 @@ function onEnd() {
  */
 function isT2c() {
 	if (drag.duration <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
-		var cornersArray = getCornersArray();
-		for (var i = 0; i < cornersArray.length; i++) {
-			if (drag.currentPos.distanceFrom(cornersArray[i].center) < sizeEquation(drag.currentPos.distanceFrom(cornersArray[i].center))/2) {
-				return cornersArray[i];
+		for (var i = 0; i < corners.length; i++) {
+			if (drag.currentPos.distanceFrom(corners[i]) < sizeEquation(drag.currentPos.distanceFrom(corners[i]))/2) {
+				return corners[i];
 			}
 		}
 	}
@@ -196,11 +265,10 @@ function isT2c() {
  * @param {Number} distance Distance from pointer event to corner.
  * @param {Element} corner Corner element to draw.
  */
-function drawCorner(distance, corner) {
-	var size = sizeEquation(distance);
-	corner.width(size); 
-	corner.height(size);
-	corner.css("margin", -size/2 +"px");
+function drawCorner(distance, index) {
+	cornerSizes[index] = sizeEquation(distance);
+	ctx.drawImage(cornerImage, corners[index].x-cornerSizes[index]/2, corners[index].y-cornerSizes[index]/2,
+				cornerSizes[index], cornerSizes[index]);
 }
 
 /**
@@ -222,12 +290,16 @@ function onTouchStart(e) {
 }
 
 /**
- * @see onMove(position)
+ * @see onMove(position) for one finger
+ * @see onScroll(position) for two fingers
  */
 function onTouchMove(e) {
+	e.preventDefault();
+	debug.html(e.targetTouches.length);
 	if (e.targetTouches.length == 1){
-		e.preventDefault();
 		onMove(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
+	} else if (e.targetTouches.length == 2){
+		onScroll(new Position(average(e.targetTouches[0].pageX, e.targetTouches[1].pageX), average(e.targetTouches[0].pageY, e.targetTouches[1].pageY)));
 	}
 }
 

@@ -5,10 +5,6 @@ body {
 	-webkit-user-select: none;
 }
 
-.corner {
-	position: fixed;
-}
-
 #coord {
 	position: absolute;
 	display: inline;
@@ -17,28 +13,23 @@ body {
 	margin: 0px;
 }
 
-#tl {
+#blocker {
+	position: fixed;
+	height: 100%;
+	width: 100%;
 	top: 0px;
 	left: 0px;
+	z-index: 1;
 }
 
-#tr {
+#page {
+	width: 100%;
+	position: fixed;
 	top: 0px;
-	right: 0px;
-}
-
-#bl {
-	bottom: 0px;
 	left: 0px;
+	z-index: -1;
 }
 
-#br {
-	bottom: 0px;
-	right: 0px;
-}
-
-.btn {
-	height: 100px;
-	width: 200px;
-	margin: 200px;
+#canvas {
+	color: white;
 }
