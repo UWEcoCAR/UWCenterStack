@@ -1,6 +1,4 @@
-body {
-	margin: 0px;
-	padding: 0px;
+# content {
 	background-image: url("bg.png");
 	background-size: 100% 100%;
 }
@@ -21,6 +19,11 @@ body {
 	width: 500px;
 	height: 500px;
 	margin: -115px;
+}
+
+.app button{
+	width: 200px;
+	height: 200px;
 }
 
 .app img {

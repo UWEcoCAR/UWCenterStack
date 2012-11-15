@@ -2,34 +2,76 @@ body {
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
-	-webkit-user-select: none;
 }
 
 #coord {
 	position: absolute;
 	display: inline;
 	width: 100%;
-/*	height: 100%; */
 	margin: 0px;
-}
-
-#blocker {
-	position: fixed;
-	height: 100%;
-	width: 100%;
-	top: 0px;
-	left: 0px;
-	z-index: 1;
 }
 
 #page {
 	width: 100%;
+	height: 600px;
 	position: fixed;
 	top: 0px;
 	left: 0px;
-	z-index: -1;
+	border: 0px;
 }
 
 #canvas {
-	color: white;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	pointer-events: none;
+}
+
+#content {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	overflow:scroll;
+}
+
+button {
+	height: 100px;
+	width: 100px;
+}
+
+/* FOR THE HOME PAGE */
+
+#content {
+	background-image: url("bg.png");
+	background-size: 100% 100%;
+}
+
+#apps {
+	height: 330px;
+	width: 935px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-left: 115px;
+	margin: auto;
+	padding-top: 115px;
+	padding-bottom: 115px;
+}
+
+.app {
+	float: left;
+	width: 500px;
+	height: 500px;
+	margin: -115px;
+}
+
+.app button{
+	width: 200px;
+	height: 200px;
+}
+
+.app img {
+	width: 400px;
+	margin: 50px;
 }

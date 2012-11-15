@@ -10,10 +10,10 @@
 // ELEMENTS
 
 var debug; 		// paragraph element to print debug info
-var page;
+var content;	// the div that html is loaded into
 
-var canvas;
-var ctx;
+var canvas;		// canvas element
+var ctx;		// for drawing on canvas
 
 var image;
 
@@ -26,7 +26,7 @@ var width,		// dimensions of window
 	height;
 
 var drag;
-
+var scrollPos;
 // CONSTANTS
 
 var NORMAL_SIZE = 200;	// normal radius of the corner element in pixels
@@ -83,9 +83,7 @@ function Drag(startingPosition) {
  * gets window height and width,
  * and sets size and margin of each corner element.
  */
-window.onload = function onLoad() {
-	page = $("#page");
-	
+window.onload = function onLoad() {	
 	// Add touch handlers
 	document.addEventListener("touchstart", onTouchStart, false);
 	document.addEventListener("touchmove", onTouchMove, false);
@@ -105,11 +103,13 @@ window.onload = function onLoad() {
 	// Get DOM elements
 	debug = $("#coord");
 	canvas = document.getElementById("canvas");
+	content = $("#content");
 	corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
 	cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
 	
-	// sets the iframe height
-	page.height(height);
+	// loads html
+	content.load("home.html");
+	scrollPos = 0;
 	
 	// sets up canvas
 	canvas.width = width;
@@ -119,7 +119,6 @@ window.onload = function onLoad() {
 	cornerImage.src = 'circle.png';
 	
 	// draws the corners initially
-	ctx.clearRect(0,0,width,height);
 	for (var i = 0; i < corners.length; i++){
 		drawCorner(Number.MAX_VALUE, i);
 	}
@@ -155,7 +154,7 @@ function animate() {
 	}
 	
 	if (needsScaling){
-		ctx.clearRect(0,0,width,height); // clear canvas
+		clearCanvas();
 		// shrink each corner if necessary
 		for (var i = 0; i < cornerSizes.length; i++){
 			if (cornerSizes[i] != NORMAL_SIZE*2){
@@ -199,7 +198,7 @@ function onMove(position) {
 	
 //	debug.html("(" + drag.currentPos.x + "/" + width +", " + drag.currentPos.y + "/" + height +")");
 	
-	ctx.clearRect(0,0,width,height);
+	clearCanvas();
 	for (var i = 0; i < corners.length; i++) {
 		drawCorner(position.distanceFrom(corners[i]), i);
 	}
@@ -214,7 +213,9 @@ function onMove(position) {
 function onScroll(position){
 	drag.inProgress = false;
 	if (drag.isScroll){
-		page[0].contentWindow.scrollBy(drag.currentPos.x - position.x, drag.currentPos.y - position.y);
+		scrollPos += drag.currentPos.y - position.y;
+		drag.currentPos = position;
+		content.scrollTop(scrollPos);
 	} else {
 		drag.isScroll = true;
 	}
@@ -338,4 +339,11 @@ function onMouseUp(e) {
  */
 function getCornersArray() {
 	return [tl, tr, bl, br];
+}
+
+/**
+ * Clears the canvas
+ */
+function clearCanvas(){
+	ctx.clearRect(0,0,width,height);
 }
