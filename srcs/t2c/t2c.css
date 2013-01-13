@@ -2,43 +2,17 @@ body {
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
-	-webkit-user-select: none;
-}
-
-.corner {
-	position: fixed;
+	background-color: black;
 }
 
 #coord {
 	position: absolute;
 	display: inline;
 	width: 100%;
-/*	height: 100%; */
 	margin: 0px;
 }
 
-#tl {
-	top: 0px;
-	left: 0px;
-}
-
-#tr {
-	top: 0px;
-	right: 0px;
-}
-
-#bl {
-	bottom: 0px;
-	left: 0px;
-}
-
-#br {
-	bottom: 0px;
-	right: 0px;
-}
-
-.btn {
-	height: 100px;
-	width: 200px;
-	margin: 200px;
+#canvas {
+  position: absolute;
+  dipslay: block;
 }
