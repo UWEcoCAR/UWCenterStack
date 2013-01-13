@@ -10,10 +10,10 @@
 // ELEMENTS
 
 var debug; 		// paragraph element to print debug info
-var content;	// the div that html is loaded into
+var page;
 
-var canvas;		// canvas element
-var ctx;		// for drawing on canvas
+var canvas;
+var ctx;
 
 var image;
 
@@ -26,7 +26,7 @@ var width,		// dimensions of window
 	height;
 
 var drag;
-var scrollPos;
+
 // CONSTANTS
 
 var NORMAL_SIZE = 200;	// normal radius of the corner element in pixels
@@ -83,7 +83,9 @@ function Drag(startingPosition) {
  * gets window height and width,
  * and sets size and margin of each corner element.
  */
-window.onload = function onLoad() {	
+window.onload = function onLoad() {
+	page = $("#page");
+	
 	// Add touch handlers
 	document.addEventListener("touchstart", onTouchStart, false);
 	document.addEventListener("touchmove", onTouchMove, false);
@@ -103,15 +105,11 @@ window.onload = function onLoad() {
 	// Get DOM elements
 	debug = $("#coord");
 	canvas = document.getElementById("canvas");
-	content = $("#content");
 	corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
 	cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
 	
-	// loads html
-	content.load("home.html");
-	scrollPos = 0;
-	
 	// sets up canvas
+	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
 	canvas.width = width;
 	canvas.height = height;
 	ctx = canvas.getContext('2d');
@@ -119,23 +117,8 @@ window.onload = function onLoad() {
 	cornerImage.src = 'circle.png';
 	
 	// draws the corners initially
-	for (var i = 0; i < corners.length; i++){
-		drawCorner(Number.MAX_VALUE, i);
-	}
+	resetCorners();
 }
-
-/**
- * Caps animation to 60 FPS
- * 
- */
-window.requestAnimFrame = (function(callback) {
-	 return window.requestAnimationFrame || window.webkitRequestAnimationFrame || 
-	 window.mozRequestAnimationFrame || window.oRequestAnimationFrame || 
-    window.msRequestAnimationFrame ||
-    function(callback) {
-      window.setTimeout(callback, 1000 / 60);
-    };
-})();
 
 /**
  * Smoothly transitions the corners back to NORMAL_SIZE
@@ -145,31 +128,28 @@ window.requestAnimFrame = (function(callback) {
  * Redraws all corners
  * Recursive call
  */
-function animate() {
+function resetCorners() {
 	var needsScaling = false;	// boolean flag to see if animation is needed
 	
 	// checks each corner to see if it is the right size yet
 	for (var i = 0; i < cornerSizes.length; i++){
-		needsScaling =  needsScaling || cornerSizes[i] != NORMAL_SIZE*2;
+		needsScaling = needsScaling || cornerSizes[i] != NORMAL_SIZE*2;
 	}
 	
 	if (needsScaling){
-		clearCanvas();
+		ctx.clearRect(0,0,width,height); // clear canvas
+		
 		// shrink each corner if necessary
-		for (var i = 0; i < cornerSizes.length; i++){
-			if (cornerSizes[i] != NORMAL_SIZE*2){
-				cornerSizes[i] = Math.max(cornerSizes[i]-SHRINK_PPF, NORMAL_SIZE*2);
+		$.each(cornerSizes, function(i, size) {
+			if (size != NORMAL_SIZE*2) {
+				size = Math.max(size-SHRINK_PPF, NORMAL_SIZE*2);
+				cornerSizes[i] = size;
 			}
-		}
-		// draw each corner
-		for (var i = 0; i < cornerSizes.length; i++){
-			ctx.drawImage(cornerImage, corners[i].x-cornerSizes[i]/2, corners[i].y-cornerSizes[i]/2,
-					cornerSizes[i], cornerSizes[i]);
-		}
-		// call again
-		requestAnimFrame(function() {
-			animate();
+			ctx.drawImage(cornerImage, corners[i].x-size/2, corners[i].y-size/2, size, size);
 		});
+		
+		// call again
+		requestAnimFrame(resetCorners);
 	}
 }
 
@@ -198,28 +178,10 @@ function onMove(position) {
 	
 //	debug.html("(" + drag.currentPos.x + "/" + width +", " + drag.currentPos.y + "/" + height +")");
 	
-	clearCanvas();
+	ctx.clearRect(0,0,width,height);
 	for (var i = 0; i < corners.length; i++) {
 		drawCorner(position.distanceFrom(corners[i]), i);
 	}
-}
-
-/**
- * Scrolls the iframe element
- * Should be called whenever the user drags the screen with two fingers
- * 
- * @param {Position} position The position of the drag, calculated from the average of both fingers coordinates
- */
-function onScroll(position){
-	drag.inProgress = false;
-	if (drag.isScroll){
-		scrollPos += drag.currentPos.y - position.y;
-		drag.currentPos = position;
-		content.scrollTop(scrollPos);
-	} else {
-		drag.isScroll = true;
-	}
-	drag.addPosition(position);
 }
 
 /**
@@ -241,7 +203,7 @@ function onEnd() {
 	} else {
 		debug.css("background", "red");
 	}
-	animate();
+	resetCorners();
 }
 
 /**
@@ -292,15 +254,12 @@ function onTouchStart(e) {
 
 /**
  * @see onMove(position) for one finger
- * @see onScroll(position) for two fingers
  */
 function onTouchMove(e) {
 	e.preventDefault();
 	debug.html(e.targetTouches.length);
 	if (e.targetTouches.length == 1){
 		onMove(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
-	} else if (e.targetTouches.length == 2){
-		onScroll(new Position(average(e.targetTouches[0].pageX, e.targetTouches[1].pageX), average(e.targetTouches[0].pageY, e.targetTouches[1].pageY)));
 	}
 }
 
@@ -339,11 +298,4 @@ function onMouseUp(e) {
  */
 function getCornersArray() {
 	return [tl, tr, bl, br];
-}
-
-/**
- * Clears the canvas
- */
-function clearCanvas(){
-	ctx.clearRect(0,0,width,height);
 }
