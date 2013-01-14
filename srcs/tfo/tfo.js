@@ -54,7 +54,7 @@ function Drag(startingPosition) {
 	this.currentPos = startingPosition;	// The last know position of the Drag
 	this.startPos = startingPosition;	// The position where the Drag started
 	
-	displayOptions(this);
+	
 	
 	/**
 	 * Adds the given position to the Drag. 
@@ -67,7 +67,7 @@ function Drag(startingPosition) {
 		this.duration = timeFrom(this.startTime);
 		
 		// move options with finger or mouse
-		displayOptions(position);
+		displayOptions(drag);
 	}
 	
 	/**
@@ -135,6 +135,23 @@ window.onload = function onLoad() {
 }
 
 /**
+ * Displays options around touch
+ * Should be called any time the mouse is down or a touch starts.
+ */
+
+function displayOptions(drag) {
+	debug.html("  displaying touch for options  ");
+	//console.log("x: " + drag.currentPos.x + " y: " + drag.currentPos.y);
+	// current image width and height compensated for (-250)
+	var x = Math.max(-100, drag.currentPos.x - 250);
+	var y = Math.max(drag.currentPos.y - 250, -100);
+	clearCanvas();
+	//if (!(x > -100 && x < -50 && y > -100 && y < -50)) {
+	ctx.drawImage(touchOptions, x, y);
+	//}
+}
+
+/**
  * Smoothly transitions the corners back to NORMAL_SIZE
  * 
  * Checks to see if any animation is needed, if none then it terminates
@@ -150,9 +167,10 @@ function resetCorners() {
 		needsScaling = needsScaling || cornerSizes[i] != NORMAL_SIZE*2;
 	}
 	
+	clearCanvas();
 	if (needsScaling){
-		ctx.clearRect(0, 0, width, height); // clear canvas
-		
+		clearCanvas();
+		displayOptions();
 		// shrink each corner if necessary
 		$.each(cornerSizes, function(i, size) {
 			if (size != NORMAL_SIZE*2) {
@@ -167,19 +185,12 @@ function resetCorners() {
 	}
 }
 
-/**
- * Displays options around touch
- * Should be called any time the mouse is down or a touch starts.
- * 
- * @param {Position} position The current position of the drag.
- */
-function displayOptions(drag) {
-	debug.html("  displaying touch for options  ");
-	console.log("x: " + drag.currentPos.x + " y: " + drag.currentPos.y);
-	resetCorners();
-	// current image width and height compensated for
-	ctx.drawImage(touchOptions, drag.currentPos.x, drag.currentPos.y);
+function clearCanvas() {
+	ctx.clearRect(0, 0, width, height); // clear canvas
 }
+
+
+
 
 /**
  * Starts a new drag
@@ -189,6 +200,7 @@ function displayOptions(drag) {
  */
 function onStart(position) {
 	drag = new Drag(position);
+	displayOptions(drag);
 	debug.css("background", "blue");
 	debug.html("started");
 }
@@ -202,16 +214,15 @@ function onStart(position) {
 function onMove(position) {
 	drag.isScroll = false;
 	drag.inProgress = true;
+	displayOptions(drag);
 	drag.addPosition(position);
 	
 //	debug.html("(" + drag.currentPos.x + "/" + width +", " + drag.currentPos.y + "/" + height +")");
 	
-	ctx.clearRect(0,0,width,height);
+	//ctx.clearRect(0,0,width,height);
 	for (var i = 0; i < corners.length; i++) {
 		drawCorner(position.distanceFrom(corners[i]), i);
 	}
-	
-	displayOptions();
 }
 
 /**
