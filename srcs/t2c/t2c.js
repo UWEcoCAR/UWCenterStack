@@ -37,7 +37,7 @@ var MAX_TIME = 1000; 	// maximum time a valid swipe can take
 var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swipe
 						// DO NOT GO BELOW 1
 var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
-var TRANSLATE_PPF = 30; // pixels per frame that the corners return to the corner at
+var TRANSLATE_PPF = 25; // pixels per frame that the corners return to the corner at
 
 /**
  * @class Represents a mouse or finger dragging across the screen.
@@ -56,6 +56,10 @@ function Drag(startingPosition) {
 	this.startPos = startingPosition;	// The position where the Drag started
 	this.startedInCorner = findCorner(this.startPos);
 	
+	/**
+	 * Returns the corner being dragged, based on startPos
+	 * Returns false if no corner was selected
+	 */
 	function findCorner(position) {
 		for (var i = 0; i < corners.length; i++){
 			if (corners[i].distanceFrom(startingPosition) <= NORMAL_SIZE) {
@@ -140,7 +144,8 @@ window.onload = function onLoad() {
  * Smoothly transitions the corners back to NORMAL_SIZE
  * 
  * Checks to see if any animation is needed, if none then it terminates
- * Shrinks all corners that needs scaling by SHRINK_SPEED
+ * Shrinks all corners that needs scaling by SHRINK_PPF
+ * Translates all corners that need translation by TRANSLATE_PPF
  * Redraws all corners
  * Recursive call
  */
@@ -164,28 +169,21 @@ function resetCorners() {
 		// translate each corner if necessary
 		$.each(corners, function(i, position) {
 			if (!position.isEqual(defaultCorners[i])) {
-				// if (position.x > defaultCorners[i].x){
-				// 	position.x = Math.max(position.x - Math.sin(Math.atan(corners[i].x/corners[i].y))*TRANSLATE_PPF, defaultCorners[i].x);
-				// }
-				// if (position.x < defaultCorners[i].x){
-				// 	position.x = Math.min(position.x + Math.sin(Math.atan(corners[i].x/corners[i].y))*TRANSLATE_PPF, defaultCorners[i].x);
-				// }
-				// if (position.y > defaultCorners[i].y){
-				// 	position.y = Math.max(position.y - Math.cos(Math.atan(corners[i].x/corners[i].y))*TRANSLATE_PPF, defaultCorners[i].y);
-				// }
-				// if (position.y < defaultCorners[i].y){
-				// 	position.y = Math.min(position.y + Math.cos(Math.atan(corners[i].x/corners[i].y))*TRANSLATE_PPF, defaultCorners[i].y);
-				// }
-
-				if (position.x < defaultCorners[i].x){
-					position.x = Math.min(position.x + TRANSLATE_PPF, defaultCorners[i].x);
-				} else {
-					position.x = Math.max(position.x - TRANSLATE_PPF, defaultCorners[i].x);
+				// angle between point and corner
+				var angle = Math.atan(Math.abs((position.y-defaultCorners[i].y)/(position.x-defaultCorners[i].x)));
+				
+				// x component translation
+				if (position.x > defaultCorners[i].x){
+					position.x = Math.max(position.x - Math.cos(angle)*TRANSLATE_PPF, defaultCorners[i].x);
+				} else if (position.x < defaultCorners[i].x){
+					position.x = Math.min(position.x + Math.cos(angle)*TRANSLATE_PPF, defaultCorners[i].x);
 				}
-				if (position.y < defaultCorners[i].y){
-					position.y = Math.min(position.y + TRANSLATE_PPF, defaultCorners[i].y);
-				} else {
-					position.y = Math.max(position.y - TRANSLATE_PPF, defaultCorners[i].y);
+
+				// y component translation
+				if (position.y > defaultCorners[i].y){
+					position.y = Math.max(position.y - Math.sin(angle)*TRANSLATE_PPF, defaultCorners[i].y);
+				} else if (position.y < defaultCorners[i].y){
+					position.y = Math.min(position.y + Math.sin(angle)*TRANSLATE_PPF, defaultCorners[i].y);
 				}
 			}
 		});
