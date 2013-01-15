@@ -17,8 +17,9 @@ var ctx;
 
 var image;
 
-var corners; 	// corner locations
-var cornerSizes; // corner sizes
+var corners; 		// corner locations
+var defaultCorners	// default corner locations
+var cornerSizes; 	// corner sizes
 
 // VARIABLES
 
@@ -29,13 +30,14 @@ var drag;
 
 // CONSTANTS
 
-var NORMAL_SIZE = 200;	// normal radius of the corner element in pixels
+var NORMAL_SIZE = 100;	// normal radius of the corner element in pixels
 var SENSITIVITY = 200;	// pixels from edge of outer corner to start scaling up
-var MAX_SIZE = 300;		// maximum radius of corner, when pointer is at extreme corner
+var MAX_SIZE = 150;		// maximum radius of corner, when pointer is at extreme corner
 var MAX_TIME = 1000; 	// maximum time a valid swipe can take
 var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swipe
 						// DO NOT GO BELOW 1
 var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
+var TRANSLATE_PPF = 30; // pixels per frame that the corners return to the corner at
 
 /**
  * @class Represents a mouse or finger dragging across the screen.
@@ -52,7 +54,17 @@ function Drag(startingPosition) {
 	this.isScroll = false;				// true if two fingers are down
 	this.currentPos = startingPosition;	// The last know position of the Drag
 	this.startPos = startingPosition;	// The position where the Drag started
+	this.startedInCorner = findCorner(this.startPos);
 	
+	function findCorner(position) {
+		for (var i = 0; i < corners.length; i++){
+			if (corners[i].distanceFrom(startingPosition) <= NORMAL_SIZE) {
+				return corners[i];
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Adds the given position to the Drag. 
 	 * Should be called when the user moves the mouse or their finger.
@@ -106,6 +118,7 @@ window.onload = function onLoad() {
 	debug = $("#coord");
 	canvas = document.getElementById("canvas");
 	corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
+	defaultCorners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
 	cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
 	
 	// sets up canvas
@@ -117,7 +130,10 @@ window.onload = function onLoad() {
 	cornerImage.src = 'circle.png';
 	
 	// draws the corners initially
-	resetCorners();
+	$.each(cornerSizes, function(i, size) {
+			size = size*2;
+			ctx.drawImage(cornerImage, corners[i].x-size/2, corners[i].y-size/2, size, size);
+		});
 }
 
 /**
@@ -130,21 +146,58 @@ window.onload = function onLoad() {
  */
 function resetCorners() {
 	var needsScaling = false;	// boolean flag to see if animation is needed
+	var needsTranslation = false;
 	
 	// checks each corner to see if it is the right size yet
 	for (var i = 0; i < cornerSizes.length; i++){
 		needsScaling = needsScaling || cornerSizes[i] != NORMAL_SIZE*2;
 	}
+
+	// checks each corner to see if it is at the right location
+	for (var i = 0; i < corners.length; i++){
+		needsTranslation = needsTranslation || !corners[i].isEqual(defaultCorners[i]);
+	}
 	
-	if (needsScaling){
+	if (!drag.inProgress && (needsScaling || needsTranslation)){
 		ctx.clearRect(0,0,width,height); // clear canvas
-		
+
+		// translate each corner if necessary
+		$.each(corners, function(i, position) {
+			if (!position.isEqual(defaultCorners[i])) {
+				// if (position.x > defaultCorners[i].x){
+				// 	position.x = Math.max(position.x - Math.sin(Math.atan(corners[i].x/corners[i].y))*TRANSLATE_PPF, defaultCorners[i].x);
+				// }
+				// if (position.x < defaultCorners[i].x){
+				// 	position.x = Math.min(position.x + Math.sin(Math.atan(corners[i].x/corners[i].y))*TRANSLATE_PPF, defaultCorners[i].x);
+				// }
+				// if (position.y > defaultCorners[i].y){
+				// 	position.y = Math.max(position.y - Math.cos(Math.atan(corners[i].x/corners[i].y))*TRANSLATE_PPF, defaultCorners[i].y);
+				// }
+				// if (position.y < defaultCorners[i].y){
+				// 	position.y = Math.min(position.y + Math.cos(Math.atan(corners[i].x/corners[i].y))*TRANSLATE_PPF, defaultCorners[i].y);
+				// }
+
+				if (position.x < defaultCorners[i].x){
+					position.x = Math.min(position.x + TRANSLATE_PPF, defaultCorners[i].x);
+				} else {
+					position.x = Math.max(position.x - TRANSLATE_PPF, defaultCorners[i].x);
+				}
+				if (position.y < defaultCorners[i].y){
+					position.y = Math.min(position.y + TRANSLATE_PPF, defaultCorners[i].y);
+				} else {
+					position.y = Math.max(position.y - TRANSLATE_PPF, defaultCorners[i].y);
+				}
+			}
+		});
+
 		// shrink each corner if necessary
 		$.each(cornerSizes, function(i, size) {
 			if (size != NORMAL_SIZE*2) {
 				size = Math.max(size-SHRINK_PPF, NORMAL_SIZE*2);
 				cornerSizes[i] = size;
 			}
+
+			// finally draw
 			ctx.drawImage(cornerImage, corners[i].x-size/2, corners[i].y-size/2, size, size);
 		});
 		
@@ -180,7 +233,14 @@ function onMove(position) {
 	
 	ctx.clearRect(0,0,width,height);
 	for (var i = 0; i < corners.length; i++) {
-		drawCorner(position.distanceFrom(corners[i]), i);
+		if (drag.startedInCorner){
+			if (drag.startedInCorner.isEqual(corners[i])){
+				corners[i] = drag.startedInCorner = drag.currentPos;
+			}
+			drawCorner(Number.MAX_VALUE, i);
+		} else {
+			drawCorner(position.distanceFrom(corners[i]), i);
+		}
 	}
 }
 
@@ -200,6 +260,8 @@ function onEnd() {
 	if(isT2c()){
 		debug.css("background", "green");
 		// var corner = isT2c();
+	} else if (isT2Center()){
+		debug.css("background", "#00FFAA");
 	} else {
 		debug.css("background", "red");
 	}
@@ -212,11 +274,20 @@ function onEnd() {
  * @returns {Element|Boolean} If the drag was a t2c, then the corner element, otherwise false.
  */
 function isT2c() {
-	if (drag.duration <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
+	if (!drag.startedInCorner && drag.duration <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
 		for (var i = 0; i < corners.length; i++) {
 			if (drag.currentPos.distanceFrom(corners[i]) < sizeEquation(drag.currentPos.distanceFrom(corners[i]))/2) {
 				return corners[i];
 			}
+		}
+	}
+	return false;
+}
+
+function isT2Center() {
+	if (drag.startedInCorner){
+		if (drag.startedInCorner.distanceFrom(new Position(width/2, height/2)) <= 100){
+			return drag.startedInCorner;
 		}
 	}
 	return false;

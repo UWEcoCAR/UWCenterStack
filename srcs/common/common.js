@@ -46,4 +46,11 @@ function Position(x, y) {
 		}
 		return undefined;
 	}
+
+	this.isEqual = function(position) {
+		if (position){
+			return this.x == position.x && this.y == position.y;
+		}
+		return undefined;
+	}
 }
