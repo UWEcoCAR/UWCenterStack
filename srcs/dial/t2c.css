@@ -12,7 +12,7 @@ body {
 	margin: 0px;
 }
 
-#canvas {
+canvas {
   position: absolute;
   dipslay: block;
 }

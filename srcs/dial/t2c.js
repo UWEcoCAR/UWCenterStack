@@ -104,10 +104,17 @@ window.onload = function onLoad() {
 	
 	// Get DOM elements
 	debug = $("#coord");
-	canvas = document.getElementById("canvas");
+	canvas = document.getElementById("t2c");
+	dialCanvas = document.getElementById("dial");
 	corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
 	cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
 	
+	// sets up dial
+	dialCanvas.width = width;
+	dialCanvas.height = height;
+	dial = new Dial(dialCanvas, 500);
+	dial.draw();
+
 	// sets up canvas
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
 	canvas.width = width;
@@ -161,6 +168,7 @@ function resetCorners() {
  */
 function onStart(position) {
 	drag = new Drag(position);
+	dial.click(position);
 	debug.css("background", "blue");
 	debug.html("started");
 }
@@ -172,6 +180,7 @@ function onStart(position) {
  * @param {Position} position The current position of the drag.
  */
 function onMove(position) {
+	dial.click(position);
 	drag.isScroll = false;
 	drag.inProgress = true;
 	drag.addPosition(position);
@@ -191,7 +200,8 @@ function onMove(position) {
  */
 function onEnd() {
 	drag.end();
-	
+	dial.unclick();
+
 	debug.html("Time = " + drag.duration + 
 	"<br />Distance = " + drag.distance + 
 	"<br />Displacement = " + drag.displacement + 
