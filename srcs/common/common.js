@@ -6,6 +6,7 @@
  * @param begin The time (in milliseconds) to compare against the current time.
  * @returns The number of milliseconds elapsed since the given begin time.
  */
+
 function timeFrom(begin) {
 	return currentTime() - begin;
 }

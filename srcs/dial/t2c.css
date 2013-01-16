@@ -1,0 +1,18 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	background-color: black;
+}
+
+#coord {
+	position: absolute;
+	display: inline;
+	width: 100%;
+	margin: 0px;
+}
+
+#canvas {
+  position: absolute;
+  dipslay: block;
+}
