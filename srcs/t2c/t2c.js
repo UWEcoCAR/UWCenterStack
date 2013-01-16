@@ -36,8 +36,7 @@ var MAX_SIZE = 150;		// maximum radius of corner, when pointer is at extreme cor
 var MAX_TIME = 1000; 	// maximum time a valid swipe can take
 var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swipe
 						// DO NOT GO BELOW 1
-var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
-var TRANSLATE_PPF = 25; // pixels per frame that the corners return to the corner at
+var SHRINK_PPF = 15;	// pixels per frame that the corners shrink at
 
 /**
  * @class Represents a mouse or finger dragging across the screen.
@@ -151,42 +150,14 @@ window.onload = function onLoad() {
  */
 function resetCorners() {
 	var needsScaling = false;	// boolean flag to see if animation is needed
-	var needsTranslation = false;
 	
 	// checks each corner to see if it is the right size yet
 	for (var i = 0; i < cornerSizes.length; i++){
 		needsScaling = needsScaling || cornerSizes[i] != NORMAL_SIZE*2;
 	}
-
-	// checks each corner to see if it is at the right location
-	for (var i = 0; i < corners.length; i++){
-		needsTranslation = needsTranslation || !corners[i].isEqual(defaultCorners[i]);
-	}
 	
-	if (!drag.inProgress && (needsScaling || needsTranslation)){
+	if (!drag.inProgress && needsScaling){
 		ctx.clearRect(0,0,width,height); // clear canvas
-
-		// translate each corner if necessary
-		$.each(corners, function(i, position) {
-			if (!position.isEqual(defaultCorners[i])) {
-				// angle between point and corner
-				var angle = Math.atan(Math.abs((position.y-defaultCorners[i].y)/(position.x-defaultCorners[i].x)));
-				
-				// x component translation
-				if (position.x > defaultCorners[i].x){
-					position.x = Math.max(position.x - Math.cos(angle)*TRANSLATE_PPF, defaultCorners[i].x);
-				} else if (position.x < defaultCorners[i].x){
-					position.x = Math.min(position.x + Math.cos(angle)*TRANSLATE_PPF, defaultCorners[i].x);
-				}
-
-				// y component translation
-				if (position.y > defaultCorners[i].y){
-					position.y = Math.max(position.y - Math.sin(angle)*TRANSLATE_PPF, defaultCorners[i].y);
-				} else if (position.y < defaultCorners[i].y){
-					position.y = Math.min(position.y + Math.sin(angle)*TRANSLATE_PPF, defaultCorners[i].y);
-				}
-			}
-		});
 
 		// shrink each corner if necessary
 		$.each(cornerSizes, function(i, size) {
@@ -231,14 +202,15 @@ function onMove(position) {
 	
 	ctx.clearRect(0,0,width,height);
 	for (var i = 0; i < corners.length; i++) {
-		if (drag.startedInCorner){
-			if (drag.startedInCorner.isEqual(corners[i])){
-				corners[i] = drag.startedInCorner = drag.currentPos;
-			}
-			drawCorner(Number.MAX_VALUE, i);
+		if (drag.startedInCorner && drag.startedInCorner.isEqual(corners[i])){
+			drawCorner(Math.max(SENSITIVITY+MAX_SIZE-position.distanceFrom(drag.startPos), 0), i);
 		} else {
 			drawCorner(position.distanceFrom(corners[i]), i);
 		}
+	}
+
+	if (isT2Center()){
+		onEnd();
 	}
 }
 
@@ -257,9 +229,10 @@ function onEnd() {
 	
 	if(isT2c()){
 		debug.css("background", "green");
-		// var corner = isT2c();
+		// corner = isT2c();
 	} else if (isT2Center()){
 		debug.css("background", "#00FFAA");
+		// corner = isT2Center();
 	} else {
 		debug.css("background", "red");
 	}
@@ -284,7 +257,7 @@ function isT2c() {
 
 function isT2Center() {
 	if (drag.startedInCorner){
-		if (drag.startedInCorner.distanceFrom(new Position(width/2, height/2)) <= 100){
+		if (drag.currentPos.distanceFrom(drag.startPos) >= SENSITIVITY+NORMAL_SIZE){
 			return drag.startedInCorner;
 		}
 	}
