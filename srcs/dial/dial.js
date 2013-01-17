@@ -46,10 +46,21 @@ function Dial(dCanvas, diameter, position) {
 	 */
 
 	this.onStart = function(position) {
-		// if dial was selected previously and is being controlled
+		if (position.distanceFrom(this.position) < this.outerDiameter/2 &&
+			position.distanceFrom(this.position) > this.innerDiameter/2){
+			this.selected = true;
+			if (position.y < this.position.y){
+				this.lastAngle = Math.PI/2-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
+			} else {
+				this.lastAngle = Math.PI/2*3-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
+			}
+		}
+	}
+
+	this.onMove = function(position) {
 		if (this.selected){
 			var currentAngle;
-			if (position.y < height/2){
+			if (position.y < this.position.y){
 				currentAngle = Math.PI/2-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
 			} else {
 				currentAngle = Math.PI/2*3-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
@@ -64,16 +75,6 @@ function Dial(dCanvas, diameter, position) {
 			this.lastAngle = currentAngle;
 			this.draw();
 		// if the dial is uncontrolled
-		} else {
-			if (position.distanceFrom(this.position) < this.outerDiameter/2 &&
-				position.distanceFrom(this.position) > this.innerDiameter/2){
-				this.selected = true;
-				if (position.y < height/2){
-					this.lastAngle = Math.PI/2-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
-				} else {
-					this.lastAngle = Math.PI/2*3-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
-				}
-			}
 		}
 	}
 

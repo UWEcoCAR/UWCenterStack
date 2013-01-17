@@ -188,7 +188,7 @@ function onStart(position) {
  * @param {Position} position The current position of the drag.
  */
 function onMove(position) {
-	UIList.onStart(position);
+	UIList.onMove(position);
 	drag.isScroll = false;
 	drag.inProgress = true;
 	drag.addPosition(position);
