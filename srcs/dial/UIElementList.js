@@ -1,6 +1,6 @@
-function UIElementList(canvas) {
+function UIElementList(contexts) {
 	this.list = new Array();
-	this.ctx = canvas.getContext('2d');
+	this.ctxList = contexts;
 
 	/**
 	 * Adds a UI Element to the list
@@ -14,7 +14,7 @@ function UIElementList(canvas) {
 	 * Clears canvas and calls the draw function on each element in the list
 	 */
 	this.draw = function() {
-		this.ctx.clearRect(0,0,width,height);
+		this.clear();
 		$.each(this.list, function(index, element) {
 			element.draw();
 		});
@@ -48,12 +48,9 @@ function UIElementList(canvas) {
 	 * @return {false | x}
 	 */
 	this.onEnd = function(position) {
-		var returner = false;
+		var returner = new Array();
 		$.each(this.list, function(index, element) {
-			var temp = element.onEnd(position);
-			if (temp && !returner /* take away second test to have corners override elements*/) {
-				returner = temp;
-			}
+			returner.push(element.onEnd(position));
 		});
 		this.draw();
 		return returner;
@@ -81,4 +78,9 @@ function UIElementList(canvas) {
 		return needsUpdate;
 	}
 
+	this.clear = function() {
+		$.each(this.ctxList, function(index, ctx) {
+			ctx.clearRect(0,0,width,height);
+		});
+	}
 }

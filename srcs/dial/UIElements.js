@@ -42,7 +42,7 @@ function Basic(canvas, name) {
 	}
 }
 
-function Corner(canvas,name,NS, S, MS, position) {
+function Corner(canvas, name, NS, S, MS, position) {
 	this.canvas = canvas;
 	this.name = name;
 	this.ctx = this.canvas.getContext('2d');
@@ -108,7 +108,6 @@ function Corner(canvas,name,NS, S, MS, position) {
  * @param diameter, width and height of the dial image
  * @returns a Dial object
  */
-
 function Dial(canvas, name, diameter, position) {
 
 	// sets up canvas
@@ -117,13 +116,13 @@ function Dial(canvas, name, diameter, position) {
 	this.name = name;
 
 	// load dial image
-	this.dialImage = new Image();
-		this.dialImage.src = 'dial.png';
+	this.image = new Image();
+		this.image.src = 'dial.png';
 
 	// calculates limits for selecting the dial based off of image diameter
 	this.diameter = diameter;
-		this.outerDiameter = (this.dialImage.width - 80)/this.dialImage.width * this.diameter;
-		this.innerDiameter = (this.dialImage.width - 186)/this.dialImage.width * this.diameter;
+		this.outerDiameter = (this.image.width - 80)/this.image.width * this.diameter;
+		this.innerDiameter = (this.image.width - 186)/this.image.width * this.diameter;
 
 	this.position = position;
 	this.selected = false;
@@ -141,7 +140,7 @@ function Dial(canvas, name, diameter, position) {
 		this.ctx.translate(this.position.x, this.position.y); // moves coordinates to center of screen 
 		this.ctx.fillText(Math.round(this.theta/2/Math.PI*360), -Math.min(this.ctx.measureText(Math.round(this.theta/2/Math.PI*360)).width, this.innerDiameter)/2 ,60, this.innerDiameter); // draws text in center
 		this.ctx.rotate(this.theta); // rotates the coordinates
-		this.ctx.drawImage(this.dialImage, -this.diameter/2, -this.diameter/2, this.diameter, this.diameter); // draws dial at center
+		this.ctx.drawImage(this.image, -this.diameter/2, -this.diameter/2, this.diameter, this.diameter); // draws dial at center
 		this.ctx.restore(); // restores rotation and location to default
 	}
 
@@ -204,8 +203,8 @@ function Guide(canvas, name, diameter) {
 	this.ctx = canvas.getContext('2d');
 	this.name = name;
 
-	this.guide = new Image();
-		this.guide.src = 'circle.png';
+	this.image = new Image();
+		this.image.src = 'circle.png';
 
 	this.diameter = diameter;
 
@@ -218,7 +217,7 @@ function Guide(canvas, name, diameter) {
 			this.ctx.save();
 			this.ctx.translate(this.position.x, this.position.y);
 			this.ctx.globalAlpha = .3;
-			this.ctx.drawImage(this.guide, -this.diameter/2, -this.diameter/2, this.diameter, this.diameter);
+			this.ctx.drawImage(this.image, -this.diameter/2, -this.diameter/2, this.diameter, this.diameter);
 			this.ctx.restore();
 		}
 	}

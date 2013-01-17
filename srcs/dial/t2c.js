@@ -10,6 +10,7 @@
 // ELEMENTS
 var debug; 		// paragraph element to print debug info
 var dialCanvas;
+var cornerCanvas;
 
 // VARIABLES
 var width,		// dimensions of window
@@ -55,8 +56,12 @@ window.onload = function onLoad() {
 	dialCanvas = document.getElementById("dial");
 		dialCanvas.width = width;
 		dialCanvas.height = height;
+
+	cornerCanvas = document.getElementById("corners");
+		cornerCanvas.width = width;
+		cornerCanvas.height = height;
 	
-	UIList = new UIElementList(dialCanvas);
+	UIList = new UIElementList([dialCanvas.getContext('2d'), cornerCanvas.getContext('2d')]);
 
 	// CREATE ALL UI ELEMENTS
 	// create dials
@@ -68,13 +73,13 @@ window.onload = function onLoad() {
 	button1 = new Button(dialCanvas, "middleButton", 150, new Position(width/2-50, height/2), "Press");
 
 	//make a guide
-	guide1 = new Guide(dialCanvas, "guide", 500);
+	guide1 = new Guide(dialCanvas, "guide",  500);
 
 	// make corners
-	tl = new Corner(dialCanvas, "tlCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
-	tr = new Corner(dialCanvas, "trCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, 0));
-	bl = new Corner(dialCanvas, "blCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0, height));
-	br = new Corner(dialCanvas, "brCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, height));
+	tl = new Corner(cornerCanvas, "tlCorner",  NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
+	tr = new Corner(cornerCanvas, "trCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, 0));
+	bl = new Corner(cornerCanvas, "blCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0, height));
+	br = new Corner(cornerCanvas, "brCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, height));
 
 	// add all UI Elements
 	UIList.add(dial);
@@ -133,13 +138,14 @@ function onMove(position) {
  * @param {Position} position The current position of the pointer.
  */
 function onEnd(position) {
-	var endResult = UIList.onEnd(position);
-	if (endResult){
-		debug.css("background", "green");
-		debug.html(endResult);
-	} else {
-		debug.css("background", "red");
-		debug.html("no end result");
+	endResult = UIList.onEnd(position);
+	
+	for(var i = 0; i < endResult.length; i++) {
+		if (endResult[i] == "middleButton" && cornerCanvas.style.display == "block") {
+			cornerCanvas.style.display = "none";
+		} else if (endResult[i] == "middleButton" && cornerCanvas.style.display == "none") {
+			cornerCanvas.style.display = "block";
+		}
 	}
 	
 	reset();
