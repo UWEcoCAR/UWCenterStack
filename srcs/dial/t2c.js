@@ -123,6 +123,8 @@ function onStart(position) {
  */
 function onMove(position) {
 	UIList.onMove(position);
+	debug.css("background", "yellow");
+	debug.html("going");
 }
 
 /**
@@ -131,7 +133,15 @@ function onMove(position) {
  * @param {Position} position The current position of the pointer.
  */
 function onEnd(position) {
-	UIList.onEnd(position);
+	var endResult = UIList.onEnd(position);
+	if (endResult){
+		debug.css("background", "green");
+		debug.html(endResult);
+	} else {
+		debug.css("background", "red");
+		debug.html("no end result");
+	}
+	
 	reset();
 }
 

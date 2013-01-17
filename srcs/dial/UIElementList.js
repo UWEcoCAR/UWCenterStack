@@ -55,7 +55,8 @@ function UIElementList(canvas) {
 				returner = temp;
 			}
 		});
-		console.log(returner);
+		this.draw();
+		return returner;
 	}
 
 	/**

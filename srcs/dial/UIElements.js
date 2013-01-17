@@ -147,36 +147,32 @@ function Dial(canvas, diameter, position) {
 	 */
 
 	this.onStart = function(position) {
-		if (position.distanceFrom(this.position) < this.outerDiameter/2 &&
-			position.distanceFrom(this.position) > this.innerDiameter/2){
-			this.selected = true;
-			if (position.y < this.position.y){
-				this.lastAngle = Math.PI/2-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
-			} else {
-				this.lastAngle = Math.PI/2*3-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
-			}
-		}
+
 	}
 
 	this.onMove = function(position) {
-		if (this.selected){
-			var currentAngle;
-			if (position.y < this.position.y){
-				currentAngle = Math.PI/2-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
-			} else {
-				currentAngle = Math.PI/2*3-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
-			}
+		var currentAngle;
+		if (position.y < this.position.y){
+			currentAngle = Math.PI/2-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
+		} else {
+			currentAngle = Math.PI/2*3-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
+		}
 
+		if (this.lastAngle == null){
+			this.lastAngle = currentAngle;
+		}
+
+		if (position.distanceFrom(this.position) < this.outerDiameter/2 &&
+			position.distanceFrom(this.position) > this.innerDiameter/2){
 			this.theta+=currentAngle - this.lastAngle;
 			if (this.theta < 0){
 				this.theta += Math.PI*2;
 			} else if (this.theta > Math.PI*2){
 				this.theta -= Math.PI*2;
 			}
-			this.lastAngle = currentAngle;
-			this.draw();
 			this.needsUpdate = this.theta != 0;
-		}
+		} 
+		this.lastAngle = currentAngle;
 	}
 
 	/**
@@ -184,9 +180,9 @@ function Dial(canvas, diameter, position) {
 	 */
 	this.onEnd = function(position) {
 		var returner = false;
-		if (this.selected){
+		this.lastAngle = null;
+		if (this.needsUpdate){
 			returner = "dial";
-			this.selected = false;
 		}
 		return returner;
 	}
