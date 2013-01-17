@@ -109,11 +109,19 @@ window.onload = function onLoad() {
 	corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
 	cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
 	
+	UIList = new UIElementList(dialCanvas);
+
 	// sets up dial
 	dialCanvas.width = width;
 	dialCanvas.height = height;
-	dial = new Dial(dialCanvas, 500);
-	dial.draw();
+	dial = new Dial(dialCanvas, 500, new Position(width/2 + 250, height/2));
+	dial2 = new Dial(dialCanvas, 350, new Position(width/2 - 200, height/2 + 175));
+	dial3 = new Dial(dialCanvas, 350, new Position(width/2 - 200, height/2 - 175));
+	
+	UIList.add(dial);
+	UIList.add(dial2);
+	UIList.add(dial3);
+	UIList.draw();
 
 	// sets up canvas
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
@@ -168,7 +176,7 @@ function resetCorners() {
  */
 function onStart(position) {
 	drag = new Drag(position);
-	dial.click(position);
+	UIList.onStart(position);
 	debug.css("background", "blue");
 	debug.html("started");
 }
@@ -180,7 +188,7 @@ function onStart(position) {
  * @param {Position} position The current position of the drag.
  */
 function onMove(position) {
-	dial.click(position);
+	UIList.onStart(position);
 	drag.isScroll = false;
 	drag.inProgress = true;
 	drag.addPosition(position);
@@ -200,7 +208,7 @@ function onMove(position) {
  */
 function onEnd() {
 	drag.end();
-	dial.unclick();
+	UIList.onEnd();
 
 	debug.html("Time = " + drag.duration + 
 	"<br />Distance = " + drag.distance + 
