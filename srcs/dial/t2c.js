@@ -10,15 +10,6 @@
 // ELEMENTS
 
 var debug; 		// paragraph element to print debug info
-var page;
-
-var canvas;
-var ctx;
-
-var image;
-
-var corners; 	// corner locations
-var cornerSizes; // corner sizes
 
 // VARIABLES
 
@@ -38,44 +29,6 @@ var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swi
 var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
 
 /**
- * @class Represents a mouse or finger dragging across the screen.
- * Contains time, distance, and displacement information about the drag.
- * 
- * @param {Position} The starting position of the drag.
- */
-function Drag(startingPosition) {
-	this.startTime = currentTime();		// the start time (in milliseconds) of the Drag
-	this.duration = 0;					// the elapsed time (in milliseconds) of the Drag
-	this.distance = 0;					// distance traveled over entire Drag
-	this.displacement = 0;				// distance between the beginning and end of the Drag
-	this.inProgress = true;				// true if Drag is still in progress
-	this.isScroll = false;				// true if two fingers are down
-	this.currentPos = startingPosition;	// The last know position of the Drag
-	this.startPos = startingPosition;	// The position where the Drag started
-	
-	/**
-	 * Adds the given position to the Drag. 
-	 * Should be called when the user moves the mouse or their finger.
-	 */
-	this.addPosition = function(position) {
-		this.distance += this.currentPos.distanceFrom(position);
-		this.displacement = this.startPos.distanceFrom(position);
-		this.currentPos = position;
-		this.duration = timeFrom(this.startTime);
-	}
-	
-	/**
-	 * Ends the Drag.
-	 * Should be called when the user releases the mouse or removes their finger.
-	 */
-	this.end = function() {
-		this.inProgress = false;
-		this.isDrag = false;
-		this.duration = timeFrom(this.startTime);
-	}
-}
-
-/**
  * Called when window is initially loaded.
  * 
  * Adds all necessary event listeners for touch and mouse control,
@@ -83,9 +36,7 @@ function Drag(startingPosition) {
  * gets window height and width,
  * and sets size and margin of each corner element.
  */
-window.onload = function onLoad() {
-	page = $("#page");
-	
+window.onload = function onLoad() {	
 	// Add touch handlers
 	document.addEventListener("touchstart", onTouchStart, false);
 	document.addEventListener("touchmove", onTouchMove, false);
@@ -104,10 +55,7 @@ window.onload = function onLoad() {
 	
 	// Get DOM elements
 	debug = $("#coord");
-	canvas = document.getElementById("t2c");
 	dialCanvas = document.getElementById("dial");
-	corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
-	cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
 	
 	UIList = new UIElementList(dialCanvas);
 
@@ -122,57 +70,33 @@ window.onload = function onLoad() {
 	button1 = new Button(dialCanvas, 150, new Position(width/2-50, height/2), "Press");
 
 	//make a guide
-	guide1 = new Guide(dialCanvas, 300);
-	
+	// guide1 = new Guide(dialCanvas, 300);
+
+	// make corners
+	tl = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
+	tr = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, 0));
+	bl = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0, height));
+	br = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, height));
+
 	UIList.add(dial);
 	UIList.add(dial2);
 	UIList.add(dial3);
 	UIList.add(button1);
-	UIList.add(guide1);
+	// UIList.add(guide1);
+	UIList.add(tl);
+	UIList.add(tr);
+	UIList.add(bl);
+	UIList.add(br);
 	UIList.draw();
 
-	// sets up canvas
+	// set framerate
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
-	canvas.width = width;
-	canvas.height = height;
-	ctx = canvas.getContext('2d');
-	cornerImage = new Image();
-	cornerImage.src = 'circle.png';
-	
-	// draws the corners initially
-	resetCorners();
 }
 
-/**
- * Smoothly transitions the corners back to NORMAL_SIZE
- * 
- * Checks to see if any animation is needed, if none then it terminates
- * Shrinks all corners that needs scaling by SHRINK_SPEED
- * Redraws all corners
- * Recursive call
- */
-function resetCorners() {
-	var needsScaling = false;	// boolean flag to see if animation is needed
-	
-	// checks each corner to see if it is the right size yet
-	for (var i = 0; i < cornerSizes.length; i++){
-		needsScaling = needsScaling || cornerSizes[i] != NORMAL_SIZE*2;
-	}
-	
-	if (needsScaling){
-		ctx.clearRect(0,0,width,height); // clear canvas
-		
-		// shrink each corner if necessary
-		$.each(cornerSizes, function(i, size) {
-			if (size != NORMAL_SIZE*2) {
-				size = Math.max(size-SHRINK_PPF, NORMAL_SIZE*2);
-				cornerSizes[i] = size;
-			}
-			ctx.drawImage(cornerImage, corners[i].x-size/2, corners[i].y-size/2, size, size);
-		});
-		
-		// call again
-		requestAnimFrame(resetCorners);
+function reset() {
+	if (UIList.needsUpdate()){
+		UIList.update();
+		requestAnimFrame(reset);
 	}
 }
 
@@ -200,13 +124,6 @@ function onMove(position) {
 	drag.isScroll = false;
 	drag.inProgress = true;
 	drag.addPosition(position);
-	
-//	debug.html("(" + drag.currentPos.x + "/" + width +", " + drag.currentPos.y + "/" + height +")");
-	
-	ctx.clearRect(0,0,width,height);
-	for (var i = 0; i < corners.length; i++) {
-		drawCorner(position.distanceFrom(corners[i]), i);
-	}
 }
 
 /**
@@ -222,52 +139,7 @@ function onEnd() {
 	"<br />Distance = " + drag.distance + 
 	"<br />Displacement = " + drag.displacement + 
 	"<br />Distance/Displacement = " + drag.distance / drag.displacement);
-	
-	if(isT2c()){
-		debug.css("background", "green");
-		// var corner = isT2c();
-	} else {
-		debug.css("background", "red");
-	}
-	resetCorners();
-}
-
-/**
- * Determines if the drag was a Touch-2-Corner (t2c).
- * 
- * @returns {Element|Boolean} If the drag was a t2c, then the corner element, otherwise false.
- */
-function isT2c() {
-	if (drag.duration <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
-		for (var i = 0; i < corners.length; i++) {
-			if (drag.currentPos.distanceFrom(corners[i]) < sizeEquation(drag.currentPos.distanceFrom(corners[i]))/2) {
-				return corners[i];
-			}
-		}
-	}
-	return false;
-}
-
-/**
- * Sets the size and margin for a corner.
- * 
- * @param {Number} distance Distance from pointer event to corner.
- * @param {Element} corner Corner element to draw.
- */
-function drawCorner(distance, index) {
-	cornerSizes[index] = sizeEquation(distance);
-	ctx.drawImage(cornerImage, corners[index].x-cornerSizes[index]/2, corners[index].y-cornerSizes[index]/2,
-				cornerSizes[index], cornerSizes[index]);
-}
-
-/**
- * THE MAGIC SIZE EQUATION
- * 
- * @param {Number} distance Distance from corner.
- * @returns {Number} Ideal size of corner.
- */
-function sizeEquation(distance){
-	return Math.max(NORMAL_SIZE*2+SENSITIVITY-distance, 0)/(NORMAL_SIZE*2+SENSITIVITY)*(MAX_SIZE*2-NORMAL_SIZE*2) + NORMAL_SIZE*2;
+	reset();
 }
 
 /**
@@ -317,11 +189,4 @@ function onMouseMove(e) {
  */
 function onMouseUp(e) {
 	onEnd();
-}
-
-/**
- * @returns {Array} The corner elements as an Array.
- */
-function getCornersArray() {
-	return [tl, tr, bl, br];
 }

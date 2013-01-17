@@ -31,8 +31,22 @@ function UIElementList(canvas) {
 		$.each(this.list, function(index, element) {
 			element.onEnd();
 		});
+		this.update();
+	}
+
+	this.update = function() {
+		$.each(this.list, function(index, element) {
+			element.update();
+		});
 		this.draw();
 	}
 
+	this.needsUpdate = function() {
+		var needsUpdate = false;
+		for (var i = 0; i < this.list.length; i++){
+			needsUpdate = needsUpdate || this.list[i].needsUpdate;
+		}
+		return needsUpdate;
+	}
 
 }

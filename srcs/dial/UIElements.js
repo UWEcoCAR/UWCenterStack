@@ -6,17 +6,18 @@ function Basic(canvas) {
 		this.image.src = '';
 
 	this.selected = false;
+	this.needsUpdate = false;
 	this.position;
 
 	this.draw = function() {
 		this.ctx.save();
 		this.ctx.translate(this.position.x, this.position.y)
-
+		
 		this.ctx.restore();
 	}
 
 	this.onStart = function(position) {
-
+		
 	}
 
 	this.onMove = function(position) {
@@ -25,6 +26,62 @@ function Basic(canvas) {
 
 	this.onEnd = function() {
 
+	}
+
+	this.update = function() {
+
+	}
+}
+
+function Corner(canvas,NS, S, MS, position) {
+	this.canvas = canvas;
+	this.ctx = this.canvas.getContext('2d');
+
+	this.image = new Image();
+		this.image.src = 'circle.png';
+
+	this.selected = false;
+	this.needsUpdate = false;
+	this.drag;
+	this.position = position;
+		this.NS = NS*2;
+		this.diameter = NS*2;
+		this.S = S*2;
+		this.MS = MS*2;
+
+	this.draw = function() {
+		this.ctx.save();
+		this.ctx.translate(this.position.x, this.position.y)
+		this.ctx.drawImage(this.image, -this.diameter/2, -this.diameter/2, this.diameter, this.diameter)
+		this.ctx.restore();
+	}
+
+	this.onStart = function(position) {
+		drag = new Drag(position);
+	}
+
+	this.onMove = function(position) {
+		drag.isScroll = false;
+		drag.inProgress = true;
+		drag.addPosition(position);
+		this.diameter = sizeEquation(position.distanceFrom(this.position));
+		this.needsUpdate = this.diameter != this.NS;
+
+	}
+
+	this.onEnd = function() {
+		drag.end();
+	}
+
+	this.update = function() {
+		this.needsUpdate = this.diameter != this.NS;
+		if (this.needsUpdate){
+			this.diameter = Math.max(this.diameter - 15, this.NS);
+		}
+	}
+
+	function sizeEquation(distance){
+		return Math.max(NS*2+S-distance, 0)/(NS*2+S)*(MS*2-NS*2) + NS*2;
 	}
 }
 
@@ -53,6 +110,7 @@ function Dial(canvas, diameter, position) {
 
 	this.position = position;
 	this.selected = false;
+	this.needsUpdate = false;
 	this.lastAngle;
 	this.theta = 0;
 
@@ -114,6 +172,10 @@ function Dial(canvas, diameter, position) {
 	this.onEnd = function() {
 		this.selected = false;
 	}
+
+	this.update = function() {
+		
+	}
 }
 
 function Guide(canvas, diameter) {
@@ -126,6 +188,7 @@ function Guide(canvas, diameter) {
 	this.diameter = diameter;
 
 	this.selected = false;
+	this.needsUpdate = false;
 	this.position;
 
 	this.draw = function() {
@@ -149,6 +212,10 @@ function Guide(canvas, diameter) {
 	this.onEnd = function() {
 		this.selected = false;
 	}
+
+	this.update = function() {
+		
+	}
 }
 
 function Button(canvas, diameter, position, text) {
@@ -165,6 +232,7 @@ function Button(canvas, diameter, position, text) {
 
 	this.position = position;
 	this.selected = false;
+	this.needsUpdate = false;
 	this.text = text;
 
 	this.draw = function() {
@@ -193,5 +261,9 @@ function Button(canvas, diameter, position, text) {
 
 	this.onEnd = function() {
 		this.selected = false;
+	}
+
+	this.update = function() {
+		
 	}
 }
