@@ -117,10 +117,18 @@ window.onload = function onLoad() {
 	dial = new Dial(dialCanvas, 500, new Position(width/2 + 250, height/2));
 	dial2 = new Dial(dialCanvas, 350, new Position(width/2 - 200, height/2 + 175));
 	dial3 = new Dial(dialCanvas, 350, new Position(width/2 - 200, height/2 - 175));
+
+	// makes a button
+	button1 = new Button(dialCanvas, 150, new Position(width/2-50, height/2), "Press");
+
+	//make a guide
+	guide1 = new Guide(dialCanvas, 300);
 	
 	UIList.add(dial);
 	UIList.add(dial2);
 	UIList.add(dial3);
+	UIList.add(button1);
+	UIList.add(guide1);
 	UIList.draw();
 
 	// sets up canvas
