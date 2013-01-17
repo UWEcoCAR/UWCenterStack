@@ -60,28 +60,28 @@ window.onload = function onLoad() {
 
 	// CREATE ALL UI ELEMENTS
 	// create dials
-	dial = new Dial(dialCanvas, 500, new Position(width/2 + 250, height/2));
-	dial2 = new Dial(dialCanvas, 350, new Position(width/2 - 200, height/2 + 175));
-	dial3 = new Dial(dialCanvas, 350, new Position(width/2 - 200, height/2 - 175));
+	dial = new Dial(dialCanvas, "bigDial", 500, new Position(width/2 + 250, height/2));
+	dial2 = new Dial(dialCanvas, "bottomDial", 350, new Position(width/2 - 200, height/2 + 175));
+	dial3 = new Dial(dialCanvas, "topDial", 350, new Position(width/2 - 200, height/2 - 175));
 
 	// makes a button
-	button1 = new Button(dialCanvas, 150, new Position(width/2-50, height/2), "Press");
+	button1 = new Button(dialCanvas, "middleButton", 150, new Position(width/2-50, height/2), "Press");
 
 	//make a guide
-	// guide1 = new Guide(dialCanvas, 300);
+	guide1 = new Guide(dialCanvas, "guide", 500);
 
 	// make corners
-	tl = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
-	tr = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, 0));
-	bl = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0, height));
-	br = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, height));
+	tl = new Corner(dialCanvas, "tlCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
+	tr = new Corner(dialCanvas, "trCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, 0));
+	bl = new Corner(dialCanvas, "blCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0, height));
+	br = new Corner(dialCanvas, "brCorner", NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, height));
 
 	// add all UI Elements
 	UIList.add(dial);
 	UIList.add(dial2);
 	UIList.add(dial3);
 	UIList.add(button1);
-	// UIList.add(guide1);
+	UIList.add(guide1);
 	UIList.add(tl);
 	UIList.add(tr);
 	UIList.add(bl);

@@ -1,5 +1,6 @@
-function Basic(canvas) {
+function Basic(canvas, name) {
 	this.canvas = canvas;
+	this.name = name;
 	this.ctx = this.canvas.getContext('2d');
 
 	this.image = new Image();
@@ -31,6 +32,7 @@ function Basic(canvas) {
  	// returns false||xx
 	this.onEnd = function(position) {
 
+		// return name;
 		return false;
 	}
 
@@ -40,8 +42,9 @@ function Basic(canvas) {
 	}
 }
 
-function Corner(canvas,NS, S, MS, position) {
+function Corner(canvas,name,NS, S, MS, position) {
 	this.canvas = canvas;
+	this.name = name;
 	this.ctx = this.canvas.getContext('2d');
 
 	this.image = new Image();
@@ -80,7 +83,7 @@ function Corner(canvas,NS, S, MS, position) {
 	this.onEnd = function(position) {
 		drag.end();
 		if (position.distanceFrom(this.position) < this.outerDiameter/2) {
-			return "corner";
+			return name;
 		} else {
 			return false;
 		}
@@ -106,11 +109,12 @@ function Corner(canvas,NS, S, MS, position) {
  * @returns a Dial object
  */
 
-function Dial(canvas, diameter, position) {
+function Dial(canvas, name, diameter, position) {
 
 	// sets up canvas
 	this.canvas = canvas;
 	this.ctx = canvas.getContext('2d');
+	this.name = name;
 
 	// load dial image
 	this.dialImage = new Image();
@@ -182,7 +186,7 @@ function Dial(canvas, diameter, position) {
 		var returner = false;
 		this.lastAngle = null;
 		if (this.needsUpdate){
-			returner = "dial";
+			returner = this.name + Math.round(this.theta/2/Math.PI*360);
 		}
 		return returner;
 	}
@@ -195,9 +199,10 @@ function Dial(canvas, diameter, position) {
 	}
 }
 
-function Guide(canvas, diameter) {
+function Guide(canvas, name, diameter) {
 	this.canvas = canvas;
 	this.ctx = canvas.getContext('2d');
+	this.name = name;
 
 	this.guide = new Image();
 		this.guide.src = 'circle.png';
@@ -212,6 +217,7 @@ function Guide(canvas, diameter) {
 		if (this.selected){
 			this.ctx.save();
 			this.ctx.translate(this.position.x, this.position.y);
+			this.ctx.globalAlpha = .3;
 			this.ctx.drawImage(this.guide, -this.diameter/2, -this.diameter/2, this.diameter, this.diameter);
 			this.ctx.restore();
 		}
@@ -236,9 +242,10 @@ function Guide(canvas, diameter) {
 	}
 }
 
-function Button(canvas, diameter, position, text) {
+function Button(canvas, name, diameter, position, text) {
 	this.canvas = canvas;
 	this.ctx = canvas.getContext('2d');
+	this.name = name;
 
 	this.buttonUp = new Image();
 		this.buttonUp.src = 'buttonUp.png';
@@ -280,7 +287,7 @@ function Button(canvas, diameter, position, text) {
 	this.onEnd = function(position) {
 		var returner = false;
 		if (this.selected){
-			returner = "button";
+			returner = name;
 			this.selected = false;
 		}
 		return returner;
