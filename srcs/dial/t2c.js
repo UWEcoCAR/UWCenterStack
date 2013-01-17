@@ -4,29 +4,26 @@
  * a Touch-2-Corners event based on several criteria including,
  * total movement time, directedness, and where the movement ends.
  * 
- * Depends on: common.js
+ * Depends on: common.js, UIElementList.js, UIElements
  */
 
 // ELEMENTS
-
 var debug; 		// paragraph element to print debug info
+var dialCanvas;
 
 // VARIABLES
-
 var width,		// dimensions of window
 	height;
-
-var drag;
+var mouseDown = false;
 
 // CONSTANTS
-
 var NORMAL_SIZE = 200;	// normal radius of the corner element in pixels
 var SENSITIVITY = 200;	// pixels from edge of outer corner to start scaling up
 var MAX_SIZE = 300;		// maximum radius of corner, when pointer is at extreme corner
-var MAX_TIME = 1000; 	// maximum time a valid swipe can take
-var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swipe
+// var MAX_TIME = 1000; 	// maximum time a valid swipe can take
+// var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swipe
 						// DO NOT GO BELOW 1
-var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
+// var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
 
 /**
  * Called when window is initially loaded.
@@ -34,7 +31,7 @@ var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
  * Adds all necessary event listeners for touch and mouse control,
  * retrieves necessary element doms from html file,
  * gets window height and width,
- * and sets size and margin of each corner element.
+ * and creates all UI Elements
  */
 window.onload = function onLoad() {	
 	// Add touch handlers
@@ -56,12 +53,13 @@ window.onload = function onLoad() {
 	// Get DOM elements
 	debug = $("#coord");
 	dialCanvas = document.getElementById("dial");
+		dialCanvas.width = width;
+		dialCanvas.height = height;
 	
 	UIList = new UIElementList(dialCanvas);
 
-	// sets up dial
-	dialCanvas.width = width;
-	dialCanvas.height = height;
+	// CREATE ALL UI ELEMENTS
+	// create dials
 	dial = new Dial(dialCanvas, 500, new Position(width/2 + 250, height/2));
 	dial2 = new Dial(dialCanvas, 350, new Position(width/2 - 200, height/2 + 175));
 	dial3 = new Dial(dialCanvas, 350, new Position(width/2 - 200, height/2 - 175));
@@ -78,6 +76,7 @@ window.onload = function onLoad() {
 	bl = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0, height));
 	br = new Corner(dialCanvas, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width, height));
 
+	// add all UI Elements
 	UIList.add(dial);
 	UIList.add(dial2);
 	UIList.add(dial3);
@@ -87,12 +86,16 @@ window.onload = function onLoad() {
 	UIList.add(tr);
 	UIList.add(bl);
 	UIList.add(br);
+	// finally draw UI Elements
 	UIList.draw();
 
 	// set framerate
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
 }
-
+/**
+ * Called when UI elements need to be transitioned to default
+ * Recursively calls as long as one element needs to be updated.
+ */
 function reset() {
 	if (UIList.needsUpdate()){
 		UIList.update();
@@ -101,44 +104,34 @@ function reset() {
 }
 
 /**
- * Starts a new drag
+ * Alerts UIElementList that a pointer event has been started
  * Should be called any time the mouse is down or a touch starts.
  * 
- * @param {Position} position The current position of the drag.
+ * @param {Position} position The current position of the pointer
  */
 function onStart(position) {
-	drag = new Drag(position);
 	UIList.onStart(position);
 	debug.css("background", "blue");
 	debug.html("started");
 }
 
 /**
- * Advances the drag and updates the corner sizes.
+ * Alerts UIElementList of the current status of the pointer event.
  * Should be called any time the mouse or finger moves during a drag.
  * 
- * @param {Position} position The current position of the drag.
+ * @param {Position} position The current position of the pointer.
  */
 function onMove(position) {
 	UIList.onMove(position);
-	drag.isScroll = false;
-	drag.inProgress = true;
-	drag.addPosition(position);
 }
 
 /**
- * Ends the drag, updates the corner sizes, and determines if the drag was a
- * Touch-2-Corner.
+ * Alerts UIElementList that the pointer event has ended
  * Should be called when the user relases the mouse or removes their finger.
+ * @param {Position} position The current position of the pointer.
  */
-function onEnd() {
-	drag.end();
-	UIList.onEnd();
-
-	debug.html("Time = " + drag.duration + 
-	"<br />Distance = " + drag.distance + 
-	"<br />Displacement = " + drag.displacement + 
-	"<br />Distance/Displacement = " + drag.distance / drag.displacement);
+function onEnd(position) {
+	UIList.onEnd(position);
 	reset();
 }
 
@@ -155,23 +148,21 @@ function onTouchStart(e) {
  */
 function onTouchMove(e) {
 	e.preventDefault();
-	debug.html(e.targetTouches.length);
-	if (e.targetTouches.length == 1){
-		onMove(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
-	}
+	onMove(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
 }
 
 /**
  * @see onEnd()
  */
 function onTouchEnd(e) {
-	onEnd();
+	onEnd(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
 }
 
 /**
  * @see onStart(position)
  */
 function onMouseDown(e) {
+	mouseDown = true;
 	onStart(new Position(e.pageX, e.pageY));
 }
 
@@ -179,7 +170,7 @@ function onMouseDown(e) {
  * @see onMove(position)
  */
 function onMouseMove(e) {
-	if (drag && drag.inProgress){
+	if (mouseDown){
 		onMove(new Position(e.pageX, e.pageY));
 	}
 }
@@ -188,5 +179,6 @@ function onMouseMove(e) {
  * @see onEnd()
  */
 function onMouseUp(e) {
-	onEnd();
+	mouseDown = false;
+	onEnd(new Position(e.pageX, e.pageY));
 }

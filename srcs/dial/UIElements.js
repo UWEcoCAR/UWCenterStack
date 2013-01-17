@@ -9,6 +9,7 @@ function Basic(canvas) {
 	this.needsUpdate = false;
 	this.position;
 
+	// draws image on canvas
 	this.draw = function() {
 		this.ctx.save();
 		this.ctx.translate(this.position.x, this.position.y)
@@ -16,18 +17,24 @@ function Basic(canvas) {
 		this.ctx.restore();
 	}
 
+	// called once when pointer event starts
 	this.onStart = function(position) {
 		
 	}
 
+	// called every time pointer changes locations
 	this.onMove = function(position) {
 
 	}
 
-	this.onEnd = function() {
+ 	// called once when pointer event ends
+ 	// returns false||xx
+	this.onEnd = function(position) {
 
+		return false;
 	}
 
+	// resets element one step back to default, only called(/called forever) if this.needsUpdate == true
 	this.update = function() {
 
 	}
@@ -46,6 +53,7 @@ function Corner(canvas,NS, S, MS, position) {
 	this.position = position;
 		this.NS = NS*2;
 		this.diameter = NS*2;
+			this.outerDiameter = (this.image.width - 250)/this.image.width * this.diameter;
 		this.S = S*2;
 		this.MS = MS*2;
 
@@ -61,16 +69,21 @@ function Corner(canvas,NS, S, MS, position) {
 	}
 
 	this.onMove = function(position) {
-		drag.isScroll = false;
 		drag.inProgress = true;
 		drag.addPosition(position);
 		this.diameter = sizeEquation(position.distanceFrom(this.position));
+			this.outerDiameter = (this.image.width - 250)/this.image.width * this.diameter;
 		this.needsUpdate = this.diameter != this.NS;
 
 	}
 
-	this.onEnd = function() {
+	this.onEnd = function(position) {
 		drag.end();
+		if (position.distanceFrom(this.position) < this.outerDiameter/2) {
+			return "corner";
+		} else {
+			return false;
+		}
 	}
 
 	this.update = function() {
@@ -162,19 +175,27 @@ function Dial(canvas, diameter, position) {
 			}
 			this.lastAngle = currentAngle;
 			this.draw();
-		// if the dial is uncontrolled
+			this.needsUpdate = this.theta != 0;
 		}
 	}
 
 	/**
 	 * Ends control of the dial
 	 */
-	this.onEnd = function() {
-		this.selected = false;
+	this.onEnd = function(position) {
+		var returner = false;
+		if (this.selected){
+			returner = "dial";
+			this.selected = false;
+		}
+		return returner;
 	}
 
 	this.update = function() {
-		
+		this.needsUpdate = this.theta != 0;
+		if (this.needsUpdate){
+			this.theta = Math.max(this.theta - Math.PI/32, 0)
+		}
 	}
 }
 
@@ -209,8 +230,9 @@ function Guide(canvas, diameter) {
 		this.position = position;
 	}
 
-	this.onEnd = function() {
+	this.onEnd = function(position) {
 		this.selected = false;
+		return false;
 	}
 
 	this.update = function() {
@@ -259,8 +281,13 @@ function Button(canvas, diameter, position, text) {
 
 	}
 
-	this.onEnd = function() {
-		this.selected = false;
+	this.onEnd = function(position) {
+		var returner = false;
+		if (this.selected){
+			returner = "button";
+			this.selected = false;
+		}
+		return returner;
 	}
 
 	this.update = function() {

@@ -61,7 +61,6 @@ function Drag(startingPosition) {
 	this.distance = 0;					// distance traveled over entire Drag
 	this.displacement = 0;				// distance between the beginning and end of the Drag
 	this.inProgress = true;				// true if Drag is still in progress
-	this.isScroll = false;				// true if two fingers are down
 	this.currentPos = startingPosition;	// The last know position of the Drag
 	this.startPos = startingPosition;	// The position where the Drag started
 	
