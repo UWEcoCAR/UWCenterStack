@@ -17,12 +17,15 @@ window.onload = function() {
 }
 
 function loadApp(app) {
+	currentApp = app;
 	$("#appContent").load(app.html);
 	$("#appScript").load(app.js);
 	$("#appStyle").load(app.css);
-	$("#tl").html(app.corners.tl);
-	$("#tr").html(app.corners.tr);
-	$("#bl").html(app.corners.bl);
-	$("#br").html(app.corners.br);
-	currentApp = app;
+}
+
+function loadCorners() {
+	$("#tl").html(currentApp.corners.tl);
+	$("#tr").html(currentApp.corners.tr);
+	$("#bl").html(currentApp.corners.bl);
+	$("#br").html(currentApp.corners.br);
 }
