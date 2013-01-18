@@ -115,6 +115,7 @@ function reset() {
  * @param {Position} position The current position of the pointer
  */
 function onStart(position) {
+	mouseDown = true;
 	UIList.onStart(position);
 	debug.css("background", "blue");
 	debug.html("started");
@@ -127,9 +128,13 @@ function onStart(position) {
  * @param {Position} position The current position of the pointer.
  */
 function onMove(position) {
-	UIList.onMove(position);
-	debug.css("background", "yellow");
-	debug.html("going");
+	if (mouseDown){
+		UIList.onMove(position);
+		if (mouseDown) {
+			debug.css("background", "yellow");
+			debug.html("going");
+		}
+	}
 }
 
 /**
@@ -138,17 +143,34 @@ function onMove(position) {
  * @param {Position} position The current position of the pointer.
  */
 function onEnd(position) {
-	endResult = UIList.onEnd(position);
-	
-	for(var i = 0; i < endResult.length; i++) {
-		if (endResult[i] == "middleButton" && cornerCanvas.style.display == "block") {
-			cornerCanvas.style.display = "none";
-		} else if (endResult[i] == "middleButton" && cornerCanvas.style.display == "none") {
-			cornerCanvas.style.display = "block";
+	if (mouseDown) {
+		mouseDown = false;
+		var endResult = UIList.onEnd(position);
+		
+		var anyResponse = false;
+		for(var i = 0; i < endResult.length; i++) {
+			anyResponse = anyResponse || endResult[i];
+			if (endResult[i] == "middleButton" && cornerCanvas.style.display == "block") {
+				cornerCanvas.style.display = "none";
+			} else if (endResult[i] == "middleButton" && cornerCanvas.style.display == "none") {
+				cornerCanvas.style.display = "block";
+			}
 		}
+
+		console.log(anyResponse);
+
+		if(anyResponse) {
+			console.log("hey?");
+			debug.css("background", "green");
+			debug.html("response!");
+		} else {
+			console.log("hey!");
+			debug.css("background", "red");
+			debug.html("no response");
+		}
+		
+		reset();
 	}
-	
-	reset();
 }
 
 /**
@@ -178,7 +200,6 @@ function onTouchEnd(e) {
  * @see onStart(position)
  */
 function onMouseDown(e) {
-	mouseDown = true;
 	onStart(new Position(e.pageX, e.pageY));
 }
 
@@ -186,15 +207,12 @@ function onMouseDown(e) {
  * @see onMove(position)
  */
 function onMouseMove(e) {
-	if (mouseDown){
 		onMove(new Position(e.pageX, e.pageY));
-	}
 }
 
 /**
  * @see onEnd()
  */
 function onMouseUp(e) {
-	mouseDown = false;
 	onEnd(new Position(e.pageX, e.pageY));
 }
