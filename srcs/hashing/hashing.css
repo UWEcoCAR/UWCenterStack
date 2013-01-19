@@ -1,0 +1,47 @@
+button {
+  -webkit-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b8e356), color-stop(1, #a5cc52) );
+  -webkit-border-radius:6px;
+  border:1px solid #83c41a;
+  display:inline-block;
+  color:#ffffff;
+  font-family:arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:6px 24px;
+  margin: 10px;
+  text-decoration:none;
+  text-shadow:1px 1px 0px #86ae47;
+}
+
+button:hover {
+  background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a5cc52), color-stop(1, #b8e356) );
+}
+
+button:active {
+  -webkit-box-shadow:inset 0px -1px 0px 0px #d9fbbe;
+}
+
+#tl, #tr, #bl, #br {
+  position: absolute;
+}
+
+#tl {
+  top: 0;
+  left: 0;
+}
+
+#tr {
+  top: 0;
+  right: 0;
+}
+
+#bl {
+  bottom: 0;
+  left: 0;
+}
+
+#br {
+  bottom: 0;
+  right: 0;
+}
