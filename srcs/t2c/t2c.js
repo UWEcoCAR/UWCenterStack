@@ -17,8 +17,9 @@ var ctx;
 
 var image;
 
-var corners; 	// corner locations
-var cornerSizes; // corner sizes
+var corners; 		// corner locations
+var defaultCorners	// default corner locations
+var cornerSizes; 	// corner sizes
 
 // VARIABLES
 
@@ -29,13 +30,13 @@ var drag;
 
 // CONSTANTS
 
-var NORMAL_SIZE = 200;	// normal radius of the corner element in pixels
+var NORMAL_SIZE = 100;	// normal radius of the corner element in pixels
 var SENSITIVITY = 200;	// pixels from edge of outer corner to start scaling up
-var MAX_SIZE = 300;		// maximum radius of corner, when pointer is at extreme corner
+var MAX_SIZE = 150;		// maximum radius of corner, when pointer is at extreme corner
 var MAX_TIME = 1000; 	// maximum time a valid swipe can take
 var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swipe
 						// DO NOT GO BELOW 1
-var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
+var SHRINK_PPF = 15;	// pixels per frame that the corners shrink at
 
 /**
  * @class Represents a mouse or finger dragging across the screen.
@@ -52,7 +53,21 @@ function Drag(startingPosition) {
 	this.isScroll = false;				// true if two fingers are down
 	this.currentPos = startingPosition;	// The last know position of the Drag
 	this.startPos = startingPosition;	// The position where the Drag started
+	this.startedInCorner = findCorner(this.startPos);
 	
+	/**
+	 * Returns the corner being dragged, based on startPos
+	 * Returns false if no corner was selected
+	 */
+	function findCorner(position) {
+		for (var i = 0; i < corners.length; i++){
+			if (corners[i].distanceFrom(startingPosition) <= NORMAL_SIZE) {
+				return corners[i];
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * Adds the given position to the Drag. 
 	 * Should be called when the user moves the mouse or their finger.
@@ -106,6 +121,7 @@ window.onload = function onLoad() {
 	debug = $("#coord");
 	canvas = document.getElementById("canvas");
 	corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
+	defaultCorners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
 	cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
 	
 	// sets up canvas
@@ -117,14 +133,18 @@ window.onload = function onLoad() {
 	cornerImage.src = 'circle.png';
 	
 	// draws the corners initially
-	resetCorners();
+	$.each(cornerSizes, function(i, size) {
+			size = size*2;
+			ctx.drawImage(cornerImage, corners[i].x-size/2, corners[i].y-size/2, size, size);
+		});
 }
 
 /**
  * Smoothly transitions the corners back to NORMAL_SIZE
  * 
  * Checks to see if any animation is needed, if none then it terminates
- * Shrinks all corners that needs scaling by SHRINK_SPEED
+ * Shrinks all corners that needs scaling by SHRINK_PPF
+ * Translates all corners that need translation by TRANSLATE_PPF
  * Redraws all corners
  * Recursive call
  */
@@ -136,15 +156,17 @@ function resetCorners() {
 		needsScaling = needsScaling || cornerSizes[i] != NORMAL_SIZE*2;
 	}
 	
-	if (needsScaling){
+	if (!drag.inProgress && needsScaling){
 		ctx.clearRect(0,0,width,height); // clear canvas
-		
+
 		// shrink each corner if necessary
 		$.each(cornerSizes, function(i, size) {
 			if (size != NORMAL_SIZE*2) {
 				size = Math.max(size-SHRINK_PPF, NORMAL_SIZE*2);
 				cornerSizes[i] = size;
 			}
+
+			// finally draw
 			ctx.drawImage(cornerImage, corners[i].x-size/2, corners[i].y-size/2, size, size);
 		});
 		
@@ -180,7 +202,15 @@ function onMove(position) {
 	
 	ctx.clearRect(0,0,width,height);
 	for (var i = 0; i < corners.length; i++) {
-		drawCorner(position.distanceFrom(corners[i]), i);
+		if (drag.startedInCorner && drag.startedInCorner.isEqual(corners[i])){
+			drawCorner(Math.max(SENSITIVITY+MAX_SIZE-position.distanceFrom(drag.startPos), 0), i);
+		} else {
+			drawCorner(position.distanceFrom(corners[i]), i);
+		}
+	}
+
+	if (isT2Center()){
+		onEnd();
 	}
 }
 
@@ -199,7 +229,10 @@ function onEnd() {
 	
 	if(isT2c()){
 		debug.css("background", "green");
-		// var corner = isT2c();
+		// corner = isT2c();
+	} else if (isT2Center()){
+		debug.css("background", "#00FFAA");
+		// corner = isT2Center();
 	} else {
 		debug.css("background", "red");
 	}
@@ -212,11 +245,20 @@ function onEnd() {
  * @returns {Element|Boolean} If the drag was a t2c, then the corner element, otherwise false.
  */
 function isT2c() {
-	if (drag.duration <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
+	if (!drag.startedInCorner && drag.duration <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
 		for (var i = 0; i < corners.length; i++) {
 			if (drag.currentPos.distanceFrom(corners[i]) < sizeEquation(drag.currentPos.distanceFrom(corners[i]))/2) {
 				return corners[i];
 			}
+		}
+	}
+	return false;
+}
+
+function isT2Center() {
+	if (drag.startedInCorner){
+		if (drag.currentPos.distanceFrom(drag.startPos) >= SENSITIVITY+NORMAL_SIZE){
+			return drag.startedInCorner;
 		}
 	}
 	return false;
