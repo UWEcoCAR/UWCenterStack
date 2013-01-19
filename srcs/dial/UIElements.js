@@ -52,6 +52,7 @@ function Corner(canvas, name, NS, S, MS, position) {
 
 	this.selected = false;
 	this.needsUpdate = false;
+	this.startedInCorner = false;
 	this.drag;
 	this.position = position;
 		this.NS = NS*2;
@@ -68,25 +69,37 @@ function Corner(canvas, name, NS, S, MS, position) {
 	}
 
 	this.onStart = function(position) {
-		drag = new Drag(position);
+		this.drag = new Drag(position);
+		this.startedInCorner = position.distanceFrom(this.position) < this.outerDiameter/2;
 	}
 
 	this.onMove = function(position) {
-		drag.inProgress = true;
-		drag.addPosition(position);
-		this.diameter = sizeEquation(position.distanceFrom(this.position));
-			this.outerDiameter = (this.image.width - 250)/this.image.width * this.diameter;
+		this.drag.inProgress = true;
+		this.drag.addPosition(position);
+		if (this.startedInCorner){
+			this.diameter = sizeEquation(Math.max(this.S/2+this.MS/2-position.distanceFrom(this.drag.startPos)*3, 0));
+		} else {
+			this.diameter = sizeEquation(position.distanceFrom(this.position));
+		}
+		this.outerDiameter = (this.image.width - 250)/this.image.width * this.diameter;
 		this.needsUpdate = this.diameter != this.NS;
+
+		if (this.startedInCorner && this.outerDiameter*2 == this.MS) {
+			// this is wierd, I don't like this...
+			onEnd(position);
+		}
 
 	}
 
 	this.onEnd = function(position) {
-		drag.end();
-		if (position.distanceFrom(this.position) < this.outerDiameter/2) {
+		this.drag.end();
+		if (position.distanceFrom(this.position) < this.outerDiameter/2 || 
+		   (this.startedInCorner && this.outerDiameter*2 == this.MS)) {
 			return name;
 		} else {
 			return false;
 		}
+
 	}
 
 	this.update = function() {
