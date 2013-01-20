@@ -36,10 +36,12 @@ function UIElementList(contexts) {
 	 * then redraws all elements
 	 */
 	this.onMove = function(position) {
+		var returner = new Array();
 		$.each(this.list, function(index, element) {
-			element.onMove(position);
+			returner.push(element.onMove(position));
 		});
 		this.draw();
+		return returner;
 	}
 
 	/**
