@@ -26,7 +26,7 @@ function Corner(ctx, name, image, NS, S, MS, position) {
 
 	this.onMove = function(position) {
 		if (this.startedInCorner){
-			this.diameter = sizeEquation(Math.max(this.S/2+this.MS/2-position.distanceFrom(this.drag.startPos)*3, 0));
+			this.diameter = sizeEquation(Math.max(this.S/2+this.MS/2-position.distanceFrom(drag.startPos)*3, 0));
 		} else {
 			this.diameter = sizeEquation(position.distanceFrom(this.position));
 		}

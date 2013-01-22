@@ -10,7 +10,9 @@
 // ELEMENTS
 var debug; 		// paragraph element to print debug info
 var dialCanvas;
+	var dialCtx;
 var cornerCanvas;
+	var cornerCanvas;
 
 // VARIABLES
 var width,		// dimensions of window
@@ -70,21 +72,21 @@ window.onload = function onLoad() {
 
 // CREATE ALL UI ELEMENTS
 	// create dials
-	dialImage = new Image();
+	var dialImage = new Image();
 	dialImage.onload = function() {
-		dial = new Dial(dialCtx, "bigDial", dialImage, 450, new Position(width/2, height/2));
+		var dial = new Dial(dialCtx, "bigDial", dialImage, 450, new Position(width/2, height/2));
 		UIList.add(dial);
 		UIList.draw();
 	}
 	dialImage.src = 'dial.png';
 
 	//create corners
-	cornerImage = new Image();
+	var cornerImage = new Image();
 	cornerImage.onload = function() {
-		tl = new Corner(cornerCtx, "tl", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
-		tr = new Corner(cornerCtx, "tr", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,0));
-		bl = new Corner(cornerCtx, "bl", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,height));
-		br = new Corner(cornerCtx, "br", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,height));
+		var tl = new Corner(cornerCtx, "tl", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
+		var tr = new Corner(cornerCtx, "tr", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,0));
+		var bl = new Corner(cornerCtx, "bl", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,height));
+		var br = new Corner(cornerCtx, "br", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,height));
 
 		UIList.add(tl);
 		UIList.add(tr);
@@ -95,13 +97,13 @@ window.onload = function onLoad() {
 	cornerImage.src = 'circle.png';
 
 	// create buttons
-	buttonImage1 = new Image();
+	var buttonImage1 = new Image();
 	buttonImage1.onload = function() {
 		buttonImage2 = new Image();
 		buttonImage2.onload = function() {
-			l = new Button(dialCtx, "l", buttonImage1, buttonImage2, 100, new Position(width/2 - 150, height - 100), "<<");
-			m = new Button(dialCtx, "m", buttonImage1, buttonImage2, 100, new Position(width/2, height - 50), "||");
-			r = new Button(dialCtx, "r", buttonImage1, buttonImage2, 100, new Position(width/2 +150, height - 100), ">>");
+			var l = new Button(dialCtx, "l", buttonImage1, buttonImage2, 100, new Position(width/2 - 150, height - 100), "<<");
+			var m = new Button(dialCtx, "m", buttonImage1, buttonImage2, 100, new Position(width/2, height - 50), "||");
+			var r = new Button(dialCtx, "r", buttonImage1, buttonImage2, 100, new Position(width/2 +150, height - 100), ">>");
 
 			UIList.add(l);
 			UIList.add(m);
@@ -113,27 +115,23 @@ window.onload = function onLoad() {
 	buttonImage1.src = 'buttonUp.png';
 
 	// create guide
-	guideImage = new Image();
+	var guideImage = new Image();
 	guideImage.onload = function() {
-		guide = new Guide(cornerCtx, "guide", guideImage, MAX_SIZE);
+		var guide = new Guide(cornerCtx, "guide", guideImage, MAX_SIZE);
 		UIList.add(guide);
 		UIList.draw();
 	}
 	guideImage.src = 'circle.png'; 
 
-	sliderImage = new Image();
+	var sliderImage = new Image();
 	sliderImage.onload = function() {
-		rSlider = new Slider(dialCtx, "rSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4, -Math.PI/4, true);
-		lSlider = new Slider(dialCtx, "lSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4*3, - Math.PI/4 *3, false);
-		tSlider = new Slider(dialCtx, "tSlider", sliderImage, new Position(width/2, height/2), 250, -Math.PI/4*3, -Math.PI/4, false);
+		var rSlider = new Slider(dialCtx, "rSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4, -Math.PI/4, true);
+		var lSlider = new Slider(dialCtx, "lSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4*3, - Math.PI/4 *3, false);
 		UIList.add(rSlider);
 		UIList.add(lSlider);
 		UIList.draw();
 	}
 	sliderImage.src = 'buttonUp.png';
-
-	// finally draw UI Elements
-	UIList.draw();
 
 	// set framerate
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
@@ -259,6 +257,7 @@ function onMouseUp(e) {
 	onEnd(new Position(e.pageX, e.pageY));
 }
 
+// FOR DEBUGGING PURPOSES
 function trace(string) {
 	if (false) {
 		console.log(string)
