@@ -30,6 +30,9 @@ function ZoneManager() {
 
 	this.onEnd = function(position) {
 		console.log(this.currentZone.name);
+		$.each(this.zoneList, function(index, element) {
+			element.hover = false;
+		});
 		return this.currentZone.name;
 	}
 

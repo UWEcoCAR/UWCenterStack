@@ -88,9 +88,20 @@ window.onload = function onLoad() {
 		zone3a = new Zone(dialCtx, "zone3a", new Position(width/2 + 100, height/2 - 135), 30);
 		zone3b = new Zone(dialCtx, "zone3b", new Position(width/2 + 400, height/2 - 135), 30);
 
+		zone4a = new Zone(dialCtx, "zone4a", new Position(width/2 - 168, height/2), 30);
+		zone4b = new Zone(dialCtx, "zone4b", new Position(width/2 - 468, height/2), 30);
+		zone5a = new Zone(dialCtx, "zone5a", new Position(width/2 - 100, height/2 + 135), 30);
+		zone5b = new Zone(dialCtx, "zone5b", new Position(width/2 - 400, height/2 + 135), 30);
+		zone6a = new Zone(dialCtx, "zone6a", new Position(width/2 - 100, height/2 - 135), 30);
+		zone6b = new Zone(dialCtx, "zone6b", new Position(width/2 - 400, height/2 - 135), 30);
+
 		zoneManager.link(zone1a, zone1b);
 		zoneManager.link(zone2a, zone2b);
 		zoneManager.link(zone3a, zone3b);
+
+		zoneManager.link(zone4a, zone4b);
+		zoneManager.link(zone5a, zone5b);
+		zoneManager.link(zone6a, zone6b);
 	UIList.add(zoneManager);
 
 	UIList.draw();
