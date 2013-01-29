@@ -5,6 +5,7 @@ function Zone(ctx, name, position, diameter) {
 	this.diameter = diameter;
 
 	this.selected = false;
+	this.hover = false;
 	this.target;
 
 	// draws image on canvas
@@ -13,7 +14,7 @@ function Zone(ctx, name, position, diameter) {
 		this.ctx.translate(this.position.x, this.position.y)
 		this.ctx.beginPath();
 			this.ctx.arc(0,0, this.diameter, 0, Math.PI * 2);
-			this.ctx.lineWidth = 3;
+			this.ctx.lineWidth = this.hover?10:3;
 			this.ctx.strokeStyle = this.selected?'white':'grey';
 		this.ctx.stroke();
 		this.ctx.restore();
@@ -47,6 +48,7 @@ function Zone(ctx, name, position, diameter) {
 	}
 
 	this.isThere = function(position) {
-		return position.distanceFrom(this.position) <= this.diameter/2;
+		this.hover = position.distanceFrom(this.position) <= this.diameter;
+		return position.distanceFrom(this.position) <= this.diameter;
 	}
 }

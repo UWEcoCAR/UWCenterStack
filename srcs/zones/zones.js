@@ -72,18 +72,25 @@ window.onload = function onLoad() {
 
 // CREATE ALL UI ELEMENTS
 	// create dials
-	// var dialImage = new Image();
-	// dialImage.onload = function() {
-	// 	var dial = new Dial(dialCtx, "bigDial", dialImage, 450, new Position(width/2, height/2));
-	// 	UIList.add(dial);
-	// 	UIList.draw();
-	// }
-	// dialImage.src = 'dial.png';
+	var dialImage = new Image();
+	dialImage.onload = function() {
+		var dial = new Dial(dialCtx, "bigDial", dialImage, 450, new Position(width/2, height/2));
+		UIList.add(dial);
+		UIList.draw();
+	}
+	dialImage.src = 'dial.png';
 
 	zoneManager = new ZoneManager();
-		zone1a = new Zone(dialCtx, "zone1a", new Position(width/2 + 150, height/2), 30);
-		zone1b = new Zone(dialCtx, "zone1b", new Position(width/2 + 450, height/2), 30);
+		zone1a = new Zone(dialCtx, "zone1a", new Position(width/2 + 168, height/2), 30);
+		zone1b = new Zone(dialCtx, "zone1b", new Position(width/2 + 468, height/2), 30);
+		zone2a = new Zone(dialCtx, "zone2a", new Position(width/2 + 100, height/2 + 135), 30);
+		zone2b = new Zone(dialCtx, "zone2b", new Position(width/2 + 400, height/2 + 135), 30);
+		zone3a = new Zone(dialCtx, "zone3a", new Position(width/2 + 100, height/2 - 135), 30);
+		zone3b = new Zone(dialCtx, "zone3b", new Position(width/2 + 400, height/2 - 135), 30);
+
 		zoneManager.link(zone1a, zone1b);
+		zoneManager.link(zone2a, zone2b);
+		zoneManager.link(zone3a, zone3b);
 	UIList.add(zoneManager);
 
 	UIList.draw();
@@ -111,7 +118,7 @@ function onStart(position) {
 	drag = new Drag(position);
 	UIList.onStart(position);
 	debug.css("background", "blue");
-	debug.html(zoneManager.lastZone.name);
+	debug.html("starting");
 }
 
 /**
@@ -132,7 +139,7 @@ function onMove(position) {
 			trace(anyResponse);
 
 			debug.css("background", "yellow");
-			debug.html(zoneManager.lastZone.name);
+			debug.html("going");
 		}
 	}
 }

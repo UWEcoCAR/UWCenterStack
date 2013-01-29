@@ -4,9 +4,10 @@ function ZoneManager() {
 	this.currentZone = null;
 
 	this.onStart = function(position) {
+		this.lastZone = null;
+		this.currentZone = null;
 		for (var i = 0; i < this.zoneList.length; i++) {
 			if (this.zoneList[i].isThere(position)) {
-				this.lastZone = this.currentZone;
 				this.currentZone = this.zoneList[i];
 			}
 		}
@@ -14,12 +15,13 @@ function ZoneManager() {
 
 	this.onMove = function(position) {
 		for (var i = 0; i < this.zoneList.length; i++) {
-			if (this.zoneList[i].isThere(position)) {
+			if (this.zoneList[i].isThere(position) && this.currentZone != this.zoneList[i]) {
 				this.lastZone = this.currentZone;
 				this.currentZone = this.zoneList[i];
 
-				if (this.currentZone.target === this.lastZone) {
-					console.log("TARGET REACHED");
+				if (this.lastZone && this.lastZone.target === this.currentZone && this.lastZone.selected) {
+					this.lastZone.selected = false;
+					this.currentZone.selected = true;
 					onEnd(position);
 				}
 			}
@@ -27,7 +29,8 @@ function ZoneManager() {
 	}
 
 	this.onEnd = function(position) {
-
+		console.log(this.currentZone.name);
+		return this.currentZone.name;
 	}
 
 	this.update = function() {
