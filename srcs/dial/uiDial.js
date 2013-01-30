@@ -5,34 +5,40 @@
  * @param diameter, width and height of the dial image
  * @returns a Dial object
  */
-function Dial(ctx, name, image, diameter, position) {
+function Dial(name, image, diameter, position) {
 
 	// sets up canvas
-	this.ctx = ctx;
 	this.name = name;
-	this.image = image;
 	this.position = position;
 	this.diameter = diameter;
-		this.outerDiameter = (this.image.width - 80)/this.image.width * this.diameter;
-		this.innerDiameter = (this.image.width - 186)/this.image.width * this.diameter;
+		this.outerDiameter = (512 - 80)/512 * this.diameter;
+		this.innerDiameter = (512 - 186)/512 * this.diameter;
 
 	this.selected = false;
 	this.needsUpdate = false;
 	this.lastAngle;
 	this.theta = 0;
 
-	/**
-	 * Draws the dial
-	 */
-	this.draw = function() {
-		this.ctx.save(); // saves rotatation and location at default
-		this.ctx.setFillColor('white');
-		this.ctx.font = "120pt Arial";
-		this.ctx.translate(this.position.x, this.position.y); // moves coordinates to center of screen 
-		this.ctx.fillText(Math.round(this.theta/2/Math.PI*360), -Math.min(this.ctx.measureText(Math.round(this.theta/2/Math.PI*360)).width, this.innerDiameter)/2 ,60, this.innerDiameter); // draws text in center
-		this.ctx.rotate(this.theta); // rotates the coordinates
-		this.ctx.drawImage(this.image, -this.diameter/2, -this.diameter/2, this.diameter, this.diameter); // draws dial at center
-		this.ctx.restore(); // restores rotation and location to default
+	this.object = document.createElement('div');
+		this.object.style.backgroundImage = "url(" + image + ")";
+			this.object.style.backgroundSize = "contain";
+		this.object.style.width = diameter + "px";
+		this.object.style.height = diameter + "px";
+		this.object.style.top = position.y - diameter/2 + "px";
+		this.object.style.left = position.x - diameter/2 + "px";
+
+		this.object.style.webkitTransformOrigin = "center center";
+		this.object.style.webkitTransform = 'rotate(0deg)';
+
+		this.object.innerHTML = Math.round(this.theta/Math.PI*180);
+			this.object.style.color = "white";
+			this.object.style.fontFamily = "Arial";
+			this.object.style.fontSize = "120pt";
+			this.object.style.textAlign = "center";
+
+	this.set = function() {
+		this.object.innerHTML = Math.round(this.theta/Math.PI*180);
+		this.object.style.webkitTransform = 'rotate(' + this.theta/Math.PI * 180 + 'deg)';
 	}
 
 	/**
@@ -67,6 +73,7 @@ function Dial(ctx, name, image, diameter, position) {
 			}
 		} 
 		this.lastAngle = currentAngle;
+		this.set();
 		return Math.round(this.theta/2/Math.PI*360);
 	}
 

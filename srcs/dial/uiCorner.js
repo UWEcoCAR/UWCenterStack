@@ -1,23 +1,29 @@
-function Corner(ctx, name, image, NS, S, MS, position) {
+function Corner(name, image, NS, S, MS, position) {
 	this.name = name;
-	this.ctx = ctx;
-	this.image = image;
 	this.position = position;
 	this.NS = NS*2;
 	this.S = S*2;
 	this.MS = MS*2;
 	this.diameter = NS*2;
-			this.outerDiameter = (this.image.width - 250)/this.image.width * this.diameter;
+		this.outerDiameter = (500 - 250)/500 * this.diameter;
 
 	this.selected = false;
 	this.needsUpdate = false;
 	this.startedInCorner = false;
 
-	this.draw = function() {
-		this.ctx.save();
-		this.ctx.translate(this.position.x, this.position.y)
-		this.ctx.drawImage(this.image, -this.diameter/2, -this.diameter/2, this.diameter, this.diameter)
-		this.ctx.restore();
+	this.object = document.createElement('div');
+		this.object.style.backgroundImage = "url(" + image + ")";
+				this.object.style.backgroundSize = "contain";
+			this.object.style.width = this.diameter + "px";
+			this.object.style.height = this.diameter + "px";
+			this.object.style.top = position.y - this.diameter/2 + "px";
+			this.object.style.left = position.x - this.diameter/2 + "px";
+
+	this.set = function() {
+		this.object.style.width = this.diameter + "px";
+			this.object.style.height = this.diameter + "px";
+			this.object.style.top = position.y - this.diameter/2 + "px";
+			this.object.style.left = position.x - this.diameter/2 + "px";
 	}
 
 	this.onStart = function(position) {
@@ -30,13 +36,14 @@ function Corner(ctx, name, image, NS, S, MS, position) {
 		} else {
 			this.diameter = sizeEquation(position.distanceFrom(this.position));
 		}
-		this.outerDiameter = (this.image.width - 250)/this.image.width * this.diameter;
+		this.outerDiameter = (500 - 250)/500 * this.diameter;
 		this.needsUpdate = this.diameter != this.NS;
 
 		if (this.startedInCorner && this.outerDiameter*2 == this.MS) {
 			// this is wierd, I don't like this...
 			onEnd(position);
 		}
+		this.set();
 	}
 
 	this.onEnd = function(position) {
@@ -52,6 +59,7 @@ function Corner(ctx, name, image, NS, S, MS, position) {
 		if (this.needsUpdate){
 			this.diameter = Math.max(this.diameter - 15, this.NS);
 		}
+		this.set();
 	}
 
 	function sizeEquation(distance){

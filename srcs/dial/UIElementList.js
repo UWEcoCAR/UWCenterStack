@@ -1,23 +1,13 @@
-function UIElementList(contexts) {
+function UIElementList(parent) {
 	this.list = new Array();
-	this.ctxList = contexts;
-
+	this.parent = parent;
 	/**
 	 * Adds a UI Element to the list
 	 * @param element any element from UIElements.js
 	 */
 	this.add = function(element){
 		this.list.push(element);
-	}
-
-	/**
-	 * Clears canvas and calls the draw function on each element in the list
-	 */
-	this.draw = function() {
-		this.clear();
-		$.each(this.list, function(index, element) {
-			element.draw();
-		});
+		this.parent.appendChild(element.object);
 	}
 
 	/**
@@ -28,7 +18,6 @@ function UIElementList(contexts) {
 		$.each(this.list, function(index, element) {
 			element.onStart(position);
 		});
-		this.draw();
 	}
 
 	/**
@@ -40,7 +29,6 @@ function UIElementList(contexts) {
 		$.each(this.list, function(index, element) {
 			returner.push(element.onMove(position));
 		});
-		this.draw();
 		return returner;
 	}
 
@@ -54,7 +42,6 @@ function UIElementList(contexts) {
 		$.each(this.list, function(index, element) {
 			returner.push(element.onEnd(position));
 		});
-		this.draw();
 		return returner;
 	}
 
@@ -66,7 +53,6 @@ function UIElementList(contexts) {
 		$.each(this.list, function(index, element) {
 			element.update();
 		});
-		this.draw();
 	}
 
 	/**

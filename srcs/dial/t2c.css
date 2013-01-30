@@ -3,6 +3,7 @@ body {
 	padding: 0px;
 	text-align: center;
 	background-color: black;
+	overflow: hidden;
 }
 
 #coord {
@@ -12,6 +13,6 @@ body {
 	margin: 0px;
 }
 
-canvas {
-  position: absolute;
+div {
+	position: absolute;
 }

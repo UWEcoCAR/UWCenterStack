@@ -58,80 +58,49 @@ window.onload = function onLoad() {
 	
 	// Get DOM elements
 	debug = $("#coord");
-	dialCanvas = document.getElementById("dial");
-		dialCanvas.width = width;
-		dialCanvas.height = height;
-	dialCtx = dialCanvas.getContext('2d');
-
-	cornerCanvas = document.getElementById("corners");
-		cornerCanvas.width = width;
-		cornerCanvas.height = height;
-	cornerCtx = cornerCanvas.getContext('2d');
+	parent = document.getElementById("parent");
 	
-	UIList = new UIElementList([dialCtx, cornerCtx]);
+	UIList = new UIElementList(parent);
 
 // CREATE ALL UI ELEMENTS
 	// create dials
-	var dialImage = new Image();
-	dialImage.onload = function() {
-		var dial = new Dial(dialCtx, "bigDial", dialImage, 450, new Position(width/2, height/2));
-		UIList.add(dial);
-		UIList.draw();
-	}
-	dialImage.src = 'dial.png';
+	dial = new Dial("bigDial", 'dial.png', 400, new Position(width/2, height/2-50));
+	UIList.add(dial);
 
 	//create corners
-	var cornerImage = new Image();
-	cornerImage.onload = function() {
-		var tl = new Corner(cornerCtx, "tl", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
-		var tr = new Corner(cornerCtx, "tr", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,0));
-		var bl = new Corner(cornerCtx, "bl", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,height));
-		var br = new Corner(cornerCtx, "br", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,height));
+	var tl = new Corner("tl", 'circle.png', NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
+	var tr = new Corner("tr", 'circle.png', NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,0));
+	var bl = new Corner("bl", 'circle.png', NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,height));
+	var br = new Corner("br", 'circle.png', NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,height));
 
-		UIList.add(tl);
-		UIList.add(tr);
-		UIList.add(bl);
-		UIList.add(br);
-		UIList.draw();
-	}
-	cornerImage.src = 'circle.png';
+	UIList.add(tl);
+	UIList.add(tr);
+	UIList.add(bl);
+	UIList.add(br);
 
 	// create buttons
-	var buttonImage1 = new Image();
-	buttonImage1.onload = function() {
-		buttonImage2 = new Image();
-		buttonImage2.onload = function() {
-			var l = new Button(dialCtx, "l", buttonImage1, buttonImage2, 100, new Position(width/2 - 150, height - 100), "<<");
-			var m = new Button(dialCtx, "m", buttonImage1, buttonImage2, 100, new Position(width/2, height - 50), "||");
-			var r = new Button(dialCtx, "r", buttonImage1, buttonImage2, 100, new Position(width/2 +150, height - 100), ">>");
+	var l = new Button("l", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2 - 150, height - 100), "<<");
+	var m = new Button("m", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2, height - 50), "||");
+	var r = new Button("r", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2 +150, height - 100), ">>");
 
-			UIList.add(l);
-			UIList.add(m);
-			UIList.add(r);
-			UIList.draw();
-		}
-		buttonImage2.src = 'buttonDown.png';
-	}
-	buttonImage1.src = 'buttonUp.png';
+	UIList.add(l);
+	UIList.add(m);
+	UIList.add(r);
 
 	// create guide
-	var guideImage = new Image();
-	guideImage.onload = function() {
-		var guide = new Guide(cornerCtx, "guide", guideImage, MAX_SIZE);
+		var guide = new Guide("guide", 'circle.png', MAX_SIZE);
 		UIList.add(guide);
-		UIList.draw();
-	}
-	guideImage.src = 'circle.png'; 
 
-	var sliderImage = new Image();
-	sliderImage.onload = function() {
-		var rSlider = new Slider(dialCtx, "rSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4, -Math.PI/4, true);
-		var lSlider = new Slider(dialCtx, "lSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4*3, - Math.PI/4 *3, false);
-		UIList.add(rSlider);
-		UIList.add(lSlider);
-		UIList.draw();
-	}
-	sliderImage.src = 'buttonUp.png';
+
+	// var sliderImage = new Image();
+	// sliderImage.onload = function() {
+	// 	var rSlider = new Slider(dialCtx, "rSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4, -Math.PI/4, true);
+	// 	var lSlider = new Slider(dialCtx, "lSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4*3, - Math.PI/4 *3, false);
+	// 	UIList.add(rSlider);
+	// 	UIList.add(lSlider);
+	// 	UIList.draw();
+	// }
+	// sliderImage.src = 'buttonUp.png';
 
 	// set framerate
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
