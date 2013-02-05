@@ -45,5 +45,6 @@ function Button(name, image1, image2, diameter, position) {
 		this.onAdd = function(parent, zIndex) {
 			this.object.style.zIndex = zIndex++;
 			parent.appendChild(this.object);
+			return zIndex;
 		}
 }

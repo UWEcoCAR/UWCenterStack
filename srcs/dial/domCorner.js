@@ -54,7 +54,7 @@ function Corner(name, image, position) {
 	this.update = function() {
 		this.needsUpdate = this.diameter != this.NS;
 		if (this.needsUpdate){
-			this.diameter = Math.max(this.diameter - 15, this.NS);
+			this.diameter = Math.max(this.diameter - 30, this.NS);
 		}
 		this.set();
 	}
@@ -62,6 +62,7 @@ function Corner(name, image, position) {
 	this.onAdd = function(parent, zIndex) {
 		this.object.style.zIndex = zIndex++;
 		parent.appendChild(this.object);
+		return zIndex;
 	}
 
 	this.sizeEquation = function(distance){

@@ -59,6 +59,9 @@ window.onload = function onLoad() {
 	// Get DOM elements
 	debug = $("#coord");
 	parent = document.getElementById("parent");
+		parent.style.height = height + "px";
+		parent.style.width = width + "px";
+		parent.style.overflow = "hidden";
 	
 	UIList = new UIElementList(parent);
 
@@ -91,6 +94,13 @@ window.onload = function onLoad() {
 	// 	var guide = new Guide("guide", 'circle.png', MAX_SIZE);
 	// 	UIList.add(guide);
 
+
+	rSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, true);
+	lSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, false);
+
+
+	UIList.add(rSlider);
+	UIList.add(lSlider);
 
 	// var sliderImage = new Image();
 	// sliderImage.onload = function() {
