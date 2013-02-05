@@ -1,13 +1,14 @@
 function UIElementList(parent) {
 	this.list = new Array();
 	this.parent = parent;
+	this.zIndex = 0;
 	/**
 	 * Adds a UI Element to the list
 	 * @param element any element from UIElements.js
 	 */
 	this.add = function(element){
 		this.list.push(element);
-		this.parent.appendChild(element.object);
+		this.zIndex = element.onAdd(this.parent, this.zIndex);
 	}
 
 	/**

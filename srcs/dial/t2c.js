@@ -64,14 +64,14 @@ window.onload = function onLoad() {
 
 // CREATE ALL UI ELEMENTS
 	// create dials
-	dial = new Dial("bigDial", 'dial.png', 400, new Position(width/2, height/2-50));
+	dial = new Dial("bigDial", 'dial.png', 400, new Position(width/2, height/2));
 	UIList.add(dial);
 
 	//create corners
-	var tl = new Corner("tl", 'circle.png', NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
-	var tr = new Corner("tr", 'circle.png', NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,0));
-	var bl = new Corner("bl", 'circle.png', NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,height));
-	var br = new Corner("br", 'circle.png', NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,height));
+	var tl = new Corner("tl", 'circle.png', new Position(0,0));
+	var tr = new Corner("tr", 'circle.png', new Position(width,0));
+	var bl = new Corner("bl", 'circle.png', new Position(0,height));
+	var br = new Corner("br", 'circle.png', new Position(width,height));
 
 	UIList.add(tl);
 	UIList.add(tr);
@@ -79,17 +79,17 @@ window.onload = function onLoad() {
 	UIList.add(br);
 
 	// create buttons
-	var l = new Button("l", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2 - 150, height - 100), "<<");
-	var m = new Button("m", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2, height - 50), "||");
-	var r = new Button("r", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2 +150, height - 100), ">>");
+	var l = new Button("l", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2 - 150, height - 100));
+	var m = new Button("m", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2, height - 50));
+	var r = new Button("r", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2 +150, height - 100));
 
 	UIList.add(l);
 	UIList.add(m);
 	UIList.add(r);
 
-	// create guide
-		var guide = new Guide("guide", 'circle.png', MAX_SIZE);
-		UIList.add(guide);
+	// // create guide
+	// 	var guide = new Guide("guide", 'circle.png', MAX_SIZE);
+	// 	UIList.add(guide);
 
 
 	// var sliderImage = new Image();
@@ -144,7 +144,6 @@ function onMove(position) {
 			for(var i = 0; i < endResult.length; i++) {
 				anyResponse = anyResponse || endResult[i];
 			}
-			trace(anyResponse);
 
 			debug.css("background", "yellow");
 			debug.html("going");
@@ -167,8 +166,6 @@ function onEnd(position) {
 		for(var i = 0; i < endResult.length; i++) {
 			anyResponse = anyResponse || endResult[i];
 		}
-
-		trace(anyResponse);
 
 		if(anyResponse) {
 			debug.css("background", "green");
@@ -224,11 +221,4 @@ function onMouseMove(e) {
  */
 function onMouseUp(e) {
 	onEnd(new Position(e.pageX, e.pageY));
-}
-
-// FOR DEBUGGING PURPOSES
-function trace(string) {
-	if (false) {
-		console.log(string)
-	}
 }

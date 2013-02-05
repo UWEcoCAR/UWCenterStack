@@ -1,13 +1,4 @@
-/**
- * Creates a new Dial
- * @class represents a rotatable dial, and handles control of it
- * @param dCanvas, the canvas object the dial should go on
- * @param diameter, width and height of the dial image
- * @returns a Dial object
- */
 function Dial(name, image, diameter, position) {
-
-	// sets up canvas
 	this.name = name;
 	this.position = position;
 	this.diameter = diameter;
@@ -16,36 +7,33 @@ function Dial(name, image, diameter, position) {
 
 	this.selected = false;
 	this.needsUpdate = false;
-	this.lastAngle;
 	this.theta = 0;
+	this.lastAngle;
 
 	this.object = document.createElement('div');
-		this.object.style.backgroundImage = "url(" + image + ")";
-			this.object.style.backgroundSize = "contain";
 		this.object.style.width = diameter + "px";
 		this.object.style.height = diameter + "px";
-		this.object.style.top = position.y - diameter/2 + "px";
-		this.object.style.left = position.x - diameter/2 + "px";
-
+		this.object.style.backgroundImage = "url(" + image + ")";
+			this.object.style.backgroundSize = "contain";
 		this.object.style.webkitTransformOrigin = "center center";
-		this.object.style.webkitTransform = 'rotate(0deg)';
+		this.object.style.webkitTransform = "translate(" + (this.position.x - diameter/2) + "px, " + (this.position.y - diameter/2) + "px) rotate(" + this.theta / Math.PI *180 + "deg)";
 
-		this.object.innerHTML = Math.round(this.theta/Math.PI*180);
-			this.object.style.color = "white";
-			this.object.style.fontFamily = "Arial";
-			this.object.style.fontSize = "120pt";
-			this.object.style.textAlign = "center";
+	this.text = document.createElement('div');
+		this.text.style.width = diameter + "px";
+		this.text.style.webkitTransform = "translate(" + (this.position.x - diameter/2) + "px, " + (this.position.y - diameter/2 + 115) + "px)";
+
+		this.text.style.fontFamily = "Arial";
+		this.text.style.fontSize = "110pt";
+		this.text.style.color = "white";
+		this.text.style.textAlign = "center";
+		this.text.innerHTML = 0;
+
 
 	this.set = function() {
-		this.object.innerHTML = Math.round(this.theta/Math.PI*180);
-		this.object.style.webkitTransform = 'rotate(' + this.theta/Math.PI * 180 + 'deg)';
+		this.object.style.webkitTransform = "translate(" + (this.position.x - diameter/2) + "px, " + (this.position.y - diameter/2) + "px) rotate(" + this.theta / Math.PI *180 + "deg)";
+		this.text.innerHTML = Math.round(this.theta/Math.PI * 180);
 	}
-
-	/**
-	 * Called when the canvas is clicked or pointer is click/moved, recognizes valid action and acts accordingly
-	 * @param position is the position of the pointer event
-	 */
-
+	
 	this.onStart = function(position) {
 
 	}
@@ -77,14 +65,20 @@ function Dial(name, image, diameter, position) {
 		return Math.round(this.theta/2/Math.PI*360);
 	}
 
-	/**
-	 * Ends control of the dial
-	 */
 	this.onEnd = function(position) {
-	
+
 	}
 
 	this.update = function() {
-		
+
+	}
+
+	this.onAdd = function(parent, zIndex) {
+		this.object.style.zIndex = zIndex++;
+		parent.appendChild(this.object);
+
+		this.text.style.zIndex = zIndex++;
+		parent.appendChild(this.text);
+		return zIndex;
 	}
 }

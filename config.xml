@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets"
-        xmlns:rim="http://www.blackberry.com/ns/widgets"
-        version="1.0.0.0">  
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><widget xmlns="http://www.w3.org/ns/widgets" xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.0">  
     <name>t2c</name>
     <author>University of Washington</author>
     <description>t2c test</description>
