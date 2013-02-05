@@ -95,8 +95,8 @@ window.onload = function onLoad() {
 	// 	UIList.add(guide);
 
 
-	rSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, true);
-	lSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, false);
+	rSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, 0, true);
+	lSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, 4, false);
 
 
 	UIList.add(rSlider);
