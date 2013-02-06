@@ -90,27 +90,12 @@ window.onload = function onLoad() {
 	UIList.add(m);
 	UIList.add(r);
 
-	// // create guide
-	// 	var guide = new Guide("guide", 'circle.png', MAX_SIZE);
-	// 	UIList.add(guide);
-
-
+	// create sliders
 	rSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, ["Artist", "Album", "Song", "Genre"], true);
 	lSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, ["Artist", "Album", "Song", "Genre", "Playlist"], false);
-
-
+	
 	UIList.add(rSlider);
 	UIList.add(lSlider);
-
-	// var sliderImage = new Image();
-	// sliderImage.onload = function() {
-	// 	var rSlider = new Slider(dialCtx, "rSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4, -Math.PI/4, true);
-	// 	var lSlider = new Slider(dialCtx, "lSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4*3, - Math.PI/4 *3, false);
-	// 	UIList.add(rSlider);
-	// 	UIList.add(lSlider);
-	// 	UIList.draw();
-	// }
-	// sliderImage.src = 'buttonUp.png';
 
 	// set framerate
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
