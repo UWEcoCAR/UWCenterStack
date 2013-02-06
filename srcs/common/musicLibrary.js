@@ -140,7 +140,7 @@ function matches(thiz, that) {
 }
 
 // Returns all of the artists in the library. Can optionally be filtered by genre and playlist.
-function getArists(genre, playlist) {
+function getArtists(genre, playlist) {
 	var artists = {};
 
 	function filter(i, song) {
