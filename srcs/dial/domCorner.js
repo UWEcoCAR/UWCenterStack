@@ -44,8 +44,8 @@ function Corner(name, image, position) {
 		this.set();
 	}
 
-	this.onEnd = function(position) {
-		if (position.distanceFrom(this.position) < this.outerDiameter/2 || 
+	this.onEnd = function() {
+		if (drag.currentPos.distanceFrom(this.position) < this.outerDiameter/2 || 
 		   (this.startedInCorner && this.outerDiameter*2 == this.MS)) {
 			return name;
 		}

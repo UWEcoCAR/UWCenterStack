@@ -38,10 +38,10 @@ function UIElementList(parent) {
 	 * then redraws all elements
 	 * @return {false | x}
 	 */
-	this.onEnd = function(position) {
+	this.onEnd = function() {
 		var returner = new Array();
 		$.each(this.list, function(index, element) {
-			returner.push(element.onEnd(position));
+			returner.push(element.onEnd());
 		});
 		return returner;
 	}

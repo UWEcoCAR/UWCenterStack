@@ -30,7 +30,7 @@ function Button(name, image1, image2, diameter, position) {
 			this.set();
 		}
 
-		this.onEnd = function(position) {
+		this.onEnd = function() {
 			if (this.selected){
 				this.selected = false;
 				this.set();

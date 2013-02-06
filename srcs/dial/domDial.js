@@ -28,6 +28,13 @@ function Dial(name, image, diameter, position) {
 		this.text.style.textAlign = "center";
 		this.text.innerHTML = 0;
 
+	this.outerLoop = document.createElement('div');
+		this.outerLoop.style.width = this.outerLoop.style.height = diameter + 100 + "px";
+		this.outerLoop.style.borderRadius = (diameter + 100)/2 + "px";
+			this.outerLoop.style.border = "solid 5px white";
+			this.outerLoop.style.borderBottom = "none 0px black";
+			this.outerLoop.style.opacity = ".3";
+		this.outerLoop.style.webkitTransform = "translate(" + (this.position.x - (diameter+100)/2) + "px, " + (this.position.y - (diameter+100)/2) + "px)";
 
 	this.set = function() {
 		this.object.style.webkitTransform = "translate(" + (this.position.x - diameter/2) + "px, " + (this.position.y - diameter/2) + "px) rotate(" + this.theta / Math.PI *180 + "deg)";
@@ -65,7 +72,7 @@ function Dial(name, image, diameter, position) {
 		return Math.round(this.theta/2/Math.PI*360);
 	}
 
-	this.onEnd = function(position) {
+	this.onEnd = function() {
 
 	}
 
@@ -79,6 +86,9 @@ function Dial(name, image, diameter, position) {
 
 		this.text.style.zIndex = zIndex++;
 		parent.appendChild(this.text);
+
+		this.outerLoop.style.zIndex = zIndex++;
+		parent.appendChild(this.outerLoop);
 		return zIndex;
 	}
 }

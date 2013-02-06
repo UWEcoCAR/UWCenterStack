@@ -4,7 +4,7 @@ function Slider(name, sliderImage, sliderDiameter, position, diameter, startAngl
 		this.sliderDiameter = sliderDiameter;
 		this.outerDiameter = (512 - 80)/512 * this.sliderDiameter;
 	this.position = position;
-	this.sliderPosition = new Position(0,this.position.y); // is immediately overwritten by last line
+	this.sliderPosition = new Position(0,this.position.y); // x value is immediately overwritten by last line
 	this.diameter = diameter;
 		this.x = 25;
 	this.startAngle = startAngle;
@@ -57,24 +57,12 @@ function Slider(name, sliderImage, sliderDiameter, position, diameter, startAngl
 		}
 	}
 
-
-
-	// this.filler = document.createElement('div');
-
-
 	this.set = function() {
 		this.sliderPosition.x = Math.cos(Math.asin((this.sliderPosition.y - this.position.y)/this.diameter)) * this.diameter;
 		if (!this.isRightSide) {
 			this.sliderPosition.x = -this.sliderPosition.x;
 		}
 		this.slider.style.webkitTransform = "translate(" + (this.position.x + this.sliderPosition.x - this.sliderDiameter/2) + "px, " + (this.sliderPosition.y - this.sliderDiameter/2) + "px)";
-		
-		if (this.targets){
-			this.needsUpdate = true;
-			for (var i = 0; i < this.targetHeights.length; i++) {
-				this.needsUpdate = this.needsUpdate && this.sliderPosition.y != this.targetHeights[i];
-			}
-		}
 	}
 
 	this.onStart = function(position) {
@@ -92,7 +80,13 @@ function Slider(name, sliderImage, sliderDiameter, position, diameter, startAngl
 		}
 	}
 
-	this.onEnd = function(position) {
+	this.onEnd = function() {
+		if (this.targets){
+			this.needsUpdate = true;
+			for (var i = 0; i < this.targetHeights.length; i++) {
+				this.needsUpdate = this.needsUpdate && this.sliderPosition.y != this.targetHeights[i];
+			}
+		}
 	}
 
 	this.update = function() {
@@ -105,9 +99,18 @@ function Slider(name, sliderImage, sliderDiameter, position, diameter, startAngl
 					distance = Math.abs(this.targetHeights[i] - this.sliderPosition.y);
 				}
 			}
-			this.sliderPosition.y = this.targetHeights[index];
-			this.set();
-			this.needsUpdate = false;
+			if (distance < 10) {
+				this.sliderPosition.y = this.targetHeights[index];
+				this.set();
+				this.needsUpdate = false;
+			} else {
+				if (this.sliderPosition.y < this.targetHeights[index]) {
+					this.sliderPosition.y +=10;
+				} else {
+					this.sliderPosition.y -=10;
+				}
+				this.set();
+			}
 		}
 	}
 

@@ -91,8 +91,8 @@ window.onload = function onLoad() {
 	UIList.add(r);
 
 	// create sliders
-	rSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, ["Artist", "Album", "Song", "Genre"], true);
-	lSlider = new Slider("rSlider", "buttonUp.png", 100, new Position(width/2, height/2), 350, Math.PI/4, ["Artist", "Album", "Song", "Genre", "Playlist"], false);
+	rSlider = new Slider("rSlider", "buttonUp.png", 150, new Position(width/2, height/2), 350, Math.PI/4, false, true);
+	lSlider = new Slider("rSlider", "buttonUp.png", 150, new Position(width/2, height/2), 350, Math.PI/4, ["Artist", "Album", "Song", "Genre", "Playlist"], false);
 	
 	UIList.add(rSlider);
 	UIList.add(lSlider);
@@ -151,11 +151,11 @@ function onMove(position) {
  * Should be called when the user relases the mouse or removes their finger.
  * @param {Position} position The current position of the pointer.
  */
-function onEnd(position) {
+function onEnd() {
 	if (drag.inProgress) {
 		drag.end();
 		mouseDown = false;
-		var endResult = UIList.onEnd(position);
+		var endResult = UIList.onEnd();
 		
 		var anyResponse = false;
 		for(var i = 0; i < endResult.length; i++) {
@@ -178,6 +178,7 @@ function onEnd(position) {
  * @see onStart(position)
  */
 function onTouchStart(e) {
+	e.preventDefault();
 	onStart(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
 	
 }
@@ -194,7 +195,8 @@ function onTouchMove(e) {
  * @see onEnd()
  */
 function onTouchEnd(e) {
-	onEnd(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
+	e.preventDefault();
+	onEnd();
 }
 
 /**
@@ -215,5 +217,5 @@ function onMouseMove(e) {
  * @see onEnd()
  */
 function onMouseUp(e) {
-	onEnd(new Position(e.pageX, e.pageY));
+	onEnd();
 }
