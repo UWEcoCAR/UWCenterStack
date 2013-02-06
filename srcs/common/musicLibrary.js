@@ -141,82 +141,114 @@ function matches(thiz, that) {
 
 // Returns all of the artists in the library. Can optionally be filtered by genre and playlist.
 function getArists(genre, playlist) {
-	var artists = {};
-
-	function filter(i, song) {
-		if (!artists[song.artist] && matches(genre, song.genre)) {
-			artists[song.artist] = true;
-		}
-	}
-
-	if (playlist) {
-		$.each(musicLibrary.playlists[playlist], filter);
-	} else {
-		$.each(musicLibrary.songs, filter);
-	}
-	return Object.keys(artists);
+	return queryLibrary({
+		genre : genre, 
+		playlist : playlist, 
+		request : "artist"});
 }
 
 // Returns all of the albums in the library. Can optionally be filtered by artist, genre, and playlist.
 function getAlbums(artist, genre, playlist) {
-	var albums = {};
-	
-	function filter(i, song) {
-		if (!albums[song.album] && matches(artist, song.artist) && matches(genre, song.genre)) {
-			albums[song.album] = true;
-		}
-	}
-
-	if (playlist) {
-		$.each(musicLibrary.playlists[playlist], filter);
-	} else {
-		$.each(musicLibrary.songs, filter);
-	}
-	return Object.keys(albums);
+	return queryLibrary({
+		artist : artist,
+		genre : genre, 
+		playlist : playlist, 
+		request : "album"});
 }
 
 // Returns all of the songs in the library. Can optionally be filtered by artist, album, genre and playlist.
 function getSongs(artist, album, genre, playlist) {
-	var songs = {};
-	
-	function filter(i, song) {
-		if (!songs[song.title] && matches(artist, song.artist) && matches(album, song.album) && matches(genre, song.genre)) {
-			songs[song.title] = true;
-		}
-	}
-
-	if (playlist) {
-		$.each(musicLibrary.playlists[playlist], filter);
-	} else {
-		$.each(musicLibrary.songs, filter);
-	}
-	return Object.keys(songs);
+	return queryLibrary({
+		artist : artist, 
+		album : album, 
+		genre : genre, 
+		playlist : playlist, 
+		request : "title"
+	});
 }
 
 // Returns all of the playlists in the library.
 function getPlaylists() {
-	return Object.keys(musicLibrary.playlists);
+	return queryLibrary({
+		request : "playlist"
+	});
 }
 
 // Returns all of the genres in the library.
 function getGenres() {
-	var genres = {};
-	$.each(musicLibrary.songs, function(i, song) {
-		if (!genres[song.genre]) {
-			genres[song.genre] = true;
-		}
+	return queryLibrary({
+		request : "genre"
 	});
-	return Object.keys(genres);
 }
 
 // Returns the song object of the song matching the given title. If more than one song
 // contains the same title, then the first one in the library will be returned.
 function getSong(title) {
-	var matchingSong;
-	$.each(musicLibrary.songs, function(i, song) {
-		if (song.title === title) {
-			matchingSong = song;
-		}
+	return queryLibrary({
+		title : title,
+		request : "song"
 	});
-	return matchingSong;
+}
+
+// Returns an array of elements from the musicLibrary matching the given params.
+// params options:
+// 	artist (optional)
+// 	album (optional)
+// 	title (optional)
+// 	genre (optional)
+// 	playlist (optional)
+// 	request - The song attribute that the elements will be of. Options:
+// 		artist - returns the artist names
+// 		album - returns the album names
+// 		title - returns the song titles
+// 		genre - returns the genres
+// 		playlist - returns all the playlist names
+//		song - returns the whole song objects
+//
+// Examples:
+//
+// params = {artist: "Coldplay", request : "album"} 
+// This would return all of the albums in the library by Coldplay.
+//
+// params = {playlist: "Favorites", request : "song"}
+// This woudld return all of the song objects of the songs in the Favorites albumb.
+
+
+function queryLibrary(params) {
+	// Immediately return the playlists
+	if (params.request === "playlist") {
+		return Object.keys(musicLibrary.playlists);
+	}
+
+	// Initialize results array
+	var results = [];
+	
+	// Adds the requested attribute of the song to the results array
+	// if it isn't already in the array and it matches the params.
+	function filter(i, song) {
+		// By default we want the attribute of the song specified by params.request
+		var data = song[params.request];
+
+		// If the requested attribute is "song" then we want the whole song object.
+		if (params.request === "song") {
+			data = song;
+		}
+
+		if ($.inArray(data, results) === -1
+				&& matches(params.artist, song.artist) 
+				&& matches(params.album, song.album) 
+				&& matches(params.title, song.title) 
+				&& matches(params.genre, song.genre)) {
+			results.push(data);
+		}
+	}
+
+	// Determines if we should query against the whole library or just a specific playlist.
+	var songList = musicLibrary.songs;
+	if (params.playlist) {
+		songList = musicLibrary.playlists[params.playlist];
+	}
+	$.each(songList, filter);
+
+	return results;
 }
