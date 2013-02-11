@@ -32,9 +32,10 @@ window.onload = function onLoad() {
 	};	
 	
 	selectionPath = "";
-	currentChoice = "";
+	currentChoice = 0;
 }
 
+// For touch screen, sets up options for music app
 function createDiv(x, y, value, width, height) {
 	var newDiv = document.createElement("div");
 	newDiv.style.position = "absolute";
@@ -58,21 +59,22 @@ function createButton(x, y, value, width, height) {
     $('#container').append(button);
 }
 
-
+// for buttons, mouse interactino only
 function buttonClick(clickedButton) {
 	$("#nav").html(clickedButton);
 }
 
+// Mouse click, see if we touch anything
 function onMouseDown(e) {
-	onMove(e.pageX, e.pageY);
+	onStart(e.pageX, e.pageY);
 }
 
+// Drag across the screen, do nothing
 function onTouchMove(e) {
 	e.preventDefault();
-
 }
 
-
+// Touch started, see what they are touching
 function onTouchStart(e) {
 	e.preventDefault();
 	var x = e.targetTouches[0].pageX;
@@ -80,11 +82,15 @@ function onTouchStart(e) {
 	onMove(x, y);
 }
 
+// Finished touching
 function onTouchEnd(e) {
 	e.preventDefault();
 }
 
-function onMove(x, y) {
+// Called when a user touches or clicks the screen
+// Determines what button might have been touched
+// updates the information based on what button was touched
+function onStart(x, y) {
 	var buttons = $(".buttons");
 	for (var i = 0; i < buttons.length; i++) {
 		// determine if it touches any of the buttons
@@ -95,76 +101,99 @@ function onMove(x, y) {
 		// determine which button was pressed
 		if (x - buttonX <= buttonHeight && x - buttonX >= 0 &&
 				y - buttonY <= buttonWidth && y - buttonY >= 0) {
-			topOfWheel = "";
-			currentChoice = choices[i]
-			$("#nav").html(currentChoice);
-			selectionPath = currentChoice;
-			populateNewWheel(false, i);
+			currentChoice = i;
+			topOfWheel = choices[i];
+			$("#nav").html(topOfWheel);
+			selectionPath = topOfWheel;
+			populateNewWheel(i);
 		}
 	}
-	if (y > 200 && y < 400 && x > 450 && x < 900) {
-		currentChoice = choices[i];
-		changePath(currentChoice, i);
+	if (y > 200 && y < 400 && x > 450 && x < 900) { 
+		topOfWheel = $(".options")[1];
+		changePath(topOfWheel.innerHTML);
+		generateSpecificChoices(topOfWheel.innerHTML);
+		// move from artists -> album -> song
+		currentChoice++;
 	}
+
 }
 
-// Was choice - choice or select button?
-// name = name of button
+// Takes in the name of a button and changes the
+// selection path to include that name
 function changePath(name, num) {
-	selectionPath += "/" + topOfWheel;
+	selectionPath += "/" + name;
 	$("#nav").html(selectionPath);
-	populateNewWheel(true, num);
 }
 
-
-//choices = new Array("Artists", "Albums", "Songs", "Playlists", "Genres");
-//use indices
-function populateNewWheel(currentlyNavigating, num) {
+// Gets the next information to be displayed around the wheel
+// Determines what to display based on the num passed and choices array
+// choices = new Array("Artists", "Albums", "Songs", "Playlists", "Genres");
+function populateNewWheel(num) {
 	var info;
 	if (!currentlyNavigating) {
-		if (num == 0) {			//artists -> display all albums
+		if (num == 0) {			//artists -> display all artists
 			info = getArtists();
-		} else if (num == 1) {	//albums -> display all songs in that album
+		} else if (num == 1) {	//albums -> display all albums
 			info = getAlbums();
-		} else if (num == 2) {	// Songs -> all songs on this album
+		} else if (num == 2) {	// Songs -> all songs
 			info = getSongs();
 		} else if (num == 3) {  // Playlists -> display all playlists
 			info = getPlaylists();
-		} else {				// genre - display songs by genre
+		} else {				// genre -> display all genres
 			info = getGenres();
 		}
-	} else {					// 
-		
 	}
-
 	generateWheelChoices(info);
+}
+
+// Takes in a string of data representing an album name, artist, song, etc
+// Displays the information for that specific choice
+function generateSpecificChoices(data) {
+	var info;
+	if (currentChoice == 1) {			//artists -> display all albums by this artist
+		info = getAlbums(data);
+		generateWheelChoices(info);
+	} else if (currentChoice == 2) {	//albums -> display all songs in that album
+		info = getSongs(data);
+		generateWheelChoices(info);
+	} else if (currentChoice == 3) {	// Songs -> now playing
+		//now playing
+		$(".options").remove();
+	} else if (currentChoice == 4) {  	// Playlists -> display all playlists
+		generateWheelChoices(getSongs(data));
+	} else {							// genre - display songs by genre
+		generateWheelChoices(getSongs(data));
+	}
 
 }
 
-
-
-
-
+// Removes all of the existing choices around the wheel
+// and displays the new choices from the given information
+// the information is an array of artists, songs, albums, etc
 function generateWheelChoices(info) {
 	$(".options").remove();
 	var x = 350;
 	var y = 300;
 	var middle = 1;
+	// currently only displays 3 around the wheel
+	// left, top, middle
 	for (var i = 0; i < 3; i++) {
 		var name = info[i];
 		if (name != null) {
+			//alignment around wheel
 			if (i == middle) {
-				
 				y = 190;
 			} else if (i == 2) {
 				x = 600;
 				y = 300;
 			}
+			// clip the length of the string
 			if (i != middle && name != null && name.length >= 8) {
 				name = name.substring(0, 5) + "...";
 			} else if (i == middle && name.length >= 8) {
 				x = 460;
 			}
+			// create new choices
 			var newDiv = document.createElement("div");
 			newDiv.style.position = "absolute";
 			newDiv.style.left = x + 'px';
@@ -175,8 +204,4 @@ function generateWheelChoices(info) {
 		}
 	}
 
-}
-
-function displayInfo(info) {
-	$("#options").html(info);
 }
