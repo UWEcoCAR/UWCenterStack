@@ -16,9 +16,9 @@ function UIElementList(parent) {
 	 * then redraws all elements
 	 */
 	this.onStart = function(position) {
-		$.each(this.list, function(index, element) {
-			element.onStart(position);
-		});
+		for (var i = 0; i < this.list.length; i++) {
+			this.list[i].onStart(position);
+		}
 	}
 
 	/**
@@ -26,11 +26,10 @@ function UIElementList(parent) {
 	 * then redraws all elements
 	 */
 	this.onMove = function(position) {
-		var returner = new Array();
-		$.each(this.list, function(index, element) {
-			returner.push(element.onMove(position));
-		});
-		return returner;
+
+		for (var i = 0; i < this.list.length; i++) {
+			this.list[i].onMove(position);
+		}
 	}
 
 	/**
@@ -39,11 +38,9 @@ function UIElementList(parent) {
 	 * @return {false | x}
 	 */
 	this.onEnd = function() {
-		var returner = new Array();
-		$.each(this.list, function(index, element) {
-			returner.push(element.onEnd());
-		});
-		return returner;
+		for (var i = 0; i < this.list.length; i++) {
+			this.list[i].onEnd();
+		}
 	}
 
 	/**
@@ -51,9 +48,9 @@ function UIElementList(parent) {
 	 * then redraws all elements
 	 */
 	this.update = function() {
-		$.each(this.list, function(index, element) {
-			element.update();
-		});
+		for (var i = 0; i < this.list.length; i++) {
+			this.list[i].update();
+		}
 	}
 
 	/**
@@ -65,11 +62,5 @@ function UIElementList(parent) {
 			needsUpdate = needsUpdate || this.list[i].needsUpdate;
 		}
 		return needsUpdate;
-	}
-
-	this.clear = function() {
-		$.each(this.ctxList, function(index, ctx) {
-			ctx.clearRect(0,0,width,height);
-		});
 	}
 }

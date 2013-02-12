@@ -18,15 +18,17 @@ function Dial(name, image, diameter, position) {
 		this.object.style.webkitTransformOrigin = "center center";
 		this.object.style.webkitTransform = "translate(" + (this.position.x - diameter/2) + "px, " + (this.position.y - diameter/2) + "px) rotate(" + this.theta / Math.PI *180 + "deg)";
 
-	this.text = document.createElement('div');
-		this.text.style.width = diameter + "px";
-		this.text.style.webkitTransform = "translate(" + (this.position.x - diameter/2) + "px, " + (this.position.y - diameter/2 + 115) + "px)";
-
-		this.text.style.fontFamily = "Arial";
-		this.text.style.fontSize = "110pt";
-		this.text.style.color = "white";
-		this.text.style.textAlign = "center";
-		this.text.innerHTML = 0;
+	this.options = new Array(9);
+	this.filler = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+	for (var i = 0; i < this.options.length; i++) {
+		this.options[i] = document.createElement('div');
+			this.options[i].style.width = "150px";
+			this.options[i].style.webkitTransform = "translate(" + (-Math.cos(Math.PI/6*i - Math.PI/6) * 250 + this.position.x - 75) + "px, " + (-Math.sin(Math.PI/6*i - Math.PI/6) * 250 + this.position.y) + "px)";
+			this.options[i].style.textAlign = "center";
+			this.options[i].style.color = "white";
+			this.options[i].style.fontFamily = "arial";
+			this.options[i].style.fontSize = "20pt";
+	}
 
 	this.outerLoop = document.createElement('div');
 		this.outerLoop.style.width = this.outerLoop.style.height = diameter + 100 + "px";
@@ -38,7 +40,20 @@ function Dial(name, image, diameter, position) {
 
 	this.set = function() {
 		this.object.style.webkitTransform = "translate(" + (this.position.x - diameter/2) + "px, " + (this.position.y - diameter/2) + "px) rotate(" + this.theta / Math.PI *180 + "deg)";
-		this.text.innerHTML = Math.round(this.theta/Math.PI * 180);
+		for (var i = 0; i < this.options.length; i++) {
+			this.options[i].innerHTML = this.filler[this.offset(i)];
+		}
+	}
+
+	this.offset = function(index) {
+		var offset = -Math.round(this.theta/Math.PI*180/30) - 4;
+		if (index + offset < 0) {
+			return this.filler.length + (index + offset)%this.filler.length;
+		} else if (index + offset >= this.filler.length) {
+			return (index + offset)%this.filler.length;
+		}
+		return index + offset;
+
 	}
 	
 	this.onStart = function(position) {
@@ -46,12 +61,7 @@ function Dial(name, image, diameter, position) {
 	}
 
 	this.onMove = function(position) {
-		var currentAngle;
-		if (position.y < this.position.y){
-			currentAngle = Math.PI/2-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
-		} else {
-			currentAngle = Math.PI/2*3-Math.atan((position.x - this.position.x)/ (position.y - this.position.y));
-		}
+		var currentAngle = Math.atan2(-position.x + this.position.x, position.y - this.position.y) + Math.PI;
 
 		if (this.lastAngle == null){
 			this.lastAngle = currentAngle;
@@ -59,17 +69,15 @@ function Dial(name, image, diameter, position) {
 
 		if (position.distanceFrom(this.position) < this.outerDiameter/2 &&
 			position.distanceFrom(this.position) > this.innerDiameter/2){
-			this.theta+=currentAngle - this.lastAngle;
-
-			if (this.theta < 0){
-				this.theta += Math.PI*2;
-			} else if (this.theta > Math.PI*2){
-				this.theta -= Math.PI*2;
-			}
-		} 
+				this.theta+= currentAngle - this.lastAngle;
+				if (currentAngle-this.lastAngle > Math.PI) {
+					this.theta-=Math.PI*2;
+				} else if (currentAngle-this.lastAngle < -Math.PI) {
+					this.theta+=Math.PI*2;
+				}
+				this.set();
+		}
 		this.lastAngle = currentAngle;
-		this.set();
-		return Math.round(this.theta/2/Math.PI*360);
 	}
 
 	this.onEnd = function() {
@@ -84,8 +92,10 @@ function Dial(name, image, diameter, position) {
 		this.object.style.zIndex = zIndex++;
 		parent.appendChild(this.object);
 
-		this.text.style.zIndex = zIndex++;
-		parent.appendChild(this.text);
+		for (var i = 0; i < this.options.length; i++) {
+			this.options[i].style.zIndex = zIndex++;
+			parent.appendChild(this.options[i]);
+		}
 
 		this.outerLoop.style.zIndex = zIndex++;
 		parent.appendChild(this.outerLoop);

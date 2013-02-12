@@ -40,18 +40,6 @@ var MAX_SIZE = 300;		// maximum radius of corner, when pointer is at extreme cor
  * and creates all UI Elements
  */
 window.onload = function onLoad() {	
-	// Add touch handlers
-	document.addEventListener("touchstart", onTouchStart, false);
-	document.addEventListener("touchmove", onTouchMove, false);
-	document.addEventListener("touchend", onTouchEnd, false);
-	
-	// Add mouse handlers
-	// NONE OF THESE ARE NEEDED FOR TOUCHSCREEN
-	document.addEventListener("mousedown", onMouseDown, false);
-	document.addEventListener("mouseup", onMouseUp, false);
-	document.addEventListener("mousemove", onMouseMove, false);
-	
-	
 	// Get window dimensions
 	width = window.innerWidth;
 	height = window.innerHeight;
@@ -62,37 +50,54 @@ window.onload = function onLoad() {
 		parent.style.height = height + "px";
 		parent.style.width = width + "px";
 		parent.style.overflow = "hidden";
+
+	// Add touch handlers
+	parent.addEventListener("touchstart", onTouchStart, false);
+	parent.addEventListener("touchmove", onTouchMove, false);
+	parent.addEventListener("touchend", onTouchEnd, false);
+	parent.addEventListener("touchleave", onTouchEnd, false);
+	parent.addEventListener("touchcancel", onTouchEnd, false);
+	
+	// Add mouse handlers
+	// NONE OF THESE ARE NEEDED FOR TOUCHSCREEN
+	parent.addEventListener("mousedown", onMouseDown, false);
+	parent.addEventListener("mouseup", onMouseUp, false);
+	parent.addEventListener("mousemove", onMouseMove, false);
 	
 	UIList = new UIElementList(parent);
 
 // CREATE ALL UI ELEMENTS
 	// create dials
-	dial = new Dial("bigDial", 'dial.png', 400, new Position(width/2, height/2));
+	dial = new Dial("bigDial", 'dial.png', 400, new Position(512, 365));
 	UIList.add(dial);
 
 	//create corners
-	var tl = new Corner("tl", 'circle.png', new Position(0,0));
-	var tr = new Corner("tr", 'circle.png', new Position(width,0));
 	var bl = new Corner("bl", 'circle.png', new Position(0,height));
 	var br = new Corner("br", 'circle.png', new Position(width,height));
 
-	UIList.add(tl);
-	UIList.add(tr);
 	UIList.add(bl);
 	UIList.add(br);
 
+	var callback = new function() {
+		if(parent.style.backgroundImage == "none") {
+			parent.style.backgroundImage = "url(bg.jpeg)";
+		} else {
+			parent.style.backgroundImage = "none";
+		}
+	}
+
 	// create buttons
-	var l = new Button("l", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2 - 150, height - 100));
-	var m = new Button("m", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2, height - 50));
-	var r = new Button("r", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2 +150, height - 100));
+	var l = new Button("l", 'buttonUp.png', 'buttonDown.png', 75, new Position(width/2 - 75, 365), callback);
+	var m = new Button("m", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2, 365), callback);
+	var r = new Button("r", 'buttonUp.png', 'buttonDown.png', 75, new Position(width/2 + 75, 365), callback);
 
 	UIList.add(l);
 	UIList.add(m);
 	UIList.add(r);
 
 	// create sliders
-	rSlider = new Slider("rSlider", "buttonUp.png", 150, new Position(width/2, height/2), 350, Math.PI/4, false, true);
-	lSlider = new Slider("rSlider", "buttonUp.png", 150, new Position(width/2, height/2), 350, Math.PI/4, ["Artist", "Album", "Song", "Genre", "Playlist"], false);
+	rSlider = new Slider("rSlider", "buttonUp.png", 110, new Position(512, 365), 330, Math.PI/4 *.75, false, true);
+	lSlider = new Slider("rSlider", "buttonUp.png", 110, new Position(512, 365), 330, Math.PI/4 * .75, ["Artist", "Album", "Song", "Genre", "Playlist"], false);
 	
 	UIList.add(rSlider);
 	UIList.add(lSlider);
@@ -118,10 +123,12 @@ function reset() {
  * @param {Position} position The current position of the pointer
  */
 function onStart(position) {
+	var time = currentTime();
 	drag = new Drag(position);
 	UIList.onStart(position);
 	debug.css("background", "blue");
 	debug.html("started");
+	// console.log("Start: " + timeFrom(time));
 }
 
 /**
@@ -131,18 +138,12 @@ function onStart(position) {
  * @param {Position} position The current position of the pointer.
  */
 function onMove(position) {
+	var time = currentTime();
 	if (drag && drag.inProgress){
 		drag.addPosition(position);
 		var endResult = UIList.onMove(position);
-		if (drag.inProgress) {
-			var anyResponse = false;
-			for(var i = 0; i < endResult.length; i++) {
-				anyResponse = anyResponse || endResult[i];
-			}
-
-			debug.css("background", "yellow");
-			debug.html("going");
-		}
+	}
+	// console.log("Move: " + timeFrom(time));
 	}
 }
 
@@ -152,26 +153,14 @@ function onMove(position) {
  * @param {Position} position The current position of the pointer.
  */
 function onEnd() {
+	var time = currentTime();
 	if (drag.inProgress) {
 		drag.end();
 		mouseDown = false;
 		var endResult = UIList.onEnd();
-		
-		var anyResponse = false;
-		for(var i = 0; i < endResult.length; i++) {
-			anyResponse = anyResponse || endResult[i];
-		}
-
-		if(anyResponse) {
-			debug.css("background", "green");
-			debug.html("response!");
-		} else {
-			debug.css("background", "red");
-			debug.html("no response");
-		}
-		
 		reset();
 	}
+	// console.log("End: " + timeFrom(time));
 }
 
 /**
@@ -179,7 +168,10 @@ function onEnd() {
  */
 function onTouchStart(e) {
 	e.preventDefault();
-	onStart(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
+	if (e.touches.length == 1) {
+		touchS = e;
+		onStart(new Position(e.touches[0].pageX, e.touches[0].pageY));
+	}
 	
 }
 
@@ -188,7 +180,8 @@ function onTouchStart(e) {
  */
 function onTouchMove(e) {
 	e.preventDefault();
-	onMove(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
+	touchM = e;
+	onMove(new Position(e.touches[0].pageX, e.touches[0].pageY));
 }
 
 /**
@@ -196,6 +189,7 @@ function onTouchMove(e) {
  */
 function onTouchEnd(e) {
 	e.preventDefault();
+	touchE = e;
 	onEnd();
 }
 

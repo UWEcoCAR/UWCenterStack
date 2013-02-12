@@ -9,7 +9,7 @@ function Slider(name, sliderImage, sliderDiameter, position, diameter, startAngl
 		this.x = 25;
 	this.startAngle = startAngle;
 		this.max = Math.sin(this.startAngle) * this.diameter + this.position.y;
-		this.min = Math.sin(this.startAngle - Math.PI/2) * this.diameter + this.position.y;
+		this.min = Math.sin(-this.startAngle) * this.diameter + this.position.y;
 	this.options = options;
 	this.isRightSide = isRightSide;
 
@@ -46,7 +46,7 @@ function Slider(name, sliderImage, sliderDiameter, position, diameter, startAngl
 					this.targets[i].style.backgroundSize = "contain";
 				var rotation = this.startAngle - this.startAngle*2/(this.options.length - 1) * i;
 				this.targets[i].style.webkitTransformOrigin = this.diameter + "px center";
-				this.targets[i].style.webkitTransform = "translate(" + (width/2 - this.diameter + (this.isRightSide?10:-10)) + "px, " + (height/2 - 10) + "px) rotate(" + (rotation/Math.PI*180 + (this.isRightSide?180:0)) + "deg)";
+				this.targets[i].style.webkitTransform = "translate(" + (this.position.x - this.diameter + (this.isRightSide?10:-10)) + "px, " + (this.position.y - 10) + "px) rotate(" + (rotation/Math.PI*180 + (this.isRightSide?180:0)) + "deg)";
 				this.targetHeights[i] = Math.sin(rotation) * this.diameter + this.position.y;
 
 			this.titles[i] = document.createElement('div');
