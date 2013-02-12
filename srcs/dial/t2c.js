@@ -144,7 +144,6 @@ function onMove(position) {
 		var endResult = UIList.onMove(position);
 	}
 	// console.log("Move: " + timeFrom(time));
-	}
 }
 
 /**
