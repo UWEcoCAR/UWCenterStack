@@ -1,4 +1,4 @@
-<project name="UWCenterStack" default="build" basedir=".">
+<project name="UWCenterStack" default="zip" basedir=".">
     <description>
         Builds UWCenterStack for use on an iMX.6 Freecale proccessor board.
     </description>
@@ -18,19 +18,20 @@
         <tstamp/>
         <!-- Create the build directory structure used by compile -->
         <mkdir dir="${build}"/>
+        <mkdir dir="${build.output}"/>
+        
+        <!-- Copy the project src code (and config.xml and icon) into ${build.project} -->
         <copy todir="${build.project.src}">
             <fileset dir="${src}"/>
         </copy>
         <copy file="${config.file}" todir="${build.project}"/>
         <copy file="${icon.file}" todir="${build.project}"/>
-        <mkdir dir="${build.output}"/>
     </target>
     
     <target name="sass-compile" depends="init" description="Compiles all sass and scss files into css">
         <apply executable="sass" dest="${build.project.src}" verbose="true" force="true" failonerror="true">
             <srcfile />
             <targetfile />
-            
             <fileset dir="${build.project.src}" includes="**/*.scss,**/*.sass" />
             <firstmatchmapper>
                 <globmapper from="*.sass" to="*.css" />
@@ -39,25 +40,55 @@
         </apply>
     </target>
     
+    <target name="minify.js" depends="init">
+        <!-- Minifiy all .js files and save them with -temp.min.js -->
+        <apply dest="${build.project}" executable="java" parallel="false">
+            <fileset dir="${build.project}" includes="**/*.js" excludes="**/*-temp.min.js" />
+            <arg line="-jar"/>
+            <arg path="lib/yuicompressor-2.4.4.jar"/>
+            <srcfile/>
+            <arg line="-o"/>
+            <mapper type="glob" from="*.js" to="*-temp.min.js"/>
+            <targetfile/>
+        </apply>
+        
+        <!-- Replace the original .js files with the minified version -->
+        <move todir="${build.project}">
+            <fileset dir="${build.project}"/>
+            <mapper type="glob" from="*-temp.min.js" to="*.js"/>
+        </move>
+        <delete>
+            <fileset dir="${build.project}" includes="**/*-temp.min.js" />
+        </delete>
+    </target>
+    
+    <target name="minify.css" depends="init, sass-compile">
+        <!-- Minifiy all .css files and save them with -temp.min.css -->
+        <apply dest="${build.project}" executable="java" parallel="false">
+            <fileset dir="${build.project}" includes="**/*.css" excludes="**/*-temp.min.css" />
+            <arg line="-jar"/>
+            <arg path="lib/yuicompressor-2.4.4.jar"/>
+            <srcfile/>
+            <arg line="-o"/>
+            <mapper type="glob" from="*.css" to="*-temp.min.css"/>
+            <targetfile/>
+        </apply>
+    	
+        <!-- Replace the original .css files with the minified version -->
+        <move todir="${build.project}">
+            <fileset dir="${build.project}"/>
+            <mapper type="glob" from="*-temp.min.css" to="*.css"/>
+        </move>
+        <delete>
+            <fileset dir="${build.project}" includes="**/*-temp.min.css" />
+        </delete>
+    </target>
+    
     <target name="zip" depends="sass-compile" description="Zip all of the generated files" >
         <zip destfile="${zip.file}"
             basedir="${build.project}"
             excludes="**/*.scss,**/*.sass"
         />
-    </target>
-    
-    <target name="compile" depends="init"
-        description="compile the source " >
-        <!-- Compile the java code from ${src} into ${build} -->
-        <javac srcdir="${src}" destdir="${build}"/>
-    </target>
-    
-    <target name="build" depends="compile" description="generate the distribution" >
-        <!-- Create the distribution directory -->
-        <mkdir dir="${dist}/lib"/>
-        
-        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
     </target>
     
     <target name="clean" description="clean up" >
