@@ -21,7 +21,7 @@
         <mkdir dir="${build.output}"/>
         
         <!-- Copy the project src code (and config.xml and icon) into ${build.project} -->
-        <copy todir="${build.project.src}">
+        <copy todir="${build.project.src}" overwrite="true">
             <fileset dir="${src}"/>
         </copy>
         <copy file="${config.file}" todir="${build.project}"/>
@@ -38,6 +38,11 @@
                 <globmapper from="*.scss" to="*.css" />
             </firstmatchmapper>
         </apply>
+        
+        <!-- Delete the original .scss and sass files -->
+        <delete>
+            <fileset dir="${build.project}" includes="**/*.scss,**/*.sass" />
+        </delete>
     </target>
     
     <target name="minify.js" depends="init">
@@ -84,10 +89,9 @@
         </delete>
     </target>
     
-    <target name="zip" depends="sass-compile" description="Zip all of the generated files" >
+    <target name="zip" depends="minify.js, minify.css" description="Zip all of the generated files" >
         <zip destfile="${zip.file}"
             basedir="${build.project}"
-            excludes="**/*.scss,**/*.sass"
         />
     </target>
     
