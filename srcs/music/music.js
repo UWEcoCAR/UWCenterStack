@@ -1,4 +1,5 @@
 var choices;
+var navOptions;
 var width;
 var height;
 var navigation;
@@ -21,6 +22,8 @@ window.onload = function onLoad() {
 	
 	choices = new Array("Artists", "Albums", "Songs", "Playlists", "Genres");
 
+	
+	//set up the buttons
 	for (var i = 0; i < choices.length; i++) {
 		var x = 150;
 		if (i == 0 || i == choices.length - 1) {
@@ -28,20 +31,41 @@ window.onload = function onLoad() {
 		} else if (i == 1 || i == choices.length - 2) {
 			x = 165;
 		}
-		createDiv(x, 130 + 80 * i, choices[i], 100, 50);
-	};	
+		createDiv(x, 130 + 80 * i, choices[i], 100, 50, 'buttons');
+	};
+	
+	navOptions = new Array("", "", "", "", "");
+	changeNav(navOptions);
 	
 	selectionPath = "";
 	currentChoice = 0;
+
+	var wheelX = $("#select").position.x;
+	var wheelY = $("#select").position.y;
+}
+
+// Sets up the top Navigation semi circle with the given array of options
+function changeNav(navOptions) {
+	$(".navigate").remove();
+	for (var i = 0; i < navOptions.length; i++) {
+		var x = 150;
+		var y = 20;
+		if (i == 0 || i == navOptions.length - 1) {
+			y = 60;
+		} else if (i == 1 || i == navOptions.length - 2) {
+			y = 40;
+		}
+		createDiv(300 + 90 * i, y, navOptions[i], 100, 50, 'navigate');
+	};	
 }
 
 // For touch screen, sets up options for music app
-function createDiv(x, y, value, width, height) {
+function createDiv(x, y, value, width, height, whatClass) {
 	var newDiv = document.createElement("div");
 	newDiv.style.position = "absolute";
 	newDiv.style.left = x + 'px';
 	newDiv.style.top = y + 'px';
-	newDiv.className = 'buttons';
+	newDiv.className = whatClass;
 	newDiv.innerHTML = value;
     $('#container').append(newDiv)
 }
@@ -92,37 +116,90 @@ function onTouchEnd(e) {
 // updates the information based on what button was touched
 function onStart(x, y) {
 	var buttons = $(".buttons");
-	for (var i = 0; i < buttons.length; i++) {
-		// determine if it touches any of the buttons
-		var buttonWidth = $(buttons[i]).width();
-		var buttonHeight = $(buttons[i]).height();
-		var buttonX = parseInt(buttons[i].style.left);
-		var buttonY = parseInt(buttons[i].style.top);
-		// determine which button was pressed
-		if (x - buttonX <= buttonHeight && x - buttonX >= 0 &&
-				y - buttonY <= buttonWidth && y - buttonY >= 0) {
-			currentChoice = i;
-			topOfWheel = choices[i];
-			$("#nav").html(topOfWheel);
-			selectionPath = topOfWheel;
-			populateNewWheel(i);
-		}
-	}
+	var navs = $(".navigate");
+	// select button selected
 	if (y > 200 && y < 400 && x > 450 && x < 900) { 
-		topOfWheel = $(".options")[1];
-		changePath(topOfWheel.innerHTML);
+		topOfWheel = $(".options")[0];
+		changePath(topOfWheel.innerHTML, true);
+		currentChoice++;
 		generateSpecificChoices(topOfWheel.innerHTML);
 		// move from artists -> album -> song
-		currentChoice++;
+	} else {
+		for (var i = 0; i < buttons.length; i++) {
+			// determine if it touches any of the buttons
+			var buttonWidth = $(buttons[i]).width();
+			var buttonHeight = $(buttons[i]).height();
+			var buttonX = parseInt(buttons[i].style.left);
+			var buttonY = parseInt(buttons[i].style.top);
+			// determine which option was pressed
+			if (x - buttonX <= buttonWidth && x - buttonX >= 0 &&
+					y - buttonY <= buttonHeight && y - buttonY >= 0) {
+				currentChoice = i;
+				topOfWheel = choices[i];
+				changePath(topOfWheel, false);
+				selectionPath = topOfWheel;
+				populateNewWheel(i);
+			}
+		}
+		for (var i = 0; i < navs.length; i++) {
+			var navWidth = $(navs[i]).width();
+			var navHeight = $(navs[i]).height();
+			var navX = parseInt(navs[i].style.left);
+			var navY = parseInt(navs[i].style.top);
+			if (x - navX <= navWidth && x - navX >= 0 &&
+					y - navY <= navHeight && y - navY >= 0) {
+				if (navOptions[i].length != 0) { //valid choice
+					// clear out the rest of the information in the nav
+					for (var j = i + 1; j < navs.length; j++) {
+						$(navs[j]).html("");
+					}
+					// reset wheel
+					
+					if (i == 0) { //"All Artists/Playlists/Songs/Etc"
+						var musicType = navOptions[0].substring(4).toUpperCase();
+						var info;
+						//getSongs(artist, album, genre, playlist)
+						if (musicType === "ARTISTS") {
+							info = getArtists();
+						} else if (musicType === "ALBUMS") {
+							info = getAlbums();
+						} else if (musicType === "PLAYLISTS") {
+							info = getPlaylists();
+						} else if (musicType === "SONGS") {
+							info = getSongs();
+						} else {
+							info = getGenres();
+						}
+						generateWheelChoices(info);
+					} else {
+						var info = navOptions[0];
+					}
+				}
+			}
+		}
+		//determine if nav touched
+		
 	}
-
 }
 
 // Takes in the name of a button and changes the
 // selection path to include that name
-function changePath(name, num) {
-	selectionPath += "/" + name;
-	$("#nav").html(selectionPath);
+function changePath(name, isSelectButton, num) {
+	$("#nav").remove();
+	if (!isSelectButton) {
+		navOptions = new Array("All " + name, "", "", "", "");
+		clickHandler = new Array(populateNewWheel(num));
+		changeNav(navOptions);	
+	} else {
+		var position = 0;
+		for (var i = 1; i < navOptions.length; i++) {
+			if (navOptions[i].length == 0 && position == 0) {
+				position = i;
+			}
+		}
+		navOptions[position] = name;
+		changeNav(navOptions);
+	}
 }
 
 // Gets the next information to be displayed around the wheel
@@ -130,19 +207,19 @@ function changePath(name, num) {
 // choices = new Array("Artists", "Albums", "Songs", "Playlists", "Genres");
 function populateNewWheel(num) {
 	var info;
-	if (!currentlyNavigating) {
-		if (num == 0) {			//artists -> display all artists
-			info = getArtists();
-		} else if (num == 1) {	//albums -> display all albums
-			info = getAlbums();
-		} else if (num == 2) {	// Songs -> all songs
-			info = getSongs();
-		} else if (num == 3) {  // Playlists -> display all playlists
-			info = getPlaylists();
-		} else {				// genre -> display all genres
-			info = getGenres();
-		}
+
+	if (num == 0) {			//artists -> display all artists
+		info = getArtists();
+	} else if (num == 1) {	//albums -> display all albums
+		info = getAlbums();
+	} else if (num == 2) {	// Songs -> all songs
+		info = getSongs();
+	} else if (num == 3) {  // Playlists -> display all playlists
+		info = getPlaylists();
+	} else {				// genre -> display all genres
+		info = getGenres();
 	}
+
 	generateWheelChoices(info);
 }
 
@@ -154,17 +231,17 @@ function generateSpecificChoices(data) {
 		info = getAlbums(data);
 		generateWheelChoices(info);
 	} else if (currentChoice == 2) {	//albums -> display all songs in that album
-		info = getSongs(data);
+		info = getSongs("", data);
 		generateWheelChoices(info);
 	} else if (currentChoice == 3) {	// Songs -> now playing
 		//now playing
 		$(".options").remove();
-	} else if (currentChoice == 4) {  	// Playlists -> display all playlists
-		generateWheelChoices(getSongs(data));
+	} else if (currentChoice == 4) {  	// Playlists -> display all songs for that playlist
+		generateWheelChoices(getSongs("", "", "", data));
 	} else {							// genre - display songs by genre
-		generateWheelChoices(getSongs(data));
+		generateWheelChoices(getSongs("", "", data));
 	}
-
+	//getSongs(artist, album, genre, playlist)
 }
 
 // Removes all of the existing choices around the wheel
@@ -172,35 +249,38 @@ function generateSpecificChoices(data) {
 // the information is an array of artists, songs, albums, etc
 function generateWheelChoices(info) {
 	$(".options").remove();
-	var x = 350;
-	var y = 300;
-	var middle = 1;
-	// currently only displays 3 around the wheel
-	// left, top, middle
-	for (var i = 0; i < 3; i++) {
-		var name = info[i];
-		if (name != null) {
-			//alignment around wheel
-			if (i == middle) {
-				y = 190;
-			} else if (i == 2) {
-				x = 600;
-				y = 300;
+	var x = 450; 
+	var middle = 2; // middle element
+	// currently only displays 6 around the wheel
+	// left, top right, middle, bottom right, bottom
+	for (var i = 0; i < 5; i++) {
+		if (info != null) {
+			var name = info[i];
+			var y = 190 + i * 50;
+			if (name != null) {
+				// shorten the name
+				if (name.length >= 12 && !(i == 0 || i == 4) || name.length > 15) {
+					name = name.substring(0, 12) + "...";
+				}
+				//alignment around wheel
+				if (i == middle) {
+					x = 600;
+				} else if (i == middle - 1 || i == middle + 1) {
+					x = 590;
+				} else {
+					var length
+					x = 500 - name.length * 3;
+				}
+				// clip the length of the string
+				// create new choices
+				var newDiv = document.createElement("div");
+				newDiv.style.position = "absolute";
+				newDiv.style.left = x + 'px';
+				newDiv.style.top = y + 'px';
+				newDiv.className = 'options';
+				newDiv.innerHTML = name;
+				$('#container').append(newDiv);
 			}
-			// clip the length of the string
-			if (i != middle && name != null && name.length >= 8) {
-				name = name.substring(0, 5) + "...";
-			} else if (i == middle && name.length >= 8) {
-				x = 460;
-			}
-			// create new choices
-			var newDiv = document.createElement("div");
-			newDiv.style.position = "absolute";
-			newDiv.style.left = x + 'px';
-			newDiv.style.top = y + 'px';
-			newDiv.className = 'options';
-			newDiv.innerHTML = info[i];
-			$('#container').append(newDiv);
 		}
 	}
 
