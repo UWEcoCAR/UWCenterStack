@@ -1,4 +1,6 @@
 *.metadata
 *.project
-*.DS_Store
 .DS_Store
+
+build
+.sass-cache

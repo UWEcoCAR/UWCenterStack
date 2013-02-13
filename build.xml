@@ -1,0 +1,67 @@
+<project name="UWCenterStack" default="build" basedir=".">
+    <description>
+        Builds UWCenterStack for use on an iMX.6 Freecale proccessor board.
+    </description>
+    
+    <!-- set global properties for this build -->
+    <property name="src" location="srcs"/>
+    <property name="build" location="build"/>
+    <property name="build.project" location="${build}/project"/>
+    <property name="build.project.src" location="${build.project}/srcs"/>
+    <property name="build.output" location="${build}/output"/>
+    <property name="zip.file" location="${build.output}/UWCenterStack.zip"/>
+    <property name="config.file" location="config.xml"/>
+    <property name="icon.file" location="icon.png"/>
+    
+    <target name="init" description="Setup build directories and copy project files into build/project directory">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+        <copy todir="${build.project.src}">
+            <fileset dir="${src}"/>
+        </copy>
+        <copy file="${config.file}" todir="${build.project}"/>
+        <copy file="${icon.file}" todir="${build.project}"/>
+        <mkdir dir="${build.output}"/>
+    </target>
+    
+    <target name="sass-compile" depends="init" description="Compiles all sass and scss files into css">
+        <apply executable="sass" dest="${build.project.src}" verbose="true" force="true" failonerror="true">
+            <srcfile />
+            <targetfile />
+            
+            <fileset dir="${build.project.src}" includes="**/*.scss,**/*.sass" />
+            <firstmatchmapper>
+                <globmapper from="*.sass" to="*.css" />
+                <globmapper from="*.scss" to="*.css" />
+            </firstmatchmapper>
+        </apply>
+    </target>
+    
+    <target name="zip" depends="sass-compile" description="Zip all of the generated files" >
+        <zip destfile="${zip.file}"
+            basedir="${build.project}"
+            excludes="**/*.scss,**/*.sass"
+        />
+    </target>
+    
+    <target name="compile" depends="init"
+        description="compile the source " >
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}"/>
+    </target>
+    
+    <target name="build" depends="compile" description="generate the distribution" >
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/lib"/>
+        
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar" basedir="${build}"/>
+    </target>
+    
+    <target name="clean" description="clean up" >
+        <!-- Delete the ${build} directory trees -->
+        <delete dir="${build}"/>
+    </target>
+</project>
