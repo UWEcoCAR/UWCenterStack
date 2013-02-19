@@ -10,6 +10,33 @@ var wheelChoices;
 var topOfWheel;
 
 
+
+// Array of values for left, top, right sides.  Array for what is displayed around the click wheel.
+// When the screen in touched, determine what was clicked on/ what was touched.
+// Update the appropriate information - update method for each clickable region.
+
+// to model volume/pure slide element, just use y position?  However far it is dictates volume?
+
+// for top navigation in the music app:
+//	when a user clicks one of them, pass which one (use array indices?)
+//	update information around the wheel appropriately using musicLibrary
+//	when song is selected, set a global var for that song object, so we have access to its information
+//	also need to know if we have been navigating from artists or from playlists/etc to determine
+//		appropriate options
+
+// selecting by ARTIST/ALBUM/SONG is similar
+
+// All Artists 		-> All Albums 	-> All Songs 					-> Now Playing
+
+// only lay it out as 4 options?
+
+// PLAYLISTS and GENRES are similar
+
+// All Playlists 	-> Playlist 	-> Artist		-> Album 		-> Now Playing
+// All Genres		-> Genre		-> Artist		-> Album		-> Now Playing
+
+// 2 cases -> 2 global arrays, 2 boolean tests?
+
 window.onload = function onLoad() {	
 	width = window.innerWidth;
 	height = window.innerHeight;
@@ -152,6 +179,7 @@ function onStart(x, y) {
 					// clear out the rest of the information in the nav
 					for (var j = i + 1; j < navs.length; j++) {
 						$(navs[j]).html("");
+						navOptions[j] = "";
 					}
 					// reset wheel
 					
