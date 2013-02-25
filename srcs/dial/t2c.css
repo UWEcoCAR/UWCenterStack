@@ -1,7 +1,6 @@
 body {
 	margin: 0px;
 	padding: 0px;
-	text-align: center;
 	background-color:black;
 	overflow: hidden;
 }
@@ -15,8 +14,9 @@ body {
 
 #parent {
 	background-image: url(bg.jpeg);
+	overflow: hidden;
 }
 
-div {
+div , canvas {
 	position: absolute;
 }

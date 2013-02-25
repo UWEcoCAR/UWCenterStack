@@ -9,10 +9,6 @@
 
 // ELEMENTS
 var debug; 		// paragraph element to print debug info
-var dialCanvas;
-	var dialCtx;
-var cornerCanvas;
-	var cornerCanvas;
 
 // VARIABLES
 var width,		// dimensions of window
@@ -49,7 +45,6 @@ window.onload = function onLoad() {
 	parent = document.getElementById("parent");
 		parent.style.height = height + "px";
 		parent.style.width = width + "px";
-		parent.style.overflow = "hidden";
 
 	// Add touch handlers
 	parent.addEventListener("touchstart", onTouchStart, false);
@@ -78,6 +73,7 @@ window.onload = function onLoad() {
 	UIList.add(bl);
 	UIList.add(br);
 
+	// create buttons
 	var callback = new function() {
 		if(parent.style.backgroundImage == "none") {
 			parent.style.backgroundImage = "url(bg.jpeg)";
@@ -86,7 +82,6 @@ window.onload = function onLoad() {
 		}
 	}
 
-	// create buttons
 	var l = new Button("l", 'buttonUp.png', 'buttonDown.png', 75, new Position(width/2 - 75, 365), callback);
 	var m = new Button("m", 'buttonUp.png', 'buttonDown.png', 100, new Position(width/2, 365), callback);
 	var r = new Button("r", 'buttonUp.png', 'buttonDown.png', 75, new Position(width/2 + 75, 365), callback);
@@ -96,11 +91,15 @@ window.onload = function onLoad() {
 	UIList.add(r);
 
 	// create sliders
-	rSlider = new Slider("rSlider", "buttonUp.png", 110, new Position(512, 365), 330, Math.PI/4 *.75, false, true);
-	lSlider = new Slider("rSlider", "buttonUp.png", 110, new Position(512, 365), 330, Math.PI/4 * .75, ["Artist", "Album", "Song", "Genre", "Playlist"], false);
+	rSlider = new Slider("rSlider", "buttonUp.png", 90, new Position(562, 365), 314, Math.PI/4 * .9, false, true);
+	lSlider = new Slider("lSlider", "buttonUp.png", 90, new Position(462, 365), 314, Math.PI/4 * .9, ["Playlist", "Genre", "Song", null, "Artist"], false);
 	
 	UIList.add(rSlider);
 	UIList.add(lSlider);
+
+	tSlider = new VerticalSlider("tSlider", "buttonUp.png", 90, new Position(512, 315), 314, Math.PI/4 * .9, ["Now Playing", null, null, "Maroon 5", "All Songs"], true);
+
+	UIList.add(tSlider);
 
 	// set framerate
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
@@ -123,11 +122,9 @@ function reset() {
  * @param {Position} position The current position of the pointer
  */
 function onStart(position) {
-	var time = currentTime();
+	// var time = currentTime();
 	drag = new Drag(position);
 	UIList.onStart(position);
-	debug.css("background", "blue");
-	debug.html("started");
 	// console.log("Start: " + timeFrom(time));
 }
 
@@ -138,7 +135,7 @@ function onStart(position) {
  * @param {Position} position The current position of the pointer.
  */
 function onMove(position) {
-	var time = currentTime();
+	// var time = currentTime();
 	if (drag && drag.inProgress){
 		drag.addPosition(position);
 		var endResult = UIList.onMove(position);
@@ -152,11 +149,10 @@ function onMove(position) {
  * @param {Position} position The current position of the pointer.
  */
 function onEnd() {
-	var time = currentTime();
+	// var time = currentTime();
 	if (drag.inProgress) {
 		drag.end();
-		mouseDown = false;
-		var endResult = UIList.onEnd();
+		UIList.onEnd();
 		reset();
 	}
 	// console.log("End: " + timeFrom(time));
@@ -168,7 +164,6 @@ function onEnd() {
 function onTouchStart(e) {
 	e.preventDefault();
 	if (e.touches.length == 1) {
-		touchS = e;
 		onStart(new Position(e.touches[0].pageX, e.touches[0].pageY));
 	}
 	
@@ -179,7 +174,6 @@ function onTouchStart(e) {
  */
 function onTouchMove(e) {
 	e.preventDefault();
-	touchM = e;
 	onMove(new Position(e.touches[0].pageX, e.touches[0].pageY));
 }
 
@@ -188,7 +182,6 @@ function onTouchMove(e) {
  */
 function onTouchEnd(e) {
 	e.preventDefault();
-	touchE = e;
 	onEnd();
 }
 

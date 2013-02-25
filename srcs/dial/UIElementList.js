@@ -26,7 +26,6 @@ function UIElementList(parent) {
 	 * then redraws all elements
 	 */
 	this.onMove = function(position) {
-
 		for (var i = 0; i < this.list.length; i++) {
 			this.list[i].onMove(position);
 		}
