@@ -1,17 +1,20 @@
-<project name="UWCenterStack" default="zip" basedir=".">
+<project name="UWCenterStack" default="build" basedir=".">
     <description>
         Builds UWCenterStack for use on an iMX.6 Freecale proccessor board.
     </description>
     
     <!-- set global properties for this build -->
     <property name="src" location="srcs"/>
+    <property name="lib" location="lib"/>
     <property name="build" location="build"/>
+    <property name="build.lib" location="${build}/lib"/>
     <property name="build.project" location="${build}/project"/>
     <property name="build.project.src" location="${build.project}/srcs"/>
     <property name="build.output" location="${build}/output"/>
     <property name="zip.file" location="${build.output}/UWCenterStack.zip"/>
     <property name="config.file" location="config.xml"/>
     <property name="icon.file" location="icon.png"/>
+    <property name="bbwp" location="${lib}/BBWP-1.0.2.9/bbwp"/>
     
     <target name="init" description="Setup build directories and copy project files into build/project directory">
         <!-- Create the time stamp -->
@@ -45,54 +48,18 @@
         </delete>
     </target>
     
-    <target name="minify.js" depends="init">
-        <!-- Minifiy all .js files and save them with -temp.min.js -->
-        <apply dest="${build.project}" executable="java" parallel="false">
-            <fileset dir="${build.project}" includes="**/*.js" excludes="**/*-temp.min.js" />
-            <arg line="-jar"/>
-            <arg path="lib/yuicompressor-2.4.4.jar"/>
-            <srcfile/>
-            <arg line="-o"/>
-            <mapper type="glob" from="*.js" to="*-temp.min.js"/>
-            <targetfile/>
-        </apply>
-        
-        <!-- Replace the original .js files with the minified version -->
-        <move todir="${build.project}">
-            <fileset dir="${build.project}"/>
-            <mapper type="glob" from="*-temp.min.js" to="*.js"/>
-        </move>
-        <delete>
-            <fileset dir="${build.project}" includes="**/*-temp.min.js" />
-        </delete>
-    </target>
-    
-    <target name="minify.css" depends="init, sass-compile">
-        <!-- Minifiy all .css files and save them with -temp.min.css -->
-        <apply dest="${build.project}" executable="java" parallel="false">
-            <fileset dir="${build.project}" includes="**/*.css" excludes="**/*-temp.min.css" />
-            <arg line="-jar"/>
-            <arg path="lib/yuicompressor-2.4.4.jar"/>
-            <srcfile/>
-            <arg line="-o"/>
-            <mapper type="glob" from="*.css" to="*-temp.min.css"/>
-            <targetfile/>
-        </apply>
-    	
-        <!-- Replace the original .css files with the minified version -->
-        <move todir="${build.project}">
-            <fileset dir="${build.project}"/>
-            <mapper type="glob" from="*-temp.min.css" to="*.css"/>
-        </move>
-        <delete>
-            <fileset dir="${build.project}" includes="**/*-temp.min.css" />
-        </delete>
-    </target>
-    
-    <target name="zip" depends="minify.js, minify.css" description="Zip all of the generated files" >
+    <target name="zip" depends="sass-compile" description="Zip all of the generated files" >
         <zip destfile="${zip.file}"
             basedir="${build.project}"
         />
+    </target>
+    
+    <target name="build" depends="zip" description="Builds the application for deployment" >
+        <exec executable="${bbwp}">
+            <arg value="-d"/>
+            <arg value="${zip.file}"/>
+        </exec>
+        <delete file="${zip.file}"/>
     </target>
     
     <target name="clean" description="clean up" >
