@@ -7,6 +7,7 @@ Ext.Loader.setPath({
 
 Ext.application({
     name: 'UWCenterStack',
+    views: ['Dial', 'DialSelector', 'RoundList', 'RoundListItem'],
     stores: ['Songs'],
     models: ['Song'],
     controllers: ['MusicControl'],
@@ -15,13 +16,9 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
-        var list = Ext.create('Ext.dataview.List', {
-            fullscreen: true,
-            store: 'Songs',
-            itemTpl: '{title} - {album} - {artist} - {genre}'
-        })
+        var dial = Ext.create('UWCenterStack.view.DialSelector');
 
         // Initialize the main view
-        Ext.Viewport.add(list);
+        Ext.Viewport.add(dial);
     }
 });
