@@ -1,0 +1,9 @@
+body {
+	background-image:url('carbonfiberfinal.jpg');
+}
+
+#home {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
