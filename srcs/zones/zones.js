@@ -80,59 +80,31 @@ window.onload = function onLoad() {
 	}
 	dialImage.src = 'dial.png';
 
-	//create corners
-	var cornerImage = new Image();
-	cornerImage.onload = function() {
-		var tl = new Corner(cornerCtx, "tl", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,0));
-		var tr = new Corner(cornerCtx, "tr", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,0));
-		var bl = new Corner(cornerCtx, "bl", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(0,height));
-		var br = new Corner(cornerCtx, "br", cornerImage, NORMAL_SIZE, SENSITIVITY, MAX_SIZE, new Position(width,height));
+	zoneManager = new ZoneManager();
+		zone1a = new Zone(dialCtx, "zone1a", new Position(width/2 + 168, height/2), 30);
+		zone1b = new Zone(dialCtx, "zone1b", new Position(width/2 + 468, height/2), 30);
+		zone2a = new Zone(dialCtx, "zone2a", new Position(width/2 + 100, height/2 + 135), 30);
+		zone2b = new Zone(dialCtx, "zone2b", new Position(width/2 + 400, height/2 + 135), 30);
+		zone3a = new Zone(dialCtx, "zone3a", new Position(width/2 + 100, height/2 - 135), 30);
+		zone3b = new Zone(dialCtx, "zone3b", new Position(width/2 + 400, height/2 - 135), 30);
 
-		UIList.add(tl);
-		UIList.add(tr);
-		UIList.add(bl);
-		UIList.add(br);
-		UIList.draw();
-	}
-	cornerImage.src = 'circle.png';
+		zone4a = new Zone(dialCtx, "zone4a", new Position(width/2 - 168, height/2), 30);
+		zone4b = new Zone(dialCtx, "zone4b", new Position(width/2 - 468, height/2), 30);
+		zone5a = new Zone(dialCtx, "zone5a", new Position(width/2 - 100, height/2 + 135), 30);
+		zone5b = new Zone(dialCtx, "zone5b", new Position(width/2 - 400, height/2 + 135), 30);
+		zone6a = new Zone(dialCtx, "zone6a", new Position(width/2 - 100, height/2 - 135), 30);
+		zone6b = new Zone(dialCtx, "zone6b", new Position(width/2 - 400, height/2 - 135), 30);
 
-	// create buttons
-	var buttonImage1 = new Image();
-	buttonImage1.onload = function() {
-		buttonImage2 = new Image();
-		buttonImage2.onload = function() {
-			var l = new Button(dialCtx, "l", buttonImage1, buttonImage2, 100, new Position(width/2 - 150, height - 100), "<<");
-			var m = new Button(dialCtx, "m", buttonImage1, buttonImage2, 100, new Position(width/2, height - 50), "||");
-			var r = new Button(dialCtx, "r", buttonImage1, buttonImage2, 100, new Position(width/2 +150, height - 100), ">>");
+		zoneManager.link(zone1a, zone1b);
+		zoneManager.link(zone2a, zone2b);
+		zoneManager.link(zone3a, zone3b);
 
-			UIList.add(l);
-			UIList.add(m);
-			UIList.add(r);
-			UIList.draw();
-		}
-		buttonImage2.src = 'buttonDown.png';
-	}
-	buttonImage1.src = 'buttonUp.png';
+		zoneManager.link(zone4a, zone4b);
+		zoneManager.link(zone5a, zone5b);
+		zoneManager.link(zone6a, zone6b);
+	UIList.add(zoneManager);
 
-	// create guide
-	var guideImage = new Image();
-	guideImage.onload = function() {
-		var guide = new Guide(cornerCtx, "guide", guideImage, MAX_SIZE);
-		UIList.add(guide);
-		UIList.draw();
-	}
-	guideImage.src = 'circle.png'; 
-
-	var sliderImage = new Image();
-	sliderImage.onload = function() {
-		var rSlider = new Slider(dialCtx, "rSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4, -Math.PI/4, true);
-		var lSlider = new Slider(dialCtx, "lSlider", sliderImage, new Position(width/2, height/2), 350, Math.PI/4*3, - Math.PI/4 *3, false);
-		UIList.add(rSlider);
-		UIList.add(lSlider);
-		UIList.draw();
-	}
-	sliderImage.src = 'buttonUp.png';
-
+	UIList.draw();
 	// set framerate
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
 }
@@ -157,7 +129,7 @@ function onStart(position) {
 	drag = new Drag(position);
 	UIList.onStart(position);
 	debug.css("background", "blue");
-	debug.html("started");
+	debug.html("starting");
 }
 
 /**
