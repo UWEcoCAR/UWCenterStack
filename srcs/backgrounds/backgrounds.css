@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+/* body {
+	background-image: url('images/Date_and_time_light.png');
+} */
+
+h1 {
+	color: white;
+	text-align: center;
+	position: absolute;
+	left:100px;
+	top:50px;
+}
