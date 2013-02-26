@@ -1,23 +1,14 @@
-function UIElementList(contexts) {
+function UIElementList(parent) {
 	this.list = new Array();
-	this.ctxList = contexts;
-
+	this.parent = parent;
+	this.zIndex = 0;
 	/**
 	 * Adds a UI Element to the list
 	 * @param element any element from UIElements.js
 	 */
 	this.add = function(element){
 		this.list.push(element);
-	}
-
-	/**
-	 * Clears canvas and calls the draw function on each element in the list
-	 */
-	this.draw = function() {
-		this.clear();
-		$.each(this.list, function(index, element) {
-			element.draw();
-		});
+		this.zIndex = element.onAdd(this.parent, this.zIndex);
 	}
 
 	/**
@@ -25,10 +16,9 @@ function UIElementList(contexts) {
 	 * then redraws all elements
 	 */
 	this.onStart = function(position) {
-		$.each(this.list, function(index, element) {
-			element.onStart(position);
-		});
-		this.draw();
+		for (var i = 0; i < this.list.length; i++) {
+			this.list[i].onStart(position);
+		}
 	}
 
 	/**
@@ -36,12 +26,9 @@ function UIElementList(contexts) {
 	 * then redraws all elements
 	 */
 	this.onMove = function(position) {
-		var returner = new Array();
-		$.each(this.list, function(index, element) {
-			returner.push(element.onMove(position));
-		});
-		this.draw();
-		return returner;
+		for (var i = 0; i < this.list.length; i++) {
+			this.list[i].onMove(position);
+		}
 	}
 
 	/**
@@ -49,13 +36,10 @@ function UIElementList(contexts) {
 	 * then redraws all elements
 	 * @return {false | x}
 	 */
-	this.onEnd = function(position) {
-		var returner = new Array();
-		$.each(this.list, function(index, element) {
-			returner.push(element.onEnd(position));
-		});
-		this.draw();
-		return returner;
+	this.onEnd = function() {
+		for (var i = 0; i < this.list.length; i++) {
+			this.list[i].onEnd();
+		}
 	}
 
 	/**
@@ -63,10 +47,9 @@ function UIElementList(contexts) {
 	 * then redraws all elements
 	 */
 	this.update = function() {
-		$.each(this.list, function(index, element) {
-			element.update();
-		});
-		this.draw();
+		for (var i = 0; i < this.list.length; i++) {
+			this.list[i].update();
+		}
 	}
 
 	/**
@@ -78,11 +61,5 @@ function UIElementList(contexts) {
 			needsUpdate = needsUpdate || this.list[i].needsUpdate;
 		}
 		return needsUpdate;
-	}
-
-	this.clear = function() {
-		$.each(this.ctxList, function(index, ctx) {
-			ctx.clearRect(0,0,width,height);
-		});
 	}
 }

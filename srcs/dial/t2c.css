@@ -1,8 +1,8 @@
 body {
 	margin: 0px;
 	padding: 0px;
-	text-align: center;
-	background-color: black;
+	background-color:black;
+	overflow: hidden;
 }
 
 #coord {
@@ -12,6 +12,11 @@ body {
 	margin: 0px;
 }
 
-canvas {
-  position: absolute;
+#parent {
+	background-image: url(bg.jpeg);
+	overflow: hidden;
+}
+
+div , canvas {
+	position: absolute;
 }

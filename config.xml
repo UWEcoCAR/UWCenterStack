@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><widget xmlns="http://www.w3.org/ns/widgets" xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.0">
-    <name>t2c</name><!-- Set by deployment app -->
+    <name>Sencha Dial</name><!-- Set by deployment app -->
     <author>University of Washington</author>
     <description/>
     <icon src="icon.png"/>
