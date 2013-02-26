@@ -2,9 +2,11 @@
     <description>
         Builds UWCenterStack for use on an iMX.6 Freecale proccessor board.
     </description>
+
+    <import file="${basedir}/.sencha/app/build-impl.xml"/>
     
     <!-- set global properties for this build -->
-    <property name="src" location="srcs"/>
+    <!-- <property name="src" location="srcs"/>
     <property name="lib" location="lib"/>
     <property name="build" location="build"/>
     <property name="build.lib" location="${build}/lib"/>
@@ -14,56 +16,51 @@
     <property name="zip.file" location="${build.output}/UWCenterStack.zip"/>
     <property name="config.file" location="config.xml"/>
     <property name="icon.file" location="icon.png"/>
-    <property name="bbwp" location="${lib}/BBWP-1.0.2.9/bbwp"/>
+    <property name="bbwp" location="${lib}/BBWP-1.0.2.9/bbwp"/> -->
     
-    <target name="init" description="Setup build directories and copy project files into build/project directory">
-        <!-- Create the time stamp -->
-        <tstamp/>
-        <!-- Create the build directory structure used by compile -->
-        <mkdir dir="${build}"/>
-        <mkdir dir="${build.output}"/>
-        
-        <!-- Copy the project src code (and config.xml and icon) into ${build.project} -->
-        <copy todir="${build.project.src}" overwrite="true">
-            <fileset dir="${src}"/>
-        </copy>
-        <copy file="${config.file}" todir="${build.project}"/>
-        <copy file="${icon.file}" todir="${build.project}"/>
-    </target>
-    
-    <target name="sass-compile" depends="init" description="Compiles all sass and scss files into css">
-        <apply executable="sass" dest="${build.project.src}" verbose="true" force="true" failonerror="true">
-            <srcfile />
-            <targetfile />
-            <fileset dir="${build.project.src}" includes="**/*.scss,**/*.sass" />
-            <firstmatchmapper>
-                <globmapper from="*.sass" to="*.css" />
-                <globmapper from="*.scss" to="*.css" />
-            </firstmatchmapper>
-        </apply>
-        
-        <!-- Delete the original .scss and sass files -->
-        <delete>
-            <fileset dir="${build.project}" includes="**/*.scss,**/*.sass" />
-        </delete>
-    </target>
-    
-    <target name="zip" depends="sass-compile" description="Zip all of the generated files" >
+    <!-- <target name="zip" description="Zip all of the generated files" >
         <zip destfile="${zip.file}"
             basedir="${build.project}"
         />
-    </target>
+    </target> -->
     
-    <target name="build" depends="zip" description="Builds the application for deployment" >
+    <!-- <target name="build-test" depends="zip" description="Builds the application for deployment" >
         <exec executable="${bbwp}">
             <arg value="-d"/>
             <arg value="${zip.file}"/>
         </exec>
         <delete file="${zip.file}"/>
-    </target>
-    
-    <target name="clean" description="clean up" >
-        <!-- Delete the ${build} directory trees -->
-        <delete dir="${build}"/>
-    </target>
+    </target> -->
+
+    <!--
+    The following targets can be provided to inject logic before and/or after key steps
+    of the build process:
+
+        The "init-local" target is used to initialize properties that may be personalized
+        for the local machine.
+
+            <target name="-before-init-local"/>
+            <target name="-after-init-local"/>
+
+        The "clean" target is used to clean build output from the build.dir.
+
+            <target name="-before-clean"/>
+            <target name="-after-clean"/>
+
+        The general "init" target is used to initialize all other properties, including
+        those provided by Sencha Cmd.
+
+            <target name="-before-init"/>
+            <target name="-after-init"/>
+            
+        The "page" target performs the call to Sencha Cmd to build the 'all-classes.js' file.
+
+            <target name="-before-page"/>
+            <target name="-after-page"/>
+
+        The "build" target performs the call to Sencha Cmd to build the application.
+
+            <target name="-before-build"/>
+            <target name="-after-build"/>
+    -->
 </project>
