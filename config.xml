@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><widget xmlns="http://www.w3.org/ns/widgets" xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.0">  
-    <name>t2c</name>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><widget xmlns="http://www.w3.org/ns/widgets" xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.0">
+    <name>Sencha Dial</name><!-- Set by deployment app -->
     <author>University of Washington</author>
-    <description>t2c test</description>
+    <description/>
     <icon src="icon.png"/>
-    <content src="srcs/t2c/coord.html"/>
+    <content src="srcs/t2c/coord.html"/> <!-- Set by deployment app -->
     <rim:permissions>
-	<rim:permit>read_geolocation</rim:permit>
+        <rim:permit>read_geolocation</rim:permit>
     </rim:permissions>
 </widget>

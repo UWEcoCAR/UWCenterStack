@@ -16,10 +16,19 @@ var canvas;
 var ctx;
 
 var image;
+cornerImage = new Image();
 
-var corners; 		// corner locations
-var defaultCorners	// default corner locations
-var cornerSizes; 	// corner sizes
+var growCanvas;
+var grow;
+var touchImage;
+touchImage = new Image();
+upperLeftImage = new Image();
+upperRightImage = new Image();
+bottomLeftImage = new Image();
+bottomRightImage = new Image();
+
+var corners; 	// corner locations
+var cornerSizes; // corner sizes
 
 // VARIABLES
 
@@ -30,13 +39,13 @@ var drag;
 
 // CONSTANTS
 
-var NORMAL_SIZE = 100;	// normal radius of the corner element in pixels
+var NORMAL_SIZE = 200;	// normal radius of the corner element in pixels
 var SENSITIVITY = 200;	// pixels from edge of outer corner to start scaling up
-var MAX_SIZE = 150;		// maximum radius of corner, when pointer is at extreme corner
+var MAX_SIZE = 300;		// maximum radius of corner, when pointer is at extreme corner
 var MAX_TIME = 1000; 	// maximum time a valid swipe can take
 var DIRECTNESS = 1.2;	// maximum ration of distance/displacement for a valid swipe
 						// DO NOT GO BELOW 1
-var SHRINK_PPF = 15;	// pixels per frame that the corners shrink at
+var SHRINK_PPF = 20;	// pixels per frame that the corners shrink at
 
 /**
  * @class Represents a mouse or finger dragging across the screen.
@@ -53,21 +62,9 @@ function Drag(startingPosition) {
 	this.isScroll = false;				// true if two fingers are down
 	this.currentPos = startingPosition;	// The last know position of the Drag
 	this.startPos = startingPosition;	// The position where the Drag started
-	this.startedInCorner = findCorner(this.startPos);
 	
-	/**
-	 * Returns the corner being dragged, based on startPos
-	 * Returns false if no corner was selected
-	 */
-	function findCorner(position) {
-		for (var i = 0; i < corners.length; i++){
-			if (corners[i].distanceFrom(startingPosition) <= NORMAL_SIZE) {
-				return corners[i];
-			}
-		}
-		return false;
-	}
-
+	
+	
 	/**
 	 * Adds the given position to the Drag. 
 	 * Should be called when the user moves the mouse or their finger.
@@ -77,6 +74,9 @@ function Drag(startingPosition) {
 		this.displacement = this.startPos.distanceFrom(position);
 		this.currentPos = position;
 		this.duration = timeFrom(this.startTime);
+		
+		// move options with finger or mouse
+		updateGrow(drag);
 	}
 	
 	/**
@@ -88,6 +88,8 @@ function Drag(startingPosition) {
 		this.isDrag = false;
 		this.duration = timeFrom(this.startTime);
 	}
+	
+
 }
 
 /**
@@ -119,61 +121,75 @@ window.onload = function onLoad() {
 	
 	// Get DOM elements
 	debug = $("#coord");
-	canvas = document.getElementById("canvas");
-	corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
-	defaultCorners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
-	cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
+	//canvas = document.getElementById("canvas");
+	//corners = [new Position(0,0), new Position(width, 0), new Position(0, height), new Position(width, height)]
+	//cornerSizes = [NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE, NORMAL_SIZE];
 	
 	// sets up canvas
 	window.requestAnimFrame = window.webkitRequestAnimationFrame; // Caps animation to 60 FPS
-	canvas.width = width;
-	canvas.height = height;
-	ctx = canvas.getContext('2d');
-	cornerImage = new Image();
-	cornerImage.src = 'circle.png';
+//	canvas.width = width;
+//	canvas.height = height;
+//	ctx = canvas.getContext('2d');
+//	cornerImage = new Image();
+//	cornerImage.src = 'circle.png';
 	
-	// draws the corners initially
-	$.each(cornerSizes, function(i, size) {
-			size = size*2;
-			ctx.drawImage(cornerImage, corners[i].x-size/2, corners[i].y-size/2, size, size);
-		});
+	// For touch to grow canvas
+	growCanvas = document.getElementById("grow");
+	growCanvas.width = width;
+	growCanvas.height = height;
+	grow = growCanvas.getContext('2d');
+	
+	touchImage.src = 'Touch_point_green.png';
+	upperLeftImage.src = 'Touch_point_music_green.png';
+	upperRightImage.src = 'Touch_point_apps_green.png';
+	bottomLeftImage.src = 'Touch_point_weather_green.png';
+	bottomRightImage.src = 'Touch_point_diagnostics_green.png';
+	
 }
 
 /**
- * Smoothly transitions the corners back to NORMAL_SIZE
- * 
- * Checks to see if any animation is needed, if none then it terminates
- * Shrinks all corners that needs scaling by SHRINK_PPF
- * Translates all corners that need translation by TRANSLATE_PPF
- * Redraws all corners
- * Recursive call
+ * Enlarges the icon that the drag is moving toward
+ * Should be called any time a drag is in progress
  */
-function resetCorners() {
-	var needsScaling = false;	// boolean flag to see if animation is needed
+function updateGrow(drag) {
+	//clearGrowCanvas();
 	
-	// checks each corner to see if it is the right size yet
-	for (var i = 0; i < cornerSizes.length; i++){
-		needsScaling = needsScaling || cornerSizes[i] != NORMAL_SIZE*2;
-	}
-	
-	if (!drag.inProgress && needsScaling){
-		ctx.clearRect(0,0,width,height); // clear canvas
-
-		// shrink each corner if necessary
-		$.each(cornerSizes, function(i, size) {
-			if (size != NORMAL_SIZE*2) {
-				size = Math.max(size-SHRINK_PPF, NORMAL_SIZE*2);
-				cornerSizes[i] = size;
-			}
-
-			// finally draw
-			ctx.drawImage(cornerImage, corners[i].x-size/2, corners[i].y-size/2, size, size);
-		});
-		
-		// call again
-		requestAnimFrame(resetCorners);
-	}
 }
+
+/**
+ * Displays options around touch
+ * Should be called any time a touch starts.
+ */
+function displayOptions(touchX, touchY) {
+	
+	debug.html("  displaying touch to grow  ");
+	//console.log("x: " + drag.currentPos.x + " y: " + drag.currentPos.y);
+	// current image width and height compensated for (-250)
+	clearGrowCanvas();
+	var x = touchX - 150;
+	var y = touchY - 90;
+	
+	var optionsX = touchX - 100;
+	var optionsY = touchY - 59;
+	
+	grow.drawImage(touchImage, x, y);
+	grow.drawImage(upperLeftImage, optionsX - 100, optionsY + 100);
+	grow.drawImage(upperRightImage, optionsX + 100, optionsY + 100);
+	grow.drawImage(bottomLeftImage, optionsX - 100, optionsY - 100);
+	grow.drawImage(bottomRightImage, optionsX + 100, optionsY - 100);
+}
+
+function clearGrowCanvas() {
+	grow.clearRect(0, 0, width, height);
+}
+
+
+function clearCanvas() {
+	ctx.clearRect(0, 0, width, height); // clear canvas
+}
+
+
+
 
 /**
  * Starts a new drag
@@ -183,6 +199,7 @@ function resetCorners() {
  */
 function onStart(position) {
 	drag = new Drag(position);
+	updateGrow(drag);
 	debug.css("background", "blue");
 	debug.html("started");
 }
@@ -196,47 +213,38 @@ function onStart(position) {
 function onMove(position) {
 	drag.isScroll = false;
 	drag.inProgress = true;
+	updateGrow(drag);
 	drag.addPosition(position);
 	
 //	debug.html("(" + drag.currentPos.x + "/" + width +", " + drag.currentPos.y + "/" + height +")");
 	
-	ctx.clearRect(0,0,width,height);
-	for (var i = 0; i < corners.length; i++) {
-		if (drag.startedInCorner && drag.startedInCorner.isEqual(corners[i])){
-			drawCorner(Math.max(SENSITIVITY+MAX_SIZE-position.distanceFrom(drag.startPos), 0), i);
-		} else {
-			drawCorner(position.distanceFrom(corners[i]), i);
-		}
-	}
-
-	if (isT2Center()){
-		onEnd();
-	}
+	//ctx.clearRect(0,0,width,height);
+//	for (var i = 0; i < corners.length; i++) {
+//		drawCorner(position.distanceFrom(corners[i]), i);
+//	}
 }
 
 /**
  * Ends the drag, updates the corner sizes, and determines if the drag was a
  * Touch-2-Corner.
- * Should be called when the user relases the mouse or removes their finger.
+ * Should be called when the user releases the mouse or removes their finger.
  */
 function onEnd() {
 	drag.end();
+	clearGrowCanvas();
 	
 	debug.html("Time = " + drag.duration + 
 	"<br />Distance = " + drag.distance + 
 	"<br />Displacement = " + drag.displacement + 
 	"<br />Distance/Displacement = " + drag.distance / drag.displacement);
 	
-	if(isT2c()){
-		debug.css("background", "green");
-		// corner = isT2c();
-	} else if (isT2Center()){
-		debug.css("background", "#00FFAA");
-		// corner = isT2Center();
-	} else {
-		debug.css("background", "red");
-	}
-	resetCorners();
+	//if(isT2c()){
+	//	debug.css("background", "green");
+		// var corner = isT2c();
+	//} else {
+	//	debug.css("background", "red");
+	//}
+	//resetCorners();
 }
 
 /**
@@ -245,7 +253,7 @@ function onEnd() {
  * @returns {Element|Boolean} If the drag was a t2c, then the corner element, otherwise false.
  */
 function isT2c() {
-	if (!drag.startedInCorner && drag.duration <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
+	if (drag.duration <= MAX_TIME && drag.displacement*DIRECTNESS > drag.distance) {
 		for (var i = 0; i < corners.length; i++) {
 			if (drag.currentPos.distanceFrom(corners[i]) < sizeEquation(drag.currentPos.distanceFrom(corners[i]))/2) {
 				return corners[i];
@@ -253,27 +261,6 @@ function isT2c() {
 		}
 	}
 	return false;
-}
-
-function isT2Center() {
-	if (drag.startedInCorner){
-		if (drag.currentPos.distanceFrom(drag.startPos) >= SENSITIVITY+NORMAL_SIZE){
-			return drag.startedInCorner;
-		}
-	}
-	return false;
-}
-
-/**
- * Sets the size and margin for a corner.
- * 
- * @param {Number} distance Distance from pointer event to corner.
- * @param {Element} corner Corner element to draw.
- */
-function drawCorner(distance, index) {
-	cornerSizes[index] = sizeEquation(distance);
-	ctx.drawImage(cornerImage, corners[index].x-cornerSizes[index]/2, corners[index].y-cornerSizes[index]/2,
-				cornerSizes[index], cornerSizes[index]);
 }
 
 /**
@@ -290,6 +277,7 @@ function sizeEquation(distance){
  * @see onStart(position)
  */
 function onTouchStart(e) {
+	displayOptions(e.targetTouches[0].pageX, e.targetTouches[0].pageY);
 	onStart(new Position(e.targetTouches[0].pageX, e.targetTouches[0].pageY));
 	
 }
@@ -316,6 +304,7 @@ function onTouchEnd(e) {
  * @see onStart(position)
  */
 function onMouseDown(e) {
+	displayOptions(e.pageX, e.pageY);
 	onStart(new Position(e.pageX, e.pageY));
 }
 
@@ -332,6 +321,7 @@ function onMouseMove(e) {
  * @see onEnd()
  */
 function onMouseUp(e) {
+	clearGrowCanvas();
 	onEnd();
 }
 

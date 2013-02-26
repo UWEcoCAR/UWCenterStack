@@ -6,7 +6,6 @@
  * @param begin The time (in milliseconds) to compare against the current time.
  * @returns The number of milliseconds elapsed since the given begin time.
  */
-
 function timeFrom(begin) {
 	return currentTime() - begin;
 }
@@ -47,41 +46,11 @@ function Position(x, y) {
 		}
 		return undefined;
 	}
-}
 
-/**
- * @class Represents a mouse or finger dragging across the screen.
- * Contains time, distance, and displacement information about the drag.
- * 
- * @param {Position} The starting position of the drag.
- */
-function Drag(startingPosition) {
-	this.startTime = currentTime();		// the start time (in milliseconds) of the Drag
-	this.duration = 0;					// the elapsed time (in milliseconds) of the Drag
-	this.distance = 0;					// distance traveled over entire Drag
-	this.displacement = 0;				// distance between the beginning and end of the Drag
-	this.inProgress = true;				// true if Drag is still in progress
-	this.currentPos = startingPosition;	// The last know position of the Drag
-	this.startPos = startingPosition;	// The position where the Drag started
-	
-	/**
-	 * Adds the given position to the Drag. 
-	 * Should be called when the user moves the mouse or their finger.
-	 */
-	this.addPosition = function(position) {
-		this.distance += this.currentPos.distanceFrom(position);
-		this.displacement = this.startPos.distanceFrom(position);
-		this.currentPos = position;
-		this.duration = timeFrom(this.startTime);
-	}
-	
-	/**
-	 * Ends the Drag.
-	 * Should be called when the user releases the mouse or removes their finger.
-	 */
-	this.end = function() {
-		this.inProgress = false;
-		this.isDrag = false;
-		this.duration = timeFrom(this.startTime);
+	this.isEqual = function(position) {
+		if (position){
+			return this.x == position.x && this.y == position.y;
+		}
+		return undefined;
 	}
 }
