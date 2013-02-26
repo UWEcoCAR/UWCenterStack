@@ -1,0 +1,443 @@
+{
+"songs" : [ 
+    { "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "One More Night"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Payphone"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Daylight"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Lucky Strike"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "The Man Who Never Lied"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Love Somebody"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Ladykiller"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Fortune Teller"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Sad"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Tickets"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Doin' Dirt"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Beautiful Goodbye"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Wipe Your Eyes"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Wasted Years"
+    },
+    { "album" : "Overexposed",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Let's Stay Together"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Misery"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Give a Little More"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Stutter"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Don't Know Nothing"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Never Gonna Leave This Bed"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "I Can't Lie"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Hands All Over"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "How"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Get Back In My Life"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Just a Feeling"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Runaway"
+    },
+    { "album" : "Hands All Over",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Moves Like Jagger"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Harder to Breathe"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "This Love"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Shiver"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "She Will Be Loved"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Tangled"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "The Sun"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Must Get Out"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Sunday Morning"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Secret"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Through With You"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Not Coming Home"
+    },
+    { "album" : "Songs About Jane",
+      "artist" : "Maroon 5",
+      "genre" : "Pop",
+      "title" : "Sweetest Goodbye"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Mylo Xyloto"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Hurts Like Heaven"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Paradise"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Charlie Brown"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Us Against the World"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "M.M.I.X."
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Every Teardrop Is a Watterfall"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Major Minus"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "U.F.O."
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Princesses of China"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Up in Flames"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "A Hopeful Transmission"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Don't Let It Break Your Heart"
+    },
+    { "album" : "Mylo Xyloto",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Up With the Birds"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Politik"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "In My Place"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "God Put A Smile Upon Your Face"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "The Scientist"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Clocks"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Daylight"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Green Eyes"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Warning Sign"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "A Whisper"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "A Rush Of Blood To The Head"
+    },
+    { "album" : "A Rush of Blood To The Head",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Amsterdam"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Life In Technicolor"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Cemeteries of London"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Lost!"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "42"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Lovers In Japan / Reign of Love"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Yes"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Viva la Vida"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Violet Hill"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Strawberry Swing"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Death and All His Friends"
+    },
+    { "album" : "Viva la Vida",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Lost?"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Square One"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "What If"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "White Shadows"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Fix You"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Talk"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "X & Y"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Speed of Sound"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "A Message"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Low"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "The Hardest Part"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Swallowed In the Sea"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Twisted Logic"
+    },
+    { "album" : "X & Y",
+      "artist" : "Coldplay",
+      "genre" : "Alternative",
+      "title" : "Till Kingdom Come"
+    }
+  ]
+}

@@ -19,11 +19,9 @@ function Corner(name, image, position) {
 		this.object.style.webkitTransform = "translate(" + (this.position.x - this.diameter/2) + "px, " + (this.position.y - this.diameter/2) + "px)";
 
 	this.set = function() {
-		if (this.diameter != this.NS) {
-			this.object.style.width = this.diameter + "px";
-			this.object.style.height = this.diameter + "px";
-			this.object.style.webkitTransform = "translate(" + (this.position.x - this.diameter/2) + "px, " + (this.position.y - this.diameter/2) + "px)";
-		}
+		this.object.style.width = this.diameter + "px";
+		this.object.style.height = this.diameter + "px";
+		this.object.style.webkitTransform = "translate(" + (this.position.x - this.diameter/2) + "px, " + (this.position.y - this.diameter/2) + "px)";
 	}
 
 	this.onStart = function(position) {
