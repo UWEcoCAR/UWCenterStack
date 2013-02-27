@@ -4,6 +4,7 @@ Ext.define('UWCenterStack.view.DialSelector', {
 
 	config: {
 		fullscreen: true,
+		id: 'music',
 		items: [
 			{
 				xtype: 'roundlist',
@@ -21,6 +22,13 @@ Ext.define('UWCenterStack.view.DialSelector', {
 				id: 'dial',
 				diameter: 400,
 				centered: true
+			},
+			{
+				xtype: 'circlebutton',
+				id: 'selectButton',
+				src: 'resources/icons/buttonUp.png',
+				diameter: 100,
+				centered: true,
 			}
 		],
 
@@ -34,6 +42,11 @@ Ext.define('UWCenterStack.view.DialSelector', {
 				delegate: '#dial',
 				event: 'restore',
 				fn: 'restore'
+			},
+			{
+				delegate: '#selectButton',
+				event: 'tap',
+				fn: 'select'
 			}
 		]
 	},
@@ -55,5 +68,14 @@ Ext.define('UWCenterStack.view.DialSelector', {
 		dial.set();
 
 		list.angleChange(-theta, dial);
+	},
+
+	select: function() {
+		list = Ext.ComponentManager.get('list');
+		dial = Ext.ComponentManager.get('dial');
+
+		console.log(list.getItems().items[4].getHtml());
+
+		this.fireEvent('select', list.getItems().items[4].getHtml(), list, dial);
 	}
 });

@@ -7,7 +7,7 @@ Ext.Loader.setPath({
 
 Ext.application({
     name: 'UWCenterStack',
-    views: ['Dial', 'DialSelector', 'RoundList', 'RoundListItem'],
+    views: ['Dial', 'DialSelector', 'RoundList', 'RoundListItem', 'CircleButton'],
     stores: ['Songs'],
     models: ['Song'],
     controllers: ['MusicControl'],
