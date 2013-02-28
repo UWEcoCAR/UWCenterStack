@@ -70,6 +70,10 @@
         {
             "path": "resources/css/app.css",
             "update": "delta"
+        },
+        {
+            "path": "resources/css/extra.css",
+            "update": "delta"
         }
     ],
 
@@ -101,7 +105,9 @@
     "resources": [
         "resources/images",
         "resources/icons",
-        "resources/startup"
+        "resources/startup",
+        "config.xml",
+        "icon.png"
     ],
 
     /**

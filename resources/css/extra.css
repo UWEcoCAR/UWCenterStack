@@ -1,0 +1,22 @@
+.front, .back, .slice1, .slice2 {
+	position: absolute;	
+	/*border-radius: 100%;*/
+}
+
+.slice1, .slice2 {
+	background-image:url(../icons/buttonUp.png);
+	background-size:contain;
+}
+
+
+.slice1, .back {
+	clip:rect(0px, 250px, 500px, 0px);
+}
+
+.slice2, .front {
+	clip:rect(0px, 500px, 500px, 250px);
+}
+
+#main {
+	background: black;
+}

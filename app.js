@@ -10,18 +10,27 @@ Ext.application({
     stores: ['Songs'],
     models: ['Song'],
     controllers: ['MusicControl'],
+    views: ['CircleSlider'],
 
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
-        var list = Ext.create('Ext.dataview.List', {
+        var volumeContainer = Ext.create('Ext.Container', {
             fullscreen: true,
-            store: 'Songs',
-            itemTpl: '{title} - {album} - {artist} - {genre}'
-        })
+            id: 'main',
+            
+            items: [
+                {
+                    xtype: 'circleslider',
+                    id: 'slider',
+                    diameter: 500,
+
+                }
+            ]
+        });
 
         // Initialize the main view
-        Ext.Viewport.add(list);
+        Ext.Viewport.add(volumeContainer);
     }
 });
