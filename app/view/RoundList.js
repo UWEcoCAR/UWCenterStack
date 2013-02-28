@@ -41,11 +41,11 @@ Ext.define('UWCenterStack.view.RoundList', {
 	},
 
 	angleChange: function(theta, dial) {
-	var	startIndex = this.getItems().items[0].getIndex();
 	var index = this.findOffset(theta);
 
 		if (dial) {
-			if (index < -4) {
+			if (dial.getTheta()/Math.PI*180 >= 0) {
+				dial.setTheta(0);
 				dial.setRotatable('left');
 			} else if (index >= this.getStore().getCount() - 4) {
 				dial.setRotatable('right');
@@ -70,6 +70,7 @@ Ext.define('UWCenterStack.view.RoundList', {
 
 	findOffset: function(theta) {
 		var offset = Math.floor(theta/30) - 4;
+		console.log(offset);
 		return offset;
 	},
 

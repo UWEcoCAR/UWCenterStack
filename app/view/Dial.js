@@ -44,7 +44,7 @@ Ext.define('UWCenterStack.view.Dial', {
 	},
 
 	onMove: function(event, element) {
-		var relLoc = new Ext.util.Point(event.event.layerX - this.getWidth()/2, event.event.layerY-this.getHeight()/2);
+		var relLoc = this.getRelativePosition(event, element);
 		var currentAngle = Math.atan2(-relLoc.x, relLoc.y) + Math.PI;
 
 		if (this.getLastAngle() === null) {
@@ -57,7 +57,7 @@ Ext.define('UWCenterStack.view.Dial', {
 
 				var deltaTheta = currentAngle - this.getLastAngle();
 
-				if ((deltaTheta > 0 && this.getRotatable() !== 'left') || (deltaTheta < 0 && this.getRotatable() !== 'right')){
+				if ((deltaTheta >= 0 && this.getRotatable() !== 'left') || (deltaTheta <= 0 && this.getRotatable() !== 'right')){
 					this.setTheta(this.getTheta() + deltaTheta);
 
 					if (currentAngle - this.getLastAngle() > Math.PI) {
@@ -79,5 +79,10 @@ Ext.define('UWCenterStack.view.Dial', {
 
 	set: function() {
 		this.element.dom.style.webkitTransform = 'rotate(' + this.getTheta()/Math.PI*180 + 'deg)';
+	},
+
+	getRelativePosition: function(event, element) {
+		el = Ext.get(element).findParent('#dial');
+		return new Ext.util.Point(event.pageX - el.offsetLeft - el.offsetWidth/2, event.pageY - el.offsetTop - el.offsetHeight/2);
 	}
 })
