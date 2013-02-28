@@ -11,6 +11,7 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 		lastAngle: null,
 		rotatable: true,
 		selected: true,
+		selectable: true,
 
 		items: [
 			{
@@ -24,8 +25,6 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 						width: '100%',
 						height: '100%',
 						cls: 'slice1',
-						reference: 'slice1',
-						id: 'slice1'
 					}
 				]
 			},
@@ -40,7 +39,6 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 						width: '100%',
 						height: '100%',
 						cls: 'slice2',
-						id: 'slice2'
 					}
 				]
 			}
@@ -81,7 +79,7 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 	},
 
 	onMove: function(event, element) {
-		if(this.getSelected()){
+		if(this.getSelected() && this.getSelectable()){
 			var relLoc = this.getRelativePosition(event, element);
 			var currentAngle = Math.atan2(-relLoc.x, relLoc.y) + Math.PI;
 
@@ -91,25 +89,26 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 
 			var distance = Math.sqrt(Math.pow(relLoc.x, 2) + Math.pow(relLoc.y, 2));
 			if(distance > this.getInnerDiameter()/2 && distance < this.getOuterDiameter()/2){
-				if (this.getRotatable()){
+				// if (this.getRotatable()){
 
-					var deltaTheta = currentAngle - this.getLastAngle();
+				// 	var deltaTheta = currentAngle - this.getLastAngle();
 
-					if ((deltaTheta > 0 && this.getRotatable() !== 'left') || (deltaTheta < 0 && this.getRotatable() !== 'right')){
+				// 	if ((deltaTheta > 0 && this.getRotatable() !== 'left') || (deltaTheta < 0 && this.getRotatable() !== 'right')){
 						
-					}
-				}
+				// 	}
+				// }
 			}
 			this.setLastAngle(currentAngle);
 			this.setSelected(distance > this.getInnerDiameter()/2 && distance < this.getOuterDiameter()/2);
 			this.setSlider(currentAngle/Math.PI*180);
+			this.fireEvent('sliderchange', currentAngle/Math.PI*180, this);
 		}
 	},
 
 	setSlider: function(angle) {
-		var slice1 = Ext.getCmp('slice1');
-		var slice2 = Ext.getCmp('slice2');
-
+		a = this;
+		var slice1 = this.getItems().items[0].getItems().items[0]
+		var slice2 = this.getItems().items[1].getItems().items[0]
 		if (angle%360 != 0){
 			angle = angle%360;
 		}
@@ -124,7 +123,7 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 	},
 
 	getRelativePosition: function(event, element) {
-	el = Ext.get(element).findParent('#slider');
+	el = Ext.get(element).findParent('.slider');
 	return new Ext.util.Point(event.pageX - el.offsetLeft - el.offsetWidth/2, event.pageY - el.offsetTop - el.offsetHeight/2);
 	}
 });

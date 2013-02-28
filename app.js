@@ -10,24 +10,14 @@ Ext.application({
     stores: ['Songs'],
     models: ['Song'],
     controllers: ['MusicControl'],
-    views: ['CircleSlider'],
+    views: ['CircleSlider', 'MusicPlayer'],
 
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
-        var volumeContainer = Ext.create('Ext.Container', {
-            fullscreen: true,
-            id: 'main',
-            
-            items: [
-                {
-                    xtype: 'circleslider',
-                    id: 'slider',
-                    diameter: 500,
-
-                }
-            ]
+        var volumeContainer = Ext.create('UWCenterStack.view.MusicPlayer', {
+            id: 'main'
         });
 
         // Initialize the main view

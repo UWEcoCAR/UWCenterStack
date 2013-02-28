@@ -107,7 +107,8 @@
         "resources/icons",
         "resources/startup",
         "config.xml",
-        "icon.png"
+        "icon.png",
+        "resources/songs.json"
     ],
 
     /**
