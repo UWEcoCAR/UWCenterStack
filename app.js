@@ -77,6 +77,7 @@ Ext.application({
             },
             items: [
                 {
+                    id: 'nowPlaying',
                     text: 'NOW PLAYING'
                 },
                 {

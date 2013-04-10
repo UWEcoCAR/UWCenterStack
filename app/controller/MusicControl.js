@@ -14,6 +14,9 @@ Ext.define('feel-your-way.controller.MusicControl', {
             },
             songButton: {
                 tap: 'songSelect'
+            },
+            nowPlayingButton: {
+                tap: 'goToNowPlaying'
             }
 		},
 
@@ -21,18 +24,39 @@ Ext.define('feel-your-way.controller.MusicControl', {
 			list: '#centerInfo',
             artistButton: '#artistButton',
             albumButton: '#albumButton',
-            songButton: '#songButton'
+            songButton: '#songButton',
+            nowPlayingButton: '#nowPlaying'
 		},
 
-        currentData: []
+        currentData: [],
+        nowPlaying: {
+            onScreen: false,
+            isPlaying: false,
+            title: '',
+            album: '',
+            artist: '',
+            genre: ''
+        }
 	},
 
 
-
+    goToNowPlaying: function() {
+        console.log("now playing was clicked");
+        var me = this;
+        var playing = me.getNowPlaying();
+        if(playing.isPlaying && !playing.onScreen) { // something is playing
+            playing.onScreen = true;
+            Ext.ComponentQuery.query('#centerInfo')[0].hide();
+            console.log("registers that something is playing");
+            var container = Ext.ComponentQuery.query('#pageContainer')[0];
+            container.setHtml('.........................Now Playing: ' + playing.title + ' by ' + playing.artist + ' on the album ' + playing.album);
+        }
+    },
 
     // TODO - remove redundancy between artist/album/song select functions
     artistSelect: function() {
         console.log('artist click');
+        this.checkPlaying();
         var me = this;
         var list = Ext.ComponentQuery.query('#centerInfo')[0];
         template = '{artist}';
@@ -59,6 +83,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
     albumSelect: function() {
         console.log('album click');
+        this.checkPlaying();
         var me = this;
         var list = Ext.ComponentQuery.query('#centerInfo')[0];
         template = '{album}';
@@ -86,6 +111,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
     songSelect: function() {
         console.log('song click');
+        this.checkPlaying();
         var me = this;
         var list = Ext.ComponentQuery.query('#centerInfo')[0];
         template = '{title}';
@@ -124,6 +150,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
         //console.log("item selected " + currentlyDisplayed + "  =?  " + JSON.stringify('artist'));
         //console.log(currentlyDisplayed == JSON.stringify('artist'));
         store.filterBy(function(record, id) {
+
+
             console.log("filtering...");
             var notContained;
             if (currentlyDisplayed == JSON.stringify('artist')) { //artist -> display albums by that artist
@@ -141,9 +169,18 @@ Ext.define('feel-your-way.controller.MusicControl', {
             } else {
                 if (JSON.stringify(record.data.title) == JSON.stringify(tappedRecord.title)) {
                     var container = Ext.ComponentQuery.query('#pageContainer')[0];
-                    container.push({
-                        title: 'Now Playing: ' + record.data.title + ' by ' + record.data.artist + ' on the album ' + record.data.album
-                    });
+                    var currentlyPlaying = me.getNowPlaying();
+                    currentlyPlaying.title = record.data.title;
+                    currentlyPlaying.artist = record.data.artist;
+                    currentlyPlaying.album = record.data.album;
+                    currentlyPlaying.genre = record.data.genre;
+                    currentlyPlaying.onScreen = true;
+                    currentlyPlaying.isPlaying = true;
+                    Ext.ComponentQuery.query('#centerInfo')[0].hide();
+                    container.setHtml('.........................Now Playing: ' + record.data.title + ' by ' + record.data.artist + ' on the album ' + record.data.album);
+                    // container.push({
+                    //     title: 'Now Playing: ' + record.data.title + ' by ' + record.data.artist + ' on the album ' + record.data.album
+                    // });
                 }
             }
 
@@ -156,6 +193,15 @@ Ext.define('feel-your-way.controller.MusicControl', {
             }
         });
         console.log("...done");
+    },
+
+    checkPlaying: function() {
+            var currentlyPlaying = this.getNowPlaying();
+            if (currentlyPlaying.onScreen) {
+                Ext.ComponentQuery.query('#pageContainer')[0].setHtml('');
+                Ext.ComponentQuery.query('#centerInfo')[0].show();
+                currentlyPlaying.onScreen = false;
+            }
     },
 
 	select: function(theList, record) {
