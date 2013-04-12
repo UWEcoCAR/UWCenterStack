@@ -7,20 +7,18 @@ Ext.define('UWCenterStack.view.DialSelector', {
 		id: 'music',
 		items: [
 			{
-				xtype: 'roundlist',
+				xtype: 'selectorlist',
 				id: 'list',
 				store: 'Songs',
-				diameter: 500,
-				itemConfig: {
-					html: '',
-					width: 150,
-					height: 20,
-				}
+				itemTpl: '<div>{title}</div>',
+				itemCls: 'selectorlistitem'
 			},
 			{
 				xtype: 'dial',
 				id: 'dial',
 				diameter: 400,
+			//	top: ,
+			//  left: ,
 				centered: true
 			},
 			{
@@ -52,22 +50,22 @@ Ext.define('UWCenterStack.view.DialSelector', {
 	},
 
 	updateList: function(theta, dial) {
-		Ext.ComponentManager.get('list').angleChange(-theta/Math.PI*180, dial);
+		Ext.getCmp('list').scroll(theta/Math.PI * dial.getDiameter(), dial);
 	},
 
 	restore: function(theta, dial){
-		var list = Ext.ComponentManager.get('list');
-		theta = theta/Math.PI*180;
-		if (theta%30 > -15){
-			theta = theta - theta%30;
-		} else {
-			theta = theta - (30 + theta%30);
-		}
+		// var list = Ext.ComponentManager.get('list');
+		// theta = theta/Math.PI*180;
+		// if (theta%30 > -15){
+		// 	theta = theta - theta%30;
+		// } else {
+		// 	theta = theta - (30 + theta%30);
+		// }
 		
-		dial.setTheta(theta/180*Math.PI);
-		dial.set();
+		// dial.setTheta(theta/180*Math.PI);
+		// dial.set();
 
-		list.angleChange(-theta, dial);
+		// list.angleChange(-theta, dial);
 	},
 
 	select: function() {

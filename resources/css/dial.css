@@ -7,6 +7,20 @@ div .roundlistitem {
 
 #list {
 	-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+	color: white;
+	height: 100%;
+	width:100%;
+}
+
+.selectorlistitem {
+	height: 40px;
+	font-size: 40px;
+	opacity:.7;
+	margin: 10px;
+}
+
+.selected {
+	opacity: 1;
 }
 
 #music {
@@ -20,4 +34,8 @@ div .roundlistitem {
 
 .circleButton:hover {
 	background-image:url('../icons/buttonDown.png');
+}
+
+#dial {
+	opacity: .4;
 }
