@@ -18,8 +18,8 @@ Ext.application({
         var centerInfo = Ext.create('Ext.dataview.List', {
             grouped: true,
             id: 'centerInfo',
-            width: '70%',
-            //height: '50%',
+
+            top: '5%',
             margin: '0 0 0 15%',
             store: 'Songs',
             itemTpl: '{title}',
@@ -28,7 +28,8 @@ Ext.application({
         var pageContainer = Ext.create('Ext.navigation.View', {
             id: 'pageContainer',
             fullscreen: true,
-            title: 'My Music'
+            navigationBar: false
+            //title: 'My Music'
         });
 
         var leftNav = Ext.create('Ext.Container', {
@@ -39,12 +40,13 @@ Ext.application({
             defaults: {
                 xtype: 'button',
                 margin: '10 10 0 0',
-                height: '100px',
-                width: '100px'
+                height: '120px',
+                width: '120px'
             },
             items: [
                 {
-                    text: 'HOME'
+                    id: 'homeButton',
+                    text: 'HOME',
                 },
                 {
                     id: 'artistButton',
@@ -72,13 +74,13 @@ Ext.application({
             defaults: {
                 xtype: 'button',
                 margin: '10 10 0 0',
-                height: '100px',
-                width: '100px'
+                height: '120px',
+                width: '120px'
             },
             items: [
                 {
                     id: 'nowPlaying',
-                    text: 'NOW PLAYING'
+                    text: 'NOW<br />PLAYING'
                 },
                 {
                     text: 'TREBLE',
@@ -110,9 +112,30 @@ Ext.application({
             ]   
         });
 
+        var appName = Ext.create('Ext.Container', {
+            id: 'appName',
+            html: 'MUSIC',
+            position: 'absolute',
+            top: '70%',
+            right: '10%'
+        });
+
+        var nowPlayingData = Ext.create('Ext.Container', {
+            id: 'nowPlayingData',
+            html: '',
+            position: 'absolute',
+            top: '5%',
+            right: '13%'
+
+        });
+
+        //var nowPlayingData = Ext.create('Ext.')
+
         pageContainer.add(leftNav);       
         pageContainer.add(centerInfo);
         pageContainer.add(rightNav);
+        pageContainer.add(appName);
+        pageContainer.add(nowPlayingData);
         //centerInfo.refresh();
 
     },

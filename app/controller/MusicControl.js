@@ -45,17 +45,28 @@ Ext.define('feel-your-way.controller.MusicControl', {
         var me = this;
         var playing = me.getNowPlaying();
         if(playing.isPlaying && !playing.onScreen) { // something is playing
+            this.setActiveButton('#nowPlaying');
             playing.onScreen = true;
             Ext.ComponentQuery.query('#centerInfo')[0].hide();
-            console.log("registers that something is playing");
-            var container = Ext.ComponentQuery.query('#pageContainer')[0];
-            container.setHtml('.........................Now Playing: ' + playing.title + ' by ' + playing.artist + ' on the album ' + playing.album);
         }
+    },
+
+
+
+    setActiveButton: function(buttonName) {
+        var buttons = Ext.ComponentQuery.query('button');
+        for (var i = buttons.length - 1; i >= 0; i--) {
+            buttons[i].removeCls('clickedButton');
+            console.log(buttons[i]);
+        };
+        var buttonClicked = Ext.ComponentQuery.query(buttonName)[0];
+        buttonClicked.addCls('clickedButton');
     },
 
     // TODO - remove redundancy between artist/album/song select functions
     artistSelect: function() {
         console.log('artist click');
+        this.setActiveButton('#artistButton');
         this.checkPlaying();
         var me = this;
         var list = Ext.ComponentQuery.query('#centerInfo')[0];
@@ -83,6 +94,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
     albumSelect: function() {
         console.log('album click');
+        this.setActiveButton('#albumButton');
         this.checkPlaying();
         var me = this;
         var list = Ext.ComponentQuery.query('#centerInfo')[0];
@@ -111,6 +123,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
     songSelect: function() {
         console.log('song click');
+        this.setActiveButton('#songButton');
         this.checkPlaying();
         var me = this;
         var list = Ext.ComponentQuery.query('#centerInfo')[0];
@@ -147,11 +160,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
             data.pop();
         }
         store.clearFilter();
-        //console.log("item selected " + currentlyDisplayed + "  =?  " + JSON.stringify('artist'));
-        //console.log(currentlyDisplayed == JSON.stringify('artist'));
         store.filterBy(function(record, id) {
-
-
             console.log("filtering...");
             var notContained;
             if (currentlyDisplayed == JSON.stringify('artist')) { //artist -> display albums by that artist
@@ -177,7 +186,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
                     currentlyPlaying.onScreen = true;
                     currentlyPlaying.isPlaying = true;
                     Ext.ComponentQuery.query('#centerInfo')[0].hide();
-                    container.setHtml('.........................Now Playing: ' + record.data.title + ' by ' + record.data.artist + ' on the album ' + record.data.album);
+                    var dataContainer = Ext.ComponentQuery.query('#nowPlayingData')[0];
+                    dataContainer.setHtml('<span>' + record.data.title + '</span><br />' + record.data.artist + '<br />' + record.data.album);
                     // container.push({
                     //     title: 'Now Playing: ' + record.data.title + ' by ' + record.data.artist + ' on the album ' + record.data.album
                     // });
@@ -198,7 +208,6 @@ Ext.define('feel-your-way.controller.MusicControl', {
     checkPlaying: function() {
             var currentlyPlaying = this.getNowPlaying();
             if (currentlyPlaying.onScreen) {
-                Ext.ComponentQuery.query('#pageContainer')[0].setHtml('');
                 Ext.ComponentQuery.query('#centerInfo')[0].show();
                 currentlyPlaying.onScreen = false;
             }
@@ -214,16 +223,16 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
         var template;
         if (currentlyDisplayed == JSON.stringify('artist')) {
-             console.log("tapped: " + tappedRecord.artist);
+            console.log("tapped: " + tappedRecord.artist);
             template = '{album}';
             store.changeSorting('album', list);
         } else if (currentlyDisplayed == JSON.stringify('album')) { //album -> display songs on that album
-             console.log("tapped: " + tappedRecord.album);
+            console.log("tapped: " + tappedRecord.album);
             template = '{title}';
             store.changeSorting('title', list);
         } else {
-             console.log("tapped: " + tappedRecord.title);
-            template = '{title} - {album} - {song}';
+            console.log("tapped: " + tappedRecord.title);
+            template = '{title}';
             //store.changeSorting('title', list);
         }
         list.setItemTpl(template);
