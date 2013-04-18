@@ -17,15 +17,24 @@ Ext.define('feel-your-way.controller.MusicControl', {
             },
             nowPlayingButton: {
                 tap: 'goToNowPlaying'
+            },
+            homeButton: {
+                tap: 'goHome'
             }
 		},
 
 		refs: {
 			list: '#centerInfo',
+
+            // music controls
             artistButton: '#artistButton',
             albumButton: '#albumButton',
             songButton: '#songButton',
-            nowPlayingButton: '#nowPlaying'
+            nowPlayingButton: '#nowPlaying',
+
+
+            // non music controls
+            homeButton: '#homeButton'
 		},
 
         currentData: [],
@@ -38,6 +47,13 @@ Ext.define('feel-your-way.controller.MusicControl', {
             genre: ''
         }
 	},
+
+    goHome: function() {
+        console.log('home button clicked');
+        var homeButton = Ext.ComponentQuery.query('#homeButton')[0];
+        //homeButton.('appspurple');
+        homeButton.setIconCls('appsgreen');
+    },
 
 
     goToNowPlaying: function() {
@@ -186,6 +202,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
                     currentlyPlaying.onScreen = true;
                     currentlyPlaying.isPlaying = true;
                     Ext.ComponentQuery.query('#centerInfo')[0].hide();
+                    me.setActiveButton('#nowPlaying');
                     var dataContainer = Ext.ComponentQuery.query('#nowPlayingData')[0];
                     dataContainer.setHtml('<span>' + record.data.title + '</span><br />' + record.data.artist + '<br />' + record.data.album);
                     // container.push({

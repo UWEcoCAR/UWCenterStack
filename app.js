@@ -34,7 +34,7 @@ Ext.application({
 
         var leftNav = Ext.create('Ext.Container', {
             id: 'leftNav',
-            width: '10%',
+            width: '130px',
             position: 'absolute',
             left: '25px',
             defaults: {
@@ -46,7 +46,7 @@ Ext.application({
             items: [
                 {
                     id: 'homeButton',
-                    text: 'HOME',
+                    iconCls: 'appspurple'
                 },
                 {
                     id: 'artistButton',
@@ -68,7 +68,7 @@ Ext.application({
 
         var rightNav = Ext.create('Ext.Container', {
             id: 'rightNav',
-            width: '10%',
+            width: '150px',
             position: 'absolute',
             right: '0px',
             defaults: {
@@ -116,8 +116,8 @@ Ext.application({
             id: 'appName',
             html: 'MUSIC',
             position: 'absolute',
-            top: '70%',
-            right: '10%'
+            top: '557px',
+            right: '160px'
         });
 
         var nowPlayingData = Ext.create('Ext.Container', {
@@ -125,7 +125,7 @@ Ext.application({
             html: '',
             position: 'absolute',
             top: '5%',
-            right: '13%'
+            right: '180px'
 
         });
 
