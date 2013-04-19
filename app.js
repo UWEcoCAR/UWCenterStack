@@ -23,7 +23,11 @@ Ext.application({
         //     //title: 'My Music'
         // });
 
-        var musicApp = Ext.create('feel-your-way.view.MusicMain');
+        var musicApp = Ext.create('feel-your-way.view.MusicMain', {
+            id: 'pageContainer',
+            fullscreen: true,
+        });
+        
         Ext.Viewport.add(musicApp);
 
         // var appName = Ext.create('Ext.Container', {

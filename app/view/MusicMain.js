@@ -3,10 +3,7 @@ Ext.define('feel-your-way.view.MusicMain', {
 	requires: ['Ext.Button'],
 
 	config: {
-		id: 'musicMain',
-		fullscreen: true,
 		layout: 'hbox',
-
 		items: [
 			{
 				xtype: 'container',
