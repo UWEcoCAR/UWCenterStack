@@ -1,31 +1,34 @@
 Ext.define('feel-your-way.view.DialSelector', {
 	extend: 'Ext.Container',
 	requires: ['Ext.dataview.DataView'],
+	xtype: 'dialselector',
 
 	config: {
 		items: [
 			{
-				xtype: 'selectorlist',
-				id: 'list',
-				store: 'Songs',
-				itemTpl: '{title}',
-				itemCls: 'selectorlistitem'
-			},
-			{
 				xtype: 'dial',
 				id: 'dial',
 				diameter: 400,
-			//	top: ,
-			//  left: ,
-				centered: true
+				// following must be set
+				top: 200,
+				left: 400,
+			 	style: 'position: fixed',
 			},
 			{
 				xtype: 'circlebutton',
 				id: 'selectButton',
 				diameter: 100,
-			//	top: ,
-			//	left: ,
-				centered: true,
+				// following must be set
+				style: 'position: fixed',
+				top: 350,
+				left: 550,
+			},
+			{
+				xtype: 'selectorlist',
+				id: 'selectorList',
+				store: 'Songs',
+				itemTpl: '{title}',
+				itemCls: 'selectorlistitem'
 			}
 		],
 
@@ -49,7 +52,7 @@ Ext.define('feel-your-way.view.DialSelector', {
 	},
 
 	updateList: function(theta, dial) {
-		Ext.getCmp('list').scroll(theta/Math.PI * dial.getDiameter(), dial);
+		Ext.getCmp('selectorList').scroll(theta/Math.PI * dial.getDiameter(), dial);
 	},
 
 	restore: function(theta, dial){
@@ -68,11 +71,7 @@ Ext.define('feel-your-way.view.DialSelector', {
 	},
 
 	select: function() {
-		list = Ext.ComponentManager.get('list');
-
-		console.log(document.getElementsByClassName('selected')[0].innerHTML);
-
-		console.log(list.getRecordNum());
+		list = Ext.ComponentManager.get('selectorList');
 		this.fireEvent('itemtap', list, list.getRecordNum());
 	}
 });

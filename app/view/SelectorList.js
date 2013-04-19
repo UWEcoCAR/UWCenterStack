@@ -15,8 +15,8 @@ Ext.define('feel-your-way.view.SelectorList', {
 	initialize: function() {
 		this.callParent();
 		this.on('refresh', function() {
-			this.scroll(this.getOffset());
-			Ext.getCmp('dial').setTheta(this.getOffset()/180*Math.PI);
+			this.scroll(this.getOffset() - this.getHeight());
+			Ext.getCmp('dial').setTheta((this.getOffset() - this.getHeight())*Math.PI/Ext.getCmp('dial').getDiameter());
 		});
 	},
 
@@ -29,7 +29,7 @@ Ext.define('feel-your-way.view.SelectorList', {
 
 		list[0].parentElement.style.webkitTransform = 'translate3d(0px,' + value + 'px, 0px)';
 
-		for (var i = list.length-1; i >= 0; i--){
+		for (var i = 0; i < list.length; i++){
 
 			// gets the elements distance from the top
 			var x = list[i].offsetTop + parseFloat(list[i].parentElement.style.webkitTransform.split(',')[1]);
@@ -49,10 +49,10 @@ Ext.define('feel-your-way.view.SelectorList', {
 		}
 
 		if (dial) {
-			if (this.getOffset() < value) {
+			if (this.getOffset() - this.getHeight() < value) {
 				dial.setRotatable('left');
 				dial.onEnd();
-				this.scroll(this.getOffset());
+				this.scroll(this.getOffset() - this.getHeight());
 			} else if (this.getAt(0).element.getHeight() + value - this.getOffset() - this.getItemHeight() < 0) {
 				dial.setRotatable('right');
 				dial.onEnd();

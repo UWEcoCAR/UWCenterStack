@@ -80,7 +80,7 @@ Ext.define('feel-your-way.view.Dial', {
 	},
 
 	getRelativePosition: function(event, element) {
-		el = Ext.get(element).findParent('#dial');
+		var el = Ext.get(element).findParent('#dial');
 		return new Ext.util.Point(event.pageX - el.offsetLeft - el.offsetWidth/2, event.pageY - el.offsetTop - el.offsetHeight/2);
 	}
 })

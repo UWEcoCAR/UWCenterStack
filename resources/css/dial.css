@@ -5,7 +5,7 @@ div .roundlistitem {
 	color: white;
 }
 
-#list {
+#selectorList {
 	-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.01)), color-stop(30%, rgba(0,0,0,1)), to(rgba(0,0,0,0)));
 	color: white;
 	height: 100%;
