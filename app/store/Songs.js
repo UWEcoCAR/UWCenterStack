@@ -9,6 +9,7 @@ Ext.define('feel-your-way.store.Songs', {
 			},
 			sort_property: 'title'
 		},
+
 		proxy: {
 			type: 'ajax',
 			url: 'resources/songs.json',
@@ -34,5 +35,5 @@ Ext.define('feel-your-way.store.Songs', {
 			sort_property: sortBy
 		});
 		list.refresh();
-	},
+	}
 });

@@ -232,7 +232,6 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
 	select: function(theList, record) {
         // record is the number in the list that was clicked
-
 		var store = Ext.StoreManager.get('Songs');
 		var currentlyDisplayed = JSON.stringify(store.getSorters()[1]._id);
         var list = Ext.ComponentQuery.query('#centerInfo')[0];

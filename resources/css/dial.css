@@ -1,0 +1,51 @@
+div .roundlistitem {
+	position: absolute;
+	text-align: center;
+	overflow: hidden;
+	color: white;
+}
+
+#list {
+	-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.01)), color-stop(30%, rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+	color: white;
+	height: 100%;
+	width:100%;
+}
+
+.selectorlistitem {
+	height: 40px;
+	font-size: 40px;
+	opacity:.7;
+	margin: 10px;
+}
+
+.selected {
+	opacity: 1;
+}
+
+#music {
+	background: black;
+}
+
+.circleButton {
+	background-image:url('../icons/buttonUp.png');
+	background-size:contain;
+}
+
+.circleButton:hover {
+	background-image:url('../icons/buttonDown.png');
+}
+
+#dial {
+	opacity: .1;
+	-webkit-transition: opacity .25s;
+}
+
+#dial:hover {
+	opacity: .2;
+}
+
+#music {
+	width:100%;
+	height: 100%;
+}

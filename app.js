@@ -7,6 +7,7 @@ Ext.Loader.setPath({
 
 Ext.application({
     name: 'feel-your-way',
+    views: ['Dial', 'DialSelector', 'SelectorList', 'CircleButton'],
     stores: ['Songs'],
     models: ['Song'],
     controllers: ['MusicControl'],
@@ -138,5 +139,5 @@ Ext.application({
         pageContainer.add(nowPlayingData);
         //centerInfo.refresh();
 
-    },
+    }
 });
