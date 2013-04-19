@@ -6,6 +6,18 @@ Ext.define('UWCenterStack.view.SelectorList', {
 		offset: 200,
 		a: .5,
 		itemHeight: 50,
+		scrollable: {
+			disabled: true
+		},
+		recordNum: null
+	},
+
+	initialize: function() {
+		this.callParent();
+		this.on('refresh', function() {
+			this.scroll(this.getOffset());
+			Ext.getCmp('dial').setTheta(this.getOffset()/180*Math.PI);
+		});
 	},
 
 	scroll: function(value, dial) {
@@ -30,6 +42,7 @@ Ext.define('UWCenterStack.view.SelectorList', {
 
 			if (x - 5 < offset && x + list[i].clientHeight + 5 > offset) {
 				list[i].classList.add('selected');
+				this.setRecordNum(i);
 			} else {
 				list[i].classList.remove('selected');
 			}

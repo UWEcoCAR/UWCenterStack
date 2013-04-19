@@ -69,10 +69,10 @@ Ext.define('UWCenterStack.view.DialSelector', {
 
 	select: function() {
 		list = Ext.ComponentManager.get('list');
-		dial = Ext.ComponentManager.get('dial');
 
 		console.log(document.getElementsByClassName('selected')[0].innerHTML);
 
-		this.fireEvent('select', document.getElementsByClassName('selected')[0].innerHTML, list, dial);
+		console.log(list.getRecordNum());
+		this.fireEvent('itemtap', list, list.getRecordNum());
 	}
 });
