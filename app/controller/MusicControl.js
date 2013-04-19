@@ -2,16 +2,32 @@ Ext.define('UWCenterStack.controller.MusicControl', {
 	extend: 'Ext.app.Controller',
 
 	config: {
-		control: {
-			list: {
-				itemtap: 'select'
-			}
+		refs: {
+			a: '#music'
 		},
 
-		refs: {
-			list: '#list'
-		}
+        control: {
+            a: {
+                select: 'doSelect'
+            }
+        },
+
+        currentData: null,
 	},
+
+    doSelect: function(text) {
+        me = this;
+        me.setCurrentData([]);
+        Ext.StoreManager.get('Songs').filterBy(function(item){
+            i = item;
+            if (me.getCurrentData().indexOf(item.data.album) !== -1){
+                return false;
+            } else {
+                me.getCurrentData().push(item.data.album);
+                return true;
+            }
+        });
+    },
 
 	select: function() {
 		var store = Ext.StoreManager.get('Songs');

@@ -16,7 +16,9 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
-        var dial = Ext.create('UWCenterStack.view.DialSelector');
+        var dial = Ext.create('UWCenterStack.view.DialSelector', {
+            id: 'music'
+        });
 
         // Initialize the main view
         Ext.Viewport.add(dial);

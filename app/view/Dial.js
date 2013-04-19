@@ -39,8 +39,6 @@ Ext.define('UWCenterStack.view.Dial', {
 
 	onStart: function(event, element) {
 		this.setLastAngle(null);
-		e = event;
-		el = element;
 	},
 
 	onMove: function(event, element) {

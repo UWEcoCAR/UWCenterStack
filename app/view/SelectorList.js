@@ -3,27 +3,49 @@ Ext.define('UWCenterStack.view.SelectorList', {
 	xtype: 'selectorlist',
 
 	config: {
-
+		offset: 200,
+		a: .5,
+		itemHeight: 50,
 	},
 
 	scroll: function(value, dial) {
-		scroller = this.getScrollable().getScroller();
-		scroller.scrollTo(0,value);
 		var index = Math.floor(value/50);
 		
-		list = this.getAt(0).element.dom.childNodes;
-		var a = .5;
-		var offset = 200;
+		var list = this.getAt(0).element.dom.childNodes;
+		var a = this.getA();
+		var offset = this.getOffset();
 
-		for (var i = 0; i < list.length; i++){
-			x = list[i].offsetTop + parseFloat(list[i].parentElement.parentElement.style.webkitTransform.split(',')[1]);
-			height = 1/(a*Math.pow((2*Math.PI), .5)) * Math.pow(Math.E, -Math.pow((x - offset)/100, 2)/(2* Math.pow(a, 2))) * 40 + 30;
-			list[i].style.height = list[i].style.fontSize= height + "px";
+		list[0].parentElement.style.webkitTransform = 'translate3d(0px,' + value + 'px, 0px)';
+
+		for (var i = list.length-1; i >= 0; i--){
+
+			// gets the elements distance from the top
+			var x = list[i].offsetTop + parseFloat(list[i].parentElement.style.webkitTransform.split(',')[1]);
+			// normal curve equation
+			var height = 1/(a*Math.pow((2*Math.PI), .5)) * Math.pow(Math.E, -Math.pow((x - offset)/100, 2)/(2* Math.pow(a, 2))) * 40 + 30;
+			
+
+			list[i].style.fontSize = height + "px";
+			list[i].style.height = height + "px";
 
 			if (x - 5 < offset && x + list[i].clientHeight + 5 > offset) {
 				list[i].classList.add('selected');
 			} else {
 				list[i].classList.remove('selected');
+			}
+		}
+
+		if (dial) {
+			if (this.getOffset() < value) {
+				dial.setRotatable('left');
+				dial.onEnd();
+				this.scroll(this.getOffset());
+			} else if (this.getAt(0).element.getHeight() + value - this.getOffset() - this.getItemHeight() < 0) {
+				dial.setRotatable('right');
+				dial.onEnd();
+				this.scroll(-this.getAt(0).element.getHeight() + this.getOffset() + this.getItemHeight());
+			} else if (dial.getRotatable() !== true) {
+				dial.setRotatable(true);
 			}
 		}
 	}

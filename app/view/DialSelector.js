@@ -3,14 +3,12 @@ Ext.define('UWCenterStack.view.DialSelector', {
 	requires: ['Ext.dataview.DataView'],
 
 	config: {
-		fullscreen: true,
-		id: 'music',
 		items: [
 			{
 				xtype: 'selectorlist',
 				id: 'list',
 				store: 'Songs',
-				itemTpl: '<div>{title}</div>',
+				itemTpl: '{title}',
 				itemCls: 'selectorlistitem'
 			},
 			{
@@ -24,8 +22,9 @@ Ext.define('UWCenterStack.view.DialSelector', {
 			{
 				xtype: 'circlebutton',
 				id: 'selectButton',
-				src: 'resources/icons/buttonUp.png',
 				diameter: 100,
+			//	top: ,
+			//	left: ,
 				centered: true,
 			}
 		],
@@ -72,8 +71,8 @@ Ext.define('UWCenterStack.view.DialSelector', {
 		list = Ext.ComponentManager.get('list');
 		dial = Ext.ComponentManager.get('dial');
 
-		console.log(list.getItems().items[4].getHtml());
+		console.log(document.getElementsByClassName('selected')[0].innerHTML);
 
-		this.fireEvent('select', list.getItems().items[4].getHtml(), list, dial);
+		this.fireEvent('select', document.getElementsByClassName('selected')[0].innerHTML, list, dial);
 	}
 });
