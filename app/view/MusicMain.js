@@ -8,12 +8,12 @@ Ext.define('feel-your-way.view.MusicMain', {
 			{
 				xtype: 'container',
 				id: 'leftNav',
-	            width: '130px',
+	            width: '100px',
 	            defaults: {
 	                xtype: 'button',
-	                margin: 5,
-	                height: '120px',
-	                width: '120px'
+	                margin: '3 3 0 0',
+	                height: '90px',
+	                width: '90px'
 	            },
 	            items: [
 	                {
@@ -22,18 +22,20 @@ Ext.define('feel-your-way.view.MusicMain', {
 	                },
 	                {
 	                    id: 'artistButton',
-	                    text: 'ARTISTS',
+	                    iconCls: 'artistUnclicked'
 	                },
 	                {
 	                    id: 'albumButton',
-	                    text: 'ALBUM',
+	                    iconCls: 'albumUnclicked'
 	                },
 	                {
 	                    id: 'songButton',
-	                    text: 'SONGS',
+	                    iconCls: 'songUnclicked'
 	                },
 	                {
-	                    text: 'PLAYLIST'
+	                    id: 'playlistButton',
+	                    iconCls: 'playlistUnclicked'
+
 	                }
 	            ]
 			},
@@ -45,12 +47,14 @@ Ext.define('feel-your-way.view.MusicMain', {
 			{
 				xtype: 'container',
 				id: 'rightNav',
-	            width: '130px',
+	            width: '100px',
+	            position: 'absolute',
+	            right: '0px',
 	            defaults: {
 	                xtype: 'button',
-	                margin: 5,
-	                height: '120px',
-	                width: '120px'
+	                margin: '3 3 0 0',
+	                height: '90px',
+	                width: '90px'
 	            },
 	            items: [
 	                {
@@ -58,31 +62,20 @@ Ext.define('feel-your-way.view.MusicMain', {
 	                    text: 'NOW<br />PLAYING'
 	                },
 	                {
-	                    text: 'TREBLE',
-	                    handler: function() {
-	                        var toolbar = Ext.ComponentQuery.query('toolbar')[0];
-	                        toolbar.setTitle('TREBLE');
-	                    }
+	                    id: 'trebleButton',
+	                    iconCls: 'trebleUnclicked'
 	                },
 	                {
-	                    text: 'BASS',
-	                    handler: function() {
-	                        var toolbar = Ext.ComponentQuery.query('toolbar')[0];
-	                        toolbar.setTitle('BASS');
-	                    }
+	                    id: 'bassButton',
+	                    iconCls: 'bassUnclicked'
 	                },
 	                {
+	                    id: 'repeatButton',
 	                    text: 'REPEAT',
-	                    handler: function() {
-	                        var toolbar = Ext.ComponentQuery.query('toolbar')[0];
-	                            // titles = ['Artist', 'Album', 'Song'],
-	                            // title = toolbar.getTitle().getTitle(),
-	                            // newTitle = titles[titles.indexOf(title) + 1] || titles[0];
-	                        toolbar.setTitle('REPEAT');
-	                    }
 	                },
 	                {
-	                    text: 'SHUFFLE'
+	                    text: 'SHUFFLE',
+	                    id: 'shuffleButton',
 	                }
 	            ]   
 			}

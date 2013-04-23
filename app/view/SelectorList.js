@@ -36,7 +36,7 @@ Ext.define('feel-your-way.view.SelectorList', {
 			// gets the elements distance from the top
 			var x = list[i].offsetTop + parseFloat(list[i].parentElement.style.webkitTransform.split(',')[1]);
 			// normal curve equation
-			var height = 1/(a*Math.pow((2*Math.PI), .5)) * Math.pow(Math.E, -Math.pow((x - offset)/100, 2)/(2* Math.pow(a, 2))) * 40 + 30;
+			var height = 1/(a*Math.pow((2*Math.PI), .5)) * Math.pow(Math.E, -Math.pow((x - offset)/100, 2)/(2* Math.pow(a, 2))) * 40 + 10;
 			
 
 			list[i].style.fontSize = height + "px";

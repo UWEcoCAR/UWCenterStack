@@ -71,7 +71,12 @@ Ext.define('feel-your-way.view.DialSelector', {
 	},
 
 	select: function() {
-		list = Ext.ComponentManager.get('selectorList');
-		this.fireEvent('itemtap', list, list.getRecordNum());
+		var list = Ext.ComponentManager.get('selectorList');
+		var musicControl = this.getController('MusicControl');
+
+		musicControl.select(list, this);
+		console.log(list);
+		console.log(musicControl);
+		// this.fireEvent('itemtap', list, list.getRecordNum());
 	}
 });
