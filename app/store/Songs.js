@@ -9,7 +9,11 @@ Ext.define('feel-your-way.store.Songs', {
 			},
 			sort_property: 'title'
 		},
+<<<<<<< HEAD
 
+=======
+		grouped: false,
+>>>>>>> New styling, Controls for all Buttons
 		proxy: {
 			type: 'ajax',
 			url: 'resources/songs.json',

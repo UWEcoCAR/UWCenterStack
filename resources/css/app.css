@@ -11,8 +11,8 @@ body {
     font-family: 'Droid Sans', sans-serif;
 }
 
-#nowPlayingData {
-    text-align: right;
+#nowPlayingData, #selectedData {
+    text-align: left;
     width: 300px;
     height: 200px;
     font-size: 20pt;
@@ -43,40 +43,68 @@ body {
 
 }
 
-
-.x-button .x-button-icon.appspurple {
+/* Button icon styles */
+.x-button .x-button-icon.appspurple, .x-button .x-button-icon.appsgreen, 
+.x-button .x-button-icon.artistUnclicked, .x-button .x-button-icon.albumUnclicked,
+.x-button .x-button-icon.songUnclicked, .x-button .x-button-icon.playlistUnclicked,
+.x-button .x-button-icon.bassUnclicked, .x-button .x-button-icon.trebleUnclicked
+{ 
     width: 100%;
     height: 100%;
+}
+.x-button .x-button-icon.appspurple {
     background-image: url('../icons/graphics/Apps_purple.gif');
 }
 
 .x-button .x-button-icon.appsgreen {
-    width: 100%;
-    height: 100%;
     background-image: url('../icons/graphics/Apps_green.png');
 }
 
+.x-button .x-button-icon.artistUnclicked {
+    background-image: url('../icons/graphics/Music/Artists_Icon-05.png');
+}
 
-/* data list styles */
+.x-button .x-button-icon.albumUnclicked {
+    background-image: url('../icons/graphics/Music/Albums_Icon-05.png');
+}
 
-.x-innerhtml {
-    color: white;
+.x-button .x-button-icon.songUnclicked {
+    background-image: url('../icons/graphics/Music/Songs_Icon-05.png');
+}
+
+.x-button .x-button-icon.playlistUnclicked {
+    background-image: url('../icons/graphics/Music/Playlists_Icon-05.png');
+}
+
+.x-button .x-button-icon.bassUnclicked {
+    background-image: url('../icons/graphics/Music/Bass_Icon-05.png');
+}
+
+.x-button .x-button-icon.trebleUnclicked {
+    background-image: url('../icons/graphics/Music/Treble_Icon-05.png');
 }
 
 .x-button, .x-button.x-button-back:after, .x-button.x-button-forward:after, .x-toolbar .x-button, .x-toolbar .x-button.x-button-back:after, .x-toolbar .x-button.x-button-forward:after {
     background-image: none;
-    color: #A366E0;
+    color: black;
     background-color: #2d2d2d;
     text-align: justify;
 }
 
 .x-button.clickedButton, .x-button.x-button-back:after, .x-button.x-button-forward:after, .x-toolbar .x-button, .x-toolbar .x-button.x-button-back:after, .x-toolbar .x-button.x-button-forward:after { 
-    background-color: #A366E0;
-    color: #2d2d2d;
+    background-color: #3d3d3d;
+    color: black;
+    border: 1px solid #3d3d3d;
+}
+
+.x-button.x-button-pressing {
+    background-color: #3d3d3d;
+    border: 1px solid #3d3d3d;
+    background-image: none;
 }
 
 .x-button {
-    border: 1px solid black;
+    border: 1px solid #2d2d2d;
     -webkit-border-radius: 0em;
     border-radius: 0em;
 
@@ -90,6 +118,11 @@ body {
     display: block;
 }
 
+/* data list styles */
+
+.x-innerhtml {
+    color: white;
+}
 .x-scroll-container {
     background-color: #2d2d2d;
 }

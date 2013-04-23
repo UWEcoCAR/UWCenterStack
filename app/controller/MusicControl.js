@@ -15,11 +15,26 @@ Ext.define('feel-your-way.controller.MusicControl', {
             songButton: {
                 tap: 'songSelect'
             },
+            playlistButton: {
+                tap: 'playlistSelect'
+            },
             nowPlayingButton: {
                 tap: 'goToNowPlaying'
             },
+            trebleButton: {
+                tap: 'trebleSelect',
+            },
+            bassButton: {
+                tap: 'bassSelect',
+            },
+            repeatButton: {
+                tap: 'repeatSelect',
+            },
+            shuffleButton: {
+                tap: 'shuffleSelect',
+            },
             homeButton: {
-                tap: 'goHome'
+                tap: 'goHome',
             }
 		},
 
@@ -30,7 +45,12 @@ Ext.define('feel-your-way.controller.MusicControl', {
             artistButton: '#artistButton',
             albumButton: '#albumButton',
             songButton: '#songButton',
+            playlistButton: '#playlistButton',
             nowPlayingButton: '#nowPlaying',
+            trebleButton: '#trebleButton',
+            bassButton: '#bassButton',
+            repeatButton: '#repeatButton',
+            shuffleButton: '#shuffleButton',
 
 
             // non music controls
@@ -44,6 +64,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
             title: '',
             album: '',
             artist: '',
+<<<<<<< HEAD
             genre: '',
 
             set: function(title, album, artist, genre, onScreen, isPlaying) {
@@ -54,12 +75,23 @@ Ext.define('feel-your-way.controller.MusicControl', {
                 if (onScreen !== null) this.onScreen = onScreen;
                 if (isPlaying !== null) this.onScreen = onScreen;
             }
+=======
+            genre: ''
+        },
+        toggledButtons: {
+            repeat: false,
+            shuffle: false
+>>>>>>> New styling, Controls for all Buttons
         }
 	},
 
     goHome: function(button) {
         console.log('home button clicked');
+<<<<<<< HEAD
         button.setIconCls('appsgreen');
+=======
+        this.setActiveButton('#homeButton');
+>>>>>>> New styling, Controls for all Buttons
     },
 
 
@@ -73,13 +105,18 @@ Ext.define('feel-your-way.controller.MusicControl', {
         }
     },
 
+<<<<<<< HEAD
 
 
     setActiveButton: function(button) {
+=======
+    setActiveButton: function(buttonName) {
+>>>>>>> New styling, Controls for all Buttons
         var buttons = Ext.ComponentQuery.query('button');
         for (var i = buttons.length - 1; i >= 0; i--) {
             buttons[i].removeCls('clickedButton');
         };
+<<<<<<< HEAD
         button.addCls('clickedButton');
     },
 
@@ -107,12 +144,48 @@ Ext.define('feel-your-way.controller.MusicControl', {
             var notContained = (me.getCurrentData().indexOf(record.data.artist) === -1);
             if (notContained) {
                 me.getCurrentData().push(record.data.artist);
-            }
-            return notContained;
-        });
-        list.refresh();
+=======
+        
+        /* restore buttons that are toggles */
+        var toggled = this.getToggledButtons();
+        if (toggled.repeat) {
+            var buttonClicked = Ext.ComponentQuery.query('#repeatButton')[0];
+            buttonClicked.addCls('clickedButton');
+        }
+        if (toggled.shuffle) {
+            var buttonClicked = Ext.ComponentQuery.query('#shuffleButton')[0];
+            buttonClicked.addCls('clickedButton');
+        }
+
+        var buttonClicked = Ext.ComponentQuery.query(buttonName)[0];
+        buttonClicked.addCls('clickedButton');
     },
 
+    toggleButton: function(buttonName) {
+        var toggled = this.getToggledButtons();
+        if (buttonName === '#repeatButton') {
+            var buttonClicked = Ext.ComponentQuery.query('#repeatButton')[0];
+            if (!toggled.repeat) {
+                toggled.repeat = true;
+                buttonClicked.addCls('clickedButton');
+            } else {
+                toggled.repeat = false;
+                buttonClicked.removeCls('clickedButton');
+>>>>>>> New styling, Controls for all Buttons
+            }
+        } else if (buttonName === '#shuffleButton') {
+            var buttonClicked = Ext.ComponentQuery.query('#shuffleButton')[0];
+            if (!toggled.shuffle) {
+                toggled.shuffle = true;
+                buttonClicked.addCls('clickedButton');
+            } else {
+                toggled.shuffle = false;
+                buttonClicked.removeCls('clickedButton');
+            }
+        }
+    },
+
+<<<<<<< HEAD
     albumSelect: function(button) {
         console.log('album click');
 
@@ -121,8 +194,17 @@ Ext.define('feel-your-way.controller.MusicControl', {
         me.checkPlaying();
         var list = Ext.getCmp('selectorList');
         var template = '{album}';
+=======
+    generalFilter: function(selector, button) {
+        console.log(button + ' click');
+        this.setActiveButton('#' + button + 'Button');
+        this.checkPlaying();
+        var me = this;
+        var list = Ext.ComponentQuery.query('#centerInfo')[0];
+        template = '{' + selector + '}';
+>>>>>>> New styling, Controls for all Buttons
         var store = Ext.StoreManager.get('Songs');
-        store.changeSorting('album', list);
+        store.changeSorting(selector, list);
         list.setItemTpl(template);
         var data = me.getCurrentData();
 
@@ -133,16 +215,30 @@ Ext.define('feel-your-way.controller.MusicControl', {
         store.clearFilter();
 
         store.filterBy(function(record, id) {        
-            var notContained = (me.getCurrentData().indexOf(record.data.album) === -1);
-            if (notContained) {
-                me.getCurrentData().push(record.data.album);
-            }
+            var notContained;
+            if (selector === 'artist') {
+                notContained = (me.getCurrentData().indexOf(record.data.artist) === -1);
+                if (notContained) {
+                    me.getCurrentData().push(record.data.artist);
+                }
+            } else if (selector === 'album') {
+                notContained = (me.getCurrentData().indexOf(record.data.album) === -1);
+                if (notContained) {
+                    me.getCurrentData().push(record.data.album);
+                }
+            }  else if (selector === 'title') {
+                notContained = (me.getCurrentData().indexOf(record.data.title) === -1);
+                if (notContained) {
+                    me.getCurrentData().push(record.data.title);
+                }
+            } //else playlist
             return notContained;
         });
         list.refresh();
-    },
-    
 
+    },
+
+<<<<<<< HEAD
     songSelect: function(button) {
         console.log('song click');
 
@@ -154,26 +250,44 @@ Ext.define('feel-your-way.controller.MusicControl', {
         var store = Ext.StoreManager.get('Songs');
         store.changeSorting('title', list);
         list.setItemTpl(template);
+=======
+    artistSelect: function() {
+        this.generalFilter('artist', 'artist');
+    },
+>>>>>>> New styling, Controls for all Buttons
 
-        var data = me.getCurrentData();
-        while(data.length > 0) {
-            data.pop();
-        }
-
-        store.clearFilter();
-
-        store.filterBy(function(record, id) {        
-            var notContained = (me.getCurrentData().indexOf(record.data.title) === -1);
-            if (notContained) {
-                me.getCurrentData().push(record.data.title);
-
-            }
-            return notContained;
-        });
-        list.refresh();
+    albumSelect: function() {
+        this.generalFilter('album', 'album');
+    },
+    
+    songSelect: function() {
+        this.generalFilter('title', 'song');
     },
 
+    playlistSelect: function() {
+        console.log('no playlist functionality');
+        this.setActiveButton('#playlistButton');
+    },
 
+    trebleSelect: function() {
+        console.log('no treble functionality');
+        this.setActiveButton('#trebleButton');
+    },
+
+    bassSelect: function() {
+        console.log('no bass functionality');
+        this.setActiveButton('#bassButton');
+    },
+
+    repeatSelect: function() {
+        console.log('no repeat functionality');
+        this.toggleButton('#repeatButton');
+    },
+
+    shuffleSelect: function() {
+        console.log('no shuffle functionality');
+        this.toggleButton('#shuffleButton');
+    },
 
     filterData: function(store, currentlyDisplayed, tappedRecord) {
 
@@ -188,6 +302,9 @@ Ext.define('feel-your-way.controller.MusicControl', {
             var notContained;
             if (currentlyDisplayed == JSON.stringify('artist')) { //artist -> display albums by that artist
                 console.log("was artist, display album");
+                var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
+                console.log("click on" + tappedRecord.artist);
+                selectedData.setHtml(tappedRecord.artist);
                 notContained = (me.getCurrentData().indexOf(record.data.album) === -1);
                 if (notContained && (JSON.stringify(record.data.artist) == JSON.stringify(tappedRecord.artist))) {
                     me.getCurrentData().push(record.data.album);
@@ -195,6 +312,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
             } else if (currentlyDisplayed == JSON.stringify('album')) { //album -> display songs on that album
                 console.log("was album, display songs");
                 notContained = (me.getCurrentData().indexOf(record.data.song) === -1);
+                var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
+                selectedData.setHtml(tappedRecord.artist + '<br />' + tappedRecord.album);
                 if (notContained && (JSON.stringify(record.data.album) == JSON.stringify(tappedRecord.album))) {
                     me.getCurrentData().push(record.data.title);
                 }
@@ -202,15 +321,27 @@ Ext.define('feel-your-way.controller.MusicControl', {
                 if (JSON.stringify(record.data.title) == JSON.stringify(tappedRecord.title)) {
                     var container = Ext.ComponentQuery.query('#pageContainer')[0];
                     var currentlyPlaying = me.getNowPlaying();
+<<<<<<< HEAD
                     var data = record.data;
                     currentlyPlaying.set(data.title, data.artist, data.album, data.genre, true, true);
                     Ext.getCmp('selectorList').hide();
                     me.setActiveButton(me.getNowPlayingButton());
+=======
+                    currentlyPlaying.title = record.data.title;
+                    currentlyPlaying.artist = record.data.artist;
+                    currentlyPlaying.album = record.data.album;
+                    currentlyPlaying.genre = record.data.genre;
+                    currentlyPlaying.onScreen = true;
+                    currentlyPlaying.isPlaying = true;
+                    Ext.ComponentQuery.query('#centerInfo')[0].hide();
+                    me.setActiveButton('#nowPlaying');
+
+                    var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
+                    selectedData.setHtml('');
+
+>>>>>>> New styling, Controls for all Buttons
                     var dataContainer = Ext.ComponentQuery.query('#nowPlayingData')[0];
                     dataContainer.setHtml('<span>' + record.data.title + '</span><br />' + record.data.artist + '<br />' + record.data.album);
-                    // container.push({
-                    //     title: 'Now Playing: ' + record.data.title + ' by ' + record.data.artist + ' on the album ' + record.data.album
-                    // });
                 }
             }
 
@@ -225,12 +356,18 @@ Ext.define('feel-your-way.controller.MusicControl', {
         console.log("...done");
     },
 
+    clearSelectedData: function() {
+        var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
+        selectedData.setHtml('');
+    },
+
     checkPlaying: function() {
             var currentlyPlaying = this.getNowPlaying();
             if (currentlyPlaying.onScreen) {
                 Ext.getCmp('selectorList').show();
                 currentlyPlaying.onScreen = false;
             }
+            this.clearSelectedData();
     },
 
 	select: function(theList, record) {
@@ -253,16 +390,18 @@ Ext.define('feel-your-way.controller.MusicControl', {
         } else {
             console.log("tapped: " + tappedRecord.title);
             template = '{title}';
-            //store.changeSorting('title', list);
         }
         list.setItemTpl(template);
 
 		var data = this.filterData(store, currentlyDisplayed, tappedRecord);
+<<<<<<< HEAD
         // Ext.getCmp('selectorList').destroy();
         // Ext.ComponentQuery.query('#pageContainer')[0].push({
         //     id: 'centerInfo',
         //     data: data
         // });
+=======
+>>>>>>> New styling, Controls for all Buttons
 	},
 
 	filterLibrary: function(store, params) {
