@@ -33,6 +33,5 @@ Ext.define('feel-your-way.store.Songs', {
 			},
 			sort_property: sortBy
 		});
-		list.refresh();
 	}
 });

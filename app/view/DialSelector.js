@@ -10,8 +10,8 @@ Ext.define('feel-your-way.view.DialSelector', {
 				id: 'dial',
 				diameter: 400,
 				// following must be set
-				top: 200,
-				left: 400,
+				top: 100,
+				left: 100,
 			 	style: 'position: fixed',
 			},
 			{
@@ -20,8 +20,8 @@ Ext.define('feel-your-way.view.DialSelector', {
 				diameter: 100,
 				// following must be set
 				style: 'position: fixed',
-				top: 350,
-				left: 550,
+				top: 250,
+				left: 250,
 			},
 			{
 				xtype: 'selectorlist',
@@ -71,12 +71,7 @@ Ext.define('feel-your-way.view.DialSelector', {
 	},
 
 	select: function() {
-		var list = Ext.ComponentManager.get('selectorList');
-		var musicControl = this.getController('MusicControl');
-
-		musicControl.select(list, this);
-		console.log(list);
-		console.log(musicControl);
-		// this.fireEvent('itemtap', list, list.getRecordNum());
+		list = Ext.ComponentManager.get('selectorList');
+		this.fireEvent('itemtap', list, list.getRecordNum());
 	}
 });

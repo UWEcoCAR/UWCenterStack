@@ -41,12 +41,12 @@ div .roundlistitem {
 	background-image:url('../icons/buttonDown.png');
 }
 
-#dial {
+#dial, .circleButton {
 	opacity: .1;
 	-webkit-transition: opacity .25s;
 }
 
-#dial:hover {
+#dial:hover, .circleButtonhover:hover {
 	opacity: .2;
 }
 
