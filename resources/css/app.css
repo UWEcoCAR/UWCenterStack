@@ -3,6 +3,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input
 
 body {
     background-color: #2d2d2d;
+    color: black;
 }
             
 #pageContainer {
@@ -15,11 +16,11 @@ body {
     text-align: left;
     width: 300px;
     height: 200px;
-    font-size: 20pt;
+    font-size: 12pt;
 }
 
 #nowPlayingData span {
-    font-size: 28pt;
+    font-size: 16pt;
     font-weight: bold;
 }
 
@@ -52,36 +53,78 @@ body {
     width: 100%;
     height: 100%;
 }
-.x-button .x-button-icon.appspurple {
-    background-image: url('../icons/graphics/Apps_purple.gif');
+
+.x-button .x-button-icon.x-button-icon.home {
+    background-image: url('../icons/graphics/Music/Home_black-06.png');
 }
 
-.x-button .x-button-icon.appsgreen {
-    background-image: url('../icons/graphics/Apps_green.png');
+.x-button .x-button-icon.artists {
+    background-image: url('../icons/graphics/Music/Artists_black-06.png');
 }
 
-.x-button .x-button-icon.artistUnclicked {
-    background-image: url('../icons/graphics/Music/Artists_Icon-05.png');
+.x-button .x-button-icon.albums {
+    background-image: url('../icons/graphics/Music/Albums_black-06.png');
 }
 
-.x-button .x-button-icon.albumUnclicked {
-    background-image: url('../icons/graphics/Music/Albums_Icon-05.png');
+.x-button .x-button-icon.songs {
+    background-image: url('../icons/graphics/Music/Songs_black-06.png');
 }
 
-.x-button .x-button-icon.songUnclicked {
-    background-image: url('../icons/graphics/Music/Songs_Icon-05.png');
+.x-button .x-button-icon.playlists {
+    background-image: url('../icons/graphics/Music/Playlists_black-06.png');
 }
 
-.x-button .x-button-icon.playlistUnclicked {
-    background-image: url('../icons/graphics/Music/Playlists_Icon-05.png');
+.x-button .x-button-icon.repeat {
+    background-image: url('../icons/graphics/Music/Repeat_black-06.png');
 }
 
-.x-button .x-button-icon.bassUnclicked {
-    background-image: url('../icons/graphics/Music/Bass_Icon-05.png');
+.x-button .x-button-icon.shuffle {
+    background-image: url('../icons/graphics/Music/Shuffle_black-06.png');
 }
 
-.x-button .x-button-icon.trebleUnclicked {
-    background-image: url('../icons/graphics/Music/Treble_Icon-05.png');
+.x-button .x-button-icon.bass {
+    background-image: url('../icons/graphics/Music/Bass_black-06.png');
+}
+
+.x-button .x-button-icon.treble {
+    background-image: url('../icons/graphics/Music/Treble_black-06.png');
+}
+
+/* Active Buttons */
+.x-button.clickedButton .x-button-icon.x-button-icon.home {
+    background-image: url('../icons/graphics/Music/Home_gray-06.png');
+}
+
+.x-button.clickedButton .x-button-icon.artists {
+    background-image: url('../icons/graphics/Music/Artists_gray-06.png');
+}
+
+.x-button.clickedButton .x-button-icon.albums {
+    background-image: url('../icons/graphics/Music/Albums_gray-06.png');
+}
+
+.x-button.clickedButton .x-button-icon.songs {
+    background-image: url('../icons/graphics/Music/Songs_gray-06.png');
+}
+
+.x-button.clickedButton .x-button-icon.playlists {
+    background-image: url('../icons/graphics/Music/Playlists_gray-06.png');
+}
+
+.x-button.clickedButton .x-button-icon.repeat {
+    background-image: url('../icons/graphics/Music/Repeat_gray-06.png');
+}
+
+.x-button.clickedButton .x-button-icon.shuffle {
+    background-image: url('../icons/graphics/Music/Shuffle_gray-06.png');
+}
+
+.x-button.clickedButton .x-button-icon.bass {
+    background-image: url('../icons/graphics/Music/Bass_gray-06.png');
+}
+
+.x-button.clickedButton .x-button-icon.treble {
+    background-image: url('../icons/graphics/Music/Treble_gray-06.png');
 }
 
 .x-button, .x-button.x-button-back:after, .x-button.x-button-forward:after, .x-toolbar .x-button, .x-toolbar .x-button.x-button-back:after, .x-toolbar .x-button.x-button-forward:after {
@@ -92,14 +135,12 @@ body {
 }
 
 .x-button.clickedButton, .x-button.x-button-back:after, .x-button.x-button-forward:after, .x-toolbar .x-button, .x-toolbar .x-button.x-button-back:after, .x-toolbar .x-button.x-button-forward:after { 
-    background-color: #3d3d3d;
-    color: black;
-    border: 1px solid #3d3d3d;
+    background-color: black;
+    color: #3d3d3d;
 }
 
 .x-button.x-button-pressing {
-    background-color: #3d3d3d;
-    border: 1px solid #3d3d3d;
+    background-color: black;
     background-image: none;
 }
 
@@ -107,6 +148,7 @@ body {
     border: 1px solid #2d2d2d;
     -webkit-border-radius: 0em;
     border-radius: 0em;
+    background-color: #3d3d3d;
 
 }
 
@@ -116,6 +158,8 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* data list styles */

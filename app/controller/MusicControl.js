@@ -104,11 +104,14 @@ Ext.define('feel-your-way.controller.MusicControl', {
         };
         button.addCls('clickedButton');
 
-        // if (toggled.repeat) {
-        //     this.getRepeatButton().addCls('clickedButton');
-        // } else {
-        //     this.getShuffleButton().addCls('clickedButton');
-        // }
+        // reset toggled buttons
+        var toggled = this.getToggledButtons();
+        if (toggled.repeat) {
+            this.getRepeatButton().addCls('clickedButton');
+        }
+        if (toggled.shuffle) {
+            this.getShuffleButton().addCls('clickedButton');
+        }
 
     },
 
@@ -190,7 +193,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
     playlistSelect: function(button) {
         console.log('no playlist functionality');
-        // this.setActiveButton(button);
+        this.setActiveButton(button);
     },
 
     trebleSelect: function(button) {
@@ -224,11 +227,12 @@ Ext.define('feel-your-way.controller.MusicControl', {
         store.filterBy(function(record, id) {
             console.log("filtering...");
             var notContained;
+            var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
             if (currentlyDisplayed == JSON.stringify('artist')) { //artist -> display albums by that artist
                 console.log("was artist, display album");
-                // var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
+
                 console.log("click on" + tappedRecord.artist);
-                // selectedData.setHtml(tappedRecord.artist);
+                selectedData.setHtml(tappedRecord.artist);
                 notContained = (me.getCurrentData().indexOf(record.data.album) === -1);
                 if (notContained && (JSON.stringify(record.data.artist) == JSON.stringify(tappedRecord.artist))) {
                     me.getCurrentData().push(record.data.album);
@@ -236,8 +240,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
             } else if (currentlyDisplayed == JSON.stringify('album')) { //album -> display songs on that album
                 console.log("was album, display songs");
                 notContained = (me.getCurrentData().indexOf(record.data.song) === -1);
-                // var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
-                // selectedData.setHtml(tappedRecord.artist + '<br />' + tappedRecord.album);
+
+                selectedData.setHtml(tappedRecord.artist + '<br />' + tappedRecord.album);
                 if (notContained && (JSON.stringify(record.data.album) == JSON.stringify(tappedRecord.album))) {
                     me.getCurrentData().push(record.data.title);
                 }
@@ -251,10 +255,9 @@ Ext.define('feel-your-way.controller.MusicControl', {
                     me.getList().hide();
                     me.setActiveButton(me.getNowPlayingButton());
 
-                    // var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
-                    // selectedData.setHtml('');
-                    // var dataContainer = Ext.ComponentQuery.query('#nowPlayingData')[0];
-                    // dataContainer.setHtml('<span>' + record.data.title + '</span><br />' + record.data.artist + '<br />' + record.data.album);
+                    selectedData.setHtml('');
+                    var dataContainer = Ext.ComponentQuery.query('#nowPlayingData')[0];
+                    dataContainer.setHtml('<span>' + record.data.title + '</span><br />' + record.data.artist + '<br />' + record.data.album);
                 }
             }
 
@@ -270,8 +273,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
     },
 
     clearSelectedData: function() {
-        // var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
-        // selectedData.setHtml('');
+        var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
+        selectedData.setHtml('');
     },
 
     checkPlaying: function() {

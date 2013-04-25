@@ -38,14 +38,24 @@ Ext.application({
         //     right: '160px'
         // });
 
-        // var nowPlayingData = Ext.create('Ext.Container', {
-        //     id: 'nowPlayingData',
-        //     html: '',
-        //     position: 'absolute',
-        //     top: '5%',
-        //     right: '180px'
+        var nowPlayingData = Ext.create('Ext.Container', {
+            id: 'nowPlayingData',
+            html: '',
+            position: 'absolute',
+            top: '10px',
+            left: '120px'
+        });
 
-        // });
+        var selectedData = Ext.create('Ext.Container', {
+            id: 'selectedData',
+            html: '',
+            position: 'absolute',
+            top: '400px',
+            left: '120px'
+        });
+
+        Ext.Viewport.add(nowPlayingData);
+        Ext.Viewport.add(selectedData);
 
         // //var nowPlayingData = Ext.create('Ext.')
 
