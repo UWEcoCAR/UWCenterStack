@@ -248,10 +248,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
                     var data = record.data;
                     currentlyPlaying.set(data.title, data.artist, data.album, data.genre, true, true);
-                    Ext.getCmp('selectorList').hide();
-                    me.setActiveButton(me.getNowPlayingButton());
-
                     me.getList().hide();
+                    me.setActiveButton(me.getNowPlayingButton());
 
                     // var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
                     // selectedData.setHtml('');
@@ -279,7 +277,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
     checkPlaying: function() {
             var currentlyPlaying = this.getNowPlaying();
             if (currentlyPlaying.onScreen) {
-                Ext.getCmp('selectorList').show();
+                this.getList().show();
                 currentlyPlaying.onScreen = false;
             }
             this.clearSelectedData();
