@@ -9,3 +9,4 @@ touch
 archive
 .sencha
 resources/icons/graphics
+resources/css/app.css

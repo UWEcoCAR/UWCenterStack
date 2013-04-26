@@ -3,8 +3,49 @@
         Builds UWCenterStack for use on an iMX.6 Freecale proccessor board.
     </description>
 
+    <property name="workspace.build.dir" location="build"/>
     <import file="${basedir}/.sencha/app/build-impl.xml"/>
-    
+
+    <property name="build.output" location="${workspace.build.dir}/production"/>
+    <property name="lib" location="lib"/>
+    <property name="bbwp" location="${lib}/BBWP-1.0.2.9/bbwp"/>
+    <property name="zip.file" location="${build.output}/UWCenterStack.zip"/>
+    <property name="device.bar.file" location="${build.output}/device/UWCenterStack.bar"/>
+    <property name="simulator.bar.file" location="${build.output}/simulator/UWCenterStack.bar"/>
+    <property name="target.ip" value="169.254.169.169"/>
+
+	<target name="qnxcar-deploy" >
+
+		<!-- Zip files -->
+		<zip destfile="${zip.file}"
+		    basedir="${build.output}"
+			excludes="deltas/**"
+		/>
+
+		<!-- Package them for QNX -->
+        <exec executable="${bbwp}">
+            <arg value="-d"/>
+            <arg value="${zip.file}"/>
+        </exec>
+
+		<!-- Install App -->
+	    <scp file="${device.bar.file}"
+	    	todir="root:root@${target.ip}:/tmp"
+	    	trust="true"/>
+		<sshexec host="${target.ip}"
+		    username="root"
+		    password="root"
+		    command="/base/scripts/bar-install /tmp/UWCenterStack.bar > /test/test.txt"
+			verbose="true"
+			failonerror="false"
+			trust="true"/>
+
+	    <!-- Clean up -->
+        <delete file="${zip.file}"/>
+        <delete file="${device.bar.file}"/>
+        <delete file="${simulator.bar.file}"/>
+	</target>
+
     <!-- set global properties for this build -->
     <!-- <property name="src" location="srcs"/>
     <property name="lib" location="lib"/>
@@ -17,13 +58,13 @@
     <property name="config.file" location="config.xml"/>
     <property name="icon.file" location="icon.png"/>
     <property name="bbwp" location="${lib}/BBWP-1.0.2.9/bbwp"/> -->
-    
+
     <!-- <target name="zip" description="Zip all of the generated files" >
         <zip destfile="${zip.file}"
             basedir="${build.project}"
         />
     </target> -->
-    
+
     <!-- <target name="build-test" depends="zip" description="Builds the application for deployment" >
         <exec executable="${bbwp}">
             <arg value="-d"/>
@@ -52,7 +93,7 @@
 
             <target name="-before-init"/>
             <target name="-after-init"/>
-            
+
         The "page" target performs the call to Sencha Cmd to build the 'all-classes.js' file.
 
             <target name="-before-page"/>

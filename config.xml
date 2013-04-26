@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><widget xmlns="http://www.w3.org/ns/widgets" xmlns:rim="http://www.blackberry.com/ns/widgets" version="1.0.0.0">
-    <name>Sencha Dial</name><!-- Set by deployment app -->
+    <name>UWCenterStack</name><!-- Set by deployment app -->
     <author>University of Washington</author>
     <description/>
-    <icon src="icon.png"/>
-    <content src="srcs/t2c/coord.html"/> <!-- Set by deployment app -->
+    <icon src="resources/icons/Icon.png"/>
+    <content src="index.html"/> <!-- Set by deployment app -->
     <rim:permissions>
         <rim:permit>read_geolocation</rim:permit>
     </rim:permissions>
