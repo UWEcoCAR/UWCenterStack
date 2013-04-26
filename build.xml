@@ -31,6 +31,7 @@
 		<!-- Install App -->
 	    <scp file="${device.bar.file}"
 	    	todir="root:root@${target.ip}:/tmp"
+            failonerror="false"
 	    	trust="true"/>
 		<sshexec host="${target.ip}"
 		    username="root"
