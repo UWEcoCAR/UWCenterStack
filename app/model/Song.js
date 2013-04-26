@@ -1,4 +1,4 @@
-Ext.define('UWCenterStack.model.Song', {
+Ext.define('feel-your-way.model.Song', {
 	extend: 'Ext.data.Model',
 	config: {
 		fields: [
