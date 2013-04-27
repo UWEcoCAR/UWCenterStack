@@ -8,6 +8,9 @@ Ext.define('feel-your-way.view.MusicMain', {
 			{
 				xtype: 'container',
 				id: 'leftNav',
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
 	            width: '100px',
 	            defaults: {
 	                xtype: 'button',
@@ -18,31 +21,76 @@ Ext.define('feel-your-way.view.MusicMain', {
 	            items: [
 	                {
 	                    id: 'homeButton',
-	                    iconCls: 'home'
+	                    iconCls: 'home',
+	                    text: 'Home'
 	                },
 	                {
 	                    id: 'artistButton',
-	                    iconCls: 'artists'
+	                    iconCls: 'artists',
+	                    text: 'Artists'
 	                },
 	                {
 	                    id: 'albumButton',
-	                    iconCls: 'albums'
+	                    iconCls: 'albums',
+	                    text: 'Albums'
 	                },
 	                {
 	                    id: 'songButton',
-	                    iconCls: 'songs'
+	                    iconCls: 'songs',
+	                    text: 'Songs'
 	                },
 	                {
 	                    id: 'playlistButton',
-	                    iconCls: 'playlists'
+	                    iconCls: 'playlists',
+	                    text: 'Playlists'
 
 	                }
 	            ]
 			},
 			{
+				xtype: 'container',
+				id: 'nowPlayingData',
+	            html: '',
+	            position: 'absolute',
+	            top: '10px',
+	            left: '120px',
+			},
+			{
+				xtype: 'container',
+				id: 'selectedData',
+	            html: '',
+	            position: 'absolute',
+	            top: '150px',
+	            left: '47%',
+	            width: '10%'
+			},
+			{
+				xtype: 'container',
+				id: 'nowPlayingTag',
+	            html: '',
+	            position: 'absolute',
+	            top: '0px',
+	            left: '537px',
+	            top: '45px',
+	            height: '100%'
+			},
+			{
 				xtype: 'dialselector',
 				id: 'music',
-				flex: 1
+				position: 'absolute',
+				left: '60%',
+				top: '0px',
+				width: '90%'
+			},
+			{
+				xtype: 'container',
+				id: 'fadeImage',
+	            html: '',
+	            position: 'absolute',
+	            top: '0px',
+	            right: '0px',
+	            width: '200px',
+	            height: '100%'
 			},
 			{
 				xtype: 'container',
@@ -59,23 +107,27 @@ Ext.define('feel-your-way.view.MusicMain', {
 	            items: [
 	                {
 	                    id: 'nowPlaying',
-	                    text: 'NOW<br />PLAYING'
+	                    text: 'Now<br />Playing'
 	                },
 	                {
 	                    id: 'trebleButton',
-	                    iconCls: 'treble'
+	                    iconCls: 'treble',
+	                    text: 'Treble'
 	                },
 	                {
 	                    id: 'bassButton',
-	                    iconCls: 'bass'
+	                    iconCls: 'bass',
+	                    text: 'Bass'
 	                },
 	                {
 	                    id: 'repeatButton',
-	                    iconCls: 'repeat'
+	                    iconCls: 'repeat',
+	                    text: 'Repeat'
 	                },
 	                {
 	                    id: 'shuffleButton',
-	                    iconCls: 'shuffle'
+	                    iconCls: 'shuffle',
+	                    text: 'Shuffle'
 	                }
 	            ]   
 			}

@@ -72,7 +72,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
                 if (artist !== null) this.artist = artist;
                 if (genre !== null) this.genre = genre;
                 if (onScreen !== null) this.onScreen = onScreen;
-                if (isPlaying !== null) this.onScreen = onScreen;
+                if (isPlaying !== null) this.isPlaying = isPlaying;
             }
         },
         toggledButtons: {
@@ -90,10 +90,11 @@ Ext.define('feel-your-way.controller.MusicControl', {
     goToNowPlaying: function(button) {
         console.log("now playing was clicked");
         var playing = this.getNowPlaying();
+        var me = this;
         if(playing.isPlaying && !playing.onScreen) { // something is playing
             this.setActiveButton(button);
             playing.onScreen = true;
-            Ext.getCmp('selectorList').hide();
+            me.getList().hide();
         }
     },
 
@@ -228,11 +229,12 @@ Ext.define('feel-your-way.controller.MusicControl', {
             console.log("filtering...");
             var notContained;
             var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
+            var nowPlayingTag = Ext.ComponentQuery.query('#nowPlayingTag')[0];
             if (currentlyDisplayed == JSON.stringify('artist')) { //artist -> display albums by that artist
                 console.log("was artist, display album");
 
                 console.log("click on" + tappedRecord.artist);
-                selectedData.setHtml(tappedRecord.artist);
+                selectedData.setHtml('<span>' + tappedRecord.artist + '</span>');
                 notContained = (me.getCurrentData().indexOf(record.data.album) === -1);
                 if (notContained && (JSON.stringify(record.data.artist) == JSON.stringify(tappedRecord.artist))) {
                     me.getCurrentData().push(record.data.album);
@@ -241,7 +243,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
                 console.log("was album, display songs");
                 notContained = (me.getCurrentData().indexOf(record.data.song) === -1);
 
-                selectedData.setHtml(tappedRecord.artist + '<br />' + tappedRecord.album);
+                selectedData.setHtml('<span>' + tappedRecord.artist + '</span><br />' + tappedRecord.album);
                 if (notContained && (JSON.stringify(record.data.album) == JSON.stringify(tappedRecord.album))) {
                     me.getCurrentData().push(record.data.title);
                 }
@@ -255,6 +257,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
                     me.getList().hide();
                     me.setActiveButton(me.getNowPlayingButton());
 
+                    nowPlayingTag.setHtml('now playing');
                     selectedData.setHtml('');
                     var dataContainer = Ext.ComponentQuery.query('#nowPlayingData')[0];
                     dataContainer.setHtml('<span>' + record.data.title + '</span><br />' + record.data.artist + '<br />' + record.data.album);
