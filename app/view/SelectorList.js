@@ -16,7 +16,7 @@ Ext.define('feel-your-way.view.SelectorList', {
 		this.callParent();
 		this.on('refresh', function() {
 			this.scroll(this.getOffset() - this.getItemHeight());
-			Ext.getCmp('dial').setTheta((this.getOffset() - this.getItemHeight())*Math.PI/Ext.getCmp('dial').getDiameter());
+			Ext.getCmp('dial-dial').setTheta((this.getOffset() - this.getItemHeight())*Math.PI/Ext.getCmp('dial-dial').getDiameter());
 		});
 	},
 

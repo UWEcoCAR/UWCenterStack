@@ -1,4 +1,4 @@
-Ext.define('UWCenterStack.view.CircleSlider', {
+Ext.define('feel-your-way.view.CircleSlider', {
 	extend: 'Ext.Container',
 	xtype: 'circleslider',
 
@@ -6,8 +6,6 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 		diameter: null,
 		innerDiameter: null,
 		outerDiameter: null,
-		centered: true,
-
 		lastAngle: null,
 		rotatable: true,
 		selected: true,
@@ -16,56 +14,57 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 		items: [
 			{
 				xtype: 'container',
-				width: '100%',
-				height: '100%',
 				cls: 'front',
 				items: [
 					{
 						xtype: 'container',
-						width: '100%',
-						height: '100%',
 						cls: 'slice1',
 					}
 				]
 			},
 			{
 				xtype: 'container',
-				width: '100%',
-				height: '100%',
 				cls: 'back',
 				items: [
 					{
 						xtype: 'container',
-						width: '100%',
-						height: '100%',
 						cls: 'slice2',
 					}
 				]
+			},
+			{
+				xtype: 'container',
+				cls: 'slider-background '
 			}
 		],
 
-		listeners: {
-			touchstart: {
-				element: 'innerElement',
-				fn: 'onStart'
-			},
-			touchmove: {
-				element: 'innerElement',
-				fn: 'onMove',
-			},
-			touchend: {
-				element: 'innerElement',
-				fn: 'onStart'
-			}
-		}
+		// listeners: {
+		// 	touchstart: {
+		// 		element: 'innerElement',
+		// 		fn: 'onStart'
+		// 	},
+		// 	touchmove: {
+		// 		element: 'innerElement',
+		// 		fn: 'onMove',
+		// 	},
+		// 	touchend: {
+		// 		element: 'innerElement',
+		// 		fn: 'onStart'
+		// 	}
+		// }
 	},
 
 	initialize: function() {
 		var diameter = this.getDiameter();
 		this.setWidth(diameter);
 		this.setHeight(diameter);
-		this.setInnerDiameter((512 - 260)/512 * diameter);
-		this.setOuterDiameter((512 - 60)/512 * diameter);
+		this.setInnerDiameter((512 - 60 - 30)/512 * diameter);
+		this.setOuterDiameter((512 - 2 + 30)/512 * diameter);
+		var items = this.getItems().items;
+		items[1].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
+		items[0].getItems().items[0].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
+		items[0].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
+		items[1].getItems().items[0].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
 	},
 
 	onStart: function(event, element){
@@ -73,7 +72,7 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 		var relLoc = this.getRelativePosition(event, element);
 
 		var distance = Math.sqrt(Math.pow(relLoc.x, 2) + Math.pow(relLoc.y, 2));
-		this.setSelected(distance > this.getInnerDiameter()/2 && distance < this.getOuterDiameter()/2);
+		this.setSelected(distance >= this.getInnerDiameter()/2 && distance <= this.getOuterDiameter()/2);
 		console.log(this.getSelected());
 		this.onMove(event, element);
 	},
@@ -123,7 +122,7 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 	},
 
 	getRelativePosition: function(event, element) {
-	el = Ext.get(element).findParent('.slider');
-	return new Ext.util.Point(event.pageX - el.offsetLeft - el.offsetWidth/2, event.pageY - el.offsetTop - el.offsetHeight/2);
+		var el = Ext.get(element).findParent('.multidial');
+		return new Ext.util.Point(event.pageX - el.offsetLeft - el.offsetWidth/2, event.pageY - el.offsetTop - el.offsetHeight/2);
 	}
 });

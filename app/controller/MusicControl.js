@@ -3,7 +3,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
 	config: {
 		control: {
-			list: {
+
+			controls: {
 				itemtap: 'select'
 			},
             artistButton: {
@@ -39,8 +40,9 @@ Ext.define('feel-your-way.controller.MusicControl', {
 		},
 
 		refs: {
-			list: '#music',
-
+            controls: '#music',
+			list: '#selectorList',
+            dial: '#dial',
             // music controls
             artistButton: '#artistButton',
             albumButton: '#albumButton',
@@ -93,7 +95,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
         if(playing.isPlaying && !playing.onScreen) { // something is playing
             this.setActiveButton(button);
             playing.onScreen = true;
-            Ext.getCmp('selectorList').hide();
+            this.getDial().setMode('slider');
         }
     },
 
@@ -142,7 +144,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
         this.checkPlaying();
 
         var me = this;
-        var list = Ext.getCmp('selectorList');
+        var list = this.getList();
         template = '{' + selector + '}';
         var store = Ext.StoreManager.get('Songs');
         store.changeSorting(selector, list);
@@ -177,6 +179,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
         });
         list.refresh();
 
+        this.getDial().setMode('dial');
     },
 
     artistSelect: function(button) {
@@ -254,7 +257,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
                     currentlyPlaying.set(data.title, data.artist, data.album, data.genre, true, true);
                     me.getList().hide();
                     me.setActiveButton(me.getNowPlayingButton());
-
+                    me.getDial().setMode('slider');
                     selectedData.setHtml('');
                     var dataContainer = Ext.ComponentQuery.query('#nowPlayingData')[0];
                     dataContainer.setHtml('<span>' + record.data.title + '</span><br />' + record.data.artist + '<br />' + record.data.album);

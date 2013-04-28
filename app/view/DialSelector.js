@@ -6,13 +6,14 @@ Ext.define('feel-your-way.view.DialSelector', {
 	config: {
 		items: [
 			{
-				xtype: 'dial',
+				xtype: 'multidial',
 				id: 'dial',
-				diameter: 400,
-				// following must be set
+				outerCircleDiameter: 400,
+				innerCircleDiameter: 300,
 				top: 100,
 				left: 100,
 			 	style: 'position: fixed',
+			 	mode: 'dial'
 			},
 			{
 				xtype: 'circlebutton',
@@ -34,7 +35,7 @@ Ext.define('feel-your-way.view.DialSelector', {
 
 		listeners: [
 			{
-				delegate: '#dial',
+				delegate: '#dial-dial',
 				event: 'dialrotate',
 				fn: 'updateList'
 			},

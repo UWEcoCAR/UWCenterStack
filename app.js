@@ -7,10 +7,10 @@ Ext.Loader.setPath({
 
 Ext.application({
     name: 'feel-your-way',
-    views: ['Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'CircleSlider', 'MusicPlayer'],
+    views: ['Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'CircleSlider', 'MultiDial'],
     stores: ['Songs'],
     models: ['Song'],
-    controllers: ['MusicControl'],
+    controllers: ['MusicControl', 'SelectControl'],
 
     launch: function() {
         // Destroy the #appLoadingIndicator element
