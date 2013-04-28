@@ -1,10 +1,18 @@
 /*
+old
     Dark gray: #231f20;
     Light gray: #918f90;
     Green: #61be78;
+
+MOST RECENT
+
+green: #75f295
+dark gray #231f20
+light gray #404041
+purple #652d9
 */
 body {
-    background-color: #231f20;
+    background-color: white;
     color: black;
 }
             
@@ -19,16 +27,16 @@ body {
 }
 
 #nowPlayingData, #selectedData {
+    font-stretch: condensed;
     text-align: right;
     width: 400px;
     height: 200px;
-    font-size: 12pt;
+    font-size: 16.5pt;
 }
 
 #nowPlayingData span {
-    font-size: 16pt;
+    font-size: 16.5pt;
     color: #61ff78;
-    font-weight: bold;
 }
 
 #nowPlayingTag {
@@ -163,7 +171,7 @@ body {
 
 .x-button.clickedButton, .x-button.x-button-back:after, .x-button.x-button-forward:after, .x-toolbar .x-button, .x-toolbar .x-button.x-button-back:after, .x-toolbar .x-button.x-button-forward:after { 
     background-color: black;
-    color: #918f90;
+    color: #404041;
 }
 
 .x-button.x-button-pressing {
@@ -175,7 +183,7 @@ body {
     border: none;
     -webkit-border-radius: 0em;
     border-radius: 0em;
-    background-color: #918f90;
+    background-color: #404041;
     position: relative;
 }
 
@@ -183,7 +191,7 @@ body {
     position: absolute;
     bottom: 0px;
     left: 0px;
-    font-size: 8px;
+    font-size: 12px;
     text-align: center;
     width: 90px;
 }
@@ -218,7 +226,7 @@ body {
 /* data list styles */
 
 .x-innerhtml {
-    color: #918f90;
+    color: white;
 }
 .x-scroll-container {
     background-color: #231f20;
@@ -232,7 +240,7 @@ body {
 }
 
 .x-dock, .x-dock-body {
-    background-color: #918f90;
+    background-color: #404041;
 }
 
 /* Univers font */
@@ -253,3 +261,29 @@ body {
     font-style: italic;
     src: url("../Univers/UniversLTStd-ExObl.otf") format("opentype");
 }
+
+@font-face {
+    font-family: Univers;
+    font-stretch: condensed;
+    src: url("../Univers/UniversLTStd-LightCn.otf") format("opentype");
+}
+
+
+/*
+now playing
+light condensed
+ALL UPPERCASE
+below song name
+lower case, still size 16.5 pt
+
+
+
+highlighted
+
+
+clock
+
+number 40
+date time - 16, all caps
+
+*/
