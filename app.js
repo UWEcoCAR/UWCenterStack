@@ -20,6 +20,13 @@ Ext.application({
             id: 'pageContainer',
             fullscreen: true,
         });
+
+        var audio = Ext.create('Ext.Audio', {
+            id: 'audio',
+            enableControls: false,
+            hidden: true,
+            volume: .5
+        });
         
         Ext.Viewport.add(musicApp);
     }
