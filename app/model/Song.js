@@ -8,5 +8,9 @@ Ext.define('feel-your-way.model.Song', {
 			{name: 'genre', type: 'string', defaultValue: 'Unknown'},
             {name: 'url', type: 'string', defaultValue: 'Unknown'}
 		],
-	}
+	},
+
+	lowerCaseTitle: function() {
+		this.set(this.get('title').toLowerCase());
+	},
 });

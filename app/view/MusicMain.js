@@ -21,28 +21,23 @@ Ext.define('feel-your-way.view.MusicMain', {
 	            items: [
 	                {
 	                    id: 'homeButton',
-	                    iconCls: 'home',
-	                    text: 'Home'
+	                    iconCls: 'home'
 	                },
 	                {
 	                    id: 'artistButton',
-	                    iconCls: 'artists',
-	                    text: 'Artists'
+	                    iconCls: 'artists'
 	                },
 	                {
 	                    id: 'albumButton',
-	                    iconCls: 'albums',
-	                    text: 'Albums'
+	                    iconCls: 'albums'
 	                },
 	                {
 	                    id: 'songButton',
-	                    iconCls: 'songs',
-	                    text: 'Songs'
+	                    iconCls: 'songs'
 	                },
 	                {
 	                    id: 'playlistButton',
-	                    iconCls: 'playlists',
-	                    text: 'Playlists'
+	                    iconCls: 'playlists'
 
 	                }
 	            ]
@@ -63,16 +58,6 @@ Ext.define('feel-your-way.view.MusicMain', {
 	            top: '150px',
 	            left: '47%',
 	            width: '10%'
-			},
-			{
-				xtype: 'container',
-				id: 'nowPlayingTag',
-	            html: '',
-	            position: 'absolute',
-	            top: '0px',
-	            left: '537px',
-	            top: '45px',
-	            height: '100%'
 			},
 			{
 				xtype: 'dialselector',
@@ -121,13 +106,11 @@ Ext.define('feel-your-way.view.MusicMain', {
 	                },
 	                {
 	                    id: 'repeatButton',
-	                    iconCls: 'repeat',
-	                    text: 'Repeat'
+	                    iconCls: 'repeat'
 	                },
 	                {
 	                    id: 'shuffleButton',
-	                    iconCls: 'shuffle',
-	                    text: 'Shuffle'
+	                    iconCls: 'shuffle'
 	                }
 	            ]   
 			}
