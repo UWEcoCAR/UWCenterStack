@@ -11,7 +11,7 @@ Ext.define('feel-your-way.store.Songs', {
 		},
 		proxy: {
 			type: 'ajax',
-			url: 'resources/songs.json',
+			url: 'resources/songs_real.json',
 			reader: {
 				type: 'json',
 				rootProperty: 'songs'

@@ -22,24 +22,5 @@ Ext.application({
         });
         
         Ext.Viewport.add(musicApp);
-
-        var nowPlayingData = Ext.create('Ext.Container', {
-            id: 'nowPlayingData',
-            html: '',
-            position: 'absolute',
-            top: '10px',
-            left: '120px'
-        });
-
-        var selectedData = Ext.create('Ext.Container', {
-            id: 'selectedData',
-            html: '',
-            position: 'absolute',
-            top: '400px',
-            left: '120px'
-        });
-
-        Ext.Viewport.add(nowPlayingData);
-        Ext.Viewport.add(selectedData);
     }
 });

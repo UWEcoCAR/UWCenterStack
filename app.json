@@ -74,6 +74,10 @@
         {
             "path": "resources/css/dial.css",
             "update": "delta"
+        },
+        {
+            "path": "resources/css/music.css",
+            "update": "delta"
         }
     ],
 
