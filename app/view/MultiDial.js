@@ -56,15 +56,15 @@ Ext.define('feel-your-way.view.MultiDial', {
 			cls: 'inner-slider slider',
 			diameter: config.innerCircleDiameter,
 			top: (config.outerCircleDiameter-config.innerCircleDiameter)/2,
-			left: (config.outerCircleDiameter-config.innerCircleDiameter)/2
+			left: (config.outerCircleDiameter-config.innerCircleDiameter)/2,
+
 		});
+		innerSlider.setSlider(Ext.getCmp('audio').getVolume() * 360);
 
 		this.setDial(dial);
 		this.setOuterSlider(outerSlider);
 		this.setInnerSlider(innerSlider);
 		this.add([dial, outerSlider, innerSlider]);
-
-		console.log('hi');
 		this.updateMode(this.getMode());
 	},
 
@@ -87,7 +87,6 @@ Ext.define('feel-your-way.view.MultiDial', {
 	},
 
 	updateMode: function(mode) {
-		console.log('bye ' + mode);
 		if (this.getDial() !== null){
 			if (mode == 'slider'){
 				this.getDial().hide();

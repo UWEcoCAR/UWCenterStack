@@ -3,7 +3,13 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
 	config: {
 		control: {
-
+            audio: {
+                timeupdate: 'updateDial',
+                ended: 'nextSong'
+            },
+            timeSlider: {
+                sliderchange: 'updateAudio'
+            },
 			controls: {
 				itemtap: 'select'
 			},
@@ -40,9 +46,11 @@ Ext.define('feel-your-way.controller.MusicControl', {
 		},
 
 		refs: {
+            audio: '#audio',
             controls: '#music',
 			list: '#selectorList',
             dial: '#dial',
+            timeSlider: '#dial-outer-slider',
             // music controls
             artistButton: '#artistButton',
             albumButton: '#albumButton',
@@ -68,13 +76,14 @@ Ext.define('feel-your-way.controller.MusicControl', {
             artist: '',
             genre: '',
 
-            set: function(title, album, artist, genre, onScreen, isPlaying) {
+            set: function(title, album, artist, genre, url ,onScreen, isPlaying) {
                 if (title !== null) this.title = title;
                 if (album !== null) this.album = album;
                 if (artist !== null) this.artist = artist;
                 if (genre !== null) this.genre = genre;
+                if (url !== null) this.url = url;
                 if (onScreen !== null) this.onScreen = onScreen;
-                if (isPlaying !== null) this.onScreen = onScreen;
+                if (isPlaying !== null) this.isPlaying = isPlaying;
             }
         },
         currentlySelected: {
@@ -236,7 +245,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
         store.clearFilter();
         store.filterBy(function(record, id) {
             var notContained;
-            var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
+            var selectedData = Ext.getCmp('selectedData');
             if (currentlyDisplayed == JSON.stringify('artist')) { //artist -> display albums by that artist
 
                 if (JSON.stringify(tappedRecord.album) == JSON.stringify('All Artists')) { // all artists
@@ -276,17 +285,20 @@ Ext.define('feel-your-way.controller.MusicControl', {
                 }
             } else {
                 if (JSON.stringify(record.data.title) == JSON.stringify(tappedRecord.title)) {
-                    var container = Ext.getCmp(pageContainer);
+ var container = Ext.getCmp(pageContainer);
                     var currentlyPlaying = me.getNowPlaying();
 
                     var data = record.data;
                     currentlyPlaying.set(data.title, data.artist, data.album, data.genre, true, true);
                     me.getList().hide();
                     me.setActiveButton(me.getNowPlayingButton());
-                    me.getDial().setMode('slider');
+
                     selectedData.setHtml('');
                     var dataContainer = Ext.ComponentQuery.query('#nowPlayingData')[0];
                     dataContainer.setHtml('<span>' + record.data.title.toUpperCase() + '</span><br />' + record.data.artist.toLowerCase() + '<br />' + record.data.album.toLowerCase());
+                    
+                    me.getAudio().setUrl('./resources/music/'+record.data.url);
+                    me.getAudio().play();
                 }
             }
 
@@ -302,7 +314,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
     },
 
     clearSelectedData: function() {
-        var selectedData = Ext.ComponentQuery.query('#selectedData')[0];
+        var selectedData = Ext.getCmp('selectedData');
         selectedData.setHtml('');
     },
 
@@ -315,28 +327,28 @@ Ext.define('feel-your-way.controller.MusicControl', {
             this.clearSelectedData();
     },
 
-select: function(list, record) {
-        // record is the number in the list that was clicked
-    var store = Ext.StoreManager.get('Songs');
-    var currentlyDisplayed = JSON.stringify(store.getSorters()[1]._id);
-        var tappedRecord = list.getStore().getAt(record).data;
+    select: function(list, record) {
+            // record is the number in the list that was clicked
+        var store = Ext.StoreManager.get('Songs');
+        var currentlyDisplayed = JSON.stringify(store.getSorters()[1]._id);
+            var tappedRecord = list.getStore().getAt(record).data;
 
-        var template;
-        if (currentlyDisplayed == JSON.stringify('artist')) {
-            template = '{album}';
-            store.changeSorting('album', list);
-        } else if (currentlyDisplayed == JSON.stringify('album')) { //album -> display songs on that album
-            template = '{title}';
-            store.changeSorting('title', list);
-        } else {
-            template = '{title}';
-        }
-        list.setItemTpl(template);
+            var template;
+            if (currentlyDisplayed == JSON.stringify('artist')) {
+                template = '{album}';
+                store.changeSorting('album', list);
+            } else if (currentlyDisplayed == JSON.stringify('album')) { //album -> display songs on that album
+                template = '{title}';
+                store.changeSorting('title', list);
+            } else {
+                template = '{title}';
+            }
+            list.setItemTpl(template);
 
-        this.filterData(store, currentlyDisplayed, tappedRecord);
-},
+            this.filterData(store, currentlyDisplayed, tappedRecord);
+    },
 
-filterLibrary: function(store, params) {
+    filterLibrary: function(store, params) {
         store.filterBy(function(record, id){
             var bool = true;
                 if (params.genre){
@@ -362,7 +374,20 @@ filterLibrary: function(store, params) {
             this.getList().setItemTpl('{' + params.request + '}');
         }
     },
+
     clearFilters: function() {
         this.getStore().clearFilter();
+    },
+
+    updateDial: function(audio, time){
+       this.getTimeSlider().setSlider(time/audio.getDuration()*360);
+    },
+    updateAudio: function(angle, slider) {
+        var audio = this.getAudio();
+        audio.setCurrentTime(angle/360*audio.getDuration());
+    },
+
+    nextSong: function(audio, time) {
+
     }
 });
