@@ -74,6 +74,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
         currentData: [],
         queue: [],
         queueIndex: null,
+
         nowPlaying: {
             onScreen: false,
             isPlaying: false,
@@ -96,10 +97,10 @@ Ext.define('feel-your-way.controller.MusicControl', {
             artist: '',
 
             setArtist: function(artist) {
-                if (artist !== null) this.artist = artist;
+                this.artist = artist;
             },
             setAlbum: function(album) {
-                if (album !== null) this.album = album;
+                this.album = album;
             }
         },
 
@@ -116,6 +117,10 @@ Ext.define('feel-your-way.controller.MusicControl', {
         }
     },
 
+    launch: function() {
+        this.songSelect(this.getSongButton());
+    },
+
     goHome: function(button) {
         button.setIconCls('appsgreen');
     },
@@ -123,11 +128,12 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
     goToNowPlaying: function(button) {
         var playing = this.getNowPlaying();
-        if(playing.isPlaying) { // something is playing
+        if(playing.isPlaying && !playing.onScreen) { // something is playing
             this.setActiveButton(button);
             this.getList().hide();
             playing.onScreen = true;
             this.getDial().setMode('slider');
+            this.clearSelectedData();
         }
     },
 
@@ -203,7 +209,6 @@ Ext.define('feel-your-way.controller.MusicControl', {
             } //else playlist
             return notContained;
         });
-        list.refresh();
 
         this.getDial().setMode('dial');
     },
@@ -228,11 +233,11 @@ Ext.define('feel-your-way.controller.MusicControl', {
     },
 
     trebleSelect: function(button) {
-        this.setActiveButton(button);
+        // this.setActiveButton(button);
     },
 
     bassSelect: function(button) {
-        this.setActiveButton(button);
+        // this.setActiveButton(button);
     },
 
     repeatSelect: function(button) {
@@ -246,6 +251,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
     filterData: function(store, currentlyDisplayed, tappedRecord) {
         me = this;
         me.setCurrentData([]);
+        var selectedData = Ext.getCmp('selectedData');
 
         var tempArray = [];
         var items = Ext.getStore('Songs').getData().items;
@@ -256,7 +262,6 @@ Ext.define('feel-your-way.controller.MusicControl', {
         store.clearFilter();
         store.filterBy(function(record, id) {
             var notContained;
-            var selectedData = Ext.getCmp('selectedData');
             if (currentlyDisplayed === "artist") { //artist -> display albums by that artist
 
                 if (tappedRecord.album === "All Artists") { // all artists
@@ -299,19 +304,15 @@ Ext.define('feel-your-way.controller.MusicControl', {
                     var currentlyPlaying = me.getNowPlaying();
 
                     var data = record.data;
-                    currentlyPlaying.set(data.title, data.artist, data.album, data.genre, true, true);
-                    me.getList().hide();
-                    me.setActiveButton(me.getNowPlayingButton());
+                    currentlyPlaying.set(data.title, data.artist, data.album, data.genre, false, true);
+                    me.goToNowPlaying(me.getNowPlayingButton());
 
-                    selectedData.setHtml('');
                     var dataContainer = Ext.getCmp('nowPlayingData');
                     dataContainer.setHtml('<span>' + record.data.title.toUpperCase() + '</span><br />' + record.data.artist.toLowerCase() + '<br />' + record.data.album.toLowerCase());
-
                     me.setQueue(tempArray);
                     me.setQueueIndex(0);
                     me.getAudio().setUrl('./resources/music/' + data.url);
                     me.getAudio().play();
-                    me.getDial().setMode('slider');
                 }
             }
 
@@ -336,8 +337,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
     },
 
     clearSelectedData: function() {
-        var selectedData = Ext.getCmp('selectedData');
-        selectedData.setHtml('');
+        Ext.getCmp('selectedData').setHtml('');
     },
 
     checkPlaying: function() {
@@ -370,37 +370,6 @@ Ext.define('feel-your-way.controller.MusicControl', {
             this.filterData(store, currentlyDisplayed, tappedRecord);
     },
 
-    filterLibrary: function(store, params) {
-        store.filterBy(function(record, id){
-            var bool = true;
-                if (params.genre){
-                    bool = bool && record.data.genre === params.genre;
-                }
-                if (params.artist){
-                    bool = bool && record.data.artist === params.artist;
-                }
-                if (params.album){
-                    bool = bool && record.data.album === params.album;
-                }
-            return bool;
-        });
-
-        if (params.request) {
-            store.sort([
-                {
-                    property: params.request,
-                    direction: 'ASC'
-                }
-            ]);
-
-            this.getList().setItemTpl('{' + params.request + '}');
-        }
-    },
-
-    clearFilters: function() {
-        this.getStore().clearFilter();
-    },
-
     updateDial: function(audio, time){
        this.getTimeSlider().setSlider(time/audio.getDuration()*360);
     },
@@ -414,20 +383,30 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
     nextSong: function(audio, time) {
         var buttons = this.getToggledButtons();
+
+        // increment queueIndex
         this.setQueueIndex(this.getQueueIndex() + 1);
-        if (buttons.random)
-        if (this.getQueueIndex() >= this.getQueue().length && buttons.repeat){
+
+        // loop around if necessary
+        if (this.getQueueIndex() >= this.getQueue().length && buttons.repeat && !buttons.shuffle){
+            console.log('reached end of queue, starting over');
             this.setQueueIndex(0);
         }
 
+        // if shuffle is on choose random song
         if (buttons.shuffle){
-            console.log('heeey');
-            this.setQueueIndex(Math.floor(Math.random() * this.getQueue().length + 1));
+            console.log('choosing random song');
+            this.setQueueIndex(Math.floor(Math.random() * this.getQueue().length));
         }
-        console.log(this.getQueueIndex());
+
+        // if repeat is off, this is possible and it should stop
         if (this.getQueueIndex() >= this.getQueue().length){
+            console.log('reached end of queue');
+            this.getNowPlaying().set('','','','', null, false);
+            Ext.getCmp('nowPlayingData').setHtml('');
             audio.pause();
         } else {
+            console.log('Playing queueIndex: ' + this.getQueueIndex());
             var record = this.getQueue()[this.getQueueIndex()];
             this.play(record);
         }
