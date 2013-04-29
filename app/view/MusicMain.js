@@ -55,7 +55,7 @@ Ext.define('feel-your-way.view.MusicMain', {
 				id: 'selectedData',
 	            html: '',
 	            position: 'absolute',
-	            top: '150px',
+	            top: '170px',
 	            left: '47%',
 	            width: '10%'
 			},

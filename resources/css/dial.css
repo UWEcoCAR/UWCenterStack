@@ -1,15 +1,21 @@
 #selectorList {
 	/*-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.01)), color-stop(30%, rgba(0,0,0,1)), to(rgba(0,0,0,0)));*/
 	background-color: #231f20;
-	color: white;
 	height: 100%;
 	width:  100%;
 	text-align: left;
 }
 
+@font-face {
+	font-family: universe-light;
+	src: url(../Univers/UniversLTStd-Light.otf);
+}
+
 .selectorlistitem {
-	opacity:.7;
-	margin: 10px;
+	font-family: universe-light;
+	text-transform: lowercase;
+	margin: 20px;
+	color: #404040;
 }
 
 #music {
@@ -17,7 +23,7 @@
 }
 
 .selected {
-	opacity: 1;
+	color: #75f295;
 }
 
 .circleButton {
