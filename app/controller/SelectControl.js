@@ -5,11 +5,15 @@ Ext.define('feel-your-way.controller.SelectControl', {
 		refs: {
 			select: '#selectButton',
 			dial: '#dial-dial',
+			multiDial: "#dial",
 			outerSlider: '#dial-outer-slider',
 			innerSlider: '#dial-inner-slider'
 		},
 
 		control: {
+			multiDial: {
+				touchend: 'endAll'
+			},
 			dial: {
 				dialrotate: 'dialRotate'
 			},
@@ -20,6 +24,11 @@ Ext.define('feel-your-way.controller.SelectControl', {
 				sliderchange: 'volumeChange'
 			}
 		}
+	},
+
+	endAll: function(){
+		console.log('heyyyy');
+		this.getSelect().setHtml(this.getSelect().getDefaultHtml());
 	},
 
 	volumeChange: function(degree, slider) {

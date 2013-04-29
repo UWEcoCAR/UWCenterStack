@@ -73,7 +73,6 @@ Ext.define('feel-your-way.view.CircleSlider', {
 
 		var distance = Math.sqrt(Math.pow(relLoc.x, 2) + Math.pow(relLoc.y, 2));
 		this.setSelected(distance >= this.getInnerDiameter()/2 && distance <= this.getOuterDiameter()/2);
-		console.log(this.getSelected());
 		this.onMove(event, element);
 	},
 

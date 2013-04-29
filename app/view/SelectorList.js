@@ -30,7 +30,6 @@ Ext.define('feel-your-way.view.SelectorList', {
 		list[0].parentElement.style.webkitTransform = 'translate3d(0px,' + value + 'px, 0px)';
 
 		var num = this.getOffset()/48 + index;
-		console.log(num);
 		for (var i = Math.max(0, num-4); i < Math.min(list.length, num+6); i++){
 
 			// gets the elements distance from the top

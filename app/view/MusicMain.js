@@ -14,7 +14,8 @@ Ext.define('feel-your-way.view.MusicMain', {
 	            width: '100px',
 	            defaults: {
 	                xtype: 'button',
-	                margin: '3 3 0 0',
+	                margin: 3,
+	                padding: '3px !important',
 	                height: '90px',
 	                width: '90px'
 	            },
