@@ -4,61 +4,67 @@
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Don't Stop the Music",
-      "url": "Pitch Perfect/Don't Stop the Music.mp3"
+      "url": "Pitch Perfect/01 Don't Stop the Music.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Let It Whip",
-      "url": "Pitch Perfect/Let It Whip.mp3"
+      "url": "Pitch Perfect/02 Let It Whip.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Since U Been Gone",
-      "url": "Pitch Perfect/Since U Been Gone.mp3"
+      "url": "Pitch Perfect/03 Since U Been Gone.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Cups",
-      "url": "Pitch Perfect/Cups.mp3"
+      "url": "Pitch Perfect/04 Cups.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Riff Off",
-      "url": "Pitch Perfect/Riff Off.mp3"
+      "url": "Pitch Perfect/05 Riff Off.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Bellas Regionals",
-      "url": "Pitch Perfect/Bellas Regionals.mp3"
+      "url": "Pitch Perfect/06 Bellas Regionals.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Right Round",
-      "url": "Pitch Perfect/Right Round.mp3"
+      "url": "Pitch Perfect/07 Right Round.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Pool Mashup",
-      "url": "Pitch Perfect/Pool Mashup.mp3"
+      "url": "Pitch Perfect/08 Pool Mashup.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Party In the USA",
-      "url": "Pitch Perfect/Party In the USA.mp3"
+      "url": "Pitch Perfect/09 Party In the USA.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Trebles Finals",
-      "url": "Pitch Perfect/Trebles Finals.mp3"
+      "url": "Pitch Perfect/10 Trebles Finals.mp3"
+    },
+    { "album" : "Pitch Perfect Soundtrack",
+      "artist" : "Pitch Perfect",
+      "genre" : "Pop",
+      "title" : "Bellas Finals",
+      "url": "Pitch Perfect/11 Bellas Finals.mp3"
     },
     { "album" : "Fight with Tools",
       "artist" : "Flobots",

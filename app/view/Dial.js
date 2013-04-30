@@ -3,7 +3,7 @@ Ext.define('feel-your-way.view.Dial', {
 	xtype: 'dial',
 
 	config: {
-		src: 'resources/icons/dial.png',
+		src: 'resources/icons/graphics/circle-white.png',
 		diameter: 100,
 		innerDiameter: 0,
 		outerDiameter: Number.MAX_VALUE,
@@ -11,20 +11,20 @@ Ext.define('feel-your-way.view.Dial', {
 		lastAngle: null,
 		rotatable: true,
 
-		listeners: {
-			touchstart: {
-				element: 'element',
-				fn: 'onStart'
-			},
-			touchmove: {
-				element: 'element',
-				fn: 'onMove'
-			},
-			touchend: {
-				element: 'element',
-				fn: 'onEnd'
-			}
-		}
+		// listeners: {
+		// 	touchstart: {
+		// 		element: 'element',
+		// 		fn: 'onStart'
+		// 	},
+		// 	touchmove: {
+		// 		element: 'element',
+		// 		fn: 'onMove'
+		// 	},
+		// 	touchend: {
+		// 		element: 'element',
+		// 		fn: 'onEnd'
+		// 	}
+		// }
 	},
 
 	initialize: function() {
@@ -33,8 +33,8 @@ Ext.define('feel-your-way.view.Dial', {
 		var diameter = this.getDiameter();
 		this.setWidth(diameter);
 		this.setHeight(diameter);
-		this.setInnerDiameter((512 - 200)/512 * diameter);
-		this.setOuterDiameter((512 - 40)/512 * diameter);
+		this.setInnerDiameter((512 - 60 - 30)/512 * diameter);
+		this.setOuterDiameter((512 - 2 + 30)/512 * diameter);
 	},
 
 	onStart: function(event, element) {
@@ -76,11 +76,11 @@ Ext.define('feel-your-way.view.Dial', {
 	},
 
 	set: function() {
-		this.element.dom.style.webkitTransform = 'rotate(' + this.getTheta()/Math.PI*180 + 'deg)';
+		// this.element.dom.style.webkitTransform = 'rotate(' + this.getTheta()/Math.PI*180 + 'deg)';
 	},
 
 	getRelativePosition: function(event, element) {
-		var el = Ext.get(element).findParent('#dial');
+		var el = Ext.get(element).findParent('.multidial');
 		return new Ext.util.Point(event.pageX - el.offsetLeft - el.offsetWidth/2, event.pageY - el.offsetTop - el.offsetHeight/2);
 	}
 })

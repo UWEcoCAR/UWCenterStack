@@ -107,9 +107,14 @@
      * Extra resources to be copied along when build
      */
     "resources": [
+        "resources/Univers",
         "resources/icons",
         "resources/startup",
         "resources/songs.json",
+        "resources/songs_real.json",
+        "resources/fade_right.gif",
+        "resources/fade_right_2.png",
+        "resources/fade_right_3.png",
         "config.xml",
         "icon.png",
     ],
