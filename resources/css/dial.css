@@ -55,3 +55,7 @@
 .outer-slider .slice1, .outer-slider .slice2 {
 	background-image:url(../icons/graphics/circle-purple.png);
 }
+
+#selectButton, #dial {
+	position: fixed !important;
+}

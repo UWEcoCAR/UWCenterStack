@@ -45,7 +45,7 @@
         },
         {
             "path": "app.js",
-            "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
+            "bundle": false,  /* Indicates that all class dependencies are not concatenated into this file when build */
             "update": "delta"
         }
     ],
@@ -109,14 +109,9 @@
     "resources": [
         "resources/Univers",
         "resources/icons",
-        "resources/startup",
-        "resources/songs.json",
-        "resources/songs_real.json",
-        "resources/fade_right.gif",
-        "resources/fade_right_2.png",
-        "resources/fade_right_3.png",
-        "config.xml",
-        "icon.png",
+        "resources/images",
+        "resources/music",
+        "config.xml"
     ],
 
     /**

@@ -6,7 +6,7 @@
     <property name="workspace.build.dir" location="build"/>
     <import file="${basedir}/.sencha/app/build-impl.xml"/>
 
-    <property name="build.output" location="${workspace.build.dir}/production"/>
+    <property name="build.output" location="${workspace.build.dir}/MyApp/testing"/>
     <property name="lib" location="lib"/>
     <property name="bbwp" location="${lib}/BBWP-1.0.2.9/bbwp"/>
     <property name="zip.file" location="${build.output}/UWCenterStack.zip"/>

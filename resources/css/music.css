@@ -15,7 +15,7 @@ body {
     background-color: white;
     color: black;
 }
-            
+
 #pageContainer {
     background-color: #231f20;
     color: #44FF44;
@@ -23,7 +23,7 @@ body {
 }
 
 #fadeImage {
-    background-image: url('../fade_right_3.png');
+    background-image: url('../images/fade_right.png');
 }
 
 #nowPlayingData, #selectedData {
@@ -80,11 +80,11 @@ body {
 }
 
 /* Button icon styles */
-.x-button .x-button-icon.appspurple, .x-button .x-button-icon.appsgreen, 
+.x-button .x-button-icon.appspurple, .x-button .x-button-icon.appsgreen,
 .x-button .x-button-icon.artistUnclicked, .x-button .x-button-icon.albumUnclicked,
 .x-button .x-button-icon.songUnclicked, .x-button .x-button-icon.playlistUnclicked,
 .x-button .x-button-icon.bassUnclicked, .x-button .x-button-icon.trebleUnclicked
-{ 
+{
     width: 100%;
     height: 100%;
 }
@@ -169,7 +169,7 @@ body {
     text-align: justify;
 }
 
-.x-button.clickedButton, .x-button.x-button-back:after, .x-button.x-button-forward:after, .x-toolbar .x-button, .x-toolbar .x-button.x-button-back:after, .x-toolbar .x-button.x-button-forward:after { 
+.x-button.clickedButton, .x-button.x-button-back:after, .x-button.x-button-forward:after, .x-toolbar .x-button, .x-toolbar .x-button.x-button-back:after, .x-toolbar .x-button.x-button-forward:after {
     background-color: black;
     color: #404041;
 }

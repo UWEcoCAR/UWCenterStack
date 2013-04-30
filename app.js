@@ -7,7 +7,7 @@ Ext.Loader.setPath({
 
 Ext.application({
     name: 'feel-your-way',
-    views: ['Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'CircleSlider', 'MultiDial'],
+    views: ['Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'MusicPlayer', 'CircleSlider', 'MultiDial'],
     stores: ['Songs'],
     models: ['Song'],
     controllers: ['MusicControl', 'SelectControl'],

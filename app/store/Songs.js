@@ -11,7 +11,7 @@ Ext.define('feel-your-way.store.Songs', {
 		},
 		proxy: {
 			type: 'ajax',
-			url: 'resources/songs_real.json',
+			url: 'resources/music/songMetadata.json',
 			reader: {
 				type: 'json',
 				rootProperty: 'songs'
@@ -21,7 +21,7 @@ Ext.define('feel-your-way.store.Songs', {
             property: 'title',
             value: ''
         }], // filters
-		autoLoad: true 
+		autoLoad: true
 	},
 
 	changeSorting: function(sortBy, list) {

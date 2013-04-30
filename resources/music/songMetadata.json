@@ -1,70 +1,70 @@
 {
-"songs" : [ 
+"songs" : [
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Don't Stop the Music",
-      "url": "Pitch Perfect/01 Don't Stop the Music.mp3"
+      "url": "Pitch_Perfect/01_Dont_Stop_the_Music.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Let It Whip",
-      "url": "Pitch Perfect/02 Let It Whip.mp3"
+      "url": "Pitch_Perfect/02_Let_It_Whip.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Since U Been Gone",
-      "url": "Pitch Perfect/03 Since U Been Gone.mp3"
+      "url": "Pitch_Perfect/03_Since_U_Been_Gone.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Cups",
-      "url": "Pitch Perfect/04 Cups.mp3"
+      "url": "Pitch_Perfect/04_Cups.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Riff Off",
-      "url": "Pitch Perfect/05 Riff Off.mp3"
+      "url": "Pitch_Perfect/05_Riff_Off.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Bellas Regionals",
-      "url": "Pitch Perfect/06 Bellas Regionals.mp3"
+      "url": "Pitch_Perfect/06_Bellas_Regionals.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Right Round",
-      "url": "Pitch Perfect/07 Right Round.mp3"
+      "url": "Pitch_Perfect/07_Right_Round.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Pool Mashup",
-      "url": "Pitch Perfect/08 Pool Mashup.mp3"
+      "url": "Pitch_Perfect/08_Pool_Mashup.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Party In the USA",
-      "url": "Pitch Perfect/09 Party In the USA.mp3"
+      "url": "Pitch_Perfect/09_Party_In_the_USA.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Trebles Finals",
-      "url": "Pitch Perfect/10 Trebles Finals.mp3"
+      "url": "Pitch_Perfect/10_Trebles_Finals.mp3"
     },
     { "album" : "Pitch Perfect Soundtrack",
       "artist" : "Pitch Perfect",
       "genre" : "Pop",
       "title" : "Bellas Finals",
-      "url": "Pitch Perfect/11 Bellas Finals.mp3"
+      "url": "Pitch_Perfect/11_Bellas_Finals.mp3"
     },
     { "album" : "Fight with Tools",
       "artist" : "Flobots",
@@ -76,151 +76,151 @@
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Mylo Xyloto",
-      "url": "Coldplay/01 Mylo Xyloto.m4a"
+      "url": "Coldplay/Mylo_Xyloto/01_Mylo_Xyloto.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Hurts Like Heaven",
-      "url": "Coldplay/02 Hurts Like Heaven.m4a.m4a"
+      "url": "Coldplay/Mylo_Xyloto/02_Hurts_Like_Heaven.m4a.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Paradise",
-      "url": "Coldplay/03 Paradise.m4a.m4a"
+      "url": "Coldplay/Mylo_Xyloto/03_Paradise.m4a.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Charlie Brown",
-      "url": "Coldplay/04 Charlie Brown.m4a"
+      "url": "Coldplay/Mylo_Xyloto/04_Charlie_Brown.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Us Against the World",
-      "url": "Coldplay/05 Us Against The World.m4a"
+      "url": "Coldplay/Mylo_Xyloto/05_Us_Against_The_World.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "M.M.I.X.",
-      "url": "Coldplay/06 M.M.I.X..m4a"
+      "url": "Coldplay/Mylo_Xyloto/06_M.M.I.X..m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Every Teardrop Is a Watterfall",
-      "url": "Coldplay/07 Every Teardrop Is A Waterfall.m4a"
+      "url": "Coldplay/Mylo_Xyloto/07_Every_Teardrop_Is_A_Waterfall.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Major Minus",
-      "url": "Coldplay/08 Major Minus.m4a"
+      "url": "Coldplay/Mylo_Xyloto/08_Major_Minus.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "U.F.O.",
-      "url": "Coldplay/09 U.F.O..m4a"
+      "url": "Coldplay/Mylo_Xyloto/09_U.F.O..m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Princesses of China",
-      "url": "Coldplay/10 Princess Of China (Feat. Rihanna).m4a"
+      "url": "Coldplay/Mylo_Xyloto/10_Princess_Of_China.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Up in Flames",
-      "url": "Coldplay/11 Up In Flames.m4a"
+      "url": "Coldplay/Mylo_Xyloto/11_Up_In_Flames.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "A Hopeful Transmission",
-      "url": "Coldplay/12 A Hopeful Transmission.m4a"
+      "url": "Coldplay/Mylo_Xyloto/12_A_Hopeful_Transmission.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Don't Let It Break Your Heart",
-      "url": "Coldplay/13 Don't Let It Break Your Heart.m4a"
+      "url": "Coldplay/Mylo_Xyloto/13_Dont_Let_It_Break_Your_Heart.m4a"
     },
     { "album" : "Mylo Xyloto",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Up With the Birds",
-      "url": "Coldplay/14 Up With The Birds.m4a"
+      "url": "Coldplay/Mylo_Xyloto/14_Up_With_The_Birds.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Politik",
-      "url": "Coldplay/01 Politik.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/01_Politik.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "In My Place",
-      "url": "Coldplay/02 In My Place.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/02_In_My_Place.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "God Put A Smile Upon Your Face",
-      "url": "Coldplay/03 God Put A Smile Upon Your Face.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/03_God_Put_A_Smile_Upon_Your_Face.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "The Scientist",
-      "url": "Coldplay/04 The Scientist.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/04_The_Scientist.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Clocks",
-      "url": "Coldplay/05 Clocks.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/05_Clocks.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Daylight",
-      "url": "Coldplay/06 Daylight.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/06_Daylight.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Green Eyes",
-      "url": "Coldplay/07 Green Eyes.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/07_Green_Eyes.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Warning Sign",
-      "url": "Coldplay/08 Warning Sign.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/08_Warning_Sign.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "A Whisper",
-      "url": "Coldplay/09 A Whisper.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/09_A_Whisper.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "A Rush Of Blood To The Head",
-      "url": "Coldplay/10 A Rush Of Blood To The Head.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/10_A_Rush_Of_Blood_To_The_Head.m4a"
     },
     { "album" : "A Rush of Blood To The Head",
       "artist" : "Coldplay",
       "genre" : "Alternative",
       "title" : "Amsterdam",
-      "url": "Coldplay/11 Amsterdam.m4a"
+      "url": "Coldplay/A_Rush_of_Blood_To_The_Head/11_Amsterdam.m4a"
     },
   ]
 }
