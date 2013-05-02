@@ -1,0 +1,132 @@
+/*
+old
+    Dark gray: #231f20;
+    Light gray: #918f90;
+    Green: #61be78;
+
+MOST RECENT
+
+green: #75f295
+dark gray #231f20
+light gray #404041
+purple #652d9
+*/
+
+body {
+    background-color: white;
+    color: black;
+}
+
+#pageContainer, #appContainer {
+    background-color: #231f20;
+    color: #44FF44;
+    font-family: 'Univers', sans-serif;
+}
+
+/* Button icon styles */
+.x-button .x-button-icon.appspurple, .x-button .x-button-icon.appsgreen,
+.x-button .x-button-icon.artistUnclicked, .x-button .x-button-icon.albumUnclicked,
+.x-button .x-button-icon.songUnclicked, .x-button .x-button-icon.playlistUnclicked,
+.x-button .x-button-icon.bassUnclicked, .x-button .x-button-icon.trebleUnclicked
+{
+    width: 100%;
+    height: 100%;
+}
+
+.x-button .x-button-icon.x-button-icon.home {
+    background-image: url('../icons/graphics/Music/Home_black-06.png');
+}
+
+/* Active Buttons */
+.x-button.clickedButton .x-button-icon.x-button-icon.home {
+    background-image: url('../icons/graphics/Music/Home_gray-06.png');
+}
+
+
+.x-button, .x-button.x-button-back:after, .x-button.x-button-forward:after, .x-toolbar .x-button, .x-toolbar .x-button.x-button-back:after, .x-toolbar .x-button.x-button-forward:after {
+    background-image: none;
+    color: black;
+    background-color: #231f20;
+    text-align: justify;
+}
+
+.x-button.clickedButton, .x-button.x-button-back:after, .x-button.x-button-forward:after, .x-toolbar .x-button, .x-toolbar .x-button.x-button-back:after, .x-toolbar .x-button.x-button-forward:after {
+    background-color: black;
+    color: #404041;
+}
+
+.x-button.x-button-pressing {
+    background-color: black;
+    background-image: none;
+}
+
+.x-button {
+    border: none;
+    -webkit-border-radius: 0em;
+    border-radius: 0em;
+    background-color: #404041;
+    position: relative;
+}
+
+.x-button .x-button-icon {
+    width: 75px;
+    height: 75px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.x-button-label {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    font-size: 12px;
+    text-align: center;
+    width: 90px;
+}
+
+/* Univers font */
+
+@font-face {
+    font-family: Univers;
+    src: url("../Univers/UniversLTStd-Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Univers;
+    font-weight: bold;
+    src: url("../Univers/UniversLTStd-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Univers;
+    font-style: italic;
+    src: url("../Univers/UniversLTStd-ExObl.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Univers;
+    font-stretch: condensed;
+    src: url("../Univers/UniversLTStd-LightCn.otf") format("opentype");
+}
+
+/*
+now playing
+light condensed
+ALL UPPERCASE
+below song name
+lower case, still size 16.5 pt
+
+
+
+highlighted
+
+
+clock
+
+number 40
+date time - 16, all caps
+
+*/

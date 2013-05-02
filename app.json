@@ -71,12 +71,20 @@
             "path": "resources/css/app.css",
             "update": "delta"
         },
+                {
+            "path": "resources/css/general.css",
+            "update": "delta"
+        },
         {
             "path": "resources/css/dial.css",
             "update": "delta"
         },
         {
             "path": "resources/css/music.css",
+            "update": "delta"
+        },
+        {
+            "path": "resources/css/climate.css",
             "update": "delta"
         }
     ],

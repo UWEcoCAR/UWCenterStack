@@ -122,7 +122,14 @@ Ext.define('feel-your-way.controller.MusicControl', {
     },
 
     goHome: function(button) {
-        button.setIconCls('appsgreen');
+        Ext.Viewport.add([Ext.create('feel-your-way.view.Main', {
+            id: 'appContainer',
+            fullscreen: true,
+        })]);
+        var musicView = Ext.ComponentQuery.query('#pageContainer')[0];
+        var audio = Ext.ComponentQuery.query('#audio')[0];
+        Ext.Viewport.remove(audio, false); // don't destroy it!
+        Ext.Viewport.remove(musicView, true);
     },
 
 

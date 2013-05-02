@@ -7,28 +7,20 @@ Ext.Loader.setPath({
 
 Ext.application({
     name: 'feel-your-way',
-    views: ['Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'MusicPlayer', 'CircleSlider', 'MultiDial'],
+    views: ['Main', 'Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'MusicPlayer', 'CircleSlider', 'MultiDial', 'ClimateMain'],
     stores: ['Songs'],
     models: ['Song'],
-    controllers: ['MusicControl', 'SelectControl'],
+    controllers: ['MusicControl', 'SelectControl', 'ClimateControl'],
     requires: ['Ext.Audio'],
 
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
-        var audio = Ext.create('Ext.Audio', {
-            id: 'audio',
-            enableControls: false,
-            hidden: true,
-            volume: .5
-        });
-
-        var musicApp = Ext.create('feel-your-way.view.MusicMain', {
-            id: 'pageContainer',
+        Ext.Viewport.add([Ext.create('feel-your-way.view.Main', {
+            id: 'appContainer',
             fullscreen: true,
-        });
-        
-        Ext.Viewport.add([audio, musicApp]);
+        })]);
+
     }
 });
