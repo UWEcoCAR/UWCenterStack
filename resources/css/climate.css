@@ -1,0 +1,73 @@
+#homeButton {
+    background-image: url('../icons/graphics/Home/home_inactive.png');
+}
+
+#tempButton {
+    background-image: url('../icons/graphics/Music/temperature_inactive.png');
+}
+
+#fanButton {
+    background-image: url('../icons/graphics/Music/fan_inactive.png');
+}
+
+#seatButton {
+    background-image: url('../icons/graphics/Music/seats_inactive.png');
+}
+
+#ventButton {
+    background-image: url('../icons/graphics/Music/vent_inactive.png');
+}
+
+#passDriverSwitch {
+    background-image: url('../icons/graphics/Music/driver_active.png');
+}
+
+#acButton {
+    background-image: url('../icons/graphics/Music/ac_inactive.png');
+}
+
+#defrostButton {
+    background-image: url('../icons/graphics/Music/back_defrost_active.png');
+}
+
+#circulateButton {
+    background-image: url('../icons/graphics/Music/recirculate_inactive.png');
+}
+
+#autoButton {
+    background-image: url('../icons/graphics/Music/Treble_inactive.png');
+}
+
+/* Active Buttons */
+
+#artistButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Artists_active.png');
+}
+
+#albumButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Albums_active.png');
+}
+
+#songButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Songs_active.png');
+}
+
+#playlistButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Playlists_active.png');
+}
+
+#repeatButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Repeat_active.png');
+}
+
+#shuffleButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Shuffle_active.png');
+}
+
+#bassButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Bass_active.png');
+}
+
+#trebleButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Treble_active.png');
+}

@@ -17,10 +17,19 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
-        Ext.Viewport.add([Ext.create('feel-your-way.view.Main', {
-            id: 'appContainer',
+//        
+//        var climateApp = Ext.create('feel-your-way.view.ClimateMain', {
+//            id: 'pageContainer',
+//            fullscreen: true,
+//        });
+//        Ext.Viewport.add([climateApp]); // TODO dont add audio if music is playing!
+//        var mainView = Ext.ComponentQuery.query('#appContainer')[0];
+//        Ext.Viewport.remove(mainView, true);
+//        
+        Ext.Viewport.add([Ext.create('feel-your-way.view.ClimateMain', {
+            id: 'pageContainer',
             fullscreen: true,
-        })]);
+        });]);
 
     }
 });
