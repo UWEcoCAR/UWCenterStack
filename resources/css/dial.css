@@ -1,9 +1,13 @@
 #selectorList {
 	/*-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.01)), color-stop(30%, rgba(0,0,0,1)), to(rgba(0,0,0,0)));*/
-	background-color: #231f20;
+	background-color: black;
 	height: 100%;
 	width:  100%;
 	text-align: left;
+}
+
+.x-scroll-scroller {
+	background-color: black;
 }
 
 @font-face {

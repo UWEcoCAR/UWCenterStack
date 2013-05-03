@@ -116,9 +116,16 @@ Ext.define('feel-your-way.controller.MusicControl', {
                 this.repeat = bool;
             },
             setShuffle: function(bool){
-                this.shuffle = bool
+                this.shuffle = bool;
             }
-        }
+        },
+        
+//        isMusicApp: {
+//        	bool: false,
+//        	set: function(value) {
+//        		bool = value;
+//        	}
+//        }
     },
 
     launch: function() {
@@ -130,9 +137,11 @@ Ext.define('feel-your-way.controller.MusicControl', {
             id: 'appContainer',
             fullscreen: true,
         })]);
+//        var isMusic = this.getIsMusicApp();
+//        isMusic.set(false);
         var musicView = Ext.ComponentQuery.query('#pageContainer')[0];
         var audio = Ext.ComponentQuery.query('#audio')[0];
-        Ext.Viewport.remove(audio, false); // don't destroy it!
+        //Ext.Viewport.remove(audio, false); // don't destroy it!
         Ext.Viewport.remove(musicView, true);
     },
 

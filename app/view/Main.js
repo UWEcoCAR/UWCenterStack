@@ -37,7 +37,10 @@ Ext.define('feel-your-way.view.Main', {
 	                            hidden: true,
 	                            volume: .5
 	                        });
-
+//
+//	                        var isMusic = Ext.ControllerManager.get('MusicControl');
+//	                        isMusic.getIsMusicApp().set(true);
+//	                        
 	                        var musicApp = Ext.create('feel-your-way.view.MusicMain', {
 	                            id: 'pageContainer',
 	                            fullscreen: true,
