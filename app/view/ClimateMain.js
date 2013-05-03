@@ -45,23 +45,6 @@ Ext.define('feel-your-way.view.ClimateMain', {
 	                }
 	            ]
 			},
-//			{
-//				xtype: 'container',
-//				id: 'nowPlayingData',
-//	            html: '',
-//	            position: 'absolute',
-//	            top: '10px',
-//	            left: '120px',
-//			},
-//			{
-//				xtype: 'container',
-//				id: 'selectedData',
-//	            html: '',
-//	            position: 'absolute',
-//	            top: '170px',
-//	            left: '47%',
-//	            width: '10%'
-//			},
 			{
 				xtype: 'dialselector',
 				id: 'climate',
@@ -70,16 +53,6 @@ Ext.define('feel-your-way.view.ClimateMain', {
 				top: '0px',
 				width: '90%'
 			},
-//			{
-//				xtype: 'container',
-//				id: 'fadeImage',
-//	            html: '',
-//	            position: 'absolute',
-//	            top: '0px',
-//	            right: '0px',
-//	            width: '200px',
-//	            height: '100%'
-//			},
 			{
 				xtype: 'container',
 				id: 'rightNav',

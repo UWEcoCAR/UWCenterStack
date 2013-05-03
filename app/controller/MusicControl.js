@@ -1,5 +1,8 @@
 Ext.define('feel-your-way.controller.MusicControl', {
 	extend: 'Ext.app.Controller',
+	views: [
+	        'MusicMain'
+	    ],
 
 	config: {
 		control: {

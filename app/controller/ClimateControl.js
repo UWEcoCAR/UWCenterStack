@@ -176,20 +176,30 @@ Ext.define('feel-your-way.controller.ClimateControl', {
 
     tempSelect: function(button) {
         this.setActiveButton(button);
+    	var store = Ext.StoreManager.get('Climate');
+    	store.loadData('temp');
     },
 
     fanSelect: function(button) {
         this.setActiveButton(button);
+    	var store = Ext.StoreManager.get('Climate');
+    	store.loadData('fan');
     },
    
     seatSelect: function(button) {
         this.setActiveButton(button);
+    	var store = Ext.StoreManager.get('Climate');
+    	store.loadData('seat');
     },
 
     ventSelect: function(button) {
         this.setActiveButton(button);
+    	var store = Ext.StoreManager.get('Climate');
+    	store.loadData('vent');
     },
 
+    // need to track separate toggles for passenger/driver?
+    // no, i dont think so...
     passDriverSelect: function(button) {
         this.toggleButton(button);
     },
