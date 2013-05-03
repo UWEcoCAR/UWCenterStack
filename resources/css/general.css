@@ -20,7 +20,7 @@ body {
     color: black;
 }
 
-#pageContainer, #appContainer {
+#climateContainer, #musicContainer, #appContainer {
     background-color: black;
     color: #44FF44;
     font-family: 'Univers', sans-serif;
@@ -50,6 +50,10 @@ body {
 
 #diagnosticsAppButton {
     background-image: url('../icons/graphics/Home/diagnostics_inactive.png');
+}
+
+#appsButton {
+    background-image: url('../icons/graphics/Home/apps_inactive.png');
 }
 
 /* Active Buttons */

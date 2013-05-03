@@ -100,15 +100,6 @@ Ext.define('feel-your-way.controller.ClimateControl', {
         }
     },
 
-    goHome: function(button) {
-        Ext.Viewport.add([Ext.create('feel-your-way.view.Main', {
-            id: 'appContainer',
-            fullscreen: true,
-        })]);
-        var climateView = Ext.ComponentQuery.query('#pageContainer')[0];
-        Ext.Viewport.remove(climateView, true);
-    },
-
     setActiveButton: function(button) {
         var buttons = Ext.ComponentQuery.query('button');
         for (var i = buttons.length - 1; i >= 0; i--) {

@@ -21,7 +21,8 @@ Ext.define('feel-your-way.view.ClimateMain', {
 	            items: [
 	                {
 	                    id: 'homeButton',
-	                    iconCls: 'home'
+	                    iconCls: 'home',
+	                    action: 'goHome'
 	                },
 	                {
 	                    id: 'tempButton',

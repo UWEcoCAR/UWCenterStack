@@ -10,7 +10,7 @@ Ext.application({
     views: ['Main', 'Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'MusicPlayer', 'CircleSlider', 'MultiDial', 'ClimateMain'],
     stores: ['Songs'],
     models: ['Song'],
-    controllers: ['MusicControl', 'SelectControl', 'ClimateControl'],
+    controllers: ['AppControl', 'MusicControl', 'SelectControl', 'ClimateControl'],
     requires: ['Ext.Audio'],
 
     launch: function() {

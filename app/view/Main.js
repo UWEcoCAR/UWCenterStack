@@ -1,6 +1,7 @@
 Ext.define('feel-your-way.view.Main', {
 	extend: 'Ext.Container',
 	requires: ['Ext.Button'],
+	xtype: 'mainView',
 
 	config: {
 		layout: 'hbox',
@@ -23,7 +24,6 @@ Ext.define('feel-your-way.view.Main', {
 	                    id: 'alreadyHome',
 	                    iconCls: 'home',
 	                    handler: function() {
-	                    	
 	                    	console.log('already home!');
 	                    }
 	                },
@@ -42,7 +42,7 @@ Ext.define('feel-your-way.view.Main', {
 //	                        isMusic.getIsMusicApp().set(true);
 //	                        
 	                        var musicApp = Ext.create('feel-your-way.view.MusicMain', {
-	                            id: 'pageContainer',
+	                            id: 'musicContainer',
 	                            fullscreen: true,
 	                        });
 	                        Ext.Viewport.add([audio, musicApp]); // TODO dont add audio if music is playing!
@@ -55,10 +55,11 @@ Ext.define('feel-your-way.view.Main', {
 	                    iconCls: 'climateApp',
 	                    handler: function() {
 	                        var climateApp = Ext.create('feel-your-way.view.ClimateMain', {
-	                            id: 'pageContainer',
+	                            id: 'climateContainer',
 	                            fullscreen: true,
 	                        });
 	                        Ext.Viewport.add([climateApp]); // TODO dont add audio if music is playing!
+	                        Ext.Viewport.setActiveItem(climateApp);
 	                        var mainView = Ext.ComponentQuery.query('#appContainer')[0];
 	                        Ext.Viewport.remove(mainView, true);
 	                    }
@@ -68,8 +69,8 @@ Ext.define('feel-your-way.view.Main', {
 	                    iconCls: 'diagnosticsApp'
 	                },
 	                {
-	                    id: '5',
-//	                    iconCls: 'playlists'
+	                    id: 'appsButton',
+	                    iconCls: 'moreApps'
 
 	                }
 	            ]
@@ -82,43 +83,43 @@ Ext.define('feel-your-way.view.Main', {
 //	            top: '10px',
 //	            left: '120px',
 //			},
-			{
-				xtype: 'container',
-				id: 'homeRightNav',
-	            width: '100px',
-	            position: 'absolute',
-	            right: '0px',
-	            defaults: {
-	                xtype: 'button',
-	                margin: '3 3 0 0',
-	                height: '90px',
-	                width: '90px'
-	            },
-	            items: [
-	                {
-	                    id: '6',
-//	                    text: 'Now<br />Playing'
-	                },
-	                {
-	                    id: '7',
-//	                    iconCls: 'treble',
-//	                    text: 'Treble'
-	                },
-	                {
-	                    id: '8',
-//	                    iconCls: 'bass',
-//	                    text: 'Bass'
-	                },
-	                {
-	                    id: '9',
-//	                    iconCls: 'repeat'
-	                },
-	                {
-	                    id: '10',
-//	                    iconCls: 'shuffle'
-	                }
-	            ]   
-			}
+//			{
+//				xtype: 'container',
+//				id: 'homeRightNav',
+//	            width: '100px',
+//	            position: 'absolute',
+//	            right: '0px',
+//	            defaults: {
+//	                xtype: 'button',
+//	                margin: '3 3 0 0',
+//	                height: '90px',
+//	                width: '90px'
+//	            },
+//	            items: [
+//	                {
+//	                    id: '6',
+////	                    text: 'Now<br />Playing'
+//	                },
+//	                {
+//	                    id: '7',
+////	                    iconCls: 'treble',
+////	                    text: 'Treble'
+//	                },
+//	                {
+//	                    id: '8',
+////	                    iconCls: 'bass',
+////	                    text: 'Bass'
+//	                },
+//	                {
+//	                    id: '9',
+////	                    iconCls: 'repeat'
+//	                },
+//	                {
+//	                    id: '10',
+////	                    iconCls: 'shuffle'
+//	                }
+//	            ]   
+//			}
 		]
 	}
 })

@@ -3,71 +3,75 @@
 }
 
 #tempButton {
-    background-image: url('../icons/graphics/Music/temperature_inactive.png');
+    background-image: url('../icons/graphics/Climate/temperature_inactive.png');
 }
 
 #fanButton {
-    background-image: url('../icons/graphics/Music/fan_inactive.png');
+    background-image: url('../icons/graphics/Climate/fan_inactive.png');
 }
 
 #seatButton {
-    background-image: url('../icons/graphics/Music/seats_inactive.png');
+    background-image: url('../icons/graphics/Climate/seats_inactive.png');
 }
 
 #ventButton {
-    background-image: url('../icons/graphics/Music/vent_inactive.png');
+    background-image: url('../icons/graphics/Climate/vent_inactive.png');
 }
 
 #passDriverSwitch {
-    background-image: url('../icons/graphics/Music/driver_active.png');
+    background-image: url('../icons/graphics/Climate/driver_active.png');
 }
 
 #acButton {
-    background-image: url('../icons/graphics/Music/ac_inactive.png');
+    background-image: url('../icons/graphics/Climate/ac_inactive.png');
 }
 
 #defrostButton {
-    background-image: url('../icons/graphics/Music/back_defrost_active.png');
+    background-image: url('../icons/graphics/Climate/back_defrost_inactive.png');
 }
 
 #circulateButton {
-    background-image: url('../icons/graphics/Music/recirculate_inactive.png');
+    background-image: url('../icons/graphics/Climate/recirculate_inactive.png');
 }
 
 #autoButton {
-    background-image: url('../icons/graphics/Music/Treble_inactive.png');
+    background-image: url('../icons/graphics/Climate/Treble_inactive.png');
 }
 
 /* Active Buttons */
 
-#artistButton.clickedButton {
-    background-image: url('../icons/graphics/Music/Artists_active.png');
+#tempButton.clickedButton {
+    background-image: url('../icons/graphics/Climate/temperature_active.png');
 }
 
-#albumButton.clickedButton {
-    background-image: url('../icons/graphics/Music/Albums_active.png');
+#fanButton.clickedButton {
+    background-image: url('../icons/graphics/Climate/fan_active.png');
 }
 
-#songButton.clickedButton {
-    background-image: url('../icons/graphics/Music/Songs_active.png');
+#seatButton.clickedButton {
+    background-image: url('../icons/graphics/Climate/seats_active.png');
 }
 
-#playlistButton.clickedButton {
-    background-image: url('../icons/graphics/Music/Playlists_active.png');
+#ventButton.clickedButton {
+    background-image: url('../icons/graphics/Climate/vent_active.png');
 }
 
-#repeatButton.clickedButton {
-    background-image: url('../icons/graphics/Music/Repeat_active.png');
+#passDriverSwitch.clickedButton {
+    background-image: url('../icons/graphics/Climate/passenger_active.png');
 }
 
-#shuffleButton.clickedButton {
-    background-image: url('../icons/graphics/Music/Shuffle_active.png');
+#acButton.clickedButton {
+    background-image: url('../icons/graphics/Climate/ac_active.png');
 }
 
-#bassButton.clickedButton {
-    background-image: url('../icons/graphics/Music/Bass_active.png');
+#defrostButton.clickedButton {
+    background-image: url('../icons/graphics/Climate/back_defrost_active.png');
 }
 
-#trebleButton.clickedButton {
-    background-image: url('../icons/graphics/Music/Treble_active.png');
+#circulateButton.clickedButton {
+    background-image: url('../icons/graphics/Climate/recirculate_active.png');
+}
+
+#autoButton.clickedButton {
+    background-image: url('../icons/graphics/Climate/Treble_inactive.png');
 }
