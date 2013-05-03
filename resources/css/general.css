@@ -33,13 +33,25 @@ body {
     height: 100%;
 }
 
-.x-button .x-button-icon.x-button-icon.home {
-    background-image: url('../icons/graphics/Music/Home_black-06.png');
+#alreadyHome {
+    background-image: url('../icons/graphics/Home/home_inactive.png');
+}
+
+#musicAppButton {
+    background-image: url('../icons/graphics/Home/music_inactive.png');
+}
+
+#climateAppButton {
+    background-image: url('../icons/graphics/Home/climate_inactive.png');
+}
+
+#diagnosticsAppButton {
+    background-image: url('../icons/graphics/Home/diagnostics_inactive.png');
 }
 
 /* Active Buttons */
 .x-button.clickedButton .x-button-icon.x-button-icon.home {
-    background-image: url('../icons/graphics/Music/Home_gray-06.png');
+    background-image: url('../icons/graphics/Home/Home_active.png');
 }
 
 
@@ -64,7 +76,7 @@ body {
     border: none;
     -webkit-border-radius: 0em;
     border-radius: 0em;
-    background-color: #404041;
+    background-color: white;
     position: relative;
 }
 

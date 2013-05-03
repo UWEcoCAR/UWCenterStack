@@ -1,10 +1,11 @@
 Ext.define('feel-your-way.controller.MusicControl', {
 	extend: 'Ext.app.Controller',
-	views: [
-	        'MusicMain'
-	    ],
+
 
 	config: {
+		views: [
+		        'MusicMain'
+		],
 		control: {
             audio: {
                 timeupdate: 'updateDial',

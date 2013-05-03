@@ -30,7 +30,6 @@ Ext.define('feel-your-way.view.Main', {
 	                {
 	                    id: 'musicAppButton',
 	                    iconCls: 'musicApp',
-	                    text: 'Music',
 	                    handler: function() {
 	                        var audio = Ext.create('Ext.Audio', {
 	                            id: 'audio',
@@ -51,7 +50,6 @@ Ext.define('feel-your-way.view.Main', {
 	                {
 	                    id: 'climateAppButton',
 	                    iconCls: 'climateApp',
-	                    text: 'Climate',
 	                    handler: function() {
 	                        var climateApp = Ext.create('feel-your-way.view.ClimateMain', {
 	                            id: 'pageContainer',

@@ -58,72 +58,74 @@ Music app specific styles
 
 }
 
-
-
-.x-button .x-button-icon.artists {
-    background-image: url('../icons/graphics/Music/Artists_black-06.png');
+#homeButton {
+    background-image: url('../icons/graphics/Home/home_inactive.png');
 }
 
-.x-button .x-button-icon.albums {
-    background-image: url('../icons/graphics/Music/Albums_black-06.png');
+#artistButton {
+    background-image: url('../icons/graphics/Music/Artists_inactive.png');
 }
 
-.x-button .x-button-icon.songs {
-    background-image: url('../icons/graphics/Music/Songs_black-06.png');
+#albumButton {
+    background-image: url('../icons/graphics/Music/Albums_inactive.png');
 }
 
-.x-button .x-button-icon.playlists {
-    background-image: url('../icons/graphics/Music/Playlists_black-06.png');
+#songButton {
+    background-image: url('../icons/graphics/Music/Songs_inactive.png');
 }
 
-.x-button .x-button-icon.repeat {
-    background-image: url('../icons/graphics/Music/Repeat_black-06.png');
+#playlistButton {
+    background-image: url('../icons/graphics/Music/Playlists_inactive.png');
 }
 
-.x-button .x-button-icon.shuffle {
-    background-image: url('../icons/graphics/Music/Shuffle_black-06.png');
+#repeatButton {
+    background-image: url('../icons/graphics/Music/Repeat_inactive.png');
 }
 
-.x-button .x-button-icon.bass {
-    background-image: url('../icons/graphics/Music/Bass_black-06.png');
+#shuffleButton {
+    background-image: url('../icons/graphics/Music/Shuffle_inactive.png');
 }
 
-.x-button .x-button-icon.treble {
-    background-image: url('../icons/graphics/Music/Treble_black-06.png');
+#bassButton {
+    background-image: url('../icons/graphics/Music/Bass_inactive.png');
+}
+
+#trebleButton {
+    background-image: url('../icons/graphics/Music/Treble_inactive.png');
 }
 
 /* Active Buttons */
 
-.x-button.clickedButton .x-button-icon.artists {
-    background-image: url('../icons/graphics/Music/Artists_gray-06.png');
+#artistButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Artists_active.png');
 }
 
-.x-button.clickedButton .x-button-icon.albums {
-    background-image: url('../icons/graphics/Music/Albums_gray-06.png');
+#albumButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Albums_active.png');
 }
 
-.x-button.clickedButton .x-button-icon.songs {
-    background-image: url('../icons/graphics/Music/Songs_gray-06.png');
+#songButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Songs_active.png');
 }
 
-.x-button.clickedButton .x-button-icon.playlists {
-    background-image: url('../icons/graphics/Music/Playlists_gray-06.png');
+#playlistButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Playlists_active.png');
 }
 
-.x-button.clickedButton .x-button-icon.repeat {
-    background-image: url('../icons/graphics/Music/Repeat_gray-06.png');
+#repeatButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Repeat_active.png');
 }
 
-.x-button.clickedButton .x-button-icon.shuffle {
-    background-image: url('../icons/graphics/Music/Shuffle_gray-06.png');
+#shuffleButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Shuffle_active.png');
 }
 
-.x-button.clickedButton .x-button-icon.bass {
-    background-image: url('../icons/graphics/Music/Bass_gray-06.png');
+#bassButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Bass_active.png');
 }
 
-.x-button.clickedButton .x-button-icon.treble {
-    background-image: url('../icons/graphics/Music/Treble_gray-06.png');
+#trebleButton.clickedButton {
+    background-image: url('../icons/graphics/Music/Treble_active.png');
 }
 
 
