@@ -21,7 +21,7 @@ Ext.define('feel-your-way.view.MusicMain', {
 	            },
 	            items: [
 	                {
-	                    id: 'homeButton',
+	                    id: 'musicHomeButton',
 	                    iconCls: 'home',
 	                    name: 'goHome'
 	                },

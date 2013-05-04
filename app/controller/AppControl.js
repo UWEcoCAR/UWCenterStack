@@ -3,14 +3,18 @@ Ext.define('feel-your-way.controller.AppControl', {
 
 	config: {
 		control: {
-            homeButton: {
+            climateHomeButton: {
+                tap: 'goHome',
+            },
+            musicHomeButton: {
                 tap: 'goHome',
             }
 		},
 
 		refs: {
             // non music controls
-            homeButton: '#homeButton'
+            climateHomeButton: '#climateHomeButton',
+            musicHomeButton: '#musicHomeButton'
 		},
 	},
 

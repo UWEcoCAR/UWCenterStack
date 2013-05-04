@@ -22,10 +22,7 @@ Ext.define('feel-your-way.view.Main', {
 	            items: [
 	                {
 	                    id: 'alreadyHome',
-	                    iconCls: 'home',
-	                    handler: function() {
-	                    	console.log('already home!');
-	                    }
+	                    cls: 'clickedButton'
 	                },
 	                {
 	                    id: 'musicAppButton',
