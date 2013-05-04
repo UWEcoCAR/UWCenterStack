@@ -36,7 +36,7 @@
 		<sshexec host="${target.ip}"
 		    username="root"
 		    password="root"
-		    command="/base/scripts/bar-install /tmp/UWCenterStack.bar > /log/bar-install-log.txt"
+		    command="/base/scripts/uwCenterStackInstall"
 			verbose="true"
 			failonerror="false"
 			trust="true"/>
