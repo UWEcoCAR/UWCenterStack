@@ -26,8 +26,11 @@ Create the following symlinks:
 ```sudo gem install sass```
 * Install Compass: 
 ```sudo gem install compass```
-####Auto-compile SASS to CSS
+###Auto-compile SASS to CSS
 * ```cd {GitHubFolder}/UWCenterStack/resources/sass/```
 * ```compass watch app.scss```
-####SASS documentation
+###Sublime Text 2
+There is a SASS syntax highlighing package in the dropbox for Sublime Text 2. To use it:
+Copy ```{DropboxFolder}/ProgrammingResources/SASS``` to ```~/Library/Application Support/Sublime Text 2/Packages/```
+###SASS documentation
 http://sass-lang.com/tutorial.html

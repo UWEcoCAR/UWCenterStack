@@ -32,7 +32,7 @@ Ext.define('feel-your-way.controller.SelectControl', {
 	},
 
 	volumeChange: function(degree, slider) {
-		this.getSelect().setHtml('<p style="text-decoration: underline;">' + Math.floor(degree/3.6 + 1) + '</p>100');
+		this.getSelect().setHtml('<div class="dataDisplay"><p style="border-bottom: 1px solid white;height: 50px;">' + Math.floor(degree/3.6 + 1) + '</p>100</div>');
 	},
 
 	timeChange: function(degree, slider) {

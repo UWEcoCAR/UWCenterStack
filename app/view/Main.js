@@ -25,21 +25,16 @@ Ext.define('feel-your-way.view.Main', {
 	                    cls: 'clickedButton'
 	                },
 	                {
-	                    id: 'musicAppButton',
-	                    iconCls: 'musicApp',
+	                    id: 'musicAppButton'
 	                },
 	                {
-	                    id: 'climateAppButton',
-	                    iconCls: 'climateApp',
+	                    id: 'climateAppButton'
 	                },
 	                {
-	                    id: 'diagnosticsAppButton',
-	                    iconCls: 'diagnosticsApp'
+	                    id: 'diagnosticsAppButton'
 	                },
 	                {
-	                    id: 'appsButton',
-	                    iconCls: 'moreApps'
-
+	                    id: 'appsButton'
 	                }
 	            ]
 			},
