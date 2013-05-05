@@ -18,6 +18,13 @@
     color: $green;
 }
 
+#logo {
+    background-image: url('../icons/Graphics/Home/teamLogo.png');
+    background-size: 600px 142px;
+    width: 600px;
+    height: 142px;
+}
+
 .x-button {
     margin: 3px 3px 0px 0px;
     width: $buttonSize;
