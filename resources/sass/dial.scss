@@ -24,10 +24,20 @@
 	font-size: 30pt;
 	color: $lightGray;
 	text-align: center;
-}
-
-.circleButton:hover {
-	color: $white;
+	line-height: 100px;
+	&:hover {
+		color: $white;
+	}
+	.dataDisplay {
+		height:100px;
+		width:80px;
+		text-align:center;
+		line-height: 60px;
+		margin: auto;
+	}
+	.select {
+		height: 100px;
+	}
 }
 
 .front, .back, .slice1, .slice2, .slider-background {
