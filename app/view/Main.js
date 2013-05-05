@@ -22,47 +22,15 @@ Ext.define('feel-your-way.view.Main', {
 	            items: [
 	                {
 	                    id: 'alreadyHome',
-	                    iconCls: 'home',
-	                    handler: function() {
-	                    	console.log('already home!');
-	                    }
+	                    cls: 'clickedButton'
 	                },
 	                {
 	                    id: 'musicAppButton',
 	                    iconCls: 'musicApp',
-	                    handler: function() {
-	                        var audio = Ext.create('Ext.Audio', {
-	                            id: 'audio',
-	                            enableControls: false,
-	                            hidden: true,
-	                            volume: .5
-	                        });
-//
-//	                        var isMusic = Ext.ControllerManager.get('MusicControl');
-//	                        isMusic.getIsMusicApp().set(true);
-//	                        
-	                        var musicApp = Ext.create('feel-your-way.view.MusicMain', {
-	                            id: 'musicContainer',
-	                            fullscreen: true,
-	                        });
-	                        Ext.Viewport.add([audio, musicApp]); // TODO dont add audio if music is playing!
-	                        var mainView = Ext.ComponentQuery.query('#appContainer')[0];
-	                        Ext.Viewport.remove(mainView, true);
-	                    }
 	                },
 	                {
 	                    id: 'climateAppButton',
 	                    iconCls: 'climateApp',
-	                    handler: function() {
-	                        var climateApp = Ext.create('feel-your-way.view.ClimateMain', {
-	                            id: 'climateContainer',
-	                            fullscreen: true,
-	                        });
-	                        Ext.Viewport.add([climateApp]); // TODO dont add audio if music is playing!
-	                        Ext.Viewport.setActiveItem(climateApp);
-	                        var mainView = Ext.ComponentQuery.query('#appContainer')[0];
-	                        Ext.Viewport.remove(mainView, true);
-	                    }
 	                },
 	                {
 	                    id: 'diagnosticsAppButton',

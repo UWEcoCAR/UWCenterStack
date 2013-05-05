@@ -3,25 +3,47 @@ Ext.define('feel-your-way.controller.AppControl', {
 
 	config: {
 		control: {
-            homeButton: {
-                tap: 'goHome',
+			homeApp: {
+				show: 'wentHome'
+			},
+            musicAppButton: {
+            	tap: 'openMusic'
+            },
+            climateAppButton: {
+            	tap: 'openClimate'
             }
 		},
 
 		refs: {
-            // non music controls
-            homeButton: '#homeButton'
+            view: '#view',
+            homeApp: '#appContainer',
+            musicAppButton: '#musicAppButton',
+            climateAppButton: '#climateAppButton',
+            diagnosticsAppButton: '#diagnosticsAppButton',
+            moreAppsButton: 'appsButton'
 		},
 	},
 
-	goHome: function() {
-		var home = Ext.create('feel-your-way.view.Main', {
-		      id: 'appContainer',
-		      fullscreen: true,
-		  });
-		Ext.Viewport.add([home]);
-//		var climateView = Ext.ComponentQuery.query('#pageContainer')[0];
-//		Ext.Viewport.remove(climateView, true);
-		Ext.Viewport.setActiveItem(home);
+	wentHome: function() {
+		Ext.getCmp('alreadyHome').addCls('clickedButton');
+	},
+
+	openMusic: function() {
+		var musicApp = Ext.create('feel-your-way.view.MusicMain',{
+			id: 'musicContainer',
+			fullscreen: true
+		});
+
+		this.getView().push(musicApp);
+	},
+
+	openClimate: function() {
+		var climateApp = Ext.create('feel-your-way.view.ClimateMain',{
+			id: 'climateContainer',
+			fullscreen: true
+		});
+
+		this.getView().push(climateApp);
 	}
+	
 });

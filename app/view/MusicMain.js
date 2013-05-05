@@ -1,7 +1,7 @@
 Ext.define('feel-your-way.view.MusicMain', {
 	extend: 'Ext.Container',
 	requires: ['Ext.Button'],
-
+	xtype: 'musicmain',
 
 	config: {
 		layout: 'hbox',
@@ -21,7 +21,7 @@ Ext.define('feel-your-way.view.MusicMain', {
 	            },
 	            items: [
 	                {
-	                    id: 'homeButton',
+	                    id: 'musicHomeButton',
 	                    iconCls: 'home',
 	                    name: 'goHome'
 	                },
@@ -67,7 +67,7 @@ Ext.define('feel-your-way.view.MusicMain', {
 				position: 'absolute',
 				left: '60%',
 				top: '0px',
-				width: '90%'
+				width: '90%',
 			},
 			{
 				xtype: 'container',

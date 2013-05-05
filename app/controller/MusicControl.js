@@ -3,10 +3,10 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
 
 	config: {
-		views: [
-		        'MusicMain'
-		],
 		control: {
+            musicApp: {
+                initialize: 'restoreState'
+            },
             audio: {
                 timeupdate: 'updateDial',
                 ended: 'nextSong'
@@ -50,22 +50,23 @@ Ext.define('feel-your-way.controller.MusicControl', {
 		},
 
 		refs: {
-            audio: '#audio',
-            controls: '#music',
-			list: '#selectorList',
-            dial: '#dial',
-            timeSlider: '#dial-outer-slider',
-            volumeSlider: '#dial-inner-slider',
+            musicApp: 'musicmain[id="musicContainer"]',
+            audio: 'audio[id="audio"]',
+            controls: 'dialselector[id="music"]',
+			list: 'selectorlist[id="selectorList"]',
+            dial: 'multidial[id="dial"]',
+            timeSlider: 'circleslider[id="dial-outer-slider"]',
+            volumeSlider: 'circleslider[id="dial-inner-slider"]',
             // music controls
-            artistButton: '#artistButton',
-            albumButton: '#albumButton',
-            songButton: '#songButton',
-            playlistButton: '#playlistButton',
-            nowPlayingButton: '#nowPlaying',
-            trebleButton: '#trebleButton',
-            bassButton: '#bassButton',
-            repeatButton: '#repeatButton',
-            shuffleButton: '#shuffleButton',
+            artistButton: 'button[id="artistButton"]',
+            albumButton: 'button[id="albumButton"]',
+            songButton: 'button[id="songButton"]',
+            playlistButton: 'button[id="playlistButton"]',
+            nowPlayingButton: 'button[id="nowPlaying"]',
+            trebleButton: 'button[id="treblebutton"]',
+            bassButton: 'button[id="bassButton"]',
+            repeatButton: 'button[id="repeatButton"]',
+            shuffleButton: 'button[id="shuffleButton"]',
 		},
 
         currentData: [],
@@ -111,43 +112,29 @@ Ext.define('feel-your-way.controller.MusicControl', {
             setShuffle: function(bool){
                 this.shuffle = bool;
             }
-        },
-        
-//        isMusicApp: {
-//        	bool: false,
-//        	set: function(value) {
-//        		bool = value;
-//        	}
-//        }
+        }
     },
 
-    launch: function() {
-        this.songSelect(this.getSongButton());
+    restoreState: function() {
+        var nowPlaying = this.getNowPlaying();
+        nowPlaying.set(null,null,null,null,false,null); // possibly move to a onDestroy method
+        if (nowPlaying.isPlaying){
+            var dataContainer = Ext.getCmp('nowPlayingData');
+            dataContainer.setHtml('<span>' + nowPlaying.title.toUpperCase() + '</span><br />' + nowPlaying.artist.toLowerCase() + '<br />' + nowPlaying.album.toLowerCase());
+        }
+        if (nowPlaying.isPlaying){
+           this.goToNowPlaying(this.getNowPlayingButton());
+        } else {
+            this.songSelect(this.getSongButton());
+        }
     },
-
-    goHome: function(button) {
-    	console.log('gohome');
-    	var audio = Ext.ComponentQuery.query('#audio')[0];
-    	audio.hide();
-//        Ext.Viewport.add([Ext.create('feel-your-way.view.Main', {
-//            id: 'appContainer',
-//            fullscreen: true,
-//        })]);
-////        var isMusic = this.getIsMusicApp();
-////        isMusic.set(false);
-//        var musicView = Ext.ComponentQuery.query('#pageContainer')[0];
-//        var audio = Ext.ComponentQuery.query('#audio')[0];
-//        //Ext.Viewport.remove(audio, false); // don't destroy it!
-//        Ext.Viewport.remove(musicView, true);
-    },
-
 
     goToNowPlaying: function(button) {
         var playing = this.getNowPlaying();
         if(playing.isPlaying && !playing.onScreen) { // something is playing
             this.setActiveButton(button);
             this.getList().hide();
-            playing.onScreen = true;
+            playing.set(null,null,null,null, true, null);
             this.getDial().setMode('slider');
             this.clearSelectedData();
         }
@@ -346,8 +333,10 @@ Ext.define('feel-your-way.controller.MusicControl', {
         var currentlyPlaying = me.getNowPlaying();
         var data = record.data;
         currentlyPlaying.set(data.title, data.artist, data.album, data.genre, null, true);
-        var dataContainer = Ext.getCmp('nowPlayingData');
-        dataContainer.setHtml('<span>' + record.data.title.toUpperCase() + '</span><br />' + record.data.artist.toLowerCase() + '<br />' + record.data.album.toLowerCase());
+        if (this.getMusicApp()) {
+            var dataContainer = Ext.getCmp('nowPlayingData');
+            dataContainer.setHtml('<span>' + record.data.title.toUpperCase() + '</span><br />' + record.data.artist.toLowerCase() + '<br />' + record.data.album.toLowerCase());
+        }
         this.getAudio().setUrl('./resources/music/' + data.url);
         this.getAudio().play();
     },
@@ -387,7 +376,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
     },
 
     updateDial: function(audio, time){
-       this.getTimeSlider().setSlider(time/audio.getDuration()*360);
+        if (this.getMusicApp()) this.getTimeSlider().setSlider(time/audio.getDuration()*360);
     },
     updateAudio: function(angle, slider) {
         var audio = this.getAudio();

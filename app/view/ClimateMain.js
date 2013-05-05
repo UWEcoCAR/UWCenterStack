@@ -1,6 +1,7 @@
 Ext.define('feel-your-way.view.ClimateMain', {
 	extend: 'Ext.Container',
 	requires: ['Ext.Button'],
+	xtype: 'climatemain',
 
 	config: {
 		layout: 'hbox',
@@ -20,7 +21,7 @@ Ext.define('feel-your-way.view.ClimateMain', {
 	            },
 	            items: [
 	                {
-	                    id: 'homeButton',
+	                    id: 'climateHomeButton',
 	                    iconCls: 'home',
 	                    action: 'goHome'
 	                },
