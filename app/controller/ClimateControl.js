@@ -188,7 +188,11 @@ Ext.define('feel-your-way.controller.ClimateControl', {
 
     ventSelect: function(button) {
         this.setActiveButton(button);
+        var list = this.getList();
     	var store = Ext.StoreManager.get('Climates');
+    	// selected one should be a different color
+    	// if it has the class, then title has to change...
+    	list.setItemTpl('<div id="{title}"></div>');
     	store.loadData('vent');
     },
 
