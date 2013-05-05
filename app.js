@@ -20,9 +20,18 @@ Ext.application({
         var view = Ext.create('Ext.NavigationView', {
             id: 'view',
             fullscreen: true,
-            showAnimation: 'fadeIn',
-            hideAnimation: 'fadeOut',
+            showAnimation: 'pop',
+            hideAnimation: 'pop',
             navigationBar: false,
+
+            layout: {
+                type: 'card',
+                animation: {
+                    type: 'fade',
+                    duration: 300,
+                    easing: 'ease',
+                }
+            },
 
             items: [
                 {
@@ -30,7 +39,7 @@ Ext.application({
                     id: 'audio',
                     enableControls: false,
                     hidden: true,
-                    volume: .5
+                    volume: .5,
                 },
                 {
                     xtype: 'mainView',
