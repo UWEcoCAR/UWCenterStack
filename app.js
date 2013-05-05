@@ -11,16 +11,43 @@ Ext.application({
     stores: ['Songs'],
     models: ['Song'],
     controllers: ['AppControl', 'MusicControl', 'SelectControl', 'ClimateControl'],
-    requires: ['Ext.Audio'],
+    requires: ['Ext.Audio', 'Ext.NavigationView'],
 
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
-        Ext.Viewport.add([Ext.create('feel-your-way.view.Main', {
-            id: 'appContainer',
+        var view = Ext.create('Ext.NavigationView', {
+            id: 'view',
             fullscreen: true,
-        })]);
+            showAnimation: 'fadeIn',
+            hideAnimation: 'fadeOut',
+            navigationBar: false,
 
+            items: [
+                {
+                    xtype: 'audio',
+                    id: 'audio',
+                    enableControls: false,
+                    hidden: true,
+                    volume: .5
+                },
+                {
+                    xtype: 'mainView',
+                    id: 'appContainer'
+                }
+            ],
+
+            control: {
+                'button[iconCls="home"]': {
+                    tap: 'popTop'
+                }
+            },
+
+            popTop: function (button, event) {
+                console.log('HEEY');
+                this.pop(1);
+            }
+        });
     }
 });

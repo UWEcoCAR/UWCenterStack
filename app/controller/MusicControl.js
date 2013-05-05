@@ -3,9 +3,6 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
 
 	config: {
-		views: [
-		        'MusicMain'
-		],
 		control: {
             audio: {
                 timeupdate: 'updateDial',
@@ -50,22 +47,22 @@ Ext.define('feel-your-way.controller.MusicControl', {
 		},
 
 		refs: {
-            audio: '#audio',
-            controls: '#music',
-			list: '#selectorList',
-            dial: '#dial',
-            timeSlider: '#dial-outer-slider',
-            volumeSlider: '#dial-inner-slider',
+            audio: 'audio[id="audio"]',
+            controls: 'dialselector[id="music"]',
+			list: 'selectorlist[id="selectorList"]',
+            dial: 'multidial[id="dial"]',
+            timeSlider: 'circleslider[id="dial-outer-slider"]',
+            volumeSlider: 'circleslider[id="dial-inner-slider"]',
             // music controls
-            artistButton: '#artistButton',
-            albumButton: '#albumButton',
-            songButton: '#songButton',
-            playlistButton: '#playlistButton',
-            nowPlayingButton: '#nowPlaying',
-            trebleButton: '#trebleButton',
-            bassButton: '#bassButton',
-            repeatButton: '#repeatButton',
-            shuffleButton: '#shuffleButton',
+            artistButton: 'button[id="artistButton"]',
+            albumButton: 'button[id="albumButton"]',
+            songButton: 'button[id="songButton"]',
+            playlistButton: 'button[id="playlistButton"]',
+            nowPlayingButton: 'button[id="nowPlaying"]',
+            trebleButton: 'button[id="treblebutton"]',
+            bassButton: 'button[id="bassButton"]',
+            repeatButton: 'button[id="repeatButton"]',
+            shuffleButton: 'button[id="shuffleButton"]',
 		},
 
         currentData: [],
@@ -122,7 +119,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
     },
 
     launch: function() {
-        this.songSelect(this.getSongButton());
+        // this.songSelect(this.getSongButton());
     },
 
     goHome: function(button) {
