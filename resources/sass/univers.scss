@@ -1,0 +1,30 @@
+/* Univers font */
+@font-face {
+    font-family: Univers;
+    src: url("../Univers/UniversLTStd-Light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Univers;
+    font-weight: bold;
+    src: url("../Univers/UniversLTStd-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Univers;
+    font-style: italic;
+    src: url("../Univers/UniversLTStd-LightObl.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Univers;
+    font-stretch: condensed;
+    src: url("../Univers/UniversLTStd-LightCn.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Univers;
+    font-weight: bold;
+    font-stretch: condensed;
+    src: url("../Univers/UniversLTStd-BoldCn.otf") format("opentype");
+}

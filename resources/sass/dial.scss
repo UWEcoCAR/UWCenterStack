@@ -1,25 +1,15 @@
 #selectorList {
 	/*-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.01)), color-stop(30%, rgba(0,0,0,1)), to(rgba(0,0,0,0)));*/
-	background-color: black;
+	background-color: $black;
 	height: 100%;
 	width:  100%;
 	text-align: left;
 }
 
-.x-scroll-scroller {
-	background-color: black;
-}
-
-@font-face {
-	font-family: universe-light;
-	src: url(../Univers/UniversLTStd-Light.otf);
-}
-
 .selectorlistitem {
-	font-family: universe-light;
 	text-transform: lowercase;
 	margin: 20px;
-	color: #404040;
+	color: $mediumGray;
 }
 
 #music {
@@ -27,17 +17,17 @@
 }
 
 .selected {
-	color: #75f295;
+	color: $green;
 }
 
 .circleButton {
 	font-size: 30pt;
-	color:#ddd;
+	color: $lightGray;
 	text-align: center;
 }
 
 .circleButton:hover {
-	color:#fff;
+	color: $white;
 }
 
 .front, .back, .slice1, .slice2, .slider-background {

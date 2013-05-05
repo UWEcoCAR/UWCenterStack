@@ -1,21 +1,14 @@
 /*
 Music app specific styles
 */
-#fadeImage {
-    background-image: url('../images/fade_right.png');
-}
 
 #nowPlayingData, #selectedData {
+    color: $lightGray;
     font-stretch: condensed;
     text-align: right;
     width: 400px;
     height: 200px;
     font-size: 16.5pt;
-}
-
-#nowPlayingData span {
-    font-size: 16.5pt;
-    color: #61ff78;
 }
 
 #nowPlayingTag {
@@ -24,8 +17,13 @@ Music app specific styles
     width: 150px;
 }
 
-#nowPlayingTag>.x-inner>.x-innerhtml {
-    color: white;
+#nowPlayingData span {
+    color: $green;
+}
+
+#selectedData {
+    font-size: 10pt;
+    padding-right: 4px;
 }
 
 #selectedData span {
@@ -33,16 +31,28 @@ Music app specific styles
     font-style: italic;
 }
 
-#selectedData {
-    font-size: 10pt;
-    padding-right: 2px;
-}
-
 #centerInfo {
     width: 40%;
     height: 40%;
 }
 
+#nowPlaying .x-button-label {
+    position: absolute;
+    top: 30%;
+    font-size: 14px;
+    text-align: center;
+    width: $buttonSize;
+}
+
+#nowPlaying.clickedButton .x-button-label  {
+    color: $purple;
+}
+
+#fadeImage {
+    background-image: url('../images/fade_right.png');
+}
+
+/*
 #appName>.x-inner>.x-innerhtml {
     color: #44FF44;
 }
@@ -55,8 +65,8 @@ Music app specific styles
     font-size: 72pt;
     font-weight: bold;
     opacity: .4;
-
 }
+*/
 
 #homeButton {
     background-image: url('../icons/graphics/Home/home_inactive.png');
@@ -126,44 +136,4 @@ Music app specific styles
 
 #trebleButton.clickedButton {
     background-image: url('../icons/graphics/Music/Treble_active.png');
-}
-
-
-#nowPlaying .x-button-label {
-    position: absolute;
-    top: 30%;
-    font-size: 14px;
-    text-align: center;
-    width: 90px;
-}
-
-.x-button.clickedButton#nowPlaying > .x-button-label  {
-    position: absolute;
-    top: 30%;
-    font-size: 14px;
-    text-align: center;
-    width: 90px;
-    color: #61ff78;
-}
-
-
-/* data list styles */
-
-.x-innerhtml {
-    color: white;
-}
-
-.x-scroll-container {
-    background-color: #231f20;
-}
-
-.x-list-normal .x-list-header-wrap .x-item-header, .x-list-normal .x-list-header {
-    background-image: none;
-    background-color: #231f20;
-    border-top: none;
-    border-bottom: none;
-}
-
-.x-dock, .x-dock-body {
-    background-color: #404041;
 }
