@@ -33,8 +33,8 @@
     background-image: none;
 }
 
-#alreadyHome {
-    background-image: url('../icons/graphics/Home/home_inactive.png');
+#alreadyHome.clickedButton {
+    background-image: url('../icons/graphics/Home/home_active.png');
 }
 
 #musicAppButton {
