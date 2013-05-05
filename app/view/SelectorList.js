@@ -42,30 +42,6 @@ Ext.define('feel-your-way.view.SelectorList', {
 			list[i].style.height = height + "px";
 			if (x - 10 < offset + 10 && x + list[i].clientHeight + 10 > offset + 10) {
 				list[i].classList.add('selected');
-				//console.log(list[i].innerHTML.toString().substring(0, 4));
-				// check to see if it is an image you are styling
-//				if(list[i].innerHTML.toString().substring(0, 4) == '<img') {
-//					// change from inactive to active image
-//					var parts = list[i].innerHTML.split(" ");
-//					//src is parts[1]
-//					var oldImageUrl = parts[1].split("/");
-//					var oldImage = oldImageUrl[oldImageUrl.length - 1].split("_");
-//					var url;
-//					if (oldImage.length > 2) {
-//						for (var i = 0; i < oldImage.length - 2; i++) {
-//							url += oldImage[i] + '_';
-//						}
-//					} else {
-//						url = oldImage[0] + '_';
-//					}
-//					url += 'active.png';
-//					oldImageUrl[oldImageUrl.length - 1] = url;
-//					var newUrl = oldImageUrl.join("/") + '"';
-//					parts[1] = newUrl;
-//					var complete = parts.join(" ");
-//					
-//					list[i].innerHTML = complete;
-//				}
 				this.setRecordNum(i);
 			} else {
 				list[i].classList.remove('selected');
