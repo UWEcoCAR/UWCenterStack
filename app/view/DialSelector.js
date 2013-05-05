@@ -27,7 +27,7 @@ Ext.define('feel-your-way.view.DialSelector', {
 			{
 				xtype: 'selectorlist',
 				id: 'selectorList',
-				store: 'Songs',
+				store: 'Climates',
 				itemTpl: '{title}',
 				itemCls: 'selectorlistitem'
 			}

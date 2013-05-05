@@ -116,6 +116,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
     },
 
     restoreState: function() {
+        this.getList().setStore(Ext.getStore('Songs'));
         var nowPlaying = this.getNowPlaying();
         nowPlaying.set(null,null,null,null,false,null); // possibly move to a onDestroy method
         if (nowPlaying.isPlaying){

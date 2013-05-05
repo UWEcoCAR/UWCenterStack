@@ -48,7 +48,7 @@ Ext.application({
             ],
 
             control: {
-                'button[iconCls="home"]': {
+                'button[name="goHome"]': {
                     tap: 'popTop'
                 }
             },

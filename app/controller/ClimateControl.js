@@ -45,9 +45,9 @@ Ext.define('feel-your-way.controller.ClimateControl', {
 		refs: {
             climateApp: 'climatemain[id="climateContainer"]',
             audio: 'audio[id="audio"]',
-            controls: '#music',
-			list: '#selectorList',
-            dial: '#dial',
+            controls: 'dialselector[id="climate"]',
+			list: 'selectorlist[id="selectorList"]',
+            dial: 'dial[id="dial"]',
             timeSlider: '#dial-outer-slider',
             volumeSlider: '#dial-inner-slider',
             // climate controls
@@ -92,6 +92,7 @@ Ext.define('feel-your-way.controller.ClimateControl', {
 
     restoreState: function() {
         this.tempSelect(this.getTempButton());
+        this.getList().setStore(Ext.getStore('Climates'));
     },
 
     setActiveButton: function(button) {
