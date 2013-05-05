@@ -4,6 +4,9 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
 	config: {
 		control: {
+            musicApp: {
+                initialize: 'restoreState'
+            },
             audio: {
                 timeupdate: 'updateDial',
                 ended: 'nextSong'
@@ -47,6 +50,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
 		},
 
 		refs: {
+            musicApp: 'musicmain[id="musicContainer"]',
             audio: 'audio[id="audio"]',
             controls: 'dialselector[id="music"]',
 			list: 'selectorlist[id="selectorList"]',
@@ -108,36 +112,27 @@ Ext.define('feel-your-way.controller.MusicControl', {
             setShuffle: function(bool){
                 this.shuffle = bool;
             }
-        },
-        
-//        isMusicApp: {
-//        	bool: false,
-//        	set: function(value) {
-//        		bool = value;
-//        	}
-//        }
+        }
     },
 
-    launch: function() {
-        // this.songSelect(this.getSongButton());
-    },
+    restoreState: function() {
+        var nowPlaying = this.getNowPlaying();
+        if (nowPlaying.isPlaying){
+            var dataContainer = Ext.getCmp('nowPlayingData');
+            dataContainer.setHtml('<span>' + nowPlaying.title.toUpperCase() + '</span><br />' + nowPlaying.artist.toLowerCase() + '<br />' + nowPlaying.album.toLowerCase());
+        }
 
-    goHome: function(button) {
-    	console.log('gohome');
-    	var audio = Ext.ComponentQuery.query('#audio')[0];
-    	audio.hide();
-//        Ext.Viewport.add([Ext.create('feel-your-way.view.Main', {
-//            id: 'appContainer',
-//            fullscreen: true,
-//        })]);
-////        var isMusic = this.getIsMusicApp();
-////        isMusic.set(false);
-//        var musicView = Ext.ComponentQuery.query('#pageContainer')[0];
-//        var audio = Ext.ComponentQuery.query('#audio')[0];
-//        //Ext.Viewport.remove(audio, false); // don't destroy it!
-//        Ext.Viewport.remove(musicView, true);
-    },
+        this.songSelect(this.getSongButton());
 
+        var toggled = this.getToggledButtons();
+
+        if (toggled.repeat){
+            this.getRepeatButton().addCls('clickedButton');
+        }
+        if (toggled.shuffle){
+            this.getShuffleButton().addCls('clickedButton');
+        }
+    },
 
     goToNowPlaying: function(button) {
         var playing = this.getNowPlaying();
