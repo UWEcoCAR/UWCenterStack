@@ -46,6 +46,9 @@ Ext.define('feel-your-way.controller.MusicControl', {
             },
             shuffleButton: {
                 tap: 'shuffleSelect',
+            },
+            homeButton: {
+                tap: 'goHome'
             }
 		},
 
@@ -67,6 +70,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
             bassButton: 'button[id="bassButton"]',
             repeatButton: 'button[id="repeatButton"]',
             shuffleButton: 'button[id="shuffleButton"]',
+            homeButton: 'button[id="musicHomeButton"]'
 		},
 
         currentData: [],
@@ -113,6 +117,10 @@ Ext.define('feel-your-way.controller.MusicControl', {
                 this.shuffle = bool;
             }
         }
+    },
+
+    goHome: function(){
+        Ext.getCmp('view').pop(1);
     },
 
     restoreState: function() {
@@ -192,7 +200,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
         store.clearFilter();
 
-        store.filterBy(function(record, id) {       
+        store.filterBy(function(record, id) {
             var notContained;
             if (selector === 'artist') {
                 notContained = (me.getCurrentData().indexOf(record.data.artist) === -1);
@@ -225,7 +233,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
         this.generalFilter('album', button);
         this.setActiveButton(button);
     },
-   
+
     songSelect: function(button) {
         this.generalFilter('title', button);
         this.setActiveButton(button);
@@ -276,7 +284,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
                     if (notContained) {
                         me.getCurrentData().push(record.data.album);
                     }
-                    me.getCurrentlySelected().setArtist(tappedRecord.artist);              
+                    me.getCurrentlySelected().setArtist(tappedRecord.artist);
                 }
 
 
@@ -292,8 +300,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
                     } else { // wants all albums of an artist
                         if (notContained && (record.data.artist === selectedArtist)) {
                             me.getCurrentData().push(record.data.album + '' + record.data.title); // could have same song on multiple albums
-                        }  
-                        selectedData.setHtml('<span>' + selectedArtist + '</span><br /> all albums');           
+                        }
+                        selectedData.setHtml('<span>' + selectedArtist + '</span><br /> all albums');
                     }
 
                 } else {

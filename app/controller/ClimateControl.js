@@ -62,7 +62,7 @@ Ext.define('feel-your-way.controller.ClimateControl', {
             autoButton: 'button[id="autoButton"]',
 
             // non music controls
-            homeButton: '#homeButton'
+            homeButton: 'button[id="climateHomeButton"]'
 		},
 
         toggledButtons: {
@@ -88,6 +88,10 @@ Ext.define('feel-your-way.controller.ClimateControl', {
             	this.defrost = bool;
             }
         }
+    },
+
+    goHome: function(){
+        Ext.getCmp('view').pop(1);
     },
 
     restoreState: function() {

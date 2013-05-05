@@ -45,17 +45,20 @@ Ext.application({
                     xtype: 'mainView',
                     id: 'appContainer'
                 }
-            ],
+             ],
 
-            control: {
-                'button[iconCls="home"]': {
-                    tap: 'popTop'
-                }
-            },
+            // control: {
+            //     'button[id="musicHomeButton"]': {
+            //         tap: 'popTop'
+            //     },
+            //     'button[id="climateHomeButton"]': {
+            //         tap: 'popTop'
+            //     }
+            // },
 
-            popTop: function (button, event) {
-                this.pop(1);
-            }
+            // popTop: function (button, event) {
+            //     this.pop(1);
+            // }
         });
     }
 });

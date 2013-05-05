@@ -103,6 +103,7 @@
         "resources/icons",
         "resources/images",
         "resources/music",
+        "resources/climate",
         "config.xml"
     ],
 

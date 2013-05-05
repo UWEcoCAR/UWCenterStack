@@ -22,7 +22,7 @@ Ext.define('feel-your-way.view.ClimateMain', {
 	            items: [
 	                {
 	                    id: 'climateHomeButton',
-	                    action: 'goHome'
+	                    name: 'goHome'
 	                },
 	                {
 	                    id: 'tempButton',
@@ -83,7 +83,7 @@ Ext.define('feel-your-way.view.ClimateMain', {
 	                    id: 'autoButton',
 	                    text: 'AUTO'
 	                }
-	            ]   
+	            ]
 			}
 		]
 	}
