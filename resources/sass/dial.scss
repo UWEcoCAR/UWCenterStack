@@ -37,17 +37,20 @@
 	background-size: contain;
 }
 
-.slider-background {
-	background-image:url(../icons/graphics/circle-white.png);
-	opacity: .05;
+.outer-slider .slider-background {
+	background-image:url(../icons/graphics/outer_circle_background.png);
+}
+
+.inner-slider .slider-background {
+	background-image:url(../icons/graphics/inner_circle_background.png);
 }
 
 .inner-slider .slice1, .inner-slider .slice2 {
-	background-image:url(../icons/graphics/circle-green.png);
+	background-image:url(../icons/graphics/inner_circle.png);
 }
 
 .outer-slider .slice1, .outer-slider .slice2 {
-	background-image:url(../icons/graphics/circle-purple.png);
+	background-image:url(../icons/graphics/outer_circle.png);
 }
 
 #selectButton, #dial {

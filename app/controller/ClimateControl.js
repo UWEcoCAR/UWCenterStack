@@ -6,9 +6,6 @@ Ext.define('feel-your-way.controller.ClimateControl', {
             climateApp: {
                 initialize: 'restoreState'
             },
-            volumeSlider: {
-                sliderchange: 'updateVolume'
-            },
 			controls: {
 				itemtap: 'select'
 			},

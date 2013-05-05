@@ -50,11 +50,11 @@ Ext.define('feel-your-way.view.SelectorList', {
 
 		if (dial) {
 			if (this.getOffset() - this.getItemHeight() < value) {
-				dial.setRotatable('left');
+				dial.setRotatable('right');
 				dial.onEnd();
 				this.scroll(this.getOffset() - this.getItemHeight());
 			} else if (this.getAt(0).element.getHeight() + value - this.getOffset() < 0) {
-				dial.setRotatable('right');
+				dial.setRotatable('left');
 				dial.onEnd();
 				this.scroll(-this.getAt(0).element.getHeight() + this.getOffset());
 			} else if (dial.getRotatable() !== true) {

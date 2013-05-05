@@ -8,10 +8,14 @@ Ext.define('feel-your-way.view.CircleSlider', {
 		outerDiameter: null,
 		lastAngle: null,
 		rotatable: true,
-		selected: true,
+		selected: false,
 		selectable: true,
 
 		items: [
+			{
+				xtype: 'container',
+				cls: 'slider-background '
+			},
 			{
 				xtype: 'container',
 				cls: 'front',
@@ -31,10 +35,6 @@ Ext.define('feel-your-way.view.CircleSlider', {
 						cls: 'slice2',
 					}
 				]
-			},
-			{
-				xtype: 'container',
-				cls: 'slider-background '
 			}
 		],
 
@@ -58,13 +58,13 @@ Ext.define('feel-your-way.view.CircleSlider', {
 		var diameter = this.getDiameter();
 		this.setWidth(diameter);
 		this.setHeight(diameter);
-		this.setInnerDiameter((512 - 60 - 30)/512 * diameter);
-		this.setOuterDiameter((512 - 2 + 30)/512 * diameter);
+		this.setInnerDiameter((279 - 10 - 40)/279 * diameter);
+		this.setOuterDiameter((279 - 1 + 40)/279 * diameter);
 		var items = this.getItems().items;
-		items[1].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
-		items[0].getItems().items[0].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
-		items[0].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
-		items[1].getItems().items[0].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
+		items[2].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
+		items[1].getItems().items[0].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
+		items[1].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
+		items[2].getItems().items[0].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
 	},
 
 	onStart: function(event, element){
@@ -97,16 +97,17 @@ Ext.define('feel-your-way.view.CircleSlider', {
 				// }
 			}
 			this.setLastAngle(currentAngle);
-			this.setSelected(distance > this.getInnerDiameter()/2 && distance < this.getOuterDiameter()/2);
-			this.setSlider(currentAngle/Math.PI*180);
-			this.fireEvent('sliderchange', currentAngle/Math.PI*180, this);
+			if (distance > this.getInnerDiameter()/2 && distance < this.getOuterDiameter()/2){
+				this.setSlider(currentAngle/Math.PI*180);
+				this.fireEvent('sliderchange', currentAngle/Math.PI*180, this);
+			}
 		}
 	},
 
 	setSlider: function(angle) {
 		a = this;
-		var slice1 = this.getItems().items[0].getItems().items[0]
-		var slice2 = this.getItems().items[1].getItems().items[0]
+		var slice1 = this.getItems().items[1].getItems().items[0]
+		var slice2 = this.getItems().items[2].getItems().items[0]
 		if (angle%360 != 0){
 			angle = angle%360;
 		}

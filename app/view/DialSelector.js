@@ -8,10 +8,10 @@ Ext.define('feel-your-way.view.DialSelector', {
 			{
 				xtype: 'multidial',
 				id: 'dial',
-				outerCircleDiameter: 350,
-				innerCircleDiameter: 250,
-				top: 100,
-				left: 100,
+				outerCircleDiameter: 279,
+				innerCircleDiameter: 190,
+				top: 187,
+				left: 152,
 			 	style: 'position: fixed',
 			 	mode: 'dial'
 			},
@@ -21,8 +21,8 @@ Ext.define('feel-your-way.view.DialSelector', {
 				diameter: 100,
 				// following must be set
 				style: 'position: fixed',
-				top: 225,
-				left: 225,
+				top: 277,
+				left: 241,
 			},
 			{
 				xtype: 'selectorlist',
@@ -53,7 +53,7 @@ Ext.define('feel-your-way.view.DialSelector', {
 	},
 
 	updateList: function(theta, dial) {
-		Ext.getCmp('selectorList').scroll(theta/Math.PI * dial.getDiameter(), dial);
+		Ext.getCmp('selectorList').scroll(theta/Math.PI * dial.getDiameter() + 290, dial);
 	},
 
 	restore: function(theta, dial){

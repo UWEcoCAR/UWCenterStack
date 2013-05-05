@@ -3,28 +3,13 @@ Ext.define('feel-your-way.view.Dial', {
 	xtype: 'dial',
 
 	config: {
-		src: 'resources/icons/graphics/circle-white.png',
+		src: 'resources/icons/graphics/outer_circle.png',
 		diameter: 100,
 		innerDiameter: 0,
 		outerDiameter: Number.MAX_VALUE,
 		theta: 0,
 		lastAngle: null,
 		rotatable: true,
-
-		// listeners: {
-		// 	touchstart: {
-		// 		element: 'element',
-		// 		fn: 'onStart'
-		// 	},
-		// 	touchmove: {
-		// 		element: 'element',
-		// 		fn: 'onMove'
-		// 	},
-		// 	touchend: {
-		// 		element: 'element',
-		// 		fn: 'onEnd'
-		// 	}
-		// }
 	},
 
 	initialize: function() {
@@ -33,8 +18,8 @@ Ext.define('feel-your-way.view.Dial', {
 		var diameter = this.getDiameter();
 		this.setWidth(diameter);
 		this.setHeight(diameter);
-		this.setInnerDiameter((512 - 60 - 30)/512 * diameter);
-		this.setOuterDiameter((512 - 2 + 30)/512 * diameter);
+		this.setInnerDiameter((279 - 10 - 40)/279 * diameter);
+		this.setOuterDiameter((279 - 1 + 40)/279 * diameter);
 	},
 
 	onStart: function(event, element) {
@@ -68,7 +53,7 @@ Ext.define('feel-your-way.view.Dial', {
 		}
 		this.setLastAngle(currentAngle);
 		this.set();
-		this.fireEvent('dialrotate', this.getTheta(), this);
+		this.fireEvent('dialrotate', -this.getTheta(), this);
 	},
 
 	onEnd: function(event, element) {
