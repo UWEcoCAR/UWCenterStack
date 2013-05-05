@@ -22,28 +22,23 @@ Ext.define('feel-your-way.view.ClimateMain', {
 	            items: [
 	                {
 	                    id: 'climateHomeButton',
-	                    iconCls: 'home',
 	                    action: 'goHome'
 	                },
 	                {
 	                    id: 'tempButton',
-	                    text: 'Temp',
-	                    iconCls: 'temperature'
+	                    text: 'Temp'
 	                },
 	                {
 	                    id: 'fanButton',
-	                    text: 'Fan',
-	                    iconCls: 'fan'
+	                    text: 'Fan'
 	                },
 	                {
 	                    id: 'seatButton',
-	                    text: 'Seats',
-	                    iconCls: 'seats'
+	                    text: 'Seats'
 	                },
 	                {
 	                    id: 'ventButton',
-	                    text: 'Vent',
-	                    iconCls: 'vents'
+	                    text: 'Vent'
 	                }
 	            ]
 			},
@@ -74,22 +69,18 @@ Ext.define('feel-your-way.view.ClimateMain', {
 	                },
 	                {
 	                    id: 'acButton',
-	                    iconCls: 'airConditioning',
 	                    text: 'A/C'
 	                },
 	                {
 	                    id: 'defrostButton',
-	                    iconCls: 'defrost',
 	                    text: 'Defrost'
 	                },
 	                {
 	                    id: 'circulateButton',
-	                    iconCls: 'circulate',
 	                    text: 'Circulate'
 	                },
 	                {
 	                    id: 'autoButton',
-	                    iconCls: 'autoClimate',
 	                    text: 'AUTO'
 	                }
 	            ]   

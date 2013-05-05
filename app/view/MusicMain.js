@@ -22,25 +22,19 @@ Ext.define('feel-your-way.view.MusicMain', {
 	            items: [
 	                {
 	                    id: 'musicHomeButton',
-	                    iconCls: 'home',
 	                    name: 'goHome'
 	                },
 	                {
-	                    id: 'artistButton',
-	                    iconCls: 'artists'
+	                    id: 'artistButton'
 	                },
 	                {
-	                    id: 'albumButton',
-	                    iconCls: 'albums'
+	                    id: 'albumButton'
 	                },
 	                {
-	                    id: 'songButton',
-	                    iconCls: 'songs'
+	                    id: 'songButton'
 	                },
 	                {
-	                    id: 'playlistButton',
-	                    iconCls: 'playlists'
-
+	                    id: 'playlistButton'
 	                }
 	            ]
 			},
@@ -98,21 +92,17 @@ Ext.define('feel-your-way.view.MusicMain', {
 	                },
 	                {
 	                    id: 'trebleButton',
-	                    iconCls: 'treble',
 	                    text: 'Treble'
 	                },
 	                {
 	                    id: 'bassButton',
-	                    iconCls: 'bass',
 	                    text: 'Bass'
 	                },
 	                {
-	                    id: 'repeatButton',
-	                    iconCls: 'repeat'
+	                    id: 'repeatButton'
 	                },
 	                {
-	                    id: 'shuffleButton',
-	                    iconCls: 'shuffle'
+	                    id: 'shuffleButton'
 	                }
 	            ]   
 			}
