@@ -31,13 +31,24 @@ Ext.define('feel-your-way.controller.AppControl', {
         var dateTime =  Ext.getCmp('dateTime');
         Ext.util.repeat('updateTime', function() {
         	var today = new Date();
-	        var dateString = today.toDateString();
-	        var line2 = me.monthString(today.getMonth()) + ' ' + today.getDate() + ', ' + dateString.substring(dateString.length - 4).toUpperCase();
-	        dateTime.setHtml('<span>' + today.toLocaleTimeString().toLowerCase() + '</span><br />'
-	                + line2.toUpperCase() + '<br />'
-	                + me.dayString(today.getDay()).toUpperCase()
-	        );
-        }, 1000);
+        	var timeString= today.toLocaleTimeString();
+        	var line1 = timeString.substring(0, timeString.length - 6) + timeString.substring(timeString.length - 3).toLowerCase();
+        	
+        	// see if the minute has changed
+        	if (dateTime.getHtml().split('</span')[0] === '<span>' + line1) {
+        		// dont need to update
+        	} else {
+        		// need to update
+    	        var dateString = today.toDateString();
+    	        
+    	        var line1 = timeString.substring(0, timeString.length - 6) + timeString.substring(timeString.length - 3).toLowerCase();
+    	        var line2 = me.monthString(today.getMonth()) + ' ' + today.getDate() + ', ' + dateString.substring(dateString.length - 4).toUpperCase();
+    	        dateTime.setHtml('<span>' + line1 + '</span><br />'
+    	                + line2.toUpperCase() + '<br />'
+    	                + me.dayString(today.getDay()).toUpperCase()
+    	        );
+        	}
+        }, 1000, true);
 	},
 
 	wentHome: function() {
