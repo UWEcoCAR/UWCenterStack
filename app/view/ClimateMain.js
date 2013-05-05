@@ -1,6 +1,7 @@
 Ext.define('feel-your-way.view.ClimateMain', {
 	extend: 'Ext.Container',
 	requires: ['Ext.Button'],
+	xtype: 'climatemain',
 
 	config: {
 		layout: 'hbox',

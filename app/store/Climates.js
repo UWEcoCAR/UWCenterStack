@@ -1,6 +1,5 @@
 Ext.define('feel-your-way.store.Climates', {
 	extend: 'Ext.data.Store',
-	model: 'Climate',
 	config: {
 		model: 'feel-your-way.model.Climate',
 		proxy: {
@@ -16,8 +15,7 @@ Ext.define('feel-your-way.store.Climates', {
 
 	// can be temp, fan, seat, or vent
 	loadData: function(data) {
-		var store = Ext.StoreManager.get('Climate');
-		store.setProxy({
+		this.setProxy({
 			type: 'ajax',
 			url: 'resources/climate/climateData.json',
 			reader: {

@@ -3,15 +3,11 @@ Ext.define('feel-your-way.controller.ClimateControl', {
 
 	config: {
 		control: {
-            audio: {
-                timeupdate: 'updateDial',
-                ended: 'nextSong'
+            climateApp: {
+                initialize: 'restoreState'
             },
             volumeSlider: {
                 sliderchange: 'updateVolume'
-            },
-            timeSlider: {
-                sliderchange: 'updateAudio'
             },
 			controls: {
 				itemtap: 'select'
@@ -50,30 +46,27 @@ Ext.define('feel-your-way.controller.ClimateControl', {
 		},
 
 		refs: {
-            audio: '#audio',
+            climateApp: 'climatemain[id="climateContainer"]',
+            audio: 'audio[id="audio"]',
             controls: '#music',
 			list: '#selectorList',
             dial: '#dial',
             timeSlider: '#dial-outer-slider',
             volumeSlider: '#dial-inner-slider',
             // climate controls
-            tempButton: '#tempButton',
-            fanButton: '#fanButton',
-            seatButton: '#seatButton',
-            ventButton: '#ventButton',
-            passDriverButton: '#passDriverSwitch',
-            acButton: '#acButton',
-            defrostButton: '#defrostButton',
-            circulateButton: '#circulateButton',
-            autoButton: '#autoButton',
+            tempButton: 'button[id="tempButton"]',
+            fanButton: 'button[id="fanButton"]',
+            seatButton: 'button[id="seatButton"]',
+            ventButton: 'button[id="ventButton"]',
+            passDriverButton: 'button[id="passDriverSwitch"]',
+            acButton: 'button[id="acButton"]',
+            defrostButton: 'button[id="defrostButton"]',
+            circulateButton: 'button[id="circulateButton"]',
+            autoButton: 'button[id="autoButton"]',
 
             // non music controls
             homeButton: '#homeButton'
 		},
-
-        currentData: [],
-        queue: [],
-        queueIndex: null,
 
         toggledButtons: {
             driver: true, //switch between driver and passenger, default driver
@@ -100,6 +93,10 @@ Ext.define('feel-your-way.controller.ClimateControl', {
         }
     },
 
+    restoreState: function() {
+        this.tempSelect(this.getTempButton());
+    },
+
     setActiveButton: function(button) {
         var buttons = Ext.ComponentQuery.query('button');
         for (var i = buttons.length - 1; i >= 0; i--) {
@@ -109,13 +106,21 @@ Ext.define('feel-your-way.controller.ClimateControl', {
 
         // reset toggled buttons -TODO
         var toggled = this.getToggledButtons();
-//        if (toggled.repeat) {
-//            this.getRepeatButton().addCls('clickedButton');
-//        }
-//        if (toggled.shuffle) {
-//            this.getShuffleButton().addCls('clickedButton');
-//        }
-
+       if (toggled.driver) {
+             this.getPassDriverButton().addCls('clickedButton');
+       }
+       if (toggled.circulate) {
+             this.getCirculateButton().addCls('clickedButton');
+       }
+       if (toggled.auto){
+            this.getAutoButton().addCls('clickedButton');
+       }
+       if (toggled.ac){
+            this.getAcButton().addCls('clickedButton');
+       }
+       if (toggled.defrost){
+            this.getDefrostButton().addCls('clickedButton');
+       }
     },
 
     // TODO which ones of these can be the ONLY one on at a time?
@@ -167,25 +172,25 @@ Ext.define('feel-your-way.controller.ClimateControl', {
 
     tempSelect: function(button) {
         this.setActiveButton(button);
-    	var store = Ext.StoreManager.get('Climate');
+    	var store = Ext.StoreManager.get('Climates');
     	store.loadData('temp');
     },
 
     fanSelect: function(button) {
         this.setActiveButton(button);
-    	var store = Ext.StoreManager.get('Climate');
+    	var store = Ext.StoreManager.get('Climates');
     	store.loadData('fan');
     },
    
     seatSelect: function(button) {
         this.setActiveButton(button);
-    	var store = Ext.StoreManager.get('Climate');
+    	var store = Ext.StoreManager.get('Climates');
     	store.loadData('seat');
     },
 
     ventSelect: function(button) {
         this.setActiveButton(button);
-    	var store = Ext.StoreManager.get('Climate');
+    	var store = Ext.StoreManager.get('Climates');
     	store.loadData('vent');
     },
 

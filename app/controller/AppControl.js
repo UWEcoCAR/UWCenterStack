@@ -3,6 +3,9 @@ Ext.define('feel-your-way.controller.AppControl', {
 
 	config: {
 		control: {
+			homeApp: {
+				show: 'wentHome'
+			},
             musicAppButton: {
             	tap: 'openMusic'
             },
@@ -13,11 +16,16 @@ Ext.define('feel-your-way.controller.AppControl', {
 
 		refs: {
             view: '#view',
+            homeApp: '#appContainer',
             musicAppButton: '#musicAppButton',
             climateAppButton: '#climateAppButton',
             diagnosticsAppButton: '#diagnosticsAppButton',
             moreAppsButton: 'appsButton'
 		},
+	},
+
+	wentHome: function() {
+		Ext.getCmp('alreadyHome').addCls('clickedButton');
 	},
 
 	openMusic: function() {

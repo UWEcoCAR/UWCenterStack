@@ -117,20 +117,15 @@ Ext.define('feel-your-way.controller.MusicControl', {
 
     restoreState: function() {
         var nowPlaying = this.getNowPlaying();
+        nowPlaying.set(null,null,null,null,false,null); // possibly move to a onDestroy method
         if (nowPlaying.isPlaying){
             var dataContainer = Ext.getCmp('nowPlayingData');
             dataContainer.setHtml('<span>' + nowPlaying.title.toUpperCase() + '</span><br />' + nowPlaying.artist.toLowerCase() + '<br />' + nowPlaying.album.toLowerCase());
         }
-
-        this.songSelect(this.getSongButton());
-
-        var toggled = this.getToggledButtons();
-
-        if (toggled.repeat){
-            this.getRepeatButton().addCls('clickedButton');
-        }
-        if (toggled.shuffle){
-            this.getShuffleButton().addCls('clickedButton');
+        if (nowPlaying.isPlaying){
+           this.goToNowPlaying(this.getNowPlayingButton());
+        } else {
+            this.songSelect(this.getSongButton());
         }
     },
 
@@ -139,7 +134,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
         if(playing.isPlaying && !playing.onScreen) { // something is playing
             this.setActiveButton(button);
             this.getList().hide();
-            playing.onScreen = true;
+            playing.set(null,null,null,null, true, null);
             this.getDial().setMode('slider');
             this.clearSelectedData();
         }
@@ -337,9 +332,11 @@ Ext.define('feel-your-way.controller.MusicControl', {
     play: function(record) {
         var currentlyPlaying = me.getNowPlaying();
         var data = record.data;
-        currentlyPlaying.set(data.title, data.artist, data.album, data.genre, null, true);
-        var dataContainer = Ext.getCmp('nowPlayingData');
-        dataContainer.setHtml('<span>' + record.data.title.toUpperCase() + '</span><br />' + record.data.artist.toLowerCase() + '<br />' + record.data.album.toLowerCase());
+        if (this.getMusicApp()) {
+            currentlyPlaying.set(data.title, data.artist, data.album, data.genre, null, true);
+            var dataContainer = Ext.getCmp('nowPlayingData');
+            dataContainer.setHtml('<span>' + record.data.title.toUpperCase() + '</span><br />' + record.data.artist.toLowerCase() + '<br />' + record.data.album.toLowerCase());
+        }
         this.getAudio().setUrl('./resources/music/' + data.url);
         this.getAudio().play();
     },
@@ -379,7 +376,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
     },
 
     updateDial: function(audio, time){
-       this.getTimeSlider().setSlider(time/audio.getDuration()*360);
+        if (this.getMusicApp()) this.getTimeSlider().setSlider(time/audio.getDuration()*360);
     },
     updateAudio: function(angle, slider) {
         var audio = this.getAudio();

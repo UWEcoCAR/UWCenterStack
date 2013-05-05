@@ -8,8 +8,8 @@ Ext.Loader.setPath({
 Ext.application({
     name: 'feel-your-way',
     views: ['Main', 'Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'MusicPlayer', 'CircleSlider', 'MultiDial', 'ClimateMain'],
-    stores: ['Songs'],
-    models: ['Song'],
+    stores: ['Songs', 'Climates'],
+    models: ['Song', 'Climate'],
     controllers: ['AppControl', 'MusicControl', 'SelectControl', 'ClimateControl'],
     requires: ['Ext.Audio', 'Ext.NavigationView'],
 
@@ -45,7 +45,6 @@ Ext.application({
             },
 
             popTop: function (button, event) {
-                console.log('HEEY');
                 this.pop(1);
             }
         });
