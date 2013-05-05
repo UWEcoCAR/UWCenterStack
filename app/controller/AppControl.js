@@ -22,6 +22,22 @@ Ext.define('feel-your-way.controller.AppControl', {
             diagnosticsAppButton: '#diagnosticsAppButton',
             moreAppsButton: 'appsButton'
 		},
+		
+		
+	},
+	
+	launch: function() {
+		var me = this;
+        var dateTime =  Ext.getCmp('dateTime');
+        Ext.util.repeat('updateTime', function() {
+        	var today = new Date();
+	        var dateString = today.toDateString();
+	        var line2 = me.monthString(today.getMonth()) + ' ' + today.getDate() + ', ' + dateString.substring(dateString.length - 4).toUpperCase();
+	        dateTime.setHtml('<span>' + today.toLocaleTimeString().toLowerCase() + '</span><br />'
+	                + line2.toUpperCase() + '<br />'
+	                + me.dayString(today.getDay()).toUpperCase()
+	        );
+        }, 1000);
 	},
 
 	wentHome: function() {
@@ -29,6 +45,7 @@ Ext.define('feel-your-way.controller.AppControl', {
 	},
 
 	openMusic: function() {
+		//Ext.util.cancelRepeatingTask('updateTime');
 		var musicApp = Ext.create('feel-your-way.view.MusicMain',{
 			id: 'musicContainer',
 			fullscreen: true
@@ -38,12 +55,23 @@ Ext.define('feel-your-way.controller.AppControl', {
 	},
 
 	openClimate: function() {
+		//Ext.util.cancelRepeatingTask('updateTime');
 		var climateApp = Ext.create('feel-your-way.view.ClimateMain',{
 			id: 'climateContainer',
 			fullscreen: true
 		});
 
 		this.getView().push(climateApp);
-	}
+	},
+	
+    monthString: function(month) {
+        var possible = ["January", "Febraury", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return possible[month];
+    },
+    
+    dayString: function(day) {
+        var possible = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        return possible[day];
+    }
 	
 });

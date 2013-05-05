@@ -9,6 +9,15 @@
     font-family: 'Univers', sans-serif;
 }
 
+#dateTime>.x-inner>.x-innerhtml>span {
+    font-size: 40pt;
+}
+
+#dateTime>.x-inner>.x-innerhtml {
+    font-size: 18pt;
+    color: $green;
+}
+
 .x-button {
     margin: 3px 3px 0px 0px;
     width: $buttonSize;
