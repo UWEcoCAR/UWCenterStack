@@ -332,8 +332,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
     play: function(record) {
         var currentlyPlaying = me.getNowPlaying();
         var data = record.data;
+        currentlyPlaying.set(data.title, data.artist, data.album, data.genre, null, true);
         if (this.getMusicApp()) {
-            currentlyPlaying.set(data.title, data.artist, data.album, data.genre, null, true);
             var dataContainer = Ext.getCmp('nowPlayingData');
             dataContainer.setHtml('<span>' + record.data.title.toUpperCase() + '</span><br />' + record.data.artist.toLowerCase() + '<br />' + record.data.album.toLowerCase());
         }
