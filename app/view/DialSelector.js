@@ -18,9 +18,6 @@ Ext.define('feel-your-way.view.DialSelector', {
 			{
 				xtype: 'circlebutton',
 				id: 'selectButton',
-				diameter: 100,
-				// following must be set
-				style: 'position: fixed',
 				top: 277,
 				left: 241,
 			},
@@ -53,7 +50,7 @@ Ext.define('feel-your-way.view.DialSelector', {
 	},
 
 	updateList: function(theta, dial) {
-		Ext.getCmp('selectorList').scroll(theta/Math.PI * dial.getDiameter() + 290, dial);
+		Ext.getCmp('selectorList').scroll(theta/Math.PI * 100 + 290, dial);
 	},
 
 	restore: function(theta, dial){

@@ -8,16 +8,9 @@ Ext.define('feel-your-way.view.Main', {
 		items: [
 			{
 				xtype: 'container',
-				id: 'homeLeftNav',
-				position: 'absolute',
-				top: '0px',
-				left: '0px',
-	            width: '100px',
+				id: 'leftNav',
 	            defaults: {
-	                xtype: 'button',
-	                margin: 3,
-	                height: '90px',
-	                width: '90px'
+	                xtype: 'button'
 	            },
 	            items: [
 	                {

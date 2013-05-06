@@ -10,7 +10,7 @@
 }
 
 .x-button {
-    margin: 3px 3px 0px 0px;
+    margin: 5px 5px 0px 5px;
     width: $buttonSize;
     height: $buttonSize;
     border: none;
@@ -31,6 +31,10 @@
 .x-button.clickedButton {
     background-color: $black;
     background-image: none;
+
+    .x-button-label {
+        color: $purple;
+    }
 }
 
 #alreadyHome.clickedButton {
@@ -51,6 +55,19 @@
 
 #appsButton {
     background-image: url('../icons/graphics/Home/apps_inactive.png');
+}
+
+#leftNav, #rightNav {
+    position: absolute;
+}
+
+#leftNav {
+    z-index: 500;
+}
+
+#rightNav {
+    right: 0px;
+    z-index: 501;
 }
 
 /* Active Buttons */
