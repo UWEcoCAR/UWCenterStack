@@ -12,6 +12,40 @@
 	color: $mediumGray;
 }
 
+#dial {
+	top: 187px;
+	left: 152px;
+	width: 279px;
+	height: 279px;
+}
+
+#dial-dial {
+	width: 279px;
+	height: 279px;
+	background-image:url(../icons/graphics/outer_circle.png);
+}
+
+#dial-inner-slider {
+	position: absolute;
+	top: 44.5px;
+	left: 44.5px;
+	width: 190px;
+	height: 190px;
+}
+
+#dial-outer-slider {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 279px;
+	height: 279px;
+}
+
+#selectButton {
+	top: 277px;
+	left: 241px;
+}
+
 #music {
 	height: 100%;
 }

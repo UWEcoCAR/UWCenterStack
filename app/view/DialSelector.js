@@ -8,18 +8,12 @@ Ext.define('feel-your-way.view.DialSelector', {
 			{
 				xtype: 'multidial',
 				id: 'dial',
-				outerCircleDiameter: 279,
-				innerCircleDiameter: 190,
-				top: 187,
-				left: 152,
 			 	style: 'position: fixed',
 			 	mode: 'dial'
 			},
 			{
 				xtype: 'circlebutton',
-				id: 'selectButton',
-				top: 277,
-				left: 241,
+				id: 'selectButton'
 			},
 			{
 				xtype: 'selectorlist',
