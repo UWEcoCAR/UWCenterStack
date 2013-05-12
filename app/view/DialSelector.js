@@ -39,7 +39,20 @@ Ext.define('feel-your-way.view.DialSelector', {
 				id: 'selectorList',
 				store: 'Climates',
 				itemTpl: '{title}',
-				itemCls: 'selectorlistitem'
+				itemCls: 'selectorlistitem',
+				listeners: {
+					tap: {
+						fn: function() {
+							me = Ext.getCmp('dial-dial');
+							if (me.getCls().indexOf('blink') > 0){
+								me.removeCls('blink');
+							} else {
+								me.addCls('blink');
+							}
+						},
+						element: 'element'
+					}
+				}
 			}
 		],
 

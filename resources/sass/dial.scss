@@ -37,6 +37,22 @@
 	background-image: url(../icons/graphics/Music/play_active.png) !important
 }
 
+.blink {
+	-webkit-animation-name: blink;
+	-webkit-animation-duration: .1s;
+	-webkit-animation-iteration-count: 4;
+	-webkit-animation-direction: alternate;
+}
+
+@-webkit-keyframes blink {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
 .circleButton {
 	font-size: 30pt;
 	color: $lightGray;
