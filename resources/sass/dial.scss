@@ -20,6 +20,23 @@
 	color: $green;
 }
 
+#playPause {
+	background-image: url(../icons/graphics/Music/pause_inactive.png);
+	background-size: contain;
+}
+
+#playPause:hover {
+	background-image: url(../icons/graphics/Music/pause_active.png)
+}
+
+.playButton {
+	background-image: url(../icons/graphics/Music/play_inactive.png) !important
+}
+
+.playButton:hover {
+	background-image: url(../icons/graphics/Music/play_active.png) !important
+}
+
 .circleButton {
 	font-size: 30pt;
 	color: $lightGray;
@@ -41,7 +58,7 @@
 }
 
 .front, .back, .slice1, .slice2, .slider-background {
-	position: absolute;	
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	background-size: contain;
@@ -63,6 +80,6 @@
 	background-image:url(../icons/graphics/outer_circle.png);
 }
 
-#selectButton, #dial {
+#selectButton, #dial, #playPause {
 	position: fixed !important;
 }

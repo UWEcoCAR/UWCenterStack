@@ -25,6 +25,16 @@ Ext.define('feel-your-way.view.DialSelector', {
 				left: 241,
 			},
 			{
+				xtype: 'circlebutton',
+				id: 'playPause',
+				diameter: 100,
+				style: 'position: fixed',
+				defaultHtml: "",
+				top: 277,
+				left: 241,
+				hidden: true
+			},
+			{
 				xtype: 'selectorlist',
 				id: 'selectorList',
 				store: 'Climates',

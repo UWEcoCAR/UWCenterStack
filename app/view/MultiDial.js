@@ -84,7 +84,6 @@ Ext.define('feel-your-way.view.MultiDial', {
 		if (this.getMode()=='dial') this.getDial().onStart(event, this.getDial().element);
 		this.getInnerSlider().onStart(event, this.getInnerSlider().element);
 		if (this.getMode() == 'slider') this.getOuterSlider().onStart(event, this.getOuterSlider().element);
-		Ext.getCmp('selectButton').restoreHtml();
 	},
 
 	updateMode: function(mode) {
