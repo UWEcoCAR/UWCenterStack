@@ -69,71 +69,97 @@ Music app specific styles
 */
 
 #musicHomeButton {
-    background-image: url('../icons/graphics/Home/home_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px 0;
+    background-color: $darkGray;
 }
 
 #artistButton {
-    background-image: url('../icons/graphics/Music/artists_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -90px;
+    background-color: $darkGray;
 }
 
 #albumButton {
-    background-image: url('../icons/graphics/Music/albums_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -270px;
+    background-color: $darkGray;
 }
 
 #songButton {
-    background-image: url('../icons/graphics/Music/songs_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -180px;
+    background-color: $darkGray;
 }
 
 #playlistButton {
-    background-image: url('../icons/graphics/Music/playlists_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -360px;
+    background-color: $darkGray;
 }
 
 #repeatButton {
-    background-image: url('../icons/graphics/Music/repeat_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -720px;
+    background-color: $darkGray;
 }
 
 #shuffleButton {
-    background-image: url('../icons/graphics/Music/shuffle_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -810px;
+    background-color: $darkGray;
 }
 
 #bassButton {
-    background-image: url('../icons/graphics/Music/bass_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -630px;
+    background-color: $darkGray;
 }
 
 #trebleButton {
-    background-image: url('../icons/graphics/Music/treble_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -540px;
+    background-color: $darkGray;
 }
 
 /* Active Buttons */
 
 #artistButton.clickedButton {
-    background-image: url('../icons/graphics/Music/artists_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -90px;
 }
 
 #albumButton.clickedButton {
-    background-image: url('../icons/graphics/Music/albums_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -270px;
 }
 
 #songButton.clickedButton {
-    background-image: url('../icons/graphics/Music/songs_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -180px;
 }
 
 #playlistButton.clickedButton {
-    background-image: url('../icons/graphics/Music/playlists_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -360px;
 }
 
 #repeatButton.clickedButton {
-    background-image: url('../icons/graphics/Music/repeat_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -720px;
 }
 
 #shuffleButton.clickedButton {
-    background-image: url('../icons/graphics/Music/shuffle_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -810px;
 }
 
 #bassButton.clickedButton {
-    background-image: url('../icons/graphics/Music/bass_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -630px;
 }
 
 #trebleButton.clickedButton {
-    background-image: url('../icons/graphics/Music/treble_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -540px;
 }
