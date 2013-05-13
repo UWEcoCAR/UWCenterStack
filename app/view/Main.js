@@ -38,51 +38,23 @@ Ext.define('feel-your-way.view.Main', {
 	                }
 	            ]
 			},
-//			{
-//				xtype: 'container',
-//				id: 'nowPlayingData',
-//	            html: '',
-//	            position: 'absolute',
-//	            top: '10px',
-//	            left: '120px',
-//			},
-//			{
-//				xtype: 'container',
-//				id: 'homeRightNav',
-//	            width: '100px',
-//	            position: 'absolute',
-//	            right: '0px',
-//	            defaults: {
-//	                xtype: 'button',
-//	                margin: '3 3 0 0',
-//	                height: '90px',
-//	                width: '90px'
-//	            },
-//	            items: [
-//	                {
-//	                    id: '6',
-////	                    text: 'Now<br />Playing'
-//	                },
-//	                {
-//	                    id: '7',
-////	                    iconCls: 'treble',
-////	                    text: 'Treble'
-//	                },
-//	                {
-//	                    id: '8',
-////	                    iconCls: 'bass',
-////	                    text: 'Bass'
-//	                },
-//	                {
-//	                    id: '9',
-////	                    iconCls: 'repeat'
-//	                },
-//	                {
-//	                    id: '10',
-////	                    iconCls: 'shuffle'
-//	                }
-//	            ]   
-//			}
+			{
+                xtype: 'container',
+                id: 'logo',
+                html: '',
+                position: 'absolute',
+                top: '338px', // 169 = centered, 338 = bottom
+                left: '100px',
+            },
+			{
+                xtype: 'container',
+                id: 'dateTime',
+                html: '',
+                position: 'absolute',
+                top: '40px',
+                left: '130px',
+            },
+
 		]
 	}
 })

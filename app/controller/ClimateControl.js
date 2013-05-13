@@ -90,7 +90,7 @@ Ext.define('feel-your-way.controller.ClimateControl', {
         }
     },
 
-    goHome: function(){
+    goHome: function() {
         Ext.getCmp('view').pop(1);
     },
 
