@@ -6,6 +6,10 @@
 	text-align: left;
 }
 
+#dial-dial {
+	background: url('../icons/graphics/circle_sprite.png') 0px 0px;
+}
+
 .selectorlistitem {
 	text-transform: lowercase;
 	margin: 20px;
@@ -84,19 +88,19 @@
 }
 
 .outer-slider .slider-background {
-	background-image:url(../icons/graphics/outer_circle_background.png);
+	background:url(../icons/graphics/circle_sprite.png) 0px -278px;
 }
 
 .inner-slider .slider-background {
-	background-image:url(../icons/graphics/inner_circle_background.png);
+	background:url(../icons/graphics/circle_sprite.png) 0px -746px;
 }
 
 .inner-slider .slice1, .inner-slider .slice2 {
-	background-image:url(../icons/graphics/inner_circle.png);
+	background:url(../icons/graphics/circle_sprite.png) 0px -556px;
 }
 
 .outer-slider .slice1, .outer-slider .slice2 {
-	background-image:url(../icons/graphics/outer_circle.png);
+	background:url(../icons/graphics/circle_sprite.png) 0px 0px;
 }
 
 #selectButton, #dial, #playPause {

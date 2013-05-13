@@ -1,9 +1,8 @@
 Ext.define('feel-your-way.view.Dial', {
-	extend: 'Ext.Img',
+	extend: 'Ext.Container',
 	xtype: 'dial',
 
 	config: {
-		src: 'resources/icons/graphics/outer_circle.png',
 		diameter: 100,
 		innerDiameter: 0,
 		outerDiameter: Number.MAX_VALUE,
