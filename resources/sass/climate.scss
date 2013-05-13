@@ -23,7 +23,7 @@
 }
 
 #passDriverSwitch {
-    background-image: url('../icons/graphics/Climate/driver_active.png');
+    background-image: url('../icons/graphics/Climate/passenger_active.png');
 }
 
 #acButton {
@@ -61,7 +61,7 @@
 }
 
 #passDriverSwitch.clickedButton {
-    background-image: url('../icons/graphics/Climate/passenger_active.png');
+    background-image: url('../icons/graphics/Climate/driver_active.png');
 }
 
 #acButton.clickedButton {
@@ -78,4 +78,44 @@
 
 #autoButton.clickedButton {
     background-image: url('../icons/graphics/Climate/Treble_inactive.png');
+}
+
+
+
+#face, #feetFace, #feetDefrost, #feet {
+    width: 90px;
+    height: 90px;
+}
+
+
+#face {
+    background-image: url('../icons/graphics/Climate/face_inactive.png');
+}
+
+#feetFace {
+    background-image: url('../icons/graphics/Climate/feet_face_inactive.png');
+}
+
+#feet {
+    background-image: url('../icons/graphics/Climate/feet_inactive.png');
+}
+
+#feetDefrost {
+    background-image: url('../icons/graphics/Climate/feet_defrost_inactive.png');
+}
+
+.selected>#face {
+    background-image: url('../icons/graphics/Climate/face_active.png');
+}
+
+.selected>#feetFace {
+    background-image: url('../icons/graphics/Climate/feet_face_active.png');
+}
+
+.selected>#feet {
+    background-image: url('../icons/graphics/Climate/feet_active.png');
+}
+
+.selected>#feetDefrost {
+    background-image: url('../icons/graphics/Climate/feet_defrost_active.png');
 }
