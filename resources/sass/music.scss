@@ -48,6 +48,10 @@ Music app specific styles
     color: $purple;
 }
 
+#nowPlaying {
+    background-image: none !important
+}
+
 #fadeImage {
     background-image: url('../images/fade_right.png');
 }
