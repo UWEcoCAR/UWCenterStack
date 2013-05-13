@@ -46,19 +46,50 @@ Ext.application({
                     id: 'appContainer'
                 }
              ],
-
-            // control: {
-            //     'button[id="musicHomeButton"]': {
-            //         tap: 'popTop'
-            //     },
-            //     'button[id="climateHomeButton"]': {
-            //         tap: 'popTop'
-            //     }
-            // },
-
+            control: {
+                'button[name="goHome"]': {
+                    tap: 'popTop'
+                }
+            },
             // popTop: function (button, event) {
             //     this.pop(1);
             // }
         });
+        
+        // http://stackoverflow.com/questions/9602371/periodic-task-execution-in-sencha-touch
+        Ext.apply(Ext.util, {  
+            repeat: function(taskName, fn, millis, zeroDayExecution) {
+               this.tasks = this.tasks || {};  
+               if (zeroDayExecution)  
+                  fn();  
+               return this.tasks[taskName] = window.setInterval(fn, millis);  
+           },  
+           cancelRepeatingTask: function(taskName) {  
+            if (this.tasks) {
+              var id = this.tasks[taskName];  
+              if (!Ext.isEmpty(id)) {  
+                 window.clearInterval(id);  
+                 delete this.tasks[taskName];  
+              }
+            }
+           },  
+           cancelAllRepeatingTasks: function() {  
+            if (this.tasks)  
+               Object.keys(this.tasks).forEach(function(key) { 
+                                               this.cancelRepeatingTask(key); }, 
+                                               this);         
+           }  
+         });
+        
+    },
+    
+    monthString: function(month) {
+        var possible = ["January", "Febraury", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return possible[month];
+    },
+    
+    dayString: function(day) {
+        var possible = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        return possible[day];
     }
 });

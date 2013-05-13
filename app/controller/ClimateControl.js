@@ -45,9 +45,9 @@ Ext.define('feel-your-way.controller.ClimateControl', {
 		refs: {
             climateApp: 'climatemain[id="climateContainer"]',
             audio: 'audio[id="audio"]',
-            controls: '#music',
-			list: '#selectorList',
-            dial: '#dial',
+            controls: 'dialselector[id="climate"]',
+			list: 'selectorlist[id="selectorList"]',
+            dial: 'dial[id="dial"]',
             timeSlider: '#dial-outer-slider',
             volumeSlider: '#dial-inner-slider',
             // climate controls
@@ -90,12 +90,13 @@ Ext.define('feel-your-way.controller.ClimateControl', {
         }
     },
 
-    goHome: function(){
+    goHome: function() {
         Ext.getCmp('view').pop(1);
     },
 
     restoreState: function() {
         this.tempSelect(this.getTempButton());
+        this.getList().setStore(Ext.getStore('Climates'));
     },
 
     setActiveButton: function(button) {
@@ -174,24 +175,30 @@ Ext.define('feel-your-way.controller.ClimateControl', {
     tempSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
+        this.getList().setItemTpl('<div>{title}</div>');
     	store.loadData('temp');
     },
 
     fanSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
+        this.getList().setItemTpl('<div>{title}</div>');
     	store.loadData('fan');
     },
    
     seatSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
+        this.getList().setItemTpl('<div>{title}</div>');
     	store.loadData('seat');
     },
 
     ventSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
+    	// selected one should be a different color
+    	// if it has the class, then title has to change...
+    	this.getList().setItemTpl('<div id="{title}"></div>');
     	store.loadData('vent');
     },
 

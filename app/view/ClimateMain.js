@@ -52,7 +52,7 @@ Ext.define('feel-your-way.view.ClimateMain', {
 	            items: [
 	                {
 	                    id: 'passDriverSwitch',
-	                    text: 'PASS / DRIVE'
+	                    text: 'Driver/Pass'
 	                },
 	                {
 	                    id: 'acButton',

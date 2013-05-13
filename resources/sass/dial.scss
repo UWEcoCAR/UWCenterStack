@@ -6,6 +6,10 @@
 	text-align: left;
 }
 
+#dial-dial {
+	background: url('../icons/graphics/circle_sprite.png') 0px 0px;
+}
+
 .selectorlistitem {
 	text-transform: lowercase;
 	margin: 20px;
@@ -54,6 +58,42 @@
 	color: $green;
 }
 
+#playPause {
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -2250px
+}
+
+#playPause:hover {
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -2250px
+}
+
+.playButton {
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -2160px !important
+}
+
+.playButton:hover {
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -2160px !important
+}
+
+.blink {
+	-webkit-animation-name: blink;
+	-webkit-animation-duration: .1s;
+	-webkit-animation-iteration-count: 4;
+	-webkit-animation-direction: alternate;
+}
+
+@-webkit-keyframes blink {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
 .circleButton {
 	font-size: 30pt;
 	color: $lightGray;
@@ -75,28 +115,28 @@
 }
 
 .front, .back, .slice1, .slice2, .slider-background {
-	position: absolute;	
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	background-size: contain;
 }
 
 .outer-slider .slider-background {
-	background-image:url(../icons/graphics/outer_circle_background.png);
+	background:url(../icons/graphics/circle_sprite.png) 0px -278px;
 }
 
 .inner-slider .slider-background {
-	background-image:url(../icons/graphics/inner_circle_background.png);
+	background:url(../icons/graphics/circle_sprite.png) 0px -746px;
 }
 
 .inner-slider .slice1, .inner-slider .slice2 {
-	background-image:url(../icons/graphics/inner_circle.png);
+	background:url(../icons/graphics/circle_sprite.png) 0px -556px;
 }
 
 .outer-slider .slice1, .outer-slider .slice2 {
-	background-image:url(../icons/graphics/outer_circle.png);
+	background:url(../icons/graphics/circle_sprite.png) 0px 0px;
 }
 
-#selectButton, #dial {
+#selectButton, #dial, #playPause {
 	position: fixed !important;
 }

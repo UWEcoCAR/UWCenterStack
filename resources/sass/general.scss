@@ -4,9 +4,31 @@
     left: 0px;
 }
 
+img.sprite {
+    width: 270px;
+    height: 2790px;
+    background:url(../icons/graphics/icon_sprite.png) 0 0;
+}
+
 #climateContainer, #musicContainer, #appContainer {
     background-color: $black;
     font-family: 'Univers', sans-serif;
+}
+
+#dateTime>.x-inner>.x-innerhtml>span {
+    font-size: 40pt;
+}
+
+#dateTime>.x-inner>.x-innerhtml {
+    font-size: 18pt;
+    color: $green;
+}
+
+#logo {
+    background-image: url('../icons/Graphics/Home/teamLogo.png');
+    background-size: 600px 142px;
+    width: 600px;
+    height: 142px;
 }
 
 .x-button {
@@ -38,23 +60,32 @@
 }
 
 #alreadyHome.clickedButton {
-    background-image: url('../icons/graphics/Home/home_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 0;
 }
 
-#musicAppButton {
-    background-image: url('../icons/graphics/Home/music_inactive.png');
+#musicAppButton.x-button {
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1800px;
+    background-color: $darkGray;
 }
 
 #climateAppButton {
-    background-image: url('../icons/graphics/Home/climate_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1710px;
+    background-color: $darkGray;
 }
 
 #diagnosticsAppButton {
-    background-image: url('../icons/graphics/Home/diagnostics_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1890px;
+    background-color: $darkGray;
 }
 
 #appsButton {
-    background-image: url('../icons/graphics/Home/apps_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1620px;
+    background-color: $darkGray;
 }
 
 #leftNav, #rightNav {
@@ -69,8 +100,8 @@
     right: 0px;
     z-index: 501;
 }
-
-/* Active Buttons */
-.x-button.clickedButton .x-button-icon.x-button-icon.home {
-    background-image: url('../icons/graphics/Home/Home_active.png');
+#alreadyHome.x-button.x-button-pressing,
+.x-button.clickedButton {
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -90px;
 }
