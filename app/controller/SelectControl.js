@@ -27,7 +27,6 @@ Ext.define('feel-your-way.controller.SelectControl', {
 	},
 
 	endAll: function(){
-		console.log('heyyyy');
 		this.getSelect().setHtml(this.getSelect().getDefaultHtml());
 	},
 

@@ -25,11 +25,34 @@ Ext.define('feel-your-way.view.DialSelector', {
 				left: 241,
 			},
 			{
+				xtype: 'circlebutton',
+				id: 'playPause',
+				diameter: 100,
+				style: 'position: fixed',
+				defaultHtml: "",
+				top: 277,
+				left: 241,
+				hidden: true
+			},
+			{
 				xtype: 'selectorlist',
 				id: 'selectorList',
-				store: 'Songs',
+				store: 'Climates',
 				itemTpl: '{title}',
-				itemCls: 'selectorlistitem'
+				itemCls: 'selectorlistitem',
+				listeners: {
+					tap: {
+						fn: function() {
+							me = Ext.getCmp('dial-dial');
+							if (me.getCls().indexOf('blink') > 0){
+								me.removeCls('blink');
+							} else {
+								me.addCls('blink');
+							}
+						},
+						element: 'element'
+					}
+				}
 			}
 		],
 

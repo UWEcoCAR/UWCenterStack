@@ -46,16 +46,11 @@ Ext.application({
                     id: 'appContainer'
                 }
              ],
-
-            // control: {
-            //     'button[id="musicHomeButton"]': {
-            //         tap: 'popTop'
-            //     },
-            //     'button[id="climateHomeButton"]': {
-            //         tap: 'popTop'
-            //     }
-            // },
-
+            control: {
+                'button[name="goHome"]': {
+                    tap: 'popTop'
+                }
+            },
             // popTop: function (button, event) {
             //     this.pop(1);
             // }

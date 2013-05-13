@@ -22,13 +22,5 @@ Ext.define('feel-your-way.view.CircleButton', {
 		this.setHeight(this.getDiameter());
 		this.setWidth(this.getDiameter());
 		this.setHtml(this.getDefaultHtml());
-	},
-
-	applyHtml: function(html) {
-		return html;
-	},
-
-	restoreHtml: function() {
-		this.setHtml(this.getDefaultHtml());
 	}
 })

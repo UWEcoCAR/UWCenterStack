@@ -49,6 +49,9 @@ Ext.define('feel-your-way.controller.MusicControl', {
             },
             homeButton: {
                 tap: 'goHome'
+            },
+            playPause: {
+                tap: 'playPauseToggle'
             }
 		},
 
@@ -70,7 +73,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
             bassButton: 'button[id="bassButton"]',
             repeatButton: 'button[id="repeatButton"]',
             shuffleButton: 'button[id="shuffleButton"]',
-            homeButton: 'button[id="musicHomeButton"]'
+            homeButton: 'button[id="musicHomeButton"]',
+            playPause: 'circlebutton[id="playPause"]'
 		},
 
         currentData: [],
@@ -123,7 +127,20 @@ Ext.define('feel-your-way.controller.MusicControl', {
         Ext.getCmp('view').pop(1);
     },
 
+    playPauseToggle: function() {
+        if (this.getAudio().isPlaying()){
+            this.getAudio().pause();
+            this.getNowPlaying().set(null,null,null,null,null, false);
+            this.getPlayPause().addCls('playButton');
+        } else {
+            this.getAudio().play();
+            this.getNowPlaying().set(null,null,null,null,null, true);
+            this.getPlayPause().removeCls('playButton');
+        }
+    },
+
     restoreState: function() {
+        this.getList().setStore(Ext.getStore('Songs'));
         var nowPlaying = this.getNowPlaying();
         nowPlaying.set(null,null,null,null,false,null); // possibly move to a onDestroy method
         if (nowPlaying.isPlaying){
@@ -145,6 +162,9 @@ Ext.define('feel-your-way.controller.MusicControl', {
             playing.set(null,null,null,null, true, null);
             this.getDial().setMode('slider');
             this.clearSelectedData();
+            this.getPlayPause().removeCls('playButton');
+             this.getPlayPause().show();
+             Ext.getCmp('selectButton').hide();
         }
     },
 
@@ -220,7 +240,10 @@ Ext.define('feel-your-way.controller.MusicControl', {
             } //else playlist
             return notContained;
         });
-
+        this.getPlayPause().hide();
+        Ext.getCmp('selectButton').setHtml('select')
+        Ext.getCmp('selectButton').show();
+        this.getList().scroll(this.getList().getOffset() - this.getList().getItemHeight());
         this.getDial().setMode('dial');
     },
 
@@ -335,6 +358,7 @@ Ext.define('feel-your-way.controller.MusicControl', {
                 return (record.data.title === tappedRecord.title);
             }
         });
+        this.getList().scroll(this.getList().getOffset() - this.getList().getItemHeight());
     },
 
     play: function(record) {
@@ -417,7 +441,8 @@ Ext.define('feel-your-way.controller.MusicControl', {
             console.log('reached end of queue');
             this.getNowPlaying().set('','','','', null, false);
             Ext.getCmp('nowPlayingData').setHtml('');
-            audio.pause();
+            this.togglePlayPause();
+            this.getPlayPause().hide();
         } else {
             console.log('Playing queueIndex: ' + this.getQueueIndex());
             var record = this.getQueue()[this.getQueueIndex()];
