@@ -3,81 +3,110 @@
 }
 
 #climateHomeButton {
-    background-image: url('../icons/graphics/Home/home_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px 0;
+    background-color: $darkGray;
 }
 
 #tempButton {
-    background-image: url('../icons/graphics/Climate/temperature_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1440px;
+    background-color: $darkGray;
 }
 
 #fanButton {
-    background-image: url('../icons/graphics/Climate/fan_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -990px;
+    background-color: $darkGray;
 }
 
 #seatButton {
-    background-image: url('../icons/graphics/Climate/seats_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -900px;
+    background-color: $darkGray;
 }
 
 #ventButton {
-    background-image: url('../icons/graphics/Climate/vent_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -2430px;
+    background-color: $darkGray;
 }
 
 #passDriverSwitch {
-    background-image: url('../icons/graphics/Climate/passenger_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1530px;
+    background-color: $darkGray;
 }
 
 #acButton {
-    background-image: url('../icons/graphics/Climate/ac_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1080px;
+    background-color: $darkGray;
 }
 
 #defrostButton {
-    background-image: url('../icons/graphics/Climate/back_defrost_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1170px;
+    background-color: $darkGray;
 }
 
 #circulateButton {
-    background-image: url('../icons/graphics/Climate/recirculate_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1350px;
+    background-color: $darkGray;
 }
 
 #autoButton {
-    background-image: url('../icons/graphics/Climate/Treble_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -1260px;
+    background-color: $darkGray;
 }
 
 /* Active Buttons */
 
 #tempButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/temperature_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -1440px;
 }
 
 #fanButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/fan_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -990px;
 }
 
 #seatButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/seats_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -900px;
 }
 
 #ventButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/vent_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -2430px;
 }
 
 #passDriverSwitch.clickedButton {
-    background-image: url('../icons/graphics/Climate/driver_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -1530px;
 }
 
 #acButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/ac_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -1080px;
 }
 
 #defrostButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/back_defrost_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -1170px;
 }
 
 #circulateButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/recirculate_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -1350px;
 }
 
 #autoButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/Treble_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -1260px;
 }
 
 
@@ -87,35 +116,42 @@
     height: 90px;
 }
 
-
 #face {
-    background-image: url('../icons/graphics/Climate/face_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -2520px;
 }
 
 #feetFace {
-    background-image: url('../icons/graphics/Climate/feet_face_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -2430px;
 }
 
 #feet {
-    background-image: url('../icons/graphics/Climate/feet_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -2610px;
 }
 
 #feetDefrost {
-    background-image: url('../icons/graphics/Climate/feet_defrost_inactive.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -2700px;
 }
 
 .selected>#face {
-    background-image: url('../icons/graphics/Climate/face_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -180px -2520px;
 }
 
 .selected>#feetFace {
-    background-image: url('../icons/graphics/Climate/feet_face_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -180px -2430px;
 }
 
 .selected>#feet {
-    background-image: url('../icons/graphics/Climate/feet_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -180px -2610px;
 }
 
 .selected>#feetDefrost {
-    background-image: url('../icons/graphics/Climate/feet_defrost_active.png');
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -180px -2700px;
 }

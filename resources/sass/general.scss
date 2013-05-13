@@ -83,3 +83,9 @@ img.sprite {
     background:url('../icons/graphics/icon_sprite.png') -90px -1620px;
     background-color: $darkGray;
 }
+
+#alreadyHome.x-button.x-button-pressing,
+.x-button.clickedButton {
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -90px;
+}

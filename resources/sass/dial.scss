@@ -21,20 +21,23 @@
 }
 
 #playPause {
-	background-image: url(../icons/graphics/Music/pause_inactive.png);
-	background-size: contain;
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -2250px !important
 }
 
 #playPause:hover {
-	background-image: url(../icons/graphics/Music/pause_active.png)
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -2250px !important
 }
 
 .playButton {
-	background-image: url(../icons/graphics/Music/play_inactive.png) !important
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') -90px -2160px !important
 }
 
 .playButton:hover {
-	background-image: url(../icons/graphics/Music/play_active.png) !important
+    width: 90px;
+    background:url('../icons/graphics/icon_sprite.png') 0 -2160px !important
 }
 
 .blink {
