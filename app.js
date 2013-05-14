@@ -1,12 +1,12 @@
 //<debug>
 Ext.Loader.setPath({
     'Ext': 'touch/src',
-    'feel-your-way': 'app'
+    'UWCenterStack': 'app'
 });
 //</debug>
 
 Ext.application({
-    name: 'feel-your-way',
+    name: 'UWCenterStack',
     views: ['Main', 'Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'MusicPlayer', 'CircleSlider', 'MultiDial', 'ClimateMain'],
     stores: ['Songs', 'Climates'],
     models: ['Song', 'Climate'],

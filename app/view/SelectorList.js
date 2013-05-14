@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.view.SelectorList', {
+Ext.define('UWCenterStack.view.SelectorList', {
 	extend: 'Ext.dataview.DataView',
 	xtype: 'selectorlist',
 

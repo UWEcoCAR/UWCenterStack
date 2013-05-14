@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.controller.ClimateControl', {
+Ext.define('UWCenterStack.controller.ClimateControl', {
 	extend: 'Ext.app.Controller',
 
 	config: {

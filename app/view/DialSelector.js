@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.view.DialSelector', {
+Ext.define('UWCenterStack.view.DialSelector', {
 	extend: 'Ext.Container',
 	requires: ['Ext.dataview.DataView'],
 	xtype: 'dialselector',

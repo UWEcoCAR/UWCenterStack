@@ -1,5 +1,5 @@
-Ext.define('feel-your-way.view.CircleSlider', {
-	extend: 'feel-your-way.view.Dial',
+Ext.define('UWCenterStack.view.CircleSlider', {
+	extend: 'UWCenterStack.view.Dial',
 	xtype: 'circleslider',
 
 	config: {

@@ -1,7 +1,7 @@
-Ext.define('feel-your-way.store.Climates', {
+Ext.define('UWCenterStack.store.Climates', {
 	extend: 'Ext.data.Store',
 	config: {
-		model: 'feel-your-way.model.Climate',
+		model: 'UWCenterStack.model.Climate',
 		autoload: false
 	},
 

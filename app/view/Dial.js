@@ -1,9 +1,11 @@
-Ext.define('feel-your-way.view.Dial', {
+Ext.define('UWCenterStack.view.Dial', {
 	extend: 'Ext.Container',
 	xtype: 'dial',
 
 	config: {
-		tolerance: 70,
+		// The dial image should have a transparent border of tolerance pixels
+		tolerance: 30, // The amount of space on either side of the dial band to count as touching the dial
+		dialWidth: 20, // The number of pixels wide the dial band is
 		theta: 0,
 		lastAngle: null,
 		rotatable: true,
@@ -67,14 +69,14 @@ Ext.define('feel-your-way.view.Dial', {
 	},
 
 	getInnerDiameter: function() {
-		return this.getDiameter() - this.getTolerance()/2;
+		return this.getDiameter() - this.getDialWidth() - this.getTolerance();
 	},
 
 	getOuterDiameter: function() {
-		return this.getDiameter() + this.getTolerance()/2;
+		return this.getDiameter() + this.getTolerance();
 	},
 
 	getDiameter: function() {
-		return Ext.get(this.getId()).getHeight() - this.getTolerance()/2;
+		return Ext.get(this.getId()).getHeight() - this.getTolerance();
 	}
 })

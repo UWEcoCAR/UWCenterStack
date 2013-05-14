@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.view.MusicMain', {
+Ext.define('UWCenterStack.view.MusicMain', {
 	extend: 'Ext.Container',
 	requires: ['Ext.Button'],
 	xtype: 'musicmain',

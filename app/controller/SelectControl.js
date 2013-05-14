@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.controller.SelectControl', {
+Ext.define('UWCenterStack.controller.SelectControl', {
 	extend: 'Ext.app.Controller',
 
 	config:{

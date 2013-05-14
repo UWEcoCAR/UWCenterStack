@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.controller.MusicControl', {
+Ext.define('UWCenterStack.controller.MusicControl', {
 	extend: 'Ext.app.Controller',
 
 
