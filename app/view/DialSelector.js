@@ -76,7 +76,7 @@ Ext.define('feel-your-way.view.DialSelector', {
 	},
 
 	updateList: function(theta, dial) {
-		Ext.getCmp('selectorList').scroll(theta/Math.PI * dial.getDiameter() + 290, dial);
+		Ext.getCmp('selectorList').scroll(theta/Math.PI * dial.getDiameter(), dial);
 	},
 
 	restore: function(theta, dial){

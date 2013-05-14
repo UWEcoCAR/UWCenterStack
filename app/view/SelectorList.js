@@ -3,13 +3,16 @@ Ext.define('feel-your-way.view.SelectorList', {
 	xtype: 'selectorlist',
 
 	config: {
-		offset: 192,
+		offset: 100,
+		itemHeight: 28,
+		itemMargin: 10,
+
 		a: .5,
-		itemHeight: 48,
+
+
 		scrollable: {
 			disabled: true
-		},
-		recordNum: null
+		}
 	},
 
 	initialize: function() {
@@ -17,48 +20,45 @@ Ext.define('feel-your-way.view.SelectorList', {
 		this.on('refresh', function() {
 			this.scroll(this.getOffset() - this.getItemHeight());
 			Ext.getCmp('dial-dial').setTheta((this.getOffset() - this.getItemHeight())*Math.PI/Ext.getCmp('dial-dial').getDiameter());
-			return false;
 		});
 	},
 
 	scroll: function(value, dial) {
-		var index = -Math.floor(value/48);
-		
-		var list = this.getAt(0).element.dom.childNodes;
-		var a = this.getA();
-		var offset = this.getOffset();
+		console.log(value);
+		var index = Math.floor(value/(this.getItemHeight() + this.getItemMargin()))
 
-		list[0].parentElement.style.webkitTransform = 'translate3d(0px,' + value + 'px, 0px)';
+		var listContainer = this.getAt(0); // the thing that we scroll
+		var list = listContainer.element.dom.childNodes; // each of the child nodes
 
-		var num = this.getOffset()/48 + index;
-		for (var i = Math.max(0, num-4); i < Math.min(list.length, num+6); i++){
+		listContainer.element.dom.style.webkitTransform = 'translate3d(0px,' + (value + this.getOffset()) + 'px, 0px)';
 
-			// gets the elements distance from the top
+		var num = this.getOffset()/(this.getItemHeight() + this.getItemMargin()) + index;
+		for (var i = Math.max(0, num - 5); i < Math.min(list.length, list.length + 6); i++){
 			var x = list[i].offsetTop + value;
-			// normal curve equation
-			var height = 1/(a*Math.pow((2*Math.PI), .5)) * Math.pow(Math.E, -Math.pow((x - offset)/96, 2)/(2* Math.pow(a, 2))) * 12 + 28;
-			
 
+			var a = this.getA();
+
+			var height = 1/(a*Math.pow(2*Math.PI, .5)) * Math.pow(Math.E, -Math.pow((x-this.getOffset())/240, 2)/(2*Math.pow(a, 2))) * 20 + this.getItemHeight();
 			list[i].style.fontSize = height + "px";
 			list[i].style.height = height + "px";
-			if (x - 10 < offset + 10 && x + list[i].clientHeight + 10 > offset + 10) {
-				list[i].classList.add('selected');
-				this.setRecordNum(i);
-			} else {
-				list[i].classList.remove('selected');
-			}
+
+			// if (x - this.getItemMargin() < this.getOffset() && x + list[i].clientHeight + this.getItemMargin() > this.getOffset()){
+			// 	list[i].classList.add('selected');
+			// } else {
+			// 	list[i].classList.remove('selected');
+			// }
 		}
 
 		if (dial) {
-			if (this.getOffset() - this.getItemHeight() < value) {
+			if (value > 0) { // if list has been scrolled too high
 				dial.setRotatable('right');
 				dial.onEnd();
-				this.scroll(this.getOffset() - this.getItemHeight());
-			} else if (this.getAt(0).element.getHeight() + value - this.getOffset() < 0) {
+				this.scroll(0);
+			} else if (listContainer.element.getHeight()  < -value) { // if the list is too low
 				dial.setRotatable('left');
 				dial.onEnd();
-				this.scroll(-this.getAt(0).element.getHeight() + this.getOffset());
-			} else if (dial.getRotatable() !== true) {
+				this.scroll(-listContainer.element.getHeight());
+			} else if (dial.getRotatable() !== true){ // it's good, make sure dial can rotate
 				dial.setRotatable(true);
 			}
 		}
