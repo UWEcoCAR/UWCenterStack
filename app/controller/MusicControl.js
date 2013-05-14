@@ -243,7 +243,7 @@ Ext.define('UWCenterStack.controller.MusicControl', {
         this.getPlayPause().hide();
         Ext.getCmp('selectButton').setHtml('select')
         Ext.getCmp('selectButton').show();
-        this.getList().scroll(this.getList().getOffset() - this.getList().getItemHeight());
+        this.getList().scroll(0);
         this.getDial().setMode('dial');
     },
 
@@ -358,7 +358,7 @@ Ext.define('UWCenterStack.controller.MusicControl', {
                 return (record.data.title === tappedRecord.title);
             }
         });
-        this.getList().scroll(this.getList().getOffset() - this.getList().getItemHeight());
+        this.getList().scroll(0);
     },
 
     play: function(record) {

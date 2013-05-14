@@ -22,23 +22,16 @@ Ext.define('UWCenterStack.view.Dial', {
 	onMove: function(event, element) {
 		var relLoc = this.getRelativePosition(event, element);
 		var currentAngle = Math.atan2(-relLoc.x, relLoc.y) + Math.PI;
-		console.log("--------------------");
-		console.log("Angle " + currentAngle);
-		console.log("Position " + relLoc);
 
 		if (this.getLastAngle() === null) {
 			this.setLastAngle(currentAngle);
 		}
 
 		var distance = Math.sqrt(Math.pow(relLoc.x, 2) + Math.pow(relLoc.y, 2));
-		console.log("Distance " + distance);
-		console.log("getInnerDiameter " + this.getInnerDiameter());
-		console.log("getOuterDiameter " + this.getOuterDiameter());
 		if(distance > this.getInnerDiameter()/2 && distance < this.getOuterDiameter()/2){
 			if (this.getRotatable()){
 
 				var deltaTheta = currentAngle - this.getLastAngle();
-				console.log("Test" + deltaTheta);
 				if ((deltaTheta >= 0 && this.getRotatable() !== 'left') || (deltaTheta <= 0 && this.getRotatable() !== 'right')){
 					this.setTheta(this.getTheta() + deltaTheta);
 

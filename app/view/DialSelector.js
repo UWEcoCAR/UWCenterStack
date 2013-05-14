@@ -67,11 +67,7 @@ Ext.define('UWCenterStack.view.DialSelector', {
 	},
 
 	updateList: function(theta, dial) {
-<<<<<<< HEAD
-		Ext.getCmp('selectorList').scroll(theta/Math.PI * 100 + 290, dial);
-=======
-		Ext.getCmp('selectorList').scroll(theta/Math.PI * dial.getDiameter(), dial);
->>>>>>> Initial Setup
+		Ext.getCmp('selectorList').scroll(theta*300, dial);
 	},
 
 	restore: function(theta, dial){
