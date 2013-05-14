@@ -39,7 +39,6 @@ Music app specific styles
 #nowPlaying .x-button-label {
     position: absolute;
     top: 30%;
-    font-size: 14px;
     text-align: center;
     width: $buttonSize;
 }
@@ -73,97 +72,71 @@ Music app specific styles
 */
 
 #musicHomeButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px 0;
-    background-color: $darkGray;
+    @include sprite(1, 0);
 }
 
 #artistButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -90px;
-    background-color: $darkGray;
+    @include sprite(1, 1);
 }
 
 #albumButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -270px;
-    background-color: $darkGray;
+    @include sprite(1, 3);
 }
 
 #songButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -180px;
-    background-color: $darkGray;
+    @include sprite(1, 2);
 }
 
 #playlistButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -360px;
-    background-color: $darkGray;
+    @include sprite(1, 4);
 }
 
 #repeatButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -720px;
-    background-color: $darkGray;
+    @include sprite(1, 8);
 }
 
 #shuffleButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -810px;
-    background-color: $darkGray;
+    @include sprite(1, 9);
 }
 
 #bassButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -630px;
-    background-color: $darkGray;
+    @include sprite(1, 7);
 }
 
 #trebleButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -540px;
-    background-color: $darkGray;
+    @include sprite(1, 6);
 }
 
 /* Active Buttons */
 
 #artistButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -90px;
+    @include sprite(0, 1, $black);
 }
 
 #albumButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -270px;
+    @include sprite(0, 3, $black);
 }
 
 #songButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -180px;
+    @include sprite(0, 2, $black);
 }
 
 #playlistButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -360px;
+    @include sprite(0, 4, $black);
 }
 
 #repeatButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -720px;
+    @include sprite(0, 8, $black);
 }
 
 #shuffleButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -810px;
+    @include sprite(0, 9, $black);
 }
 
 #bassButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -630px;
+    @include sprite(0, 7, $black);
 }
 
 #trebleButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -540px;
+    @include sprite(0, 6, $black);
 }

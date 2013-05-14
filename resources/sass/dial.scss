@@ -1,3 +1,18 @@
+@mixin dial-sprite($size, $bgPosition) {
+	height: $size;
+	width: $size;
+	background: url('../icons/graphics/#{$dialSprite}') 0px $bgPosition;
+	position: absolute;
+}
+
+@mixin dial-position($top, $left, $size) {
+	top: $top;
+	left: $left;
+	height: $size;
+	width: $size;
+	position: absolute;
+}
+
 #selectorList {
 	/*-webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,.01)), color-stop(30%, rgba(0,0,0,1)), to(rgba(0,0,0,0)));*/
 	background-color: $black;
@@ -6,9 +21,7 @@
 	text-align: left;
 }
 
-#dial-dial {
-	background: url('../icons/graphics/circle_sprite.png') 0px 0px;
-}
+
 
 .selectorlistitem {
 	text-transform: lowercase;
@@ -17,37 +30,31 @@
 }
 
 #dial {
-	top: 187px;
-	left: 152px;
-	width: 279px;
-	height: 279px;
-}
-
-#dial-dial {
-	width: 279px;
-	height: 279px;
-	background-image:url(../icons/graphics/outer_circle.png);
+	top: $dialTop;
+	left: $dialLeft;
+	width: $outerDialSize;
+	height: $outerDialSize;
 }
 
 #dial-inner-slider {
 	position: absolute;
-	top: 44.5px;
-	left: 44.5px;
-	width: 190px;
-	height: 190px;
+	top: ($outerDialSize - $innerDialSize) / 2;
+	left: ($outerDialSize - $innerDialSize) / 2;
+	width: $innerDialSize;
+	height: $innerDialSize;
 }
 
 #dial-outer-slider {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width: 279px;
-	height: 279px;
+	width: $outerDialSize;
+	height: $outerDialSize;
 }
 
 #selectButton {
-	top: 277px;
-	left: 241px;
+	top: $selectButtonTop;
+	left: $selectButtonLeft;
 }
 
 #music {
@@ -58,29 +65,26 @@
 	color: $green;
 }
 
+/* Defualt to paused state */
 #playPause {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -2250px
+    @include sprite(1, 25, none);
 }
 
 #playPause:hover {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -2250px
+    @include sprite(0, 25, none);
 }
 
-.playButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -2160px !important
+#playPause.playButton {
+    @include sprite(1, 24, none);
 }
 
-.playButton:hover {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -2160px !important
+#playPause.playButton:hover {
+    @include sprite(0, 24, none);
 }
 
 .blink {
 	-webkit-animation-name: blink;
-	-webkit-animation-duration: .1s;
+	-webkit-animation-duration: .3s;
 	-webkit-animation-iteration-count: 4;
 	-webkit-animation-direction: alternate;
 }
@@ -90,7 +94,7 @@
 		opacity: 1;
 	}
 	to {
-		opacity: 0;
+		opacity: .4;
 	}
 }
 
@@ -118,23 +122,26 @@
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	background-size: contain;
 }
 
-.outer-slider .slider-background {
-	background:url(../icons/graphics/circle_sprite.png) 0px -278px;
+#dial-dial {
+	@include dial-sprite($outerDialSize, 0);
 }
 
-.inner-slider .slider-background {
-	background:url(../icons/graphics/circle_sprite.png) 0px -746px;
+#dial-outer-slider .slider-background {
+	@include dial-sprite($outerDialSize, -408px);
 }
 
-.inner-slider .slice1, .inner-slider .slice2 {
-	background:url(../icons/graphics/circle_sprite.png) 0px -556px;
+#dial-inner-slider .slider-background {
+	@include dial-sprite($innerDialSize, -1112px);
 }
 
-.outer-slider .slice1, .outer-slider .slice2 {
-	background:url(../icons/graphics/circle_sprite.png) 0px 0px;
+#dial-inner-slider .slice1, #dial-inner-slider .slice2 {
+	@include dial-sprite($innerDialSize, -816px);
+}
+
+#dial-outer-slider .slice1, #dial-outer-slider .slice2 {
+	@include dial-sprite($outerDialSize, 0px);
 }
 
 #selectButton, #dial, #playPause {

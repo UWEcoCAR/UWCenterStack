@@ -3,155 +3,116 @@
 }
 
 #climateHomeButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px 0;
-    background-color: $darkGray;
+    @include sprite(1, 0);
 }
 
 #tempButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -1440px;
-    background-color: $darkGray;
+    @include sprite(1, 16);
 }
 
 #fanButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -990px;
-    background-color: $darkGray;
+    @include sprite(1, 11);
 }
 
 #seatButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -900px;
-    background-color: $darkGray;
+    @include sprite(1, 10);
 }
 
 #ventButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -2430px;
-    background-color: $darkGray;
+    @include sprite(1, 27);
 }
 
 #passDriverSwitch {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -1530px;
-    background-color: $darkGray;
+    @include sprite(1, 17);
 }
 
 #acButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -1080px;
-    background-color: $darkGray;
+    @include sprite(1, 12);
 }
 
 #defrostButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -1170px;
-    background-color: $darkGray;
+    @include sprite(1, 13);
 }
 
 #circulateButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -1350px;
-    background-color: $darkGray;
+    @include sprite(1, 15);
 }
 
 #autoButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -1260px;
-    background-color: $darkGray;
+    @include sprite(1, 14);
 }
 
 /* Active Buttons */
 
 #tempButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -1440px;
+    @include sprite(0, 16, $black);
 }
 
 #fanButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -990px;
+    @include sprite(0, 11, $black);
 }
 
 #seatButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -900px;
+    @include sprite(0, 10, $black);
 }
 
 #ventButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -2430px;
+    @include sprite(0, 27, $black);
 }
 
 #passDriverSwitch.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -1530px;
+    @include sprite(0, 17, $black);
 }
 
 #acButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -1080px;
+    @include sprite(0, 12, $black);
 }
 
 #defrostButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -1170px;
+    @include sprite(0, 13, $black);
 }
 
 #circulateButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -1350px;
+    @include sprite(0, 15, $black);
 }
 
 #autoButton.clickedButton {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') 0 -1260px;
+    @include sprite(0, 14, $black);
 }
 
-
-
 #face, #feetFace, #feetDefrost, #feet {
-    width: 90px;
-    height: 90px;
+    width: $buttonSize;
+    height: $buttonSize;
 }
 
 #face {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -2520px;
+    @include sprite(1, 28);
 }
 
 #feetFace {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -2430px;
+    @include sprite(1, 27);
 }
 
 #feet {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -2610px;
+    @include sprite(1, 29);
 }
 
 #feetDefrost {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -90px -2700px;
+    @include sprite(1, 30);
 }
 
-.selected>#face {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -180px -2520px;
+.selected > #face {
+    @include sprite(2, 28);
 }
 
-.selected>#feetFace {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -180px -2430px;
+.selected > #feetFace {
+    @include sprite(2, 27);
 }
 
-.selected>#feet {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -180px -2610px;
+.selected > #feet {
+    @include sprite(2, 29);
 }
 
-.selected>#feetDefrost {
-    width: 90px;
-    background:url('../icons/graphics/icon_sprite.png') -180px -2700px;
+.selected > #feetDefrost {
+    @include sprite(2, 30);
 }
