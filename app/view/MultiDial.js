@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.view.MultiDial', {
+Ext.define('UWCenterStack.view.MultiDial', {
 	extend: 'Ext.Container',
 	xtype: 'multidial',
 
@@ -6,8 +6,6 @@ Ext.define('feel-your-way.view.MultiDial', {
 		cls: 'multidial',
 		innerCircleDiameter: null,
 		outerCircleDiameter: null,
-		top: 0,
-		left: 0,
 
 		innerSlider: null,
 		outerSlider: null,
@@ -35,30 +33,24 @@ Ext.define('feel-your-way.view.MultiDial', {
 		this.setWidth(config.outerCircleDiameter);
 		this.setHeight(config.outerCircleDiameter);
 
-		var dial = Ext.create('feel-your-way.view.Dial', {
+		var dial = Ext.create('UWCenterStack.view.Dial', {
 			id: config.id + '-dial',
 			cls: 'dial',
-			diameter: config.outerCircleDiameter,
-			top: 0,
-			left: 0
+			diameter: config.outerCircleDiameter
 		});
 
-		var outerSlider = Ext.create('feel-your-way.view.CircleSlider',{
+		var outerSlider = Ext.create('UWCenterStack.view.CircleSlider',{
 			id: config.id + '-outer-slider',
 			cls: 'outer-slider slider',
-			diameter: config.outerCircleDiameter,
-			top: 0,
-			left: 0,
+			diameter: config.outerCircleDiameter
 		});
 
-		var innerSlider = Ext.create('feel-your-way.view.CircleSlider',{
+		var innerSlider = Ext.create('UWCenterStack.view.CircleSlider',{
 			id: config.id + '-inner-slider',
 			cls: 'inner-slider slider',
-			diameter: config.innerCircleDiameter,
-			top: (config.outerCircleDiameter-config.innerCircleDiameter)/2,
-			left: (config.outerCircleDiameter-config.innerCircleDiameter)/2,
-
+			diameter: config.innerCircleDiameter
 		});
+		
 		innerSlider.setSlider(Ext.getCmp('audio').getVolume() * 360);
 
 		this.setDial(dial);

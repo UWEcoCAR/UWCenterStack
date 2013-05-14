@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.view.CircleButton', {
+Ext.define('UWCenterStack.view.CircleButton', {
 	extend: 'Ext.Container',
 	xtype: 'circlebutton',
 

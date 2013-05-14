@@ -39,13 +39,16 @@ Music app specific styles
 #nowPlaying .x-button-label {
     position: absolute;
     top: 30%;
-    font-size: 14px;
     text-align: center;
     width: $buttonSize;
 }
 
 #nowPlaying.clickedButton .x-button-label  {
     color: $purple;
+}
+
+#nowPlaying {
+    background-image: none !important
 }
 
 #fadeImage {
@@ -69,71 +72,71 @@ Music app specific styles
 */
 
 #musicHomeButton {
-    background-image: url('../icons/graphics/Home/home_inactive.png');
+    @include sprite(1, 0);
 }
 
 #artistButton {
-    background-image: url('../icons/graphics/Music/artists_inactive.png');
+    @include sprite(1, 1);
 }
 
 #albumButton {
-    background-image: url('../icons/graphics/Music/albums_inactive.png');
+    @include sprite(1, 3);
 }
 
 #songButton {
-    background-image: url('../icons/graphics/Music/songs_inactive.png');
+    @include sprite(1, 2);
 }
 
 #playlistButton {
-    background-image: url('../icons/graphics/Music/playlists_inactive.png');
+    @include sprite(1, 4);
 }
 
 #repeatButton {
-    background-image: url('../icons/graphics/Music/repeat_inactive.png');
+    @include sprite(1, 8);
 }
 
 #shuffleButton {
-    background-image: url('../icons/graphics/Music/shuffle_inactive.png');
+    @include sprite(1, 9);
 }
 
 #bassButton {
-    background-image: url('../icons/graphics/Music/bass_inactive.png');
+    @include sprite(1, 7);
 }
 
 #trebleButton {
-    background-image: url('../icons/graphics/Music/treble_inactive.png');
+    @include sprite(1, 6);
 }
 
 /* Active Buttons */
 
 #artistButton.clickedButton {
-    background-image: url('../icons/graphics/Music/artists_active.png');
+    @include sprite(0, 1, $black);
 }
 
 #albumButton.clickedButton {
-    background-image: url('../icons/graphics/Music/albums_active.png');
+    @include sprite(0, 3, $black);
 }
 
 #songButton.clickedButton {
-    background-image: url('../icons/graphics/Music/songs_active.png');
+    @include sprite(0, 2, $black);
 }
 
 #playlistButton.clickedButton {
-    background-image: url('../icons/graphics/Music/playlists_active.png');
+    @include sprite(0, 4, $black);
 }
 
 #repeatButton.clickedButton {
-    background-image: url('../icons/graphics/Music/repeat_active.png');
+    @include sprite(0, 8, $black);
 }
 
 #shuffleButton.clickedButton {
-    background-image: url('../icons/graphics/Music/shuffle_active.png');
+    @include sprite(0, 9, $black);
 }
 
 #bassButton.clickedButton {
-    background-image: url('../icons/graphics/Music/bass_active.png');
+    @include sprite(0, 7, $black);
 }
 
 #trebleButton.clickedButton {
-    background-image: url('../icons/graphics/Music/treble_active.png');
+    @include sprite(0, 6, $black);
 }

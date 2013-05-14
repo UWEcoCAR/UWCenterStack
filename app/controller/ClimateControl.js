@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.controller.ClimateControl', {
+Ext.define('UWCenterStack.controller.ClimateControl', {
 	extend: 'Ext.app.Controller',
 
 	config: {
@@ -175,28 +175,30 @@ Ext.define('feel-your-way.controller.ClimateControl', {
     tempSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
+        this.getList().setItemTpl('<div>{title}</div>');
     	store.loadData('temp');
     },
 
     fanSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
+        this.getList().setItemTpl('<div>{title}</div>');
     	store.loadData('fan');
     },
    
     seatSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
+        this.getList().setItemTpl('<div>{title}</div>');
     	store.loadData('seat');
     },
 
     ventSelect: function(button) {
         this.setActiveButton(button);
-        var list = this.getList();
     	var store = Ext.StoreManager.get('Climates');
     	// selected one should be a different color
     	// if it has the class, then title has to change...
-    	list.setItemTpl('<div id="{title}"></div>');
+    	this.getList().setItemTpl('<div id="{title}"></div>');
     	store.loadData('vent');
     },
 

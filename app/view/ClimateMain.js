@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.view.ClimateMain', {
+Ext.define('UWCenterStack.view.ClimateMain', {
 	extend: 'Ext.Container',
 	requires: ['Ext.Button'],
 	xtype: 'climatemain',
@@ -9,15 +9,8 @@ Ext.define('feel-your-way.view.ClimateMain', {
 			{
 				xtype: 'container',
 				id: 'leftNav',
-				position: 'absolute',
-				top: '0px',
-				left: '0px',
-	            width: '100px',
 	            defaults: {
-	                xtype: 'button',
-	                margin: 3,
-	                height: '90px',
-	                width: '90px'
+	                xtype: 'button'
 	            },
 	            items: [
 	                {
@@ -53,14 +46,8 @@ Ext.define('feel-your-way.view.ClimateMain', {
 			{
 				xtype: 'container',
 				id: 'rightNav',
-	            width: '100px',
-	            position: 'absolute',
-	            right: '0px',
 	            defaults: {
-	                xtype: 'button',
-	                margin: '3 3 0 0',
-	                height: '90px',
-	                width: '90px'
+	                xtype: 'button'
 	            },
 	            items: [
 	                {

@@ -1,6 +1,6 @@
-Ext.define('feel-your-way.view.MusicPlayer', {
+Ext.define('UWCenterStack.view.MusicPlayer', {
 	extend: 'Ext.Container',
-	requires: ['Ext.Audio', 'feel-your-way.view.CircleSlider'],
+	requires: ['Ext.Audio', 'UWCenterStack.view.CircleSlider'],
 	xtype: 'musicplayer',
 
 	config: {

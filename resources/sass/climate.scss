@@ -3,119 +3,116 @@
 }
 
 #climateHomeButton {
-    background-image: url('../icons/graphics/Home/home_inactive.png');
+    @include sprite(1, 0);
 }
 
 #tempButton {
-    background-image: url('../icons/graphics/Climate/temperature_inactive.png');
+    @include sprite(1, 16);
 }
 
 #fanButton {
-    background-image: url('../icons/graphics/Climate/fan_inactive.png');
+    @include sprite(1, 11);
 }
 
 #seatButton {
-    background-image: url('../icons/graphics/Climate/seats_inactive.png');
+    @include sprite(1, 10);
 }
 
 #ventButton {
-    background-image: url('../icons/graphics/Climate/vent_inactive.png');
+    @include sprite(1, 27);
 }
 
 #passDriverSwitch {
-    background-image: url('../icons/graphics/Climate/passenger_active.png');
+    @include sprite(1, 17);
 }
 
 #acButton {
-    background-image: url('../icons/graphics/Climate/ac_inactive.png');
+    @include sprite(1, 12);
 }
 
 #defrostButton {
-    background-image: url('../icons/graphics/Climate/back_defrost_inactive.png');
+    @include sprite(1, 13);
 }
 
 #circulateButton {
-    background-image: url('../icons/graphics/Climate/recirculate_inactive.png');
+    @include sprite(1, 15);
 }
 
 #autoButton {
-    background-image: url('../icons/graphics/Climate/Treble_inactive.png');
+    @include sprite(1, 14);
 }
 
 /* Active Buttons */
 
 #tempButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/temperature_active.png');
+    @include sprite(0, 16, $black);
 }
 
 #fanButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/fan_active.png');
+    @include sprite(0, 11, $black);
 }
 
 #seatButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/seats_active.png');
+    @include sprite(0, 10, $black);
 }
 
 #ventButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/vent_active.png');
+    @include sprite(0, 27, $black);
 }
 
 #passDriverSwitch.clickedButton {
-    background-image: url('../icons/graphics/Climate/driver_active.png');
+    @include sprite(0, 17, $black);
 }
 
 #acButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/ac_active.png');
+    @include sprite(0, 12, $black);
 }
 
 #defrostButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/back_defrost_active.png');
+    @include sprite(0, 13, $black);
 }
 
 #circulateButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/recirculate_active.png');
+    @include sprite(0, 15, $black);
 }
 
 #autoButton.clickedButton {
-    background-image: url('../icons/graphics/Climate/Treble_inactive.png');
+    @include sprite(0, 14, $black);
 }
-
-
 
 #face, #feetFace, #feetDefrost, #feet {
-    width: 90px;
-    height: 90px;
+    width: $buttonSize;
+    height: $buttonSize;
 }
 
-
 #face {
-    background-image: url('../icons/graphics/Climate/face_inactive.png');
+    @include sprite(1, 28);
 }
 
 #feetFace {
-    background-image: url('../icons/graphics/Climate/feet_face_inactive.png');
+    @include sprite(1, 27);
 }
 
 #feet {
-    background-image: url('../icons/graphics/Climate/feet_inactive.png');
+    @include sprite(1, 29);
 }
 
 #feetDefrost {
-    background-image: url('../icons/graphics/Climate/feet_defrost_inactive.png');
+    @include sprite(1, 30);
 }
 
-.selected>#face {
-    background-image: url('../icons/graphics/Climate/face_active.png');
+.selected > #face {
+    @include sprite(2, 28);
 }
 
-.selected>#feetFace {
-    background-image: url('../icons/graphics/Climate/feet_face_active.png');
+.selected > #feetFace {
+    @include sprite(2, 27);
 }
 
-.selected>#feet {
-    background-image: url('../icons/graphics/Climate/feet_active.png');
+.selected > #feet {
+    @include sprite(2, 29);
 }
 
-.selected>#feetDefrost {
-    background-image: url('../icons/graphics/Climate/feet_defrost_active.png');
+.selected > #feetDefrost {
+    @include sprite(2, 30);
 }

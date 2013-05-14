@@ -4,6 +4,14 @@
     left: 0px;
 }
 
+@mixin sprite($xIcon, $yIcon, $bgColor: $darkGray) {
+    size: $buttonSize;
+    background: url('../icons/graphics/#{$iconSprite}');
+    background-position-x: -$buttonSize * $xIcon;
+    background-position-y: -$buttonSize * $yIcon;
+    background-color: $bgColor;
+}
+
 #climateContainer, #musicContainer, #appContainer {
     background-color: $black;
     font-family: 'Univers', sans-serif;
@@ -26,7 +34,7 @@
 }
 
 .x-button {
-    margin: 3px 3px 0px 0px;
+    margin: 5px 22px 0px 16px;
     width: $buttonSize;
     height: $buttonSize;
     border: none;
@@ -37,7 +45,7 @@
 
     .x-button-label {
         @include absolute-bottom-left;
-        font-size: 12px;
+        font-size: $buttonLabelSzie;
         text-align: center;
         width: 100%;
     }
@@ -45,31 +53,43 @@
 
 .x-button.x-button-pressing,
 .x-button.clickedButton {
-    background-color: $black;
-    background-image: none;
+    .x-button-label {
+        color: $purple;
+    }
 }
 
 #alreadyHome.clickedButton {
-    background-image: url('../icons/graphics/Home/home_active.png');
+    @include sprite(0, 0, $black);
 }
 
 #musicAppButton {
-    background-image: url('../icons/graphics/Home/music_inactive.png');
+    @include sprite(1, 20);
 }
 
 #climateAppButton {
-    background-image: url('../icons/graphics/Home/climate_inactive.png');
+    @include sprite(1, 19);
 }
 
 #diagnosticsAppButton {
-    background-image: url('../icons/graphics/Home/diagnostics_inactive.png');
+    @include sprite(1, 21);
 }
 
 #appsButton {
-    background-image: url('../icons/graphics/Home/apps_inactive.png');
+    @include sprite(1, 18);
 }
 
-/* Active Buttons */
-.x-button.clickedButton .x-button-icon.x-button-icon.home {
-    background-image: url('../icons/graphics/Home/Home_active.png');
+#leftNav, #rightNav {
+    position: absolute;
+}
+
+#leftNav {
+    z-index: 500;
+}
+
+#rightNav {
+    right: 0px;
+    z-index: 501;
+}
+#alreadyHome {
+    @include sprite(0, 0);
 }

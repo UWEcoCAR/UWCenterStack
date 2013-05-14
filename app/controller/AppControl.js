@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.controller.AppControl', {
+Ext.define('UWCenterStack.controller.AppControl', {
 	extend: 'Ext.app.Controller',
 
 	config: {
@@ -57,7 +57,7 @@ Ext.define('feel-your-way.controller.AppControl', {
 
 	openMusic: function() {
 		//Ext.util.cancelRepeatingTask('updateTime');
-		var musicApp = Ext.create('feel-your-way.view.MusicMain',{
+		var musicApp = Ext.create('UWCenterStack.view.MusicMain',{
 			id: 'musicContainer',
 			fullscreen: true
 		});
@@ -67,7 +67,7 @@ Ext.define('feel-your-way.controller.AppControl', {
 
 	openClimate: function() {
 		//Ext.util.cancelRepeatingTask('updateTime');
-		var climateApp = Ext.create('feel-your-way.view.ClimateMain',{
+		var climateApp = Ext.create('UWCenterStack.view.ClimateMain',{
 			id: 'climateContainer',
 			fullscreen: true
 		});

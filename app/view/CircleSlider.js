@@ -1,13 +1,8 @@
-Ext.define('feel-your-way.view.CircleSlider', {
-	extend: 'Ext.Container',
+Ext.define('UWCenterStack.view.CircleSlider', {
+	extend: 'UWCenterStack.view.Dial',
 	xtype: 'circleslider',
 
 	config: {
-		diameter: null,
-		innerDiameter: null,
-		outerDiameter: null,
-		lastAngle: null,
-		rotatable: true,
 		selected: false,
 		selectable: true,
 
@@ -55,16 +50,7 @@ Ext.define('feel-your-way.view.CircleSlider', {
 	},
 
 	initialize: function() {
-		var diameter = this.getDiameter();
-		this.setWidth(diameter);
-		this.setHeight(diameter);
-		this.setInnerDiameter((279 - 10 - 40)/279 * diameter);
-		this.setOuterDiameter((279 - 1 + 40)/279 * diameter);
-		var items = this.getItems().items;
-		items[2].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
-		items[1].getItems().items[0].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
-		items[1].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
-		items[2].getItems().items[0].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
+		this.on('painted', this.setSliceClippings);
 	},
 
 	onStart: function(event, element){
@@ -121,8 +107,13 @@ Ext.define('feel-your-way.view.CircleSlider', {
 		}
 	},
 
-	getRelativePosition: function(event, element) {
-		var el = Ext.get(element).findParent('.multidial');
-		return new Ext.util.Point(event.pageX - el.offsetLeft - el.offsetWidth/2, event.pageY - el.offsetTop - el.offsetHeight/2);
+	setSliceClippings: function() {
+		var diameter = this.getOuterDiameter();
+
+		var items = this.getItems().items;
+		items[2].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
+		items[1].getItems().items[0].setStyle('clip:rect(0px,' + (diameter/2) + "px, " + (diameter) + "px, " + "0px);");
+		items[1].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
+		items[2].getItems().items[0].setStyle('clip:rect(0px,' + (diameter) + "px, " + (diameter) + "px, " + (diameter/2) + "px);");
 	}
 });

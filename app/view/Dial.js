@@ -1,12 +1,11 @@
-Ext.define('feel-your-way.view.Dial', {
-	extend: 'Ext.Img',
+Ext.define('UWCenterStack.view.Dial', {
+	extend: 'Ext.Container',
 	xtype: 'dial',
 
 	config: {
-		src: 'resources/icons/graphics/outer_circle.png',
-		diameter: 100,
-		innerDiameter: 0,
-		outerDiameter: Number.MAX_VALUE,
+		// The dial image should have a transparent border of tolerance pixels
+		tolerance: 30, // The amount of space on either side of the dial band to count as touching the dial
+		dialWidth: 20, // The number of pixels wide the dial band is
 		theta: 0,
 		lastAngle: null,
 		rotatable: true,
@@ -14,12 +13,6 @@ Ext.define('feel-your-way.view.Dial', {
 
 	initialize: function() {
 		this.callParent();
-
-		var diameter = this.getDiameter();
-		this.setWidth(diameter);
-		this.setHeight(diameter);
-		this.setInnerDiameter((279 - 10 - 40)/279 * diameter);
-		this.setOuterDiameter((279 - 1 + 40)/279 * diameter);
 	},
 
 	onStart: function(event, element) {
@@ -29,17 +22,23 @@ Ext.define('feel-your-way.view.Dial', {
 	onMove: function(event, element) {
 		var relLoc = this.getRelativePosition(event, element);
 		var currentAngle = Math.atan2(-relLoc.x, relLoc.y) + Math.PI;
+		console.log("--------------------");
+		console.log("Angle " + currentAngle);
+		console.log("Position " + relLoc);
 
 		if (this.getLastAngle() === null) {
 			this.setLastAngle(currentAngle);
 		}
 
 		var distance = Math.sqrt(Math.pow(relLoc.x, 2) + Math.pow(relLoc.y, 2));
+		console.log("Distance " + distance);
+		console.log("getInnerDiameter " + this.getInnerDiameter());
+		console.log("getOuterDiameter " + this.getOuterDiameter());
 		if(distance > this.getInnerDiameter()/2 && distance < this.getOuterDiameter()/2){
 			if (this.getRotatable()){
 
 				var deltaTheta = currentAngle - this.getLastAngle();
-
+				console.log("Test" + deltaTheta);
 				if ((deltaTheta >= 0 && this.getRotatable() !== 'left') || (deltaTheta <= 0 && this.getRotatable() !== 'right')){
 					this.setTheta(this.getTheta() + deltaTheta);
 
@@ -67,5 +66,17 @@ Ext.define('feel-your-way.view.Dial', {
 	getRelativePosition: function(event, element) {
 		var el = Ext.get(element).findParent('.multidial');
 		return new Ext.util.Point(event.pageX - el.offsetLeft - el.offsetWidth/2, event.pageY - el.offsetTop - el.offsetHeight/2);
+	},
+
+	getInnerDiameter: function() {
+		return this.getDiameter() - this.getDialWidth() - this.getTolerance();
+	},
+
+	getOuterDiameter: function() {
+		return this.getDiameter() + this.getTolerance();
+	},
+
+	getDiameter: function() {
+		return Ext.get(this.getId()).getHeight() - this.getTolerance();
 	}
 })

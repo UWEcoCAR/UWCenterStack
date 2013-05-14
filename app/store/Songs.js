@@ -1,7 +1,7 @@
-Ext.define('feel-your-way.store.Songs', {
+Ext.define('UWCenterStack.store.Songs', {
 	extend: 'Ext.data.Store',
 	config: {
-		model: 'feel-your-way.model.Song',
+		model: 'UWCenterStack.model.Song',
 		sorters: 'title',
 		grouper: {
 			groupFn: function(record) {

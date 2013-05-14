@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.model.Climate', {
+Ext.define('UWCenterStack.model.Climate', {
 	extend: 'Ext.data.Model',
 	config: {
 		fields: [

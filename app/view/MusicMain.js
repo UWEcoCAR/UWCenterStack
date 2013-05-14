@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.view.MusicMain', {
+Ext.define('UWCenterStack.view.MusicMain', {
 	extend: 'Ext.Container',
 	requires: ['Ext.Button'],
 	xtype: 'musicmain',
@@ -9,15 +9,8 @@ Ext.define('feel-your-way.view.MusicMain', {
 			{
 				xtype: 'container',
 				id: 'leftNav',
-				position: 'absolute',
-				top: '0px',
-				left: '0px',
-	            width: '100px',
 	            defaults: {
 	                xtype: 'button',
-	                margin: 3,
-	                height: '90px',
-	                width: '90px'
 	            },
 	            items: [
 	                {
@@ -76,14 +69,8 @@ Ext.define('feel-your-way.view.MusicMain', {
 			{
 				xtype: 'container',
 				id: 'rightNav',
-	            width: '100px',
-	            position: 'absolute',
-	            right: '0px',
 	            defaults: {
-	                xtype: 'button',
-	                margin: '3 3 0 0',
-	                height: '90px',
-	                width: '90px'
+	                xtype: 'button'
 	            },
 	            items: [
 	                {

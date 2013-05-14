@@ -1,4 +1,4 @@
-Ext.define('feel-your-way.view.DialSelector', {
+Ext.define('UWCenterStack.view.DialSelector', {
 	extend: 'Ext.Container',
 	requires: ['Ext.dataview.DataView'],
 	xtype: 'dialselector',
@@ -8,21 +8,12 @@ Ext.define('feel-your-way.view.DialSelector', {
 			{
 				xtype: 'multidial',
 				id: 'dial',
-				outerCircleDiameter: 279,
-				innerCircleDiameter: 190,
-				top: 187,
-				left: 152,
 			 	style: 'position: fixed',
 			 	mode: 'dial'
 			},
 			{
 				xtype: 'circlebutton',
-				id: 'selectButton',
-				diameter: 100,
-				// following must be set
-				style: 'position: fixed',
-				top: 277,
-				left: 241,
+				id: 'selectButton'
 			},
 			{
 				xtype: 'circlebutton',
@@ -76,7 +67,7 @@ Ext.define('feel-your-way.view.DialSelector', {
 	},
 
 	updateList: function(theta, dial) {
-		Ext.getCmp('selectorList').scroll(theta/Math.PI * dial.getDiameter(), dial);
+		Ext.getCmp('selectorList').scroll(theta/Math.PI * 200, dial);
 	},
 
 	restore: function(theta, dial){
