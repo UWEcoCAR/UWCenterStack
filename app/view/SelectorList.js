@@ -7,8 +7,8 @@ Ext.define('UWCenterStack.view.SelectorList', {
 		itemHeight: 28,
 		itemMargin: 10,
 
-		a: .5,
-
+		dev: 3000,
+		recordNum: 0,
 
 		scrollable: {
 			disabled: true
@@ -18,35 +18,31 @@ Ext.define('UWCenterStack.view.SelectorList', {
 	initialize: function() {
 		this.callParent();
 		this.on('refresh', function() {
-			this.scroll(this.getOffset() - this.getItemHeight());
-			Ext.getCmp('dial-dial').setTheta((this.getOffset() - this.getItemHeight())*Math.PI/Ext.getCmp('dial-dial').getDiameter());
+			this.scroll(0);
+			Ext.getCmp('dial-dial').setTheta(0);
 		});
 	},
 
 	scroll: function(value, dial) {
-		console.log(value);
-		var index = Math.floor(value/(this.getItemHeight() + this.getItemMargin()))
+		var index = -Math.floor(value/(this.getItemHeight() + this.getItemMargin() * 2));
 
 		var listContainer = this.getAt(0); // the thing that we scroll
 		var list = listContainer.element.dom.childNodes; // each of the child nodes
 
 		listContainer.element.dom.style.webkitTransform = 'translate3d(0px,' + (value + this.getOffset()) + 'px, 0px)';
-
-		var num = this.getOffset()/(this.getItemHeight() + this.getItemMargin()) + index;
-		for (var i = Math.max(0, num - 5); i < Math.min(list.length, list.length + 6); i++){
+		for (var i = Math.max(0, index - 5); i < Math.min(list.length, index + 8); i++){
 			var x = list[i].offsetTop + value;
 
-			var a = this.getA();
-
-			var height = 1/(a*Math.pow(2*Math.PI, .5)) * Math.pow(Math.E, -Math.pow((x-this.getOffset())/240, 2)/(2*Math.pow(a, 2))) * 20 + this.getItemHeight();
+			var height = 1/Math.pow(2*Math.PI, .5) * Math.pow(Math.E, -Math.pow(x, 2)/(2*this.getDev())) * 2.5 * 15 + this.getItemHeight();
 			list[i].style.fontSize = height + "px";
 			list[i].style.height = height + "px";
 
-			// if (x - this.getItemMargin() < this.getOffset() && x + list[i].clientHeight + this.getItemMargin() > this.getOffset()){
-			// 	list[i].classList.add('selected');
-			// } else {
-			// 	list[i].classList.remove('selected');
-			// }
+			if (x - this.getItemHeight() - this.getItemMargin() < 0 && x + list[i].clientHeight - this.getItemHeight() + this.getItemMargin() > 0){
+				list[i].classList.add('selected');
+				this.setRecordNum(i);
+			} else {
+				list[i].classList.remove('selected');
+			}
 		}
 
 		if (dial) {
