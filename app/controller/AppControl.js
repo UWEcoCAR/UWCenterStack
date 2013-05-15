@@ -30,25 +30,23 @@ Ext.define('UWCenterStack.controller.AppControl', {
 		var me = this;
         var dateTime =  Ext.getCmp('dateTime');
         Ext.util.repeat('updateTime', function() {
-        	var today = new Date();
-        	var timeString= today.toLocaleTimeString();
-        	var line1 = timeString.substring(0, timeString.length - 6) + timeString.substring(timeString.length - 3).toLowerCase();
-        	
-        	// see if the minute has changed
-        	if (dateTime.getHtml().split('</span')[0] === '<span>' + line1) {
-        		// dont need to update
-        	} else {
-        		// need to update
-    	        var dateString = today.toDateString();
-    	        
-    	        var line1 = timeString.substring(0, timeString.length - 6) + timeString.substring(timeString.length - 3).toLowerCase();
-    	        var line2 = me.monthString(today.getMonth()) + ' ' + today.getDate() + ', ' + dateString.substring(dateString.length - 4).toUpperCase();
-    	        dateTime.setHtml('<span>' + line1 + '</span><br />'
-    	                + line2.toUpperCase() + '<br />'
-    	                + me.dayString(today.getDay()).toUpperCase()
-    	        );
-        	}
-        }, 1000, true);
+        	var now = new Date();
+
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+
+	        var line1 = hours + ':' + minutes + ' ' + ampm;
+	        var line2 = me.monthString(now.getMonth()) + ' ' + now.getDate() + ', ' + now.getFullYear();
+            var line3 = me.dayString(now.getDay());
+	        dateTime.setHtml('<span>' + line1.toLowerCase() + '</span><br />'
+	                + line2.toUpperCase() + '<br />'
+	                + line3.toUpperCase()
+	        );
+        }, 60000, true);
 	},
 
 	wentHome: function() {
