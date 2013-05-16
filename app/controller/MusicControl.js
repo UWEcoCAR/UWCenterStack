@@ -21,37 +21,43 @@ Ext.define('UWCenterStack.controller.MusicControl', {
 				itemtap: 'select'
 			},
             artistButton: {
-                tap: 'artistSelect'
+            	touchend: 'artistSelect'
             },
             albumButton: {
-                tap: 'albumSelect'
+            	touchend: 'albumSelect'
             },
             songButton: {
-                tap: 'songSelect'
+            	touchend: 'songSelect'
             },
             playlistButton: {
-                tap: 'playlistSelect'
+            	touchend: 'playlistSelect'
             },
             nowPlayingButton: {
-                tap: 'goToNowPlaying'
+            	touchend: 'goToNowPlaying'
             },
             trebleButton: {
-                tap: 'trebleSelect',
+            	touchend: 'trebleSelect',
             },
             bassButton: {
-                tap: 'bassSelect',
+            	touchend: 'bassSelect',
             },
             repeatButton: {
-                tap: 'repeatSelect',
+            	touchend: 'repeatSelect',
             },
             shuffleButton: {
-                tap: 'shuffleSelect',
+            	touchend: 'shuffleSelect',
             },
             homeButton: {
-                tap: 'goHome'
+            	touchend: 'goHome'
             },
             playPause: {
                 tap: 'playPauseToggle'
+            },
+            leftNav: {
+            	touchend: 'leftNavSelect'
+            },
+            rightNav: {
+            	touchend: 'rightNavSelect'
             }
 		},
 
@@ -74,7 +80,10 @@ Ext.define('UWCenterStack.controller.MusicControl', {
             repeatButton: 'button[id="repeatButton"]',
             shuffleButton: 'button[id="shuffleButton"]',
             homeButton: 'button[id="musicHomeButton"]',
-            playPause: 'circlebutton[id="playPause"]'
+            playPause: 'circlebutton[id="playPause"]',
+            
+            leftNav: 'container[id="leftNav"]',
+            rightNav: 'container[id="rightNav"]',
 		},
 
         currentData: [],
@@ -123,6 +132,48 @@ Ext.define('UWCenterStack.controller.MusicControl', {
         }
     },
 
+    leftNavSelect : function(obj, mouse) {
+    	var y = mouse.browserEvent.clientY;
+    	var button;
+		if (y > 3 && y < 116) {
+			this.goHome();
+		} else if (y > 119 && y < 232) {
+			button = Ext.ComponentQuery.query("#artistButton")[0];
+			this.artistSelect(button);
+		} else if (y > 245 && y < 358) {
+			button = Ext.ComponentQuery.query("#albumButton")[0];
+			this.albumSelect(button);
+		} else if (y > 361 && y < 474) {
+			button = Ext.ComponentQuery.query("#songButton")[0];
+			this.songSelect(button);
+		} else if (y > 477 && y < 591) {
+			button = Ext.ComponentQuery.query("#playlistButton")[0];
+			this.playlistSelect(button);
+		}
+    },
+    
+    
+    rightNavSelect : function(obj, mouse) {
+    	var y = mouse.browserEvent.clientY;
+    	var button;
+		if (y > 3 && y < 116) {
+			button = Ext.ComponentQuery.query("#nowPlaying")[0];
+			this.goToNowPlaying(button);
+		} else if (y > 119 && y < 232) {
+			button = Ext.ComponentQuery.query("#trebleButton")[0];
+			this.trebleSelect(button);
+		} else if (y > 245 && y < 358) {
+			button = Ext.ComponentQuery.query("#bassButton")[0];
+			this.bassSelect(button);
+		} else if (y > 361 && y < 474) {
+			button = Ext.ComponentQuery.query("#repeatButton")[0];
+			this.repeatSelect(button);
+		} else if (y > 477 && y < 591) {
+			button = Ext.ComponentQuery.query("#shuffleButton")[0];
+			this.shuffleSelect(button);
+		}
+    },
+    
     goHome: function(){
         Ext.getCmp('view').pop(1);
     },

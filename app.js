@@ -81,6 +81,29 @@ Ext.application({
            }  
          });
         
+        Ext.define('feel-your-way.view.Container', {
+            extend : 'Ext.Container',
+            xtype  : 'touchcontainer',
+
+            initialize : function() {
+                this.callParent();
+
+                this.element.on({
+                    scope    : this,
+                    touchstart : 'onTouchStart',
+                    touchend : 'onTouchEnd'
+                });
+            },
+
+            onTouchEnd : function(e) {
+                this.fireEvent('touchend', this, e);
+            },
+            
+            onTouchStart : function(e) {
+                this.fireEvent('touchStart', this, e);
+            }
+        });
+        
     },
     
     monthString: function(month) {

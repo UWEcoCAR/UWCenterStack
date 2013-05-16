@@ -7,7 +7,7 @@ Ext.define('UWCenterStack.view.MusicMain', {
 		layout: 'hbox',
 		items: [
 			{
-				xtype: 'container',
+				xtype: 'touchcontainer',
 				id: 'leftNav',
 	            defaults: {
 	                xtype: 'button',
@@ -67,7 +67,7 @@ Ext.define('UWCenterStack.view.MusicMain', {
 	            height: '100%'
 			},
 			{
-				xtype: 'container',
+				xtype: 'touchcontainer',
 				id: 'rightNav',
 	            defaults: {
 	                xtype: 'button'
