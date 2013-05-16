@@ -133,7 +133,7 @@ Ext.define('UWCenterStack.controller.MusicControl', {
     },
 
     leftNavSelect : function(obj, mouse) {
-    	var y = mouse.browserEvent.clientY;
+    	var y = mouse.pageY;
     	var button;
 		if (y > 3 && y < 116) {
 			this.goHome();
@@ -154,7 +154,7 @@ Ext.define('UWCenterStack.controller.MusicControl', {
     
     
     rightNavSelect : function(obj, mouse) {
-    	var y = mouse.browserEvent.clientY;
+    	var y = mouse.pageY;
     	var button;
 		if (y > 3 && y < 116) {
 			button = Ext.ComponentQuery.query("#nowPlaying")[0];
