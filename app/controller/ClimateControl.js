@@ -175,21 +175,21 @@ Ext.define('UWCenterStack.controller.ClimateControl', {
     tempSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
-        this.getList().setItemTpl('<div>{title}</div>');
+        this.getList().restoreDefaults();
     	store.loadData('temp');
     },
 
     fanSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
-        this.getList().setItemTpl('<div>{title}</div>');
+        this.getList().restoreDefaults();
     	store.loadData('fan');
     },
    
     seatSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
-        this.getList().setItemTpl('<div>{title}</div>');
+        this.getList().restoreDefaults();
     	store.loadData('seat');
     },
 
@@ -199,6 +199,7 @@ Ext.define('UWCenterStack.controller.ClimateControl', {
     	// selected one should be a different color
     	// if it has the class, then title has to change...
     	this.getList().setItemTpl('<div id="{title}"></div>');
+        this.getList().setItemHeight(UWCenterStack.config.Config.getIconSize());
     	store.loadData('vent');
     },
 
