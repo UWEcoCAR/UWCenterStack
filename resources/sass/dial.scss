@@ -67,6 +67,8 @@
 
 /* Defualt to paused state */
 #playPause {
+	top: $playPauseTop;
+	left: $playPauseLeft;
     @include sprite(1, 25, none);
 }
 
