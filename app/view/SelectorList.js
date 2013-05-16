@@ -5,7 +5,10 @@ Ext.define('UWCenterStack.view.SelectorList', {
 	config: {
 		offset: 100,
 		itemHeight: 28,
+		defaultItemHeight: 28,
 		itemMargin: 10,
+		defaultItemMargin: 10,
+		defaultItemTpl: '<div>{title}</div>',
 
 		dev: 3000,
 		recordNum: 0,
@@ -58,5 +61,11 @@ Ext.define('UWCenterStack.view.SelectorList', {
 				dial.setRotatable(true);
 			}
 		}
+	},
+
+	restoreDefaults: function() {
+		this.setItemHeight(this.getDefaultItemHeight());
+		this.setItemMargin(this.getDefaultItemMargin());
+		this.setItemTpl(this.getDefaultItemTpl());
 	}
 });
