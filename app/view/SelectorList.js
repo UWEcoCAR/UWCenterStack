@@ -20,10 +20,17 @@ Ext.define('UWCenterStack.view.SelectorList', {
 
 	initialize: function() {
 		this.callParent();
-		this.on('refresh', function() {
-			this.scroll(0);
+
+		// This is a hack for getting around the latest Playbook update
+		Ext.util.repeat('setupList', function() {
+			Ext.util.cancelRepeatingTask('setupList');
+			Ext.getCmp('selectorList').scroll(0);
 			Ext.getCmp('dial-dial').setTheta(0);
-		});
+        }, 1000, false);
+		// this.on('refresh', function() {
+		// 	this.scroll(0);
+		// 	Ext.getCmp('dial-dial').setTheta(0);
+		// });
 	},
 
 	scroll: function(value, dial) {
