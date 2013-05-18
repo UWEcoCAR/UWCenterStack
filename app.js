@@ -17,6 +17,30 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
+        
+        Ext.define('feel-your-way.view.Container', {
+            extend : 'Ext.Container',
+            xtype  : 'touchcontainer',
+
+            initialize : function() {
+                this.callParent();
+
+                this.element.on({
+                    scope    : this,
+                    touchstart : 'onTouchStart',
+                    touchend : 'onTouchEnd'
+                });
+            },
+
+            onTouchEnd : function(e) {
+                this.fireEvent('touchend', this, e);
+            },
+            
+            onTouchStart : function(e) {
+                this.fireEvent('touchStart', this, e);
+            }
+        });
+        
         var view = Ext.create('Ext.NavigationView', {
             id: 'view',
             fullscreen: true,
@@ -80,29 +104,7 @@ Ext.application({
                                                this);         
            }  
          });
-        
-        Ext.define('feel-your-way.view.Container', {
-            extend : 'Ext.Container',
-            xtype  : 'touchcontainer',
 
-            initialize : function() {
-                this.callParent();
-
-                this.element.on({
-                    scope    : this,
-                    touchstart : 'onTouchStart',
-                    touchend : 'onTouchEnd'
-                });
-            },
-
-            onTouchEnd : function(e) {
-                this.fireEvent('touchend', this, e);
-            },
-            
-            onTouchStart : function(e) {
-                this.fireEvent('touchStart', this, e);
-            }
-        });
         
     },
     

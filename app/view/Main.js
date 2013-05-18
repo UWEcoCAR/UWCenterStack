@@ -7,8 +7,8 @@ Ext.define('UWCenterStack.view.Main', {
 		layout: 'hbox',
 		items: [
 			{
-				xtype: 'container',
-				id: 'leftNav',
+				xtype: 'touchcontainer',
+				id: 'leftNavHome',
 	            defaults: {
 	                xtype: 'button'
 	            },
@@ -37,10 +37,10 @@ Ext.define('UWCenterStack.view.Main', {
                 html: '',
                 position: 'absolute',
                 top: '338px', // 169 = centered, 338 = bottom
-                left: '100px',
+                left: '150px',
             },
 			{
-                xtype: 'container',
+                xtype: 'touchcontainer',
                 id: 'dateTime',
                 html: '',
                 position: 'absolute',

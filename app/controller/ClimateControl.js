@@ -12,33 +12,39 @@ Ext.define('UWCenterStack.controller.ClimateControl', {
             homeButton: {
             	tap: 'goHome'
             },
-            tempButton: {
-                tap: 'tempSelect'
+            leftNav: {
+            	touchend: 'leftNavSelect'
             },
-            fanButton: {
-                tap: 'fanSelect'
-            },
-            seatButton: {
-                tap: 'seatSelect'
-            },
-            ventButton: {
-                tap: 'ventSelect'
-            },
-            passDriverButton: {
-                tap: 'passDriverSelect',
-            },
-            acButton: {
-                tap: 'acSelect',
-            },
-            defrostButton: {
-                tap: 'defrostSelect',
-            },
-            circulateButton: {
-                tap: 'circulateSelect',
-            },
-            autoButton: {
-                tap: 'autoSelect',
+            rightNav: {
+            	touchend: 'rightNavSelect'
             }
+//            tempButton: {
+//                tap: 'tempSelect'
+//            },
+//            fanButton: {
+//                tap: 'fanSelect'
+//            },
+//            seatButton: {
+//                tap: 'seatSelect'
+//            },
+//            ventButton: {
+//                tap: 'ventSelect'
+//            },
+//            passDriverButton: {
+//                tap: 'passDriverSelect',
+//            },
+//            acButton: {
+//                tap: 'acSelect',
+//            },
+//            defrostButton: {
+//                tap: 'defrostSelect',
+//            },
+//            circulateButton: {
+//                tap: 'circulateSelect',
+//            },
+//            autoButton: {
+//                tap: 'autoSelect',
+//            }
 
 		},
 
@@ -61,6 +67,9 @@ Ext.define('UWCenterStack.controller.ClimateControl', {
             circulateButton: 'button[id="circulateButton"]',
             autoButton: 'button[id="autoButton"]',
 
+            leftNav: 'container[id="leftNavClimate"]',
+            rightNav: 'container[id="rightNavClimate"]',
+            
             // non music controls
             homeButton: 'button[id="climateHomeButton"]'
 		},
@@ -94,6 +103,51 @@ Ext.define('UWCenterStack.controller.ClimateControl', {
         Ext.getCmp('view').pop(1);
     },
 
+    leftNavSelect : function(obj, mouse) {
+    	var x = mouse.browserEvent.clientX;
+    	var y = mouse.browserEvent.clientY;
+    	var button;
+    	if (x < 130) {
+    		if (y > 3 && y < 116) {
+    			this.goHome();
+    		} else if (y > 119 && y < 232) {
+    			button = Ext.ComponentQuery.query("#tempButton")[0];
+    			this.tempSelect(button);
+    		} else if (y > 245 && y < 358) {
+    			button = Ext.ComponentQuery.query("#fanButton")[0];
+    			this.fanSelect(button);
+    		} else if (y > 361 && y < 474) {
+    			button = Ext.ComponentQuery.query("#seatButton")[0];
+    			this.seatSelect(button);
+    		} else if (y > 477 && y < 591) {
+    			button = Ext.ComponentQuery.query("#ventButton")[0];
+    			this.ventSelect(button);
+    		}
+    	}
+    },
+
+    rightNavSelect : function(obj, mouse) {
+    	//disregard x on right for now, no other clickable areas so not a big deal
+    	var y = mouse.browserEvent.clientY;
+    	var button;
+		if (y > 3 && y < 116) {
+			button = Ext.ComponentQuery.query("#passDriverSwitch")[0];
+			this.passDriverSelect(button);
+		} else if (y > 119 && y < 232) {
+			button = Ext.ComponentQuery.query("#acButton")[0];
+			this.acSelect(button);
+		} else if (y > 245 && y < 358) {
+			button = Ext.ComponentQuery.query("#defrostButton")[0];
+			this.defrostSelect(button);
+		} else if (y > 361 && y < 474) {
+			button = Ext.ComponentQuery.query("#circulateButton")[0];
+			this.circulateSelect(button);
+		} else if (y > 477 && y < 591) {
+			button = Ext.ComponentQuery.query("#autoButton")[0];
+			this.autoSelect(button);
+		}
+    },
+    
     restoreState: function() {
         this.tempSelect(this.getTempButton());
         this.getList().setStore(Ext.getStore('Climates'));
@@ -196,8 +250,6 @@ Ext.define('UWCenterStack.controller.ClimateControl', {
     ventSelect: function(button) {
         this.setActiveButton(button);
     	var store = Ext.StoreManager.get('Climates');
-    	// selected one should be a different color
-    	// if it has the class, then title has to change...
     	this.getList().setItemTpl('<div id="{title}"></div>');
     	store.loadData('vent');
     },

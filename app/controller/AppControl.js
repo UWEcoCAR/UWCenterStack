@@ -3,15 +3,18 @@ Ext.define('UWCenterStack.controller.AppControl', {
 
 	config: {
 		control: {
-			homeApp: {
-				show: 'wentHome'
-			},
-            musicAppButton: {
-            	tap: 'openMusic'
-            },
-            climateAppButton: {
-            	tap: 'openClimate'
-            }
+//			homeApp: {
+//				show: 'wentHome'
+//			},
+//            musicAppButton: {
+//            	tap: 'openMusic'
+//            },
+//            climateAppButton: {
+//            	tap: 'openClimate'
+//            }
+			leftNav: {
+				touchend: 'leftNavSelect',
+			}
 		},
 
 		refs: {
@@ -20,7 +23,9 @@ Ext.define('UWCenterStack.controller.AppControl', {
             musicAppButton: '#musicAppButton',
             climateAppButton: '#climateAppButton',
             diagnosticsAppButton: '#diagnosticsAppButton',
-            moreAppsButton: 'appsButton'
+            moreAppsButton: 'appsButton',
+            
+            leftNav: 'container[id="leftNavHome"]',
 		},
 		
 		
@@ -48,6 +53,25 @@ Ext.define('UWCenterStack.controller.AppControl', {
 	        );
         }, 60000, true);
 	},
+	
+    leftNavSelect : function(obj, mouse) {
+    	var x = mouse.browserEvent.clientX;
+    	var y = mouse.browserEvent.clientY;
+    	var button;
+    	if (x < 130) {
+    		if (y > 3 && y < 116) {
+    			this.wentHome();
+    		} else if (y > 119 && y < 232) {
+    			this.openMusic();
+    		} else if (y > 245 && y < 358) {
+    			this.openClimate();
+    		} else if (y > 361 && y < 474) {
+    			// no functionality yet
+    		} else if (y > 477 && y < 591) {
+    			// no functionality yet
+    		}
+    	}
+    },
 
 	wentHome: function() {
 		Ext.getCmp('alreadyHome').addCls('clickedButton');
