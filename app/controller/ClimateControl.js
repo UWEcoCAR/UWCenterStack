@@ -9,9 +9,9 @@ Ext.define('UWCenterStack.controller.ClimateControl', {
 			controls: {
 				itemtap: 'select'
 			},
-            homeButton: {
-            	tap: 'goHome'
-            },
+            // homeButton: {
+            // 	tap: 'goHome'
+            // },
             leftNav: {
             	touchend: 'leftNavSelect'
             },
@@ -104,8 +104,8 @@ Ext.define('UWCenterStack.controller.ClimateControl', {
     },
 
     leftNavSelect : function(obj, mouse) {
-    	var x = mouse.browserEvent.clientX;
-    	var y = mouse.browserEvent.clientY;
+    	var x = mouse.pageX;
+    	var y = mouse.pageY;
     	var button;
     	if (x < 130) {
     		if (y > 3 && y < 116) {
@@ -128,7 +128,7 @@ Ext.define('UWCenterStack.controller.ClimateControl', {
 
     rightNavSelect : function(obj, mouse) {
     	//disregard x on right for now, no other clickable areas so not a big deal
-    	var y = mouse.browserEvent.clientY;
+    	var y = mouse.pageY;
     	var button;
 		if (y > 3 && y < 116) {
 			button = Ext.ComponentQuery.query("#passDriverSwitch")[0];

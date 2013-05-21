@@ -17,6 +17,6 @@ Ext.define('UWCenterStack.view.TouchContainer', {
     },
     
     onTouchStart : function(e) {
-        this.fireEvent('touchStart', this, e);
+        this.fireEvent('touchstart', this, e);
     }
 }); 

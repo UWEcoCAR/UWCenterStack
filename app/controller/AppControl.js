@@ -55,8 +55,8 @@ Ext.define('UWCenterStack.controller.AppControl', {
 	},
 	
     leftNavSelect : function(obj, mouse) {
-    	var x = mouse.browserEvent.clientX;
-    	var y = mouse.browserEvent.clientY;
+    	var x = mouse.pageX;
+    	var y = mouse.pageY;
     	var button;
     	if (x < 130) {
     		if (y > 3 && y < 116) {
