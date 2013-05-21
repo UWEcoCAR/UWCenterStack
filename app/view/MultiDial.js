@@ -82,7 +82,8 @@ Ext.define('UWCenterStack.view.MultiDial', {
 		if (this.getDial() !== null){
 			if (mode == 'slider'){
 				this.getDial().hide();
-				this.getOuterSlider().show();
+				this.getOuterSlider().show()
+				this.getOuterSlider().setSliceClippings();
 			} else if( mode == 'dial'){
 				this.getDial().show();
 				this.getOuterSlider().hide();

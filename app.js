@@ -7,7 +7,7 @@ Ext.Loader.setPath({
 
 Ext.application({
     name: 'UWCenterStack',
-    views: ['Main', 'Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'MusicPlayer', 'CircleSlider', 'MultiDial', 'ClimateMain'],
+    views: ['Main', 'Dial', 'DialSelector', 'SelectorList', 'CircleButton', 'MusicMain', 'MusicPlayer', 'CircleSlider', 'MultiDial', 'ClimateMain', 'TouchContainer'],
     stores: ['Songs', 'Climates'],
     models: ['Song', 'Climate'],
     controllers: ['AppControl', 'MusicControl', 'SelectControl', 'ClimateControl'],
@@ -16,7 +16,7 @@ Ext.application({
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
-
+        
         var view = Ext.create('Ext.NavigationView', {
             id: 'view',
             fullscreen: true,
@@ -80,6 +80,7 @@ Ext.application({
                                                this);         
            }  
          });
+
         
     },
     

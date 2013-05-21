@@ -5,7 +5,10 @@ Ext.define('UWCenterStack.view.SelectorList', {
 	config: {
 		offset: 100,
 		itemHeight: 28,
+		defaultItemHeight: 28,
 		itemMargin: 10,
+		defaultItemMargin: 10,
+		defaultItemTpl: '<div>{title}</div>',
 
 		dev: 3000,
 		recordNum: 0,
@@ -17,10 +20,17 @@ Ext.define('UWCenterStack.view.SelectorList', {
 
 	initialize: function() {
 		this.callParent();
-		this.on('refresh', function() {
-			this.scroll(0);
+
+		// This is a hack for getting around the latest Playbook update
+		Ext.util.repeat('setupList', function() {
+			Ext.util.cancelRepeatingTask('setupList');
+			Ext.getCmp('selectorList').scroll(0);
 			Ext.getCmp('dial-dial').setTheta(0);
-		});
+        }, 1000, false);
+		// this.on('refresh', function() {
+		// 	this.scroll(0);
+		// 	Ext.getCmp('dial-dial').setTheta(0);
+		// });
 	},
 
 	scroll: function(value, dial) {
@@ -58,5 +68,11 @@ Ext.define('UWCenterStack.view.SelectorList', {
 				dial.setRotatable(true);
 			}
 		}
+	},
+
+	restoreDefaults: function() {
+		this.setItemHeight(this.getDefaultItemHeight());
+		this.setItemMargin(this.getDefaultItemMargin());
+		this.setItemTpl(this.getDefaultItemTpl());
 	}
 });
