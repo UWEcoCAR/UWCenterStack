@@ -34,18 +34,12 @@ Ext.define('UWCenterStack.view.MusicMain', {
 			{
 				xtype: 'container',
 				id: 'nowPlayingData',
-	            html: '',
-	            position: 'absolute',
-	            top: '10px',
-	            left: '120px',
+	            html: ''
 			},
 			{
 				xtype: 'container',
 				id: 'selectedData',
 	            html: '',
-	            position: 'absolute',
-	            top: '170px',
-	            left: '47%',
 	            width: '10%'
 			},
 			{

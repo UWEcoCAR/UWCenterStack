@@ -17,11 +17,16 @@ Music app specific styles
     width: 150px;
 }
 
+#nowPlayingData {
+    @include position(84px, 44px);
+}
+
 #nowPlayingData span {
     color: $green;
 }
 
 #selectedData {
+    @include position(130px, 710px);
     font-size: 10pt;
     padding-right: 4px;
 }

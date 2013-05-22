@@ -34,18 +34,12 @@ Ext.define('UWCenterStack.view.Main', {
 			{
                 xtype: 'container',
                 id: 'logo',
-                html: '',
-                position: 'absolute',
-                top: '338px', // 169 = centered, 338 = bottom
-                left: '150px',
+                html: ''
             },
 			{
                 xtype: 'touchcontainer',
                 id: 'dateTime',
-                html: '',
-                position: 'absolute',
-                top: '40px',
-                left: '130px',
+                html: ''
             },
 
 		]

@@ -4,6 +4,17 @@
     left: 0px;
 }
 
+@mixin position($top, $left) {
+    position: absolute;
+    top: $top;
+    left:$left;
+}
+
+@mixin size($width, $height) {
+    width: $width;
+    height: $height;
+}
+
 @mixin sprite($xIcon, $yIcon, $bgColor: $darkGray) {
     size: $buttonSize;
     background: url('../icons/graphics/#{$iconSprite}');
@@ -17,26 +28,29 @@
     font-family: 'Univers', sans-serif;
 }
 
-#dateTime>.x-inner>.x-innerhtml>span {
-    font-size: 40pt;
-}
-
-#dateTime>.x-inner>.x-innerhtml {
-    font-size: 18pt;
-    color: $green;
+#dateTime {
+    .x-inner {
+        .x-innerhtml {
+            span {
+                font-size: 40pt;
+            }
+        font-size: 18pt;
+        color: $green;
+        }
+    }
+    @include position(50px, 180px);
 }
 
 #logo {
     background-image: url('../icons/graphics/team_logo.png');
-    background-size: 500px 118px;
-    width: 500px;
-    height: 118px;
+    background-size: contain;
+    @include position(280px, 180px);
+    @include size(600px, 142px);
 }
 
 .x-button {
     margin: 5px 22px 0px 16px;
-    width: $buttonSize;
-    height: $buttonSize;
+    @include size($buttonSize, $buttonSize);
     border: none;
     border-radius: 0;
     background-color: $darkGray;

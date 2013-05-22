@@ -11,7 +11,7 @@ Ext.application({
     stores: ['Songs', 'Climates'],
     models: ['Song', 'Climate'],
     controllers: ['AppControl', 'MusicControl', 'SelectControl', 'ClimateControl'],
-    requires: ['Ext.Audio', 'Ext.NavigationView'],
+    requires: ['Ext.Audio', 'Ext.NavigationView', 'UWCenterStack.config.Config'],
 
     launch: function() {
         // Destroy the #appLoadingIndicator element
