@@ -7,8 +7,8 @@ Ext.define('UWCenterStack.view.MusicMain', {
 		layout: 'hbox',
 		items: [
 			{
-				xtype: 'container',
-				id: 'leftNav',
+				xtype: 'touchcontainer',
+				id: 'leftNavMusic',
 	            defaults: {
 	                xtype: 'button',
 	            },
@@ -34,18 +34,12 @@ Ext.define('UWCenterStack.view.MusicMain', {
 			{
 				xtype: 'container',
 				id: 'nowPlayingData',
-	            html: '',
-	            position: 'absolute',
-	            top: '10px',
-	            left: '120px',
+	            html: ''
 			},
 			{
 				xtype: 'container',
 				id: 'selectedData',
 	            html: '',
-	            position: 'absolute',
-	            top: '170px',
-	            left: '47%',
 	            width: '10%'
 			},
 			{
@@ -67,8 +61,8 @@ Ext.define('UWCenterStack.view.MusicMain', {
 	            height: '100%'
 			},
 			{
-				xtype: 'container',
-				id: 'rightNav',
+				xtype: 'touchcontainer',
+				id: 'rightNavMusic',
 	            defaults: {
 	                xtype: 'button'
 	            },

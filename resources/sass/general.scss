@@ -4,6 +4,17 @@
     left: 0px;
 }
 
+@mixin position($top, $left) {
+    position: absolute;
+    top: $top;
+    left:$left;
+}
+
+@mixin size($width, $height) {
+    width: $width;
+    height: $height;
+}
+
 @mixin sprite($xIcon, $yIcon, $bgColor: $darkGray) {
     size: $buttonSize;
     background: url('../icons/graphics/#{$iconSprite}');
@@ -17,26 +28,29 @@
     font-family: 'Univers', sans-serif;
 }
 
-#dateTime>.x-inner>.x-innerhtml>span {
-    font-size: 40pt;
-}
-
-#dateTime>.x-inner>.x-innerhtml {
-    font-size: 18pt;
-    color: $green;
+#dateTime {
+    .x-inner {
+        .x-innerhtml {
+            span {
+                font-size: 40pt;
+            }
+        font-size: 18pt;
+        color: $green;
+        }
+    }
+    @include position(50px, 180px);
 }
 
 #logo {
-    background-image: url('../icons/Graphics/Home/teamLogo.png');
-    background-size: 600px 142px;
-    width: 600px;
-    height: 142px;
+    background-image: url('../icons/graphics/team_logo.png');
+    background-size: contain;
+    @include position(280px, 180px);
+    @include size(600px, 142px);
 }
 
 .x-button {
     margin: 5px 22px 0px 16px;
-    width: $buttonSize;
-    height: $buttonSize;
+    @include size($buttonSize, $buttonSize);
     border: none;
     border-radius: 0;
     background-color: $darkGray;
@@ -51,16 +65,13 @@
     }
 }
 
+
 .x-button.x-button-pressing,
 .x-button.clickedButton {
-    .x-button-label {
-        color: $purple;
-    }
+    background-color: $darkGray;
 }
 
-#alreadyHome.clickedButton {
-    @include sprite(0, 0, $black);
-}
+
 
 #musicAppButton {
     @include sprite(1, 20);
@@ -78,18 +89,18 @@
     @include sprite(1, 18);
 }
 
-#leftNav, #rightNav {
+#leftNavHome, #leftNavMusic, #leftNavClimate, #rightNavMusic, #rightNavClimate {
     position: absolute;
 }
 
-#leftNav {
+#leftNavHome, #leftNavMusic, #leftNavClimate {
     z-index: 500;
 }
 
-#rightNav {
+#rightNavMusic, #rightNavClimate {
     right: 0px;
     z-index: 501;
 }
 #alreadyHome {
-    @include sprite(0, 0);
+    @include sprite(0, 0, $black);
 }
