@@ -27,7 +27,7 @@
 }
 
 #logo {
-    background-image: url('../icons/Graphics/Home/teamLogo.png');
+    background-image: url('../icons/graphics/team_logo.png');
     background-size: 600px 142px;
     width: 600px;
     height: 142px;
@@ -36,7 +36,7 @@
 .x-button {
     margin: 5px 22px 0px 16px;
     width: $buttonSize;
-    height: $buttonSize;
+    min-height: $buttonSize;
     border: none;
     border-radius: 0;
     background-color: $darkGray;

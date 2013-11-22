@@ -21,8 +21,8 @@ Ext.define('UWCenterStack.view.DialSelector', {
 				diameter: 100,
 				style: 'position: fixed',
 				defaultHtml: "",
-				top: 277,
-				left: 241,
+				top: 320,
+				left: 290,
 				hidden: true
 			},
 			{

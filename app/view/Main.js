@@ -37,7 +37,7 @@ Ext.define('UWCenterStack.view.Main', {
                 html: '',
                 position: 'absolute',
                 top: '338px', // 169 = centered, 338 = bottom
-                left: '100px',
+                left: '140px',
             },
 			{
                 xtype: 'container',
@@ -45,7 +45,7 @@ Ext.define('UWCenterStack.view.Main', {
                 html: '',
                 position: 'absolute',
                 top: '40px',
-                left: '130px',
+                left: '140px',
             },
 
 		]
