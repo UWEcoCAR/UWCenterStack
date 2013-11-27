@@ -83,6 +83,8 @@
 #face, #feetFace, #feetDefrost, #feet {
     width: $buttonSize;
     height: $buttonSize;
+    background-color: initial !important;
+    border: none;
 }
 
 #face {
@@ -105,7 +107,7 @@
     @include sprite(2, 28);
 }
 
-.selected > #feetFace {
+.selected >  #feetFace {
     @include sprite(2, 27);
 }
 

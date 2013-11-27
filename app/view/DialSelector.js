@@ -8,7 +8,6 @@ Ext.define('UWCenterStack.view.DialSelector', {
 			{
 				xtype: 'multidial',
 				id: 'dial',
-			 	style: 'position: fixed',
 			 	mode: 'dial'
 			},
 			{
@@ -19,10 +18,7 @@ Ext.define('UWCenterStack.view.DialSelector', {
 				xtype: 'circlebutton',
 				id: 'playPause',
 				diameter: 100,
-				style: 'position: fixed',
 				defaultHtml: "",
-				top: 320,
-				left: 290,
 				hidden: true
 			},
 			{

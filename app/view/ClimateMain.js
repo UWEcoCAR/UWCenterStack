@@ -7,8 +7,8 @@ Ext.define('UWCenterStack.view.ClimateMain', {
 		layout: 'hbox',
 		items: [
 			{
-				xtype: 'container',
-				id: 'leftNav',
+				xtype: 'touchcontainer',
+				id: 'leftNavClimate',
 	            defaults: {
 	                xtype: 'button'
 	            },
@@ -44,8 +44,8 @@ Ext.define('UWCenterStack.view.ClimateMain', {
 				width: '90%'
 			},
 			{
-				xtype: 'container',
-				id: 'rightNav',
+				xtype: 'touchcontainer',
+				id: 'rightNavClimate',
 	            defaults: {
 	                xtype: 'button'
 	            },

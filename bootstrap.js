@@ -5,17 +5,17 @@
  * metadata-driven class system features 
  */
 Ext.Loader.addClassPathMappings({
-  "Ext": "touch/src",
-  "Ext.device.Purchases.Product": "touch/src/device/purchases/Sencha.js",
-  "Ext.device.filesystem.DirectoryEntry": "touch/src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.Entry": "touch/src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.FileEntry": "touch/src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.FileSystem": "touch/src/device/filesystem/HTML5.js",
-  "Ext.device.purchases.Purchase": "touch/src/device/purchases/Sencha.js",
-  "Ext.device.sqlite.Database": "touch/src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLResultSet": "touch/src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLResultSetRowList": "touch/src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLTransaction": "touch/src/device/sqlite/Sencha.js",
+  "Ext": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src",
+  "Ext.device.Purchases.Product": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/purchases/Sencha.js",
+  "Ext.device.filesystem.DirectoryEntry": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.Entry": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.FileEntry": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.FileSystem": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/filesystem/HTML5.js",
+  "Ext.device.purchases.Purchase": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/purchases/Sencha.js",
+  "Ext.device.sqlite.Database": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLResultSet": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLResultSetRowList": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLTransaction": "../../../Dropbox/CenterStack/ProgrammingResources/touch2.2.0/src/device/sqlite/Sencha.js",
   "UWCenterStack": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -649,6 +649,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "Ext.viewport.WindowsPhone": [
     "Ext.viewport.WP"
   ],
+  "UWCenterStack.config.Config": [],
   "UWCenterStack.controller.AppControl": [],
   "UWCenterStack.controller.ClimateControl": [],
   "UWCenterStack.controller.MusicControl": [],
@@ -666,7 +667,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "UWCenterStack.view.MultiDial": [],
   "UWCenterStack.view.MusicMain": [],
   "UWCenterStack.view.MusicPlayer": [],
-  "UWCenterStack.view.SelectorList": []
+  "UWCenterStack.view.SelectorList": [],
+  "UWCenterStack.view.TouchContainer": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1396,6 +1398,7 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Ios": [],
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
+  "UWCenterStack.config.Config": [],
   "UWCenterStack.controller.AppControl": [],
   "UWCenterStack.controller.ClimateControl": [],
   "UWCenterStack.controller.MusicControl": [],
@@ -1433,5 +1436,8 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "UWCenterStack.view.SelectorList": [
     "widget.selectorlist"
+  ],
+  "UWCenterStack.view.TouchContainer": [
+    "widget.touchcontainer"
   ]
 });

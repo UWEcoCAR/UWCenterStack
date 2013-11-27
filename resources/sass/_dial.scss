@@ -21,8 +21,6 @@
 	text-align: left;
 }
 
-
-
 .selectorlistitem {
 	text-transform: lowercase;
 	margin: 20px;
@@ -67,6 +65,8 @@
 
 /* Defualt to paused state */
 #playPause {
+	top: $playPauseTop;
+	left: $playPauseLeft;
     @include sprite(1, 25, none);
 }
 

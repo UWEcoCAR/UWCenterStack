@@ -45,7 +45,7 @@
         },
         {
             "path": "app.js",
-            "bundle": false,  /* Indicates that all class dependencies are not concatenated into this file when build */
+            "bundle": true,  /* Indicates that all class dependencies are not concatenated into this file when build */
             "update": "delta"
         }
     ],

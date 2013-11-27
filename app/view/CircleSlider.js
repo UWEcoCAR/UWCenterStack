@@ -50,7 +50,12 @@ Ext.define('UWCenterStack.view.CircleSlider', {
 	},
 
 	initialize: function() {
-		this.on('painted', this.setSliceClippings);
+		// This is a hack for getting around the latest Playbook update
+		setTimeout(function() {
+			Ext.getCmp('dial-inner-slider').setSliceClippings();
+			Ext.getCmp('dial-outer-slider').setSliceClippings();
+        }, 500);
+		//this.on('painted', this.setSliceClippings);
 	},
 
 	onStart: function(event, element){
