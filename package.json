@@ -5,6 +5,7 @@
 	"dependencies": {
 		"ffi": "1.2.*",
 		"ref": "0.1.*",
-		"express": "3.0.*"
+		"express": "3.0.*",
+        "underscore" : "1.4.*"
 	}
 }
