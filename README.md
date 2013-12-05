@@ -1,36 +1,29 @@
-## Setup Sencha Cmd
-* Copy ```Dropbox/ProgrammingResources/Sencha Cmd/sencha``` to ```/bin```
-* Install Sencha Cmd using the installer located at ```Dropbox/ProgrammingResources/Sencha Cmd/SenchaCmd-3.1.1.274-osx```
+Installation Instructions:
+1. Install node.js from http://nodejs.org/
 
-##Setup Ant
-* Show the Ant view in Eclipse (Window->Show View->Ant)
-* Add the build file (click the +ant icon and select ```UWCenterStack/build.xml```
-* Add jsch jar to class path
-	* Right-click on UWCenterStack in the Ant view
-	* "Run As"
-	* "External Tool Configurations..."
-	* Go to the "Classpath" tab
-	* Click "Add JARs..." button
-	* Select "UWCenterStack/lib/jsch-0.1.49.jar"
+2. Install nodemon:
+sudo npm install -g nodemon
 
-##Setup simlinks
-Good app for Mac: http://www.macupdate.com/app/mac/10433/symboliclinker
-Create the following symlinks:
-* ```{DropboxFolder}/ProgrammingResources/.sencha -> {GitHubFolder}/UWCenterStack/```
-* ```{DropboxFolder}/ProgrammingResources/touch -> {GitHubFolder}/UWCenterStack/```
-* ```{DropboxFolder}/ProgrammingResources/lib -> {GitHubFolder}/UWCenterStack/```
-* ```{DropboxFolder}/Graphics/FeelYourWay -> {GitHubFolder}/UWCenterStack/resources/icons/ RENAME FellYourWay to graphics```
+3. Install sass: http://sass-lang.com/install
 
-##Setup SASS
-* Install SASS: 
-```sudo gem install sass```
-* Install Compass: 
-```sudo gem install compass```
-###Auto-compile SASS to CSS
-* ```cd {GitHubFolder}/UWCenterStack/resources/sass/```
-* ```compass watch app.scss```
-###Sublime Text 2
-There is a SASS syntax highlighing package in the dropbox for Sublime Text 2. To use it:
-Copy ```{DropboxFolder}/ProgrammingResources/SASS``` to ```~/Library/Application Support/Sublime Text 2/Packages/```
-###SASS documentation
-http://sass-lang.com/tutorial.html
+4. Add to .bash_profile: 
+export UWCENTERSTACK_HOME=path/to/UWCenterStack
+export PATH=$PATH:/usr/local/share/npm/bin
+alias uwcs='cd $UWCENTERSTACK_HOME'
+alias uwcs-init='uwcs ; npm install ; uwcs-scss ; uwcs-compile-native-library'
+alias uwcs-run='uwcs ; npm start'
+alias uwcs-debug='uwcs ; nodemon'
+alias uwcs-scss='uwcs ; sass public/sass/main.scss >> public/css/main.css'
+alias uwcs-compile-native-library='uwcs ; gcc -dynamiclib -o multiply.dylib multiply.o ; gcc -c -o multiply.o multiply.c'
+
+5. In a new terminal window, run uwcs-init
+
+Running Webserver:
+Run uwcs-run to run the webserver
+Run uwcs-debug to run the webserver and have it detect changes to server.js
+Run uwcs-scss to compile the sass
+Run uwcs-compile-native-library to compile the c files into a library that node can use
+
+Setup in IntelliJ:
+Node.js: http://www.jetbrains.com/idea/webhelp/running-and-debugging-node-js.html
+SCSS compiling: http://www.jetbrains.com/idea/webhelp/transpiling-sass-less-and-scss-to-css.html

@@ -1,12 +1,13 @@
-*.metadata
-*.project
-.DS_Store
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+*.o
+*.dylib
+/node_modules
+/.sass-cache
+*.log
 
-build
-.sass-cache
-lib
-touch
-archive
-.sencha
-resources/icons/graphics
-resources/css/app.css
+*.iml
+.elasticbeanstalk/
