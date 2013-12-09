@@ -14,7 +14,7 @@ alias uwcs-init='uwcs ; npm install ; uwcs-scss ; uwcs-compile-native-library'
 alias uwcs-run='uwcs ; npm start'
 alias uwcs-debug='uwcs ; nodemon'
 alias uwcs-scss='uwcs ; sass public/sass/main.scss >> public/css/main.css'
-alias uwcs-compile-native-library='uwcs ; gcc -dynamiclib -o multiply.dylib multiply.o ; gcc -c -o multiply.o multiply.c'
+alias uwcs-compile-native-library='uwcs ; gcc -c -o multiply.o multiply.c ; gcc -dynamiclib -o multiply.dylib multiply.o ; gcc -shared -o multiply.so multiply.o'
 
 5. In a new terminal window, run uwcs-init
 
