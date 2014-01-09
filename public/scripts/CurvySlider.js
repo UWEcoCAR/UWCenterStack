@@ -2,16 +2,19 @@ createCurvySlider = function(options) {
 		// size variables
 	var options = options || {},
 		width = options.width || 400,
-		height = options.height || 100
+		height = options.height || 100,
+		leftOffset = options.left || 0,
+		topOffset = options.top || 0,
 		diameter = options.diameter || 20,
 
 		// dragging variables
 		equation = options.equation || function(x) {
 			return .5;
 		},
-		value = 0 || options.value,
+		value = options.value || 0,
 		// step = 0 || options.step,
 		calculatePosition = function() {
+			console.log(value, width, height, diameter, equation);
 			return {
 				x : value * width,
 				y : equation(value) * ( height - diameter )
@@ -23,16 +26,19 @@ createCurvySlider = function(options) {
 		// dom element variables
 		sliderClass = options.sliderClass || 'curvy-slider',
 		handleClass = options.handleClass || 'curvy-slider-handle',
-		container = $('<div>'),
-		handle = $('<div>');
+		container = $(document.createElement('div')),
+		handle = $(document.createElement('div'));
 
 		//
+		console.log(defaultPosition);
 
 
 		container
 			.addClass(sliderClass)
 			.css('width', width + 'px')
 			.css('height', height + 'px')
+			.css('top', topOffset + 'px')
+			.css('left', leftOffset + 'px')
 			.append(
 				handle
 					.addClass(handleClass)
