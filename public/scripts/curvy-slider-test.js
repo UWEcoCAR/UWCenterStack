@@ -11,3 +11,14 @@ function centerDashGraphic() {
 $(window).resize(centerDashGraphic);
 
 centerDashGraphic();
+
+var curvySlider = createCurvySlider({
+	equation: function(x) {
+		return Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + .5;
+	}
+});
+var sliderList = new SliderList('#slider-list');
+$('body').append(curvySlider.on('change', function(evt, data) {
+	console.log("change", evt, data);
+	sliderList.goToPosition(data.value);
+}));

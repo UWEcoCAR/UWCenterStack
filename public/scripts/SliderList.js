@@ -34,17 +34,21 @@ function SliderList(selector) {
     }
 
     this.goToPosition = function(newSliderPosition) {
-    	var difference = Math.abs(newSliderPosition - this.lastSliderPosition);
-    	var me = this;
 
-    	while (difference > 0) {
-    		if (newSliderPosition > me.lastSliderPosition) {
-    			me.moveForward();
-    		} else {
-    			me.moveBackward();
-    		}
-    		difference -= .1;
-    	}
-    	this.lastSliderPosition = newSliderPosition;
+    	var difference = Math.abs(newSliderPosition - this.lastSliderPosition);
+        console.log("gotoposition", newSliderPosition, difference);
+    	var me = this;
+        if (difference > .005) {
+            while (difference > 0) {
+                if (newSliderPosition > me.lastSliderPosition) {
+                    me.moveForward();
+                } else {
+                    me.moveBackward();
+                }
+                difference -= .005;
+            }
+            this.lastSliderPosition = newSliderPosition;
+        }
+
     }
 }
