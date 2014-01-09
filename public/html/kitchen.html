@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../css/slider.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+    window.onload = function()
+    {
+        if(!window.jQuery)
+        {
+            alert('jQuery not loaded');
+        }
+        else
+        {
+            $(document).ready(function(){
+                $(".alert").alert();
+                $('.btn').button();
+                $('.vertical-slider').slider({
+                	min: 0,
+                	max: 10,
+                	step: 1,
+                	orientation: 'vertical'
+                })
+                $('.horizontal-slider').slider({
+                	min: 0,
+                	max: 10,
+                	step: 1,
+                	orientation: 'horizontal'
+                });
+
+            });
+
+        }
+    }
+</script>
+  </head>
+  <body>
+      <div class="page-header">
+        <h1>UW EcoCar Kitchen Sink</h1>
+      </div>
+      <div class="alert alert-danger fade in">
+        <a type="button" class="close" data-dismiss="alert" href="#" aria-hidden="true">x</a>
+        <h4>Distance Until Empty below 50 miles</h4>
+      </div>
+      <div class="alert alert-warning fade in">
+        <a type="button" class="close" data-dismiss="alert" href="#" aria-hidden="true">x</a>
+        <h5>Ease off the brakes sooner for better efficiency</h5>
+      </div>
+        <button type="button" id="test" class="btn btn-lg btn-default">Default</button>
+        <button type="button" class="btn btn-lg btn-primary">Primary</button>
+        <button type="button" class="btn btn-lg btn-success">Success</button>
+        <button type="button" class="btn btn-lg btn-info">Info</button>
+        <button type="button" class="btn btn-lg btn-warning">Warning</button>
+        <button type="button" class="btn btn-lg btn-danger">Danger</button>
+        <button type="button" class="btn btn-lg btn-link">Link</button>
+      </div>
+      <div>
+      	<p>Toggle Buttons</p>
+      	<button type="button" class="btn btn-primary" data-toggle="button">Toggle me</button>
+      	<p>Checkbox like group</p>
+      	<div class="btn-group" data-toggle="buttons">
+		  <label class="btn btn-primary">
+		    <input type="checkbox"> Option 1
+		  </label>
+		  <label class="btn btn-primary">
+		    <input type="checkbox"> Option 2
+		  </label>
+		  <label class="btn btn-primary">
+		    <input type="checkbox"> Option 3
+		  </label>
+		</div>
+		<p>Radio Button group</p>
+		<div class="btn-group" data-toggle="buttons">
+		  <label class="btn btn-primary">
+		    <input type="radio" name="options" id="option1"> Option 1
+		  </label>
+		  <label class="btn btn-primary">
+		    <input type="radio" name="options" id="option2"> Option 2
+		  </label>
+		  <label class="btn btn-primary">
+		    <input type="radio" name="options" id="option3"> Option 3
+		  </label>
+		</div>
+      </div>
+      <div>
+      	<p>Sliders</p>
+      	<div class="vertical-slider">
+      	</div>
+      </div>
+
+      <div class="horizontal-slider">
+
+      </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../scripts/bootstrap.js"></script>
+    <script src="../scripts/bootstrap-slider.js"></script>
+  </body>
+</html>

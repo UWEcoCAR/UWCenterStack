@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap 101 Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../css/slider.css" rel="stylesheet">
+    <link href="../css/feel-your-way.css?reload" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+      window.onload = function() {
+        if(!window.jQuery) {
+          alert('jQuery not loaded');
+        } else {
+          $(document).ready(function(){
+            /*
+            $('.alert').hide();
+            setTimeout(function() {
+              $('.alert').show();
+            }, 10000);
+            $('.btn').button();
+            $('#select-slider').slider({
+              min: 0,
+              max: 10,
+              step: 1,
+              orientation: 'vertical'
+            });*/
+            var min = 0;
+            var max = 100;
+            $('#select-slider').slider({
+              min: min,
+              max: max,
+              step: 1,
+              orientation: 'horizontal'
+            }).on('slide', function(ev) {
+              console.log('slide');
+              var x = $('#select-slider').slider('getValue');
+              var radius = 50;
+              var y = Math.sqrt((radius*radius) - (x*x)); //X^2 + Y^2 = R^2. Find X.
+              var dy;
+              if ( y == 'NaN' ) {
+                dy = 0;
+              }
+              else {
+                dy = y;          
+              }
+              console.log($('.slider-handle'));
+              $('.slider-handle').css('top', dy + '% !important');
+            });
+          });
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="leftnav" class="section nav">
+      <button data-loading-text="Loading..." type="button" class="btn btn-lg btn-default">Home
+      </button>
+      <br />
+      <button data-loading-text="Loading..." type="button" class="btn btn-lg btn-default">Climate
+      </button>
+      <br />
+      <button data-loading-text="Loading..." type="button" class="btn btn-lg btn-default">Music
+      </button>
+      <br />
+      <button data-loading-text="Loading..." type="button" class="btn btn-lg btn-default">Navigation
+      </button>
+      <br />
+      <button data-loading-text="Loading..." type="button" class="btn btn-lg btn-default">Car
+      </button>
+    </div>
+    <div id="content" class="section">
+      <div id="alertarea">
+        <div class="alert alert-danger fade in">
+          <a type="button" class="close" data-dismiss="alert" href="#" aria-hidden="true">x</a>
+          <h4>Distance Until Empty below 50 miles</h4>
+        </div>
+      </div>
+      <div id="left">
+        <div id="select-slider">
+        </div>
+      </div>
+      <div id="right">
+        <ul>
+          <li>Option 1</li>
+          <li>Option 2</li>
+          <li>Option 3</li>
+          <li>Option 4</li>
+          <li>Option 5</li>
+          <li>Option 6</li>
+          <li>Option 7</li>
+          <li>Option 8</li>
+          <li>Option 9</li>
+          <li>Option 10</li>
+        </ul>
+      </div>
+    </div>
+    <div id="rightnav" class="section nav">
+      <button type="button" class="btn btn-default" data-toggle="button">Toggle me</button>
+      <button type="button" class="btn btn-default" data-toggle="button">Toggle me</button>
+      <button type="button" class="btn btn-default" data-toggle="button">Toggle me</button>
+      <button type="button" class="btn btn-default" data-toggle="button">Toggle me</button>
+      <button type="button" class="btn btn-default" data-toggle="button">Toggle me</button>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../scripts/bootstrap.js"></script>
+    <script src="../scripts/bootstrap-slider.js"></script>
+  </body>
+</html>
