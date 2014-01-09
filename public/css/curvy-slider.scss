@@ -1,0 +1,14 @@
+#dashGraphic {
+	background-image: none !important;
+}
+
+.curvy-slider {
+	position: relative;
+	overflow:hidden;
+
+	.curvy-slider-handle {
+		position: absolute;
+		background-color: white;
+		border-radius: 100%;
+	}
+}
