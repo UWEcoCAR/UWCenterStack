@@ -57,9 +57,26 @@ var curvySlider5 = createCurvySlider({
         return (Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + .5) * .6 + .08;
     }
 });
-var sliderList = new SliderList('#slider-list');
-$('#dashGraphic').append(curvySlider5.on('change', function(evt, data) {
-	console.log("change", evt, data);
-	sliderList.goToPosition(data.value);
-}),
-curvySlider4, curvySlider3, curvySlider2, curvySlider1);
+$('#dashGraphic').append(curvySlider5, curvySlider4, curvySlider3, curvySlider2, curvySlider1);
+
+
+var sliderList = new SliderList({
+	cssSelector: '#slider-listing',
+	sensitivity: .1
+});
+
+var sliderListTwo = new SliderList({
+	cssSelector: '#slider-listing',
+	sensitivity: .05,
+	continuous: true
+});
+
+curvySlider5.on('change', function(evt, data) {
+    console.log("change", evt, data);
+    sliderList.goToPosition(data.value);
+});
+
+curvySlider4.on('change', function(evt, data) {
+    console.log("change", evt, data);
+    sliderListTwo.goToPosition(data.value);
+});
