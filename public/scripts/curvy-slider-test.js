@@ -17,8 +17,23 @@ var curvySlider = createCurvySlider({
 		return Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + .5;
 	}
 });
-var sliderList = new SliderList('#slider-list');
+var sliderList = new SliderList({
+	cssSelector: '#slider-listing',
+	sensitivity: .1
+});
+
+var sliderListTwo = new SliderList({
+	cssSelector: '#slider-listing',
+	sensitivity: .05,
+	continuous: true
+});
+
 $('body').append(curvySlider.on('change', function(evt, data) {
 	console.log("change", evt, data);
 	sliderList.goToPosition(data.value);
+}));
+
+$('body').append(curvySlider.on('change', function(evt, data) {
+	console.log("change", evt, data);
+	sliderListTwo.goToPosition(data.value);
 }));
