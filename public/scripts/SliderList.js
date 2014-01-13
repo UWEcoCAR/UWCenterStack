@@ -11,7 +11,7 @@ function SliderList(options) {
     this.moveForward = function() {
         console.log("move forward");
         var me = this;
-        if (me.continuous) {
+        if (me.remove) {
             this.position++;
             if (this.position > this.listItems) {
                 this.position = 1;
@@ -37,7 +37,7 @@ function SliderList(options) {
     this.moveBackward = function() {
         console.log("move backward");
         var me = this;
-        if (me.continuous) {
+        if (me.remove) {
             me.position--;
             if (me.position < 1) {
                 me.position = me.listItems;
