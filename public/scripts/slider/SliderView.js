@@ -11,8 +11,6 @@
 var SliderView = Backbone.View.extend({
 
 		lastPosition: undefined,
-		handleX : undefined,
-		handlyY : undefined,
 
 		events: {
 			'touchmove .curvySliderHandle': 'updateVal',
@@ -24,10 +22,6 @@ var SliderView = Backbone.View.extend({
 
 			// add listeners
 			this.listenTo(this.model, 'change', this.render);
-
-			// setup derived properties
-			this.handleY = this.equation(this.model.get('value')) * (this.height - this.diameter);
-			this.handleX = this.model.get('value') * this.width ;
 
 			// customize dom elements
 			this.$el
@@ -56,9 +50,6 @@ var SliderView = Backbone.View.extend({
 				// normalize x
 				x = Math.max( Math.min(x , 1), 0);
 
-				this.handleX = x * this.width;
-				this.handleY = this.equation(x) * (this.height - this.diameter);
-
 				// Calculations
 				this.model.set({value : x});
 			}
@@ -68,10 +59,14 @@ var SliderView = Backbone.View.extend({
 		},
 
 		render: function() {
+			var	value = this.model.get('value'),
+				handleX = value * this.width,
+				handleY = this.equation(value) * (this.height - this.diameter);
+
 			this.$el
 				.find('.curvySliderHandle')
-					.css('left', this.handleX)
-					.css('top', this.handleY);
+					.css('left', handleX)
+					.css('top', handleY);
 
 			return this;
 		}

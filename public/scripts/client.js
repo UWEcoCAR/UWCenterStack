@@ -1,7 +1,7 @@
 $(window).load(function() {
 
 	// create slider
-	var sliderModel = new SliderModel({
+	sliderModel = new SliderModel({
 		value : .5
 	});
 	var sliderView = new SliderView({
@@ -18,11 +18,31 @@ $(window).load(function() {
 	var listCollection = new ListItemCollection();
 	var listView = new ListView({
 		data: listCollection,
-		slider: sliderModel
+		slider: sliderModel,
+		top: 100,
+		left: 200,
+		width: 300,
+		height: 200
 	});
 
 	// add some items to the list
 	listCollection.set([
+		{text: 'First'},
+		{text: 'Second'},
+		{text: 'Third'},
+		{text: 'Fourth'},
+		{text: 'Fifth'},
+		{text: 'Sixth'},
+		{text: 'Seventh'},
+		{text: 'Eighth'},
+		{text: 'First'},
+		{text: 'Second'},
+		{text: 'Third'},
+		{text: 'Fourth'},
+		{text: 'Fifth'},
+		{text: 'Sixth'},
+		{text: 'Seventh'},
+		{text: 'Eighth'},
 		{text: 'First'},
 		{text: 'Second'},
 		{text: 'Third'},

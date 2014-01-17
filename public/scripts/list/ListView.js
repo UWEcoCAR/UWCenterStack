@@ -12,6 +12,10 @@ var ListView = Backbone.View.extend({
 		// customize dom
 		this.$el
 			.addClass('list')
+			.css('width', this.width + 'px')
+			.css('height', this.height + 'px')
+			.css('left', this.left + 'px')
+			.css('top', this.top + 'px')
 			.append(
 				$('<div>')
 					.addClass('listScroller')

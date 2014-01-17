@@ -1,0 +1,17 @@
+.list {
+	position: absolute;
+	overflow: hidden;
+
+	.listScroller {
+		position: absolute;
+		width: 100%;
+
+		.listItem {
+			font: {
+				family : Arial;
+				size : 13px;
+				widht : 100;
+			}
+		}
+	}
+}
