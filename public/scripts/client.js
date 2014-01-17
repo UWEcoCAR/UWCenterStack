@@ -10,7 +10,7 @@ $(window).load(function() {
 		left: 10,
 		width: 600,
 		height: 100,
-		equation: function(x) {return .5},
+		equation: function(x) {return (Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + .5)},
 		diameter : 20,
 	});
 
@@ -54,6 +54,8 @@ $(window).load(function() {
 	]);
 
 	// render and append elements
+	// TODO may have to render after appending so elements
+	// (eg listScroller) can know their height
 	$('body').append(
 		sliderView.render().el,
 		listView.render().el

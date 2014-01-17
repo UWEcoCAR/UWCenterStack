@@ -50,7 +50,6 @@ var SliderView = Backbone.View.extend({
 				// normalize x
 				x = Math.max( Math.min(x , 1), 0);
 
-				// Calculations
 				this.model.set({value : x});
 			}
 
@@ -59,14 +58,12 @@ var SliderView = Backbone.View.extend({
 		},
 
 		render: function() {
-			var	value = this.model.get('value'),
-				handleX = value * this.width,
-				handleY = this.equation(value) * (this.height - this.diameter);
+			var	value = this.model.get('value');
 
 			this.$el
 				.find('.curvySliderHandle')
-					.css('left', handleX)
-					.css('top', handleY);
+					.css('left', value * this.width)
+					.css('bottom', this.equation(value) * (this.height - this.diameter) );
 
 			return this;
 		}

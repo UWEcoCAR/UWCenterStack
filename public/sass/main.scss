@@ -1,6 +1,12 @@
 @import "curvy-slider.scss";
 @import "list.scss";
 
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
 body {
 	-webkit-user-select: none;
 }
