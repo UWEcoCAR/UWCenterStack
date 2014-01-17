@@ -1,5 +1,5 @@
-@import "mixins";
+@import "curvy-slider.scss";
 
 body {
-	@include square(20px);
+	-webkit-user-select: none;
 }

@@ -1,5 +1,9 @@
 $(window).load(function() {
-	var sliderModel = new SliderModel();
+
+	// create slider
+	var sliderModel = new SliderModel({
+		value : .5
+	});
 	var sliderView = new SliderView({
 		model: sliderModel,
 		top: 10,
@@ -8,14 +12,16 @@ $(window).load(function() {
 		height: 100,
 		equation: function(x) {return .5},
 		diameter : 20,
-		defaultValue : .5
 	});
 
-	a = sliderView;
-
+	// create list
 	var listCollection = new ListItemCollection();
-	var listView = new ListView({data: listCollection, slider: sliderModel});
+	var listView = new ListView({
+		data: listCollection,
+		slider: sliderModel
+	});
 
+	// add some items to the list
 	listCollection.set([
 		{text: 'First'},
 		{text: 'Second'},
@@ -27,6 +33,7 @@ $(window).load(function() {
 		{text: 'Eighth'}
 	]);
 
+	// render and append elements
 	$('body').append(
 		sliderView.render().el,
 		listView.render().el

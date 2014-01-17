@@ -1,3 +1,13 @@
+/*
+	options that must be passed:
+		model
+		top
+		left
+		width
+		height
+		diameter
+		equation
+ */
 var SliderView = Backbone.View.extend({
 
 		lastPosition: undefined,
@@ -5,18 +15,21 @@ var SliderView = Backbone.View.extend({
 		handlyY : undefined,
 
 		events: {
-			// Call the event handler "updateVal" when slider value changes.
-			// 'slidechange' is the jquery slider widget's event type. 
-			// Refer http://jqueryui.com/demos/slider/#default for information about 'slidechange'.
 			'touchmove .curvySliderHandle': 'updateVal',
 		},
 
 		initialize : function(options) {
+			// add options as properties
 			_.defaults(this, options);
 
-			this.handleY = this.equation(this.defaultValue) * (this.height - this.diameter);
-			this.handleX = this.defaultValue * this.width ;
+			// add listeners
+			this.listenTo(this.model, 'change', this.render);
 
+			// setup derived properties
+			this.handleY = this.equation(this.model.get('value')) * (this.height - this.diameter);
+			this.handleX = this.model.get('value') * this.width ;
+
+			// customize dom elements
 			this.$el
 				.addClass('curvySlider')
 				.css('width', this.width + 'px')
@@ -32,10 +45,7 @@ var SliderView = Backbone.View.extend({
 		},
 
 		updateVal: function(evt) {
-			console.log('SliderView.updateVal');
-
-			evt = evt.originalEvent;
-
+			evt = evt.originalEvent; // BAD JQUERY!! GO TO YOUR ROOM
 
 			if (this.lastPosition !== undefined) {
 
@@ -51,8 +61,6 @@ var SliderView = Backbone.View.extend({
 
 				// Calculations
 				this.model.set({value : x});
-
-				this.render();
 			}
 
 			this.lastPosition = evt.touches[0].clientX;

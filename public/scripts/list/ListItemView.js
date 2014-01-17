@@ -1,10 +1,12 @@
 var ListItemView = Backbone.View.extend({
 
 	initialize: function() {
+		// listen for changes on model
+		this.listenTo(this.model, 'change', this.render);
+
+		// customize dom
 		this.$el
 			.addClass('listItem');
-			
-		this.listenTo(this.model, 'change', this.render);
 	},
 
 	render: function() {

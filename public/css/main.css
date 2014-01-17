@@ -1,12 +1,11 @@
+.curvySlider {
+  position: absolute;
+  pointer-events: none; }
+  .curvySlider .curvySliderHandle {
+    position: absolute;
+    background-color: black;
+    border-radius: 100%;
+    pointer-events: all; }
+
 body {
-  width: 20px;
-  height: 20px; }
-body {
-  width: 20px;
-  height: 20px; }
-body {
-  width: 20px;
-  height: 20px; }
-body {
-  width: 20px;
-  height: 20px; }
+  -webkit-user-select: none; }
