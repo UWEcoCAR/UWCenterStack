@@ -1,9 +1,14 @@
 var ListView = Backbone.View.extend({
-	el: $(_.template(TEMPLATES.LIST, {})),
 
 	initialize: function(options) {
-		this.data = options.data;
-		this.slider = options.slider;
+		_.defaults(this, options);
+
+		this.$el
+			.addClass('list')
+			.append(
+				$('<div>')
+					.addClass('listScroller')
+			);
 
 		this.listenTo(this.data, 'add', this.addOne);
 		this.listenTo(this.data, 'all', this.render);

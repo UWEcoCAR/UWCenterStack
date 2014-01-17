@@ -2,13 +2,16 @@ $(window).load(function() {
 	var sliderModel = new SliderModel();
 	var sliderView = new SliderView({
 		model: sliderModel,
-		top: 0,
-		left: 0,
-		width: 300,
-		height: 20,
+		top: 10,
+		left: 10,
+		width: 600,
+		height: 100,
 		equation: function(x) {return .5},
-		diameter : 20
+		diameter : 20,
+		defaultValue : .5
 	});
+
+	a = sliderView;
 
 	var listCollection = new ListItemCollection();
 	var listView = new ListView({data: listCollection, slider: sliderModel});
@@ -24,6 +27,9 @@ $(window).load(function() {
 		{text: 'Eighth'}
 	]);
 
-	$('body').append(listView.el);
+	$('body').append(
+		sliderView.render().el,
+		listView.render().el
+	);
 
 });

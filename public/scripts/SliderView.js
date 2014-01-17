@@ -1,32 +1,45 @@
 var SliderView = Backbone.View.extend({
-		el: $(_.template(TEMPLATES.SLIDER, {})),
-		
-		lastPoint: undefined,
+
+		lastPosition: undefined,
+		handleX : undefined,
+		handlyY : undefined,
 
 		events: {
 			// Call the event handler "updateVal" when slider value changes.
 			// 'slidechange' is the jquery slider widget's event type. 
 			// Refer http://jqueryui.com/demos/slider/#default for information about 'slidechange'.
 			'touchmove .curvySliderHandle': 'updateVal',
-			'mousemove .curvySliderHandle': 'updateVal'
 		},
 
-		initialize : function() {
+		initialize : function(options) {
+			_.defaults(this, options);
+
+			this.handleY = this.equation(this.defaultValue) * (this.height - this.diameter);
+			this.handleX = this.defaultValue * this.width ;
+
 			this.$el
-				.css('width', this.width)
-				.css('height', this.height)
-				.css('top', this.top)
-				.css('left', this.left)
-				.find('.curvySliderHandle')
-					.css('width', this.diameter)
-					.css('height', this.diameter);
+				.addClass('curvySlider')
+				.css('width', this.width + 'px')
+				.css('height', this.height + 'px')
+				.css('top', this.top + 'px')
+				.css('left', this.left + 'px')
+				.append(
+					$('<div>')
+						.addClass('curvySliderHandle')
+						.css('width', this.diameter)
+						.css('height', this.diameter)
+				)
 		},
 
 		updateVal: function(evt) {
 			console.log('SliderView.updateVal');
 
-			if (this.lastPosition) {
-				var deltaX = evt.clientX - this.lastPosition,
+			evt = evt.originalEvent;
+
+
+			if (this.lastPosition !== undefined) {
+
+				var deltaX = evt.touches[0].clientX - this.lastPosition,
 					offsetX = evt.target.offsetLeft + deltaX,
 					x = offsetX / this.width;
 
@@ -38,9 +51,11 @@ var SliderView = Backbone.View.extend({
 
 				// Calculations
 				this.model.set({value : x});
+
+				this.render();
 			}
 
-			this.lastPosition = evt.clientX;
+			this.lastPosition = evt.touches[0].clientX;
 
 		},
 
