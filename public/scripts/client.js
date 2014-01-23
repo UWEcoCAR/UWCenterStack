@@ -53,14 +53,23 @@ $(window).load(function() {
 		{text: 'Eighth'}
 	]);
 
+	var appModel = new AppModel();
+	var appView = new AppView({
+		model : appModel,
+		sliders : [
+			sliderView
+		],
+		view : listView
+	})
+
 	// render and append elements
 	// TODO may have to render after appending so elements
 	// (eg listScroller) can know their height
+	$('body').append(
+		appView.el
+	);
 
-    $('#screenContent .left').append(listView.el);
-    $('#sliders .slider').eq(0).append(sliderView.el);
-
-    sliderView.render();
-    listView.render();
-
+	appView.render();
+	sliderView.render();
+	listView.render();
 });
