@@ -6,10 +6,10 @@ $(window).load(function() {
 	});
 	var sliderView = new SliderView({
 		model: sliderModel,
-		top: 10,
-		left: 10,
-		width: 600,
-		height: 100,
+		top: -45,
+		left: 0,
+		width: 319,
+		height: 62,
 		equation: function(x) {return (Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + .5)},
 		diameter : 20,
 	});
@@ -19,8 +19,8 @@ $(window).load(function() {
 	var listView = new ListView({
 		data: listCollection,
 		slider: sliderModel,
-		top: 100,
-		left: 200,
+		top: 0,
+		left: 0,
 		width: 300,
 		height: 200
 	});
@@ -56,9 +56,11 @@ $(window).load(function() {
 	// render and append elements
 	// TODO may have to render after appending so elements
 	// (eg listScroller) can know their height
-	$('body').append(
-		sliderView.render().el,
-		listView.render().el
-	);
+
+    $('#screenContent .left').append(listView.el);
+    $('#sliders .slider').eq(0).append(sliderView.el);
+
+    sliderView.render();
+    listView.render();
 
 });

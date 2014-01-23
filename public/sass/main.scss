@@ -1,12 +1,84 @@
 @import "curvy-slider.scss";
 @import "list.scss";
 
-* {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
+body, html {
+  background-color: rgb(34, 32, 32);
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  color: rgb(210, 211, 212);
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 100;
+  font-size: 12px;
+  -webkit-user-select: none;
 }
 
-body {
-	-webkit-user-select: none;
+* {
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box
+}
+
+#dashGraphic {
+  background-image: url("../images/dash.png");
+  height: 1485px;
+  width: 1920px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#screenContent {
+  //background-color: green;
+  width: 363px;
+  height: 286px;
+  position: absolute;
+  top: 424px;
+  left: 901px;
+
+  .left, .right {
+    float: left;
+    width: 50%;
+    height: 100%;
+    padding: 10%;
+
+  }
+
+  .right {
+    text-align: right;
+
+    .clock {
+      margin-top: 40px;
+
+      .time {
+        font-size: 30px;
+      }
+
+    }
+  }
+}
+
+#sliders {
+  width: 363px;
+  height: 160px;
+  position: absolute;
+  top: 713px;
+  left: 901px;
+
+  .slider {
+    position: relative;
+    height: 32px;
+    width:  100%;
+    padding:  8px 12px;
+
+    .left, .right {
+      display: inline-block;
+    }
+
+    .right {
+      float: right;
+    }
+  }
 }
