@@ -1,17 +1,23 @@
 .list {
-	position: absolute;
+	position: relative;
 	overflow: hidden;
 
 	.listScroller {
 		position: absolute;
 		width: 100%;
+        transition: top 0.5s ease-out;
 
 		.listItem {
-			margin: 5px;
+            transition: all 0.5s ease-out;
+			padding: 5px;
+            color: gray;
 			font: {
-				family : Arial;
 				size : 13px;
 			}
+
+            &.selected {
+              color: white;
+            }
 		}
 	}
 }

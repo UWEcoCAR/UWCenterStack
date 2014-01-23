@@ -4,6 +4,7 @@ $(window).load(function() {
 	sliderModel = new SliderModel({
 		value : .5
 	});
+
 	var sliderView = new SnapSliderView({
 		model      : sliderModel,
 		top        : 10,
@@ -16,6 +17,7 @@ $(window).load(function() {
 
 	// create list
 	var listCollection = new ListItemCollection();
+
 	var listView = new DragListView({
 		data   : listCollection,
 		slider : sliderModel,
@@ -26,20 +28,41 @@ $(window).load(function() {
 	});
 
 	// add some items to the list
-	var listItems = [];
-	for (var i = 0; i < 200; i++) {
-		listItems.push({text: 'Element ' + i});
-	}
-	listCollection.set(listItems);
+	listCollection.set([
+		{text: 'First'},
+		{text: 'Second'},
+		{text: 'Third'},
+		{text: 'Fourth'},
+		{text: 'Fifth'},
+		{text: 'Sixth'},
+		{text: 'Seventh'},
+		{text: 'Eighth'},
+		{text: 'First'},
+		{text: 'Second'},
+		{text: 'Third'},
+		{text: 'Fourth'},
+		{text: 'Fifth'},
+		{text: 'Sixth'},
+		{text: 'Seventh'},
+		{text: 'Eighth'},
+		{text: 'First'},
+		{text: 'Second'},
+		{text: 'Third'},
+		{text: 'Fourth'},
+		{text: 'Fifth'},
+		{text: 'Sixth'},
+		{text: 'Seventh'},
+		{text: 'Eighth'}
+	]);
 
 	// render and append elements
 	// TODO may have to render after appending so elements
 	// (eg listScroller) can know their height
-	$('body').append(
-		sliderView.el,
-		listView.el
-	);
 
-	sliderView.render().el;
-	listView.render().el;
+    $('#screenContent .left').append(listView.el);
+    $('#sliders .slider').eq(0).append(sliderView.el);
+
+    sliderView.render();
+    listView.render();
+
 });

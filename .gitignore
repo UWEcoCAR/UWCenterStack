@@ -12,5 +12,3 @@
 *.iml
 .elasticbeanstalk/
 *.so
-
-*.css

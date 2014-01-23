@@ -24,7 +24,12 @@ var ListView = Backbone.View.extend({
 
 	render: function() {
 		var listScroller = this.$el.find('.listScroller');
-		listScroller.css('top', - this.slider.get('value') * listScroller.height());
+        var listItems = listScroller.children();
+        var elementNumber = Math.round(this.slider.get('value') * (listItems.size() - 1));
+        listScroller.find('.selected').removeClass('selected');
+        listItems.eq(elementNumber).addClass('selected');
+        var itemHeight = listScroller.height() / listItems.size();
+		listScroller.css('top', - elementNumber * itemHeight + itemHeight);
 
 		return this;
 	},

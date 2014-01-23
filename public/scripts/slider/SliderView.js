@@ -40,6 +40,7 @@ var SliderView = Backbone.View.extend({
 
 		updateVal: function(evt) {
 			evt = evt.originalEvent; // BAD JQUERY!! GO TO YOUR ROOM
+            evt.preventDefault();
 
 			if (this.lastPosition !== undefined) {
 
