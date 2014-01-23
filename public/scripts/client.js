@@ -26,39 +26,20 @@ $(window).load(function() {
 	});
 
 	// add some items to the list
-	listCollection.set([
-		{text: 'First'},
-		{text: 'Second'},
-		{text: 'Third'},
-		{text: 'Fourth'},
-		{text: 'Fifth'},
-		{text: 'Sixth'},
-		{text: 'Seventh'},
-		{text: 'Eighth'},
-		{text: 'First'},
-		{text: 'Second'},
-		{text: 'Third'},
-		{text: 'Fourth'},
-		{text: 'Fifth'},
-		{text: 'Sixth'},
-		{text: 'Seventh'},
-		{text: 'Eighth'},
-		{text: 'First'},
-		{text: 'Second'},
-		{text: 'Third'},
-		{text: 'Fourth'},
-		{text: 'Fifth'},
-		{text: 'Sixth'},
-		{text: 'Seventh'},
-		{text: 'Eighth'}
-	]);
+	var listItems = [];
+	for (var i = 0; i < 200; i++) {
+		listItems.push({text: 'Element ' + i});
+	}
+	listCollection.set(listItems);
 
 	// render and append elements
 	// TODO may have to render after appending so elements
 	// (eg listScroller) can know their height
 	$('body').append(
-		sliderView.render().el,
-		listView.render().el
+		sliderView.el,
+		listView.el
 	);
 
+	sliderView.render().el;
+	listView.render().el;
 });

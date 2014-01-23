@@ -9,3 +9,29 @@
 
 body {
   -webkit-user-select: none; }
+.curvySlider {
+  position: absolute; }
+  .curvySlider .curvySliderHandle {
+    position: absolute;
+    background-color: black;
+    border-radius: 100%;
+    pointer-events: all; }
+
+.list {
+  position: absolute;
+  overflow: hidden; }
+  .list .listScroller {
+    position: absolute;
+    width: 100%; }
+    .list .listScroller .listItem {
+      margin: 5px;
+      font-family: Arial;
+      font-size: 13px; }
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0; }
+
+body {
+  -webkit-user-select: none; }
