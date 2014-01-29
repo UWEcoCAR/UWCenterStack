@@ -5,9 +5,10 @@
 /.settings
 *.o
 *.dylib
-/node_modules
-/.sass-cache
+**/node_modules
+**/.sass-cache
 *.log
+**/webkitbuilds
 
 *.iml
 .elasticbeanstalk/

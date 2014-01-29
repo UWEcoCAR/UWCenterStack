@@ -1,0 +1,99 @@
+.curvySlider {
+  position: relative;
+}
+.curvySlider .curvySliderHandle {
+  position: absolute;
+  background-color: black;
+  border-radius: 100%;
+  pointer-events: all;
+}
+
+body, html {
+  background-color: #222020;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  color: #d2d3d4;
+  font-family: "Helvetica Neue", Helvetica;
+  font-weight: 100;
+  font-size: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+#dashGraphic {
+  background-image: url("../images/dash.png");
+  height: 1485px;
+  width: 1920px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#screenContent {
+  width: 363px;
+  height: 286px;
+  position: absolute;
+  top: 424px;
+  left: 901px;
+}
+#screenContent .left, #screenContent .right {
+  float: left;
+  width: 50%;
+  height: 100%;
+  padding: 10%;
+}
+#screenContent .right {
+  text-align: right;
+}
+#screenContent .right .clock {
+  margin-top: 40px;
+}
+#screenContent .right .clock .time {
+  font-size: 30px;
+}
+
+#sliders {
+  width: 363px;
+  height: 160px;
+  position: absolute;
+  top: 713px;
+  left: 901px;
+}
+#sliders .slider {
+  position: relative;
+  height: 32px;
+  width: 100%;
+  padding: 8px 12px;
+}
+#sliders .slider .left, #sliders .slider .right {
+  display: inline-block;
+}
+#sliders .slider .right {
+  float: right;
+}
+
+.list {
+  position: relative;
+  overflow: hidden;
+}
+.list .listScroller {
+  position: absolute;
+  width: 100%;
+  transition: top 0.5s ease-out;
+}
+.list .listScroller .listItem {
+  transition: all 0.5s ease-out;
+  padding: 5px;
+  color: gray;
+  font-size: 13px;
+}
+.list .listScroller .listItem.selected {
+  color: white;
+}

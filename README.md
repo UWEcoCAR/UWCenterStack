@@ -1,29 +1,11 @@
-Installation Instructions:
-1. Install node.js from http://nodejs.org/
+UWCenterStack
+========
+The University of Washinton EcoCAR 2 team is competing in the EcoCAR 2 competition a 3 year project to convert a 2013 Chevy Malibu into an advanced hybrid electric vehicle. Part of this project is to completely redesign the touchscreen interface in the car. The UW EcoCAR 2 team has four goals for our center stack:
+    1. Safe - Touch screens are designed to be looked at while operated. This is unsafe for a driver. Therefore we seek to create interface that minimizes time with eyes off the road.
+    2. Appealing - Many center stack interfaces lack a certain level of pazazz. We hope to achieve an interface that people will look at and say "Wow, I want that in my car!"
+    3. Intuitive - A fancy system is useless if the driver cannot figure out how to use it. We are striving to create an interface as easy to pickup as an iPad.
+    4. Green - EcoCAR 2 is focused on creating a more efficient vehicle. We also want to create more efficient drivers. EVE will help drivers operate the vehicle as efficiently as possible.
 
-2. Install nodemon:
-sudo npm install -g nodemon
-
-3. Install sass: http://sass-lang.com/install
-
-4. Add to .bash_profile: 
-export UWCENTERSTACK_HOME=path/to/UWCenterStack
-export PATH=$PATH:/usr/local/share/npm/bin
-alias uwcs='cd $UWCENTERSTACK_HOME'
-alias uwcs-init='uwcs ; npm install ; uwcs-scss ; uwcs-compile-native-library'
-alias uwcs-run='uwcs ; npm start'
-alias uwcs-debug='uwcs ; nodemon'
-alias uwcs-scss='uwcs ; sass public/sass/main.scss >> public/css/main.css'
-alias uwcs-compile-native-library='uwcs ; gcc -c -o multiply.o multiply.c ; gcc -dynamiclib -o multiply.dylib multiply.o ; gcc -shared -o multiply.so multiply.o'
-
-5. In a new terminal window, run uwcs-init
-
-Running Webserver:
-Run uwcs-run to run the webserver
-Run uwcs-debug to run the webserver and have it detect changes to server.js
-Run uwcs-scss to compile the sass
-Run uwcs-compile-native-library to compile the c files into a library that node can use
-
-Setup in IntelliJ:
-Node.js: http://www.jetbrains.com/idea/webhelp/running-and-debugging-node-js.html
-SCSS compiling: http://www.jetbrains.com/idea/webhelp/transpiling-sass-less-and-scss-to-css.html
+This repository has several parts:
+* [Vehicle Apps](https://github.com/MixMasterMitch/UWCenterStack/tree/master/vehicleApps) is where the in car interface code is located
+* [Plant Model](https://github.com/MixMasterMitch/UWCenterStack/tree/master/plantModel) is where the simulated vehicle code is located

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UW Center Stack</title>
+
+        <!-- Global Dependencies -->
+        <script src="../scripts/external/jquery.min.js"></script>
+        <script src="../scripts/external/backbone.min.js"></script>
+        <script src="../scripts/external/underscore.min.js"></script>
+
+        <!-- Main CSS compiled from SCSS -->
+        <link rel="stylesheet" type="text/css" href="../css/main.css">
+
+        <!-- Reload page on js, css, or html file change -->
+        <script>
+            var Gaze = require('gaze');
+            new Gaze(['html/**/*.html', 'css/**/*.css', 'js/**/*.js'])
+                .on('all', function() {
+                    location && location.reload();
+                });
+        </script>
+    </head>
+    <body>
+        <div id="dashGraphic"></div>
+
+        <!-- Javascript entry point -->
+        <script src="../scripts/main.js"></script>
+    </body>
+</html>

@@ -1,8 +1,0 @@
-.curvySlider {
-  position: absolute;
-  pointer-events: none; }
-  .curvySlider .curvySliderHandle {
-    position: absolute;
-    background-color: black;
-    border-radius: 100%;
-    pointer-events: all; }
