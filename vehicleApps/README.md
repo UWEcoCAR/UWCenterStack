@@ -29,6 +29,6 @@ uwcs-init
 Running Apps
 ------------
 
-Run `uwcs-init` to install all node dependencies
-Run `uwcs-run` to open the vehicle apps in a new node-webkit window (with file watchers)
-Run `uwcs-build` to build a standalone node-webkit production app
+Run `uwcs-init` to install all node dependencies.
+Run `uwcs-run` to open the vehicle apps in a new node-webkit window (with file watchers).
+Run `uwcs-build` to build a standalone node-webkit production app.
