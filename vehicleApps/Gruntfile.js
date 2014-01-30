@@ -23,14 +23,15 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    'css/main.css': 'sass/app.scss'
+                    'css/main.css': 'sass/main.scss'
                 }
             }
         },
         jshint: {
             files: ['scripts/**/*.js'],
             options: {
-                ignores: ['scripts/external/**/*.js']
+                ignores: ['scripts/external/**/*.js'],
+                '-W030': true
             }
         },
         watch: {

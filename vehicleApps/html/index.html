@@ -3,25 +3,34 @@
     <head>
         <title>UW Center Stack</title>
 
+        <!-- Main CSS compiled from SCSS -->
+        <link rel="stylesheet" type="text/css" href="../css/main.css">
+
         <!-- Global Dependencies -->
         <script src="../scripts/external/jquery.min.js"></script>
         <script src="../scripts/external/backbone.min.js"></script>
         <script src="../scripts/external/underscore.min.js"></script>
 
-        <!-- Main CSS compiled from SCSS -->
-        <link rel="stylesheet" type="text/css" href="../css/main.css">
+        <!-- Our lovely js -->
+        <script src="../scripts/common/app/AppModel.js"></script>
+        <script src="../scripts/common/app/AppView.js"></script>
 
         <!-- Reload page on js, css, or html file change -->
         <script>
             var Gaze = require('gaze');
-            new Gaze(['html/**/*.html', 'css/**/*.css', 'js/**/*.js'])
+            new Gaze(['html/**/*.html', 'css/**/*.css', 'scripts/**/*.js'])
                 .on('all', function() {
                     location && location.reload();
                 });
         </script>
     </head>
     <body>
-        <div id="dashGraphic"></div>
+        <div id="dashGraphicWrapper">
+            <div id="dashGraphic">
+                <div id="appContainer"></div>
+            </div>
+        </div>
+
 
         <!-- Javascript entry point -->
         <script src="../scripts/main.js"></script>

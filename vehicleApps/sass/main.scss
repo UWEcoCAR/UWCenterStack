@@ -1,13 +1,5 @@
-.curvySlider {
-  position: relative;
-
-  .curvySliderHandle {
-    position: absolute;
-    background-color: black;
-    border-radius: 100%;
-    pointer-events: all;
-  }
-}
+@import 'dash';
+@import 'app';
 
 body, html {
   background-color: rgb(34, 32, 32);
@@ -28,13 +20,15 @@ body, html {
   -webkit-box-sizing:border-box
 }
 
-#dashGraphic {
-  background-image: url("../images/dash.png");
-  height: 1485px;
-  width: 1920px;
-  position: absolute;
-  top: 0;
-  left: 0;
+.curvySlider {
+  position: relative;
+
+  .curvySliderHandle {
+    position: absolute;
+    background-color: black;
+    border-radius: 100%;
+    pointer-events: all;
+  }
 }
 
 #screenContent {

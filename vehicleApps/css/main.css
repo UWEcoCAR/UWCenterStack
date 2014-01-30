@@ -1,11 +1,44 @@
-.curvySlider {
-  position: relative;
-}
-.curvySlider .curvySliderHandle {
+#dashGraphicWrapper {
+  height: 1485px;
+  width: 1920px;
   position: absolute;
-  background-color: black;
-  border-radius: 100%;
-  pointer-events: all;
+  top: 50%;
+  left: 50%;
+}
+#dashGraphicWrapper #dashGraphic {
+  background-image: url("../images/dash.png");
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: -45%;
+  left: -56%;
+}
+#dashGraphicWrapper #dashGraphic #appContainer {
+  position: absolute;
+  width: 361px;
+  height: 493px;
+  top: 28.5%;
+  left: 47%;
+}
+
+.app .homeButton {
+  position: absolute;
+  width: 180px;
+  height: 45px;
+  margin-left: -90px;
+  left: 50%;
+}
+.app .content {
+  position: absolute;
+  width: 100%;
+  height: 280px;
+  top: 5px;
+}
+.app .content {
+  position: absolute;
+  width: 100%;
+  height: 280px;
+  top: 5px;
 }
 
 body, html {
@@ -27,13 +60,14 @@ body, html {
   -webkit-box-sizing: border-box;
 }
 
-#dashGraphic {
-  background-image: url("../images/dash.png");
-  height: 1485px;
-  width: 1920px;
+.curvySlider {
+  position: relative;
+}
+.curvySlider .curvySliderHandle {
   position: absolute;
-  top: 0;
-  left: 0;
+  background-color: black;
+  border-radius: 100%;
+  pointer-events: all;
 }
 
 #screenContent {

@@ -21,5 +21,8 @@
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-shell": "~0.6.4"
+  },
+  "scripts": {
+    "preinstall": "sudo npm i -g nw-gyp"
   }
 }
