@@ -21,7 +21,7 @@
   left: 47%;
 }
 
-.app .homeButton {
+.app .header {
   position: absolute;
   width: 180px;
   height: 45px;
@@ -34,11 +34,41 @@
   height: 280px;
   top: 5px;
 }
-.app .content {
+.app .inputZone1 {
   position: absolute;
   width: 100%;
-  height: 280px;
-  top: 5px;
+  height: 69px;
+  top: 250px;
+}
+.app .inputZone2 {
+  position: absolute;
+  width: 100%;
+  height: 69px;
+  top: 282px;
+}
+.app .inputZone3 {
+  position: absolute;
+  width: 100%;
+  height: 69px;
+  top: 314px;
+}
+.app .inputZone4 {
+  position: absolute;
+  width: 100%;
+  height: 69px;
+  top: 346px;
+}
+.app .inputZone5 {
+  position: absolute;
+  width: 100%;
+  height: 69px;
+  top: 378px;
+}
+.app .footer {
+  position: absolute;
+  width: 100%;
+  height: 82px;
+  bottom: 0;
 }
 
 body, html {
