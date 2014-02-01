@@ -23,22 +23,36 @@
 
         <!-- Reload page on js, css, or html file change -->
         <script>
-            var Gaze = require('gaze');
-            new Gaze(['html/**/*.html', 'css/**/*.css', 'scripts/**/*.js'])
-                .on('all', function() {
-                    location && location.reload();
-                });
+            if (process.env.NODE_ENV == 'development') {
+                var Gaze = require('gaze');
+                new Gaze(['html/**/*.html', 'css/**/*.css', 'scripts/**/*.js'])
+                        .on('all', function() {
+                            location && location.reload();
+                        });
+            }
         </script>
     </head>
     <body>
         <div id="dashGraphicWrapper">
             <div id="dashGraphic">
-                <div id="appContainer"></div>
+                <div id="appContainer">
+                    <!-- Apps dynamically added here -->
+                </div>
             </div>
         </div>
 
 
         <!-- Javascript entry point -->
         <script src="../scripts/main.js"></script>
+
+        <!-- Open in Kiosk mode in production -->
+        <script>
+            if (process.env.NODE_ENV != 'development') {
+                var win = require('nw.gui').Window.get();
+
+                // This doesn't appear to be working on Mac
+                //win.enterKioskMode();
+            }
+        </script>
     </body>
 </html>

@@ -10,10 +10,15 @@
  */
 var SliderView = Backbone.View.extend({
 
-    lastPosition: undefined,
+    className: 'slider',
 
     events: {
-        'touchmove .curvySliderHandle': 'updateVal'
+        'touchstart .handle': 'touchStart',
+        'touchmove': 'updateVal',
+        'touchend': 'touchEnd',
+        'mousedown .handle': 'slideStart',
+        'mousemove': 'updateVal',
+        'mouseup': 'slideEnd'
     },
 
     initialize : function(options) {
@@ -23,48 +28,61 @@ var SliderView = Backbone.View.extend({
         // add listeners
         this.listenTo(this.model, 'change', this.render);
 
-        // customize dom elements
-        this.$el
-            .addClass('curvySlider')
-            .css('width', this.width + 'px')
-            .css('height', this.height + 'px')
-            .css('top', this.top + 'px')
-            .css('left', this.left + 'px')
-            .append(
-                $('<div>')
-                    .addClass('curvySliderHandle')
-                    .css('width', this.diameter)
-                    .css('height', this.diameter)
-            );
+        // add slider handle
+        this.$el.append($('<div>').addClass('handle'));
+    },
+
+    _getEventPosition: function(evt) {
+        evt = evt.originalEvent;
+        if (evt.touches) {
+            return evt.touches[0].clientX;
+        } else {
+            return evt.clientX;
+        }
     },
 
     updateVal: function(evt) {
-        evt = evt.originalEvent; // BAD JQUERY!! GO TO YOUR ROOM
+        //console.log(evt);
         evt.preventDefault();
+        var evtPosition = this._getEventPosition(evt);
 
-        if (this.lastPosition !== undefined) {
-
-            var deltaX = evt.touches[0].clientX - this.lastPosition,
-                offsetX = evt.target.offsetLeft + deltaX,
-                x = offsetX / this.width;
+        if (this.sliding) {
+            var offsetX = evtPosition - this.$el.offset().left;
+            var precentX = offsetX / this.$el.width();
 
             // normalize x
-            x = Math.max( Math.min(x , 1), 0);
+            precentX = Math.max( Math.min(precentX , 1), 0);
 
-            this.model.set({value : x});
+            this.model.set({value : precentX});
         }
-
-        this.lastPosition = evt.touches[0].clientX;
 
     },
 
-    render: function() {
-        var	value = this.model.get('value');
+    slideStart: function(evt) {
+        //console.log(evt);
+        evt.preventDefault();
+        this.sliding = true;
+    },
 
-        this.$el
-            .find('.curvySliderHandle')
-                .css('left', value * this.width)
-                .css('bottom', this.equation(value) * (this.height - this.diameter) );
+    slideEnd: function(evt) {
+        //console.log(evt);
+        this.sliding = false;
+    },
+
+    render: function() {
+        if(this.$el.width() === 0) {
+            _.defer(_.bind(this.render, this));
+        } else {
+            var	value = this.model.get('value');
+            var width = this.$el.width();
+            var height = this.$el.height();
+            var diameter = this.$el.find('.handle').width();
+            console.log(this.equation(value));
+            this.$el
+                .show()
+                .find('.handle')
+                .css('transform', 'translate3d(' + (value * width - diameter / 2) + 'px, ' + -(this.equation(value) * (height - diameter)) + 'px, 0)');
+        }
 
         return this;
     }

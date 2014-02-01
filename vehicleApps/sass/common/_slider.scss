@@ -1,0 +1,15 @@
+.slider {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  .handle {
+    position: absolute;
+    background-color: black;
+    border-radius: 100%;
+    pointer-events: all;
+    bottom: 0;
+    width: 20px;
+    height: 20px;
+  }
+}
