@@ -1,0 +1,28 @@
+{
+  "name": "UWCenterStack",
+  "description": "The University of Washington EcoCAR 2 team Center Stack applications",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MixMasterMitch/UWCenterStack"
+  },
+  "main": "html/index.html",
+  "dependencies": {
+    "ffi": "1.2.*",
+    "ref": "0.1.*",
+    "express": "3.0.*",
+    "underscore": "1.4.*",
+    "gaze": "~0.4.3"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-node-webkit-builder": "~0.1.15",
+    "grunt-contrib-sass": "~0.7.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-shell": "~0.6.4"
+  },
+  "scripts": {
+    "preinstall": "sudo npm i -g nw-gyp && sudo npm i -g grunt-cli && sudo npm i -g grunt"
+  }
+}
