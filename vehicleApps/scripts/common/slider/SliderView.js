@@ -77,7 +77,6 @@ var SliderView = Backbone.View.extend({
             var width = this.$el.width();
             var height = this.$el.height();
             var diameter = this.$el.find('.handle').width();
-            console.log(this.equation(value));
             this.$el
                 .show()
                 .find('.handle')
