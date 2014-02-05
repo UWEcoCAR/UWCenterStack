@@ -22,8 +22,6 @@
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-shell": "~0.6.4"
   },
-  "scripts": {
-    "preinstall": "sudo npm i -g nw-gyp && sudo npm i -g grunt-cli && sudo npm i -g grunt"
   "window": {
     "show": false
   }

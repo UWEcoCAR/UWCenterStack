@@ -17,8 +17,9 @@ export UWCENTERSTACK_HOME=path/to/UWCenterStack <-- REPLACE WITH CORRECT PATH!!!
 export PATH=$PATH:/usr/local/share/npm/bin
 alias uwcs='cd $UWCENTERSTACK_HOME'
 alias uwcs-vehicleApps='cd $UWCENTERSTACK_HOME/vehicleApps'
-alias uwcs-init='uwcs-vehicleApps ; npm install'
+alias uwcs-init='uwcs-vehicleApps ; sudo npm i -g nw-gyp && npm i -g grunt-cli && npm i -g grunt && npm install'
 alias uwcs-run='uwcs-vehicleApps ; export NODE_ENV=development ; grunt'
+alias uwcs-run-can='uwcs-vehicleApps ; export NODE_ENV=development ; node scripts/can/canTest.js'
 alias uwcs-build='uwcs-vehicleApps ; grunt build'
 ```
 5. In a new terminal window, run:
