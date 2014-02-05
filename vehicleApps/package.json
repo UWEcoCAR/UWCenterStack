@@ -24,5 +24,7 @@
   },
   "scripts": {
     "preinstall": "sudo npm i -g nw-gyp && sudo npm i -g grunt-cli && sudo npm i -g grunt"
+  "window": {
+    "show": false
   }
 }

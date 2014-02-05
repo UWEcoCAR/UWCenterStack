@@ -45,6 +45,18 @@
         <!-- Javascript entry point -->
         <script src="../scripts/main.js"></script>
 
+        <!-- Don't show the UI until it is completely loaded first-->
+        <script>
+            var gui = require('nw.gui');
+
+            window.onload = function() {
+//                gui.Window.get().showDevTools();
+//                gui.Window.get().maximize();
+//                gui.Window.get().moveTo(0, 0);
+                gui.Window.get().show();
+            }
+        </script>
+
         <!-- Open in Kiosk mode in production -->
         <script>
             if (process.env.NODE_ENV != 'development') {
