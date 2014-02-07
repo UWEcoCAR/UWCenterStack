@@ -12,11 +12,12 @@ Setup
 2. Install sass: http://sass-lang.com/install
 3. Download node-webkit: https://github.com/rogerwang/node-webkit and place the node-webkit binary. For mac move the node-webkit applicaiton into your Applications folder. On Linux, create a nw directory in UWCenterStack and extract the contents of the downloaded package to this new folder.
 4. Add to `~/.bash_profile`:
+
 ```
 export UWCENTERSTACK_HOME=path/to/UWCenterStack <-- REPLACE WITH CORRECT PATH!!!
 source $UWCENTERSTACK_HOME/shellCommands.sh
-
 ```
+
 5. In a new terminal window, run:
 ```
 uwcs-init-mac
@@ -27,12 +28,26 @@ uwcs-init-linux
 ```
 
 
-Running Apps
-------------
+Shell Commands
+--------------
 
-Run `uwcs-init` to install all node dependencies.
-Run `uwcs-run` to open the vehicle apps in a new node-webkit window (with file watchers).
-Run `uwcs-build` to build a standalone node-webkit production app.
+After the setup, you should be able to run the following commands:
+
+`uwcs` - Changes the current directory to the UWCenterStack repo directory
+
+`uwcs-vehicleApps` - Changes the current directory to the vehiclesApps directory
+
+`uwcs-global-modules` - Installs any npm modules that we want to be globally accessable
+
+`uwcs-init-mac` - Prepares the repo for running on Mac 
+
+`uwcs-init-linux` - Prepares the repo for running on Linux (Ubuntu 13.10)
+
+`uwcs-run` - Runs the node-webkit vehicle apps in development mode with file watchers
+
+`uwcs-run-can` - Runs the canTest app in development mode
+
+`uwcs-build` - Builds the executable node-webkit vehicle apps
 
 Developer Notes
 ---------------
