@@ -10,22 +10,22 @@ Setup
 
 1. Install node.js from http://nodejs.org/ or if you have brew: brew install node
 2. Install sass: http://sass-lang.com/install
-3. Download node-webkit: https://github.com/rogerwang/node-webkit and place the node-webkit application in your Applications folder.
+3. Download node-webkit: https://github.com/rogerwang/node-webkit and place the node-webkit binary. For mac move the node-webkit applicaiton into your Applications folder. On Linux, create a nw directory in UWCenterStack and extract the contents of the downloaded package to this new folder.
 4. Add to `~/.bash_profile`:
 ```
 export UWCENTERSTACK_HOME=path/to/UWCenterStack <-- REPLACE WITH CORRECT PATH!!!
-export PATH=$PATH:/usr/local/share/npm/bin
-alias uwcs='cd $UWCENTERSTACK_HOME'
-alias uwcs-vehicleApps='cd $UWCENTERSTACK_HOME/vehicleApps'
-alias uwcs-init='uwcs-vehicleApps ; sudo npm i -g nw-gyp && npm i -g grunt-cli && npm i -g grunt && npm install'
-alias uwcs-run='uwcs-vehicleApps ; export NODE_ENV=development ; grunt'
-alias uwcs-run-can='uwcs-vehicleApps ; export NODE_ENV=development ; node scripts/can/canTest.js'
-alias uwcs-build='uwcs-vehicleApps ; grunt build'
+source $UWCENTERSTACK_HOME/shellCommands.sh
+
 ```
 5. In a new terminal window, run:
 ```
-uwcs-init
+uwcs-init-mac
 ```
+or
+```
+uwcs-init-linux
+```
+
 
 Running Apps
 ------------
