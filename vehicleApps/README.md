@@ -15,6 +15,7 @@ Setup
 
 ```
 export UWCENTERSTACK_HOME=path/to/UWCenterStack <-- REPLACE WITH CORRECT PATH!!!
+export CANLIB_HOME=path/to/canlib <-- LINUX ONLY!!! REPLACE WITH CORRECT PATH!!!
 source $UWCENTERSTACK_HOME/shellCommands.sh
 ```
 
@@ -37,6 +38,10 @@ After the setup, you should be able to run the following commands:
 
 `uwcs-vehicleApps` - Changes the current directory to the vehiclesApps directory
 
+`uwcs-nw` - Changes the current directory to the nw directory
+
+`uwcs-can` - Changes the current directory to the vehiclesApps/scripts/nw directory
+
 `uwcs-global-modules` - Installs any npm modules that we want to be globally accessable
 
 `uwcs-init-mac` - Prepares the repo for running on Mac 
@@ -48,6 +53,8 @@ After the setup, you should be able to run the following commands:
 `uwcs-run-can` - Runs the canTest app in development mode
 
 `uwcs-build` - Builds the executable node-webkit vehicle apps
+
+`uwcs-canInterface` - Compiles the canInterface.c and copies the .so file to can directory
 
 Developer Notes
 ---------------
