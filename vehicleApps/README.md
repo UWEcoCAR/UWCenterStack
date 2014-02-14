@@ -11,14 +11,12 @@ Setup
 1. Install node.js from http://nodejs.org/ or if you have brew: brew install node
 2. Install sass: http://sass-lang.com/install
 3. Download node-webkit: https://github.com/rogerwang/node-webkit and place the node-webkit binary. For mac move the node-webkit applicaiton into your Applications folder. On Linux, create a nw directory in UWCenterStack and extract the contents of the downloaded package to this new folder.
-4. Add to `~/.bash_profile`:
-
+4. Add to `~/.bash_profile` (Mac) or `~/.bashrc` (Linux):
 ```
 export UWCENTERSTACK_HOME=path/to/UWCenterStack <-- REPLACE WITH CORRECT PATH!!!
 export CANLIB_HOME=path/to/canlib <-- LINUX ONLY!!! REPLACE WITH CORRECT PATH!!!
 source $UWCENTERSTACK_HOME/shellCommands.sh
 ```
-
 5. In a new terminal window, run:
 ```
 uwcs-init-mac
