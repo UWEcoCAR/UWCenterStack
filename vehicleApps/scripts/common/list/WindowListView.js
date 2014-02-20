@@ -15,7 +15,8 @@ var WindowListView = Backbone.View.extend({
 		// add listeners
 		this.listenTo(this.data, 'add', this.addOne);
 		this.listenTo(this.data, 'all', this.render);
-		this.listenTo(this.slider, 'change', this.render);
+		this.listenTo(this.slider, 'change:value', this.render);
+        this.listenTo(this.slider, 'change:selection', this.selectCurrent);
 
 		// customize dom
 		this.$el
@@ -24,6 +25,28 @@ var WindowListView = Backbone.View.extend({
 				$('<div>').addClass('listScroller')
 			);
 	},
+
+    selectCurrent: function() {
+        console.log("selection fired");
+        var listScroller = this.$el.find('.listScroller');
+        var selected = listScroller.find('.selected');
+        console.log("selected", selected[0].innerText);
+        //How do we want to update the app given this?
+        //the ListModel should have a selected field,
+        //  - and when that changes then another element can update
+        var sliderVal = this.slider.get('value');
+        var elementNumber = Math.round(sliderVal * (this.windowSize - 1)) + this.lowerBound;
+        console.log(this.slider);
+        //this.$el.hide();
+        this.slider._events.reset[0].callback(this.slider._events.reset[0].context);
+        this.data.models[elementNumber].set({selected: true});
+        this.data = this.nextData;
+        console.log("this data", this.data.models);
+        console.log("next data", this.nextData.models);
+        this.data.set(this.nextData.models);
+        this.render();
+//        console.log(this.nextListView());
+    },
 
 	render: function() {
         var me = this;

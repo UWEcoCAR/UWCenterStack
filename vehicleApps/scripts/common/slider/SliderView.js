@@ -24,12 +24,21 @@ var SliderView = Backbone.View.extend({
     initialize : function(options) {
         // add options as properties
         _.defaults(this, options);
-
-        // add listeners
+        this.hidden = false;
+        // add listeners    
         this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'reset', this.reset);
 
         // add slider handle
         this.$el.append($('<div>').addClass('handle'));
+    },
+
+    reset: function(me) {
+
+        console.log("reset fired", me.$el);
+
+        me.$el.hide();
+        me.hidden = true;
     },
 
     _getEventPosition: function(evt) {
@@ -66,23 +75,38 @@ var SliderView = Backbone.View.extend({
 
     slideEnd: function(evt) {
         //console.log(evt);
+        evt.preventDefault();
         this.sliding = false;
+        this.selection(evt);
+    },
+
+    selection: function(evt) {
+        var val = this.model.get('selection');
+        console.log('touch ended ', val);
+        // fire selection for the list to see
+        this.model.set({selection : (val + 1)});
     },
 
     render: function() {
-        if(this.$el.width() === 0) {
-            _.defer(_.bind(this.render, this));
-        } else {
-            var	value = this.model.get('value');
-            var width = this.$el.width();
-            var height = this.$el.height();
-            var diameter = this.$el.find('.handle').width();
-            console.log(this.equation(value));
-            this.$el
-                .show()
-                .find('.handle')
-                .css('transform', 'translate3d(' + (value * width - diameter / 2) + 'px, ' + -(this.equation(value) * (height - diameter)) + 'px, 0)');
+        if (!this.hidden) {
+            console.log("render");
+            if(this.$el.width() === 0) {
+                _.defer(_.bind(this.render, this));
+            } else {
+                var value = this.model.get('value');
+                var width = this.$el.width();
+                var height = this.$el.height();
+                var diameter = this.$el.find('.handle').width();
+                console.log("val", value);
+                console.log(this.equation(value));
+                value = Math.min(0.999, value);
+                this.$el
+                    .show()
+                    .find('.handle')
+                    .css('transform', 'translate3d(' + (value * width - diameter / 2) + 'px, ' + -(this.equation(value) * (height - diameter)) + 'px, 0)');
+            }  
         }
+
 
         return this;
     }

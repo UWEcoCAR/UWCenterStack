@@ -21,20 +21,24 @@ var sliderView = new SliderView({
     equation: function(x) {return Math.pow(Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + 0.5, 1.5);}
 });
 
-//var sliderView2 = new SliderView({
-//    model: sliderModel,
-//    equation: function(x) {return Math.pow(Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + 0.5, 1.5);}
-//});
 
-// create list
-var listCollection = new ListItemCollection();
-var listView = new WindowListView({
-    data: listCollection,
-    slider: sliderModel
+secondSliderModel = new SliderModel({
+    value : 0
 });
 
-// add some items to the list
-listCollection.set([
+var secondSliderView = new SliderView({
+    model: secondSliderModel,
+    equation: function(x) {return Math.pow(Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + 0.5, 1.5);}
+});
+
+var secondListCollection = new ListItemCollection();
+var secondListView = new WindowListView({
+    data: secondListCollection,
+    slider: secondSliderModel
+});
+
+secondListCollection.set([
+
     {text: "42"},
     {text: "A Hopeful Transmission"},
     {text: "A Message"},
@@ -145,7 +149,95 @@ listCollection.set([
     {text: "Yes"}
 ]);
 
-var homeModel = new AppModel({open: true, content: listView, inputZone1: sliderView});
+//var sliderView2 = new SliderView({
+//    model: sliderModel,
+//    equation: function(x) {return Math.pow(Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + 0.5, 1.5);}
+//});
+
+// create list
+var listCollection = new ListItemCollection();
+var listView = new WindowListView({
+    data: listCollection,
+    slider: sliderModel,
+    nextData: secondListCollection
+});
+
+
+// add some items to the list
+listCollection.set([
+    {text: "Avenged Sevenfold"},
+    {text: "Avicii"},
+    {text: "The Black Eyed Peas"},
+    {text: "Blackalicious"},
+    {text: "Bon Jovi"},
+    {text: "Boston"},
+    {text: "Bryan Adams"},
+    {text: "Cidinho & Doca"},
+    {text: "The Clash"},
+    {text: "Coldplay"},
+    {text: "Daft Punk"},
+    {text: "Dire Straits"},
+    {text: "Disturbed"},
+    {text: "Dobie Gray"},
+    {text: "Dr. Dre"},
+    {text: "Earth, Wind & Fire"},
+    {text: "Elton John"},
+    {text: "Eminem"},
+    {text: "Europe"},
+    {text: "Fat Joe"},
+    {text: "Fat Joe featuring Lil' Wayne"},
+    {text: "Finger Eleven"},
+    {text: "Flobots"},
+    {text: "The Fray"},
+    {text: "Freestylers"},
+    {text: "Game"},
+    {text: "Gary Hoey"},
+    {text: "George Thorogood & The Destroyers"},
+    {text: "Gorillaz"},
+    {text: "Gotye"},
+    {text: "Grits"},
+    {text: "The Hit Crew"},
+    {text: "Incubus"},
+    {text: "JAY Z"},
+    {text: "Johnny Cash, June Carter & Merle Kilgore"},
+    {text: "Journey"},
+    {text: "Kenny Wayne Shepherd"},
+    {text: "Lenny Kravitz"},
+    {text: "Macklemore & Ryan Lewis"},
+    {text: "Maino"},
+    {text: "Marilyn Manson"},
+    {text: "Nelly"},
+    {text: "Noiseshaper"},
+    {text: "Otis Taylor"},
+    {text: "Parov Stellar"},
+    {text: "Passenger"},
+    {text: "Rage Against the Machine"},
+    {text: "Red Hot Chili Peppers"},
+    {text: "Rise Against"},
+    {text: "RJD2"},
+    {text: "Royal Crown Revue"},
+    {text: "Seasons After"},
+    {text: "Shinedown"},
+    {text: "Sister Hazel"},
+    {text: "Stephen Colbert"},
+    {text: "Stone Sour"},
+    {text: "Streetlight Manifesto"},
+    {text: "Taylor Swift"}
+]);
+
+var listCollectionRight = new ListItemCollection();
+var listViewRight = new TopDownListView({
+    leftList: listCollection,
+    data: listCollectionRight
+});
+
+
+listCollectionRight.set([
+    {text: "Song"},
+    {text: "Artist"}
+]);
+
+var homeModel = new AppModel({open: true, contentLeft: listView, hiddenContentLeft: secondListView, contentRight: listViewRight,  inputZone1: sliderView, inputZone4: secondSliderView});
 var homeApp = new AppView({model: homeModel, id: '#home'});
 
 $('#appContainer').append(homeApp.render().el);
