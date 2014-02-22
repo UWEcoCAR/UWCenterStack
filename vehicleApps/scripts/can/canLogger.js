@@ -6,7 +6,7 @@ var FileWatcher = require('../utils/FileWatcher.js');
 var CAN_LOGS_DRIVE = '/media/uw-center-stack/CAN LOGS';
 
 var start;
-var timer = new NanoTimer()
+var timer = new NanoTimer();
 
 // Watch for the can logs drive to be added
 new FileWatcher(CAN_LOGS_DRIVE)
