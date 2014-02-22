@@ -55,6 +55,8 @@
 		var token = null,
 			queue = [];
 
+		var self = this;
+
 		/**
 		 * Going back is not allowed for radio
 		 */
@@ -107,7 +109,7 @@
 					success : function(data) {
 						getTracks(token, function(data) {
 							queue = data;
-							callback();
+							callback(self);
 						});				
 					}
 				});

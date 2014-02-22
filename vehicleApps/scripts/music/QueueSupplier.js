@@ -21,5 +21,7 @@
 		this.previous = function() {
 			return getItem(--index) || null;
 		};
+
+		callback(this);
 	};
 })();
