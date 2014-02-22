@@ -1,7 +1,7 @@
 (function() {
 	var id3 = require('id3js');
 
-	var tree = window.MusicTree = window.MusicTree || function(directory, onReady) {
+	var tree = window.MusicTree = function(directory, onReady) {
 		this._directory = directory;
 		this.tree = {};
 
@@ -9,15 +9,13 @@
 	};
 
 	tree.prototype._init = function(callback) {
-		var directory = this._directory,
-			treeObject = this.tree;
-
-		FileFinder.find(directory, 'mp3', function(err, results) {
+		var self = this;
+		FileFinder.find(this._directory, 'mp3', function(err, results) {
 			if (err) callback(err);
 
-			tree.prototype._getSongData(results, function(err, results) {
+			self._getSongData(results, function(err, results) {
 				if (err) callback(err);
-				tree.prototype._buildTree(results, treeObject, callback);
+				self._buildTree(results, callback);
 			});
 		});
 	};
@@ -42,7 +40,8 @@
 		});
 	};
 
-	tree.prototype._buildTree = function(songObjects, treeObject, callback) {
+	tree.prototype._buildTree = function(songObjects, callback) {
+		var treeObject = this.tree;
 		songObjects.forEach(function(value, index) {
 			var artist = value.data.artist || 'unknown',
 				album = value.data.album || 'unknown',
