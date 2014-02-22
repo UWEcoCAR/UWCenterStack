@@ -14,7 +14,9 @@
     "underscore": "1.4.*",
     "gaze": "~0.4.3",
     "ref-array": "0.0.3",
-    "ref-struct": "0.0.5"
+    "ref-struct": "0.0.5",
+    "moment": "~2.5.1",
+    "backbone": "~1.1.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
