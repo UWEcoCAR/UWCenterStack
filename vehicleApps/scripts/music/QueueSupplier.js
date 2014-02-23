@@ -1,27 +1,25 @@
 (function() {
-	window.QueueSupplier = function(array, doLoop, callback) {
-		var queue = array,
-			index = -1,
-			loop = doLoop;
+	var supplier = window.QueueSupplier = function(callback, array, doLoop) {
+		this.queue = array || [],
+		this._index = -1,
+		this.loop = doLoop === undefined ? false : doLoop;
 
-		function getItem(i) {
-			return loop ? queue[i % queue.length] : queue[i];
-		}
+		callback();
+	};
 
-		this.queue = queue;
+	supplier.prototype._getItem = function(i) {
+		return this.loop ? this.queue[i % this.queue.length] : this.queue[i];
+	};
 
-		this.next = function() {
-			return getItem(++index) || null;
-		};
+	supplier.prototype.next = function() {
+		return this._getItem(++this._index) || null;
+	};
 
-		this.isDone = function() {
-			return !getItem(index + 1);
-		};
+	supplier.prototype.isDone = function() {
+		return !this._getItem(this._index + 1);
+	};
 
-		this.previous = function() {
-			return getItem(--index) || null;
-		};
-
-		callback(this);
+	supplier.prototype.previous = function() {
+		return this._getItem(--this._index) || null;
 	};
 })();
