@@ -7,7 +7,9 @@ How to Use
 ----------
 
 ```javascript
-	new LastFmSupplier('username', 'password', function(supplier) {
+	var supplier = new LastFmSupplier('username', 'password', function(error) {
+		if (error) throw error;
+
 		Music.setSupplier(supplier);
 		Music.start();
 	});
@@ -48,7 +50,7 @@ This function takes in a supplier object, overwriting the current one if it exis
 
 #### Music.start()
 
-Starts the playing the music object. Will throw an error if a supplier has not been set or the Music object was previously started and wasn't stopped.
+Starts playing the music object. Will throw an error if a supplier has not been set or the Music object was previously started and wasn't stopped.
 
 #### Music.stop()
 

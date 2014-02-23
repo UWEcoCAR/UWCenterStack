@@ -12,9 +12,9 @@
 	 *		keep track of that and refresh playlist when needed
 	 */
 	var supplier = window.LastFmSupplier = function(callback, username, password) {
-		this.token = null,
-		this.queue = [],
-		this._username = username || process.env.LAST_FM_USERNAME,
+		this.token = null;
+		this.queue = [];
+		this._username = username || process.env.LAST_FM_USERNAME;
 		this._password = password || process.env.LAST_FM_PASSWORD;
 
 		this._init(callback);
@@ -52,9 +52,9 @@
 						station : 'lastfm://user/' + self._username + '/recommended'
 					}),
 					success : function(data) {
-						self._getTracks(function(data) {
+						self._getTracks(function(error, data) {
 							self.queue = data;
-							callback();
+							callback(error, data);
 						});				
 					},
 					error : function(xhr, error) {
@@ -120,7 +120,7 @@
 					});
 				}
 
-				callback();
+				callback(null, jsonData);
 			},
 			error : function(xhr, error) {
 				callback(error);
@@ -144,7 +144,7 @@
 
 		var next = self.queue.shift();
 		if (self.queue.length === 0) {
-			self._getTracks(function(data) {
+			self._getTracks(function(error, data) {
 				self.queue = data;
 			});
 		}
