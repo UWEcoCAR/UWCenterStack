@@ -56,8 +56,14 @@
 							self.queue = data;
 							callback();
 						});				
+					},
+					error : function(xhr, error) {
+						callback(error);
 					}
 				});
+			},
+			error : function(xhr, error) {
+				callback(error);
 			}
 		});
 	};
@@ -114,7 +120,10 @@
 					});
 				}
 
-				callback(jsonData);
+				callback();
+			},
+			error : function(xhr, error) {
+				callback(error);
 			}
 		});
 	};
