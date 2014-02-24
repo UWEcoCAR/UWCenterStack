@@ -7,7 +7,7 @@ How to Use
 ----------
 
 ```javascript
-	var supplier = new LastFmSupplier('username', 'password', function(error) {
+	var supplier = new LastFmSupplier(function(error) {
 		if (error) throw error;
 
 		Music.setSupplier(supplier);
@@ -19,7 +19,7 @@ How to Use
 Suppliers
 ---------
 
-In order to play a list of songs with the Music object you must create a Supplier object. Supplier objects need to implement at least these three functions.
+In order to play a list of songs with the Music object you must create a Supplier object. Supplier objects need to implement at least these two functions.
 
 #### next()
 
@@ -28,10 +28,6 @@ Returns the next song or null.
 #### previous()
 
 Returns the last song or null.
-
-#### isDone()
-
-Returns true if there is nothing left to play. False otherwise.
 
 Supplier objects can be initialized in any way as long as the last argument is a callback and are allowed to have any other functions or fields.
 

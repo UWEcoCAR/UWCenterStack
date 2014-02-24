@@ -12,7 +12,7 @@
 
 
     /**
-     * Takes in a song object or source string a plays it
+     * Takes in a song object or source string and plays it
      * Attempts to play the next song after the song ends
      */
     Music.prototype._play = function(song) {

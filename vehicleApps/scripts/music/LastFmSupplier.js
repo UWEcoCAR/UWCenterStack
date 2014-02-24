@@ -42,7 +42,7 @@
             success : function(data) {
                 self.token = data.querySelector('key').textContent;
 
-                // prepare radio shit
+                // prepare radio
                 $.ajax({
                     url : 'http://ws.audioscrobbler.com/2.0/',
                     method : 'POST',
