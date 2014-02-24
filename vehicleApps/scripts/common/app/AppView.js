@@ -1,6 +1,6 @@
 var AppView = Backbone.View.extend({
 
-    sectionNames : ['header', 'content', 'inputZone1', 'inputZone2', 'inputZone3', 'inputZone4', 'inputZone5', 'footer'],
+    sectionNames : ['header', 'contentLeft', 'hiddenContentLeft', 'contentRight', 'inputZone1', 'inputZone2', 'inputZone3', 'inputZone4', 'inputZone5', 'footer'],
 
     className : 'app',
 	
