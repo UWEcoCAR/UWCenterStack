@@ -1,3 +1,6 @@
+// creates the FileFinder service, which is a singleton
+// that can recursively search folders for a given filetype
+// modified from http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search
 (function() {
 	var fs = require('fs');
 	var finder = window.FileFinder = {};

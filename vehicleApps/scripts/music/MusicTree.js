@@ -1,6 +1,7 @@
 (function() {
 	var id3 = require('id3js');
 
+	// constructor 
 	var tree = window.MusicTree = function(directory, onReady) {
 		this._directory = directory;
 		this.tree = {};
@@ -8,6 +9,7 @@
 		this._init(onReady);
 	};
 
+	// called to initialize the build process
 	tree.prototype._init = function(callback) {
 		var self = this;
 		FileFinder.find(this._directory, 'mp3', function(err, results) {
@@ -25,6 +27,7 @@
 		});
 	};
 
+	// given an array of filepaths, gets id3 data from each one
 	tree.prototype._getSongData = function(songs, callback) {
 		doneFn = _.after(songs.length, callback);
 		songs.forEach(function(song, index) {
@@ -45,6 +48,7 @@
 		});
 	};
 
+	// builds the artist-album-song tree
 	tree.prototype._buildTree = function(songObjects) {
 		var treeObject = this.tree;
 
