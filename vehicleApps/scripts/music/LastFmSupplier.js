@@ -1,6 +1,7 @@
 (function() {
 	var key = process.env.LAST_FM_KEY,
-		secret = process.env.LAST_FM_SECRET;
+		secret = process.env.LAST_FM_SECRET,
+		crypto = require('crypto');
 	
 	/**
 	 * SupplierClass
@@ -84,7 +85,7 @@
 				return prev + curr + params[curr];
 			}, '') + secret;
 
-		params.api_sig = require('crypto').createHash('md5', 'utf8').update(unhashed).digest('hex');
+		params.api_sig = crypto.createHash('md5', 'utf8').update(unhashed).digest('hex');
 		return params;	
 	};
 
