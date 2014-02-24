@@ -70,7 +70,7 @@ Stops the current song and attempts to play the next song. Will throw an error i
 
 #### Music.previous()
 
-If the current song has been playing for over 3 seconds it starts the song over. Otherwise attempts to play the last long. Throws an error if the supplier is not set. If there is not song to play it will play nothing.
+If the current song has been playing for over 3 seconds it starts the song over. Otherwise attempts to play the last long. Throws an error if the supplier is not set. If there is not a song to play it will play nothing.
 
 #### Music.seek(seconds)
 
