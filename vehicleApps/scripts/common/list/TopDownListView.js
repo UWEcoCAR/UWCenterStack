@@ -1,4 +1,4 @@
-var TopDownListView = Backbone.View.extend({
+CenterStack.TopDownListView = Marionette.CollectionView.extend({
 
     initialize: function(options) {
         // add options as properties
@@ -24,7 +24,7 @@ var TopDownListView = Backbone.View.extend({
     //Add items at the beginning of the list
     addOne: function(listItem) {
         // create new view and force it to render, then add it to dom
-        var view = new ListItemView({model: listItem}).render();
+        var view = new CenterStack.ListItemView({model: listItem}).render();
         view.$el.addClass('selected');
         this.$el.find('.listScroller').prepend(view.$el);
     },

@@ -1,4 +1,48 @@
 .app {
+  .content {
+    width: 100%;
+    height: 250px;
+    position: absolute;
+
+    .contentLeft, .contentRight {
+      float: left;
+      height: 200px;
+    }
+
+    .contentLeft {
+      width: 60%;
+
+    }
+
+    .contentRight {
+      width: 40%;
+    }
+  }
+
+  .sliderPicker {
+    z-index: 500;
+    width: 100%;
+    height: 200px;
+    left: 0px;
+    top: 250px;
+    position: absolute;
+
+    @for $i from 1 through 5 {
+      #{'.inputZone' + $i} {
+        position: relative;
+        z-index: 400;
+        width: 100%;
+        height: 69px;
+        top: #{- (($i - 1) * 32) }px;
+        padding: 5px 17px;
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+  }
+
   .header {
     position: absolute;
     width: 180px;
@@ -7,38 +51,8 @@
     left: 50%
   }
 
-  .contentLeft, .contentRight {
-    width: 60%;
-    height: 280px;
-    top: 5px;
-    float: left;
-    z-index: 400;
-  }
-
-  .contentRight {
-    width: 40%;
-  }
 
 
-  .hiddenContentLeft {
-    z-index: 300;
-    width: 60%;
-    height: 280px;
-    top: 5px;
-    float: left;
-    display: none;
-  }
-
-
-  @for $i from 1 through 5 {
-    #{'.inputZone' + $i} {
-      position: absolute;
-      width: 100%;
-      height: 69px;
-      top: #{250 + ($i - 1) * 32}px;
-      padding: 5px 17px;
-    }
-  }
 
   .footer {
     position: absolute;

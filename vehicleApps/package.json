@@ -12,7 +12,8 @@
     "ref": "0.1.*",
     "express": "3.0.*",
     "underscore": "1.4.*",
-    "gaze": "~0.4.3"
+    "gaze": "~0.4.3",
+    "backbone.marionette": "1.6.2"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
