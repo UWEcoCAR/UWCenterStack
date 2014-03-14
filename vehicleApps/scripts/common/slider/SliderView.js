@@ -87,6 +87,7 @@ var SliderView = Marionette.CollectionView.extend({
         console.log('touch ended ', val);
         // fire selection for the list to see
         this.model.set({selection : (val + 1)});
+        this.close();
     },
 
     render: function() {

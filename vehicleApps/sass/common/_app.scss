@@ -2,19 +2,18 @@
   .content {
     width: 100%;
     height: 250px;
-    position: absolute;
 
-    .contentLeft, .contentRight {
+    #contentLeft, #contentRight {
       float: left;
       height: 200px;
     }
 
-    .contentLeft {
+    #contentLeft {
       width: 60%;
-
     }
 
-    .contentRight {
+    #contentRight {
+      margin-top: 50px;
       width: 40%;
     }
   }

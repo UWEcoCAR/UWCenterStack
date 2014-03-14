@@ -27,6 +27,8 @@ CenterStack.SliderPicker = Marionette.CollectionView.extend({
         console.log(this);
         //this.$el.hide();
         this.close();
+        this.$el.hide();
+
     },
 
     onRender: function() {

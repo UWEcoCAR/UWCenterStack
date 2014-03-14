@@ -102,6 +102,32 @@ CenterStack.RouteMapping = Backbone.Marionette.AppRouter.extend({
             {text: "Taylor Swift"}
         ]);
 
+///////////
+        var sliderModel2 = new SliderModel({
+            value : 0
+        });
+
+        var sliderView2 = new SliderView({
+            model: sliderModel2,
+            equation: function(x) {return Math.pow(Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + 0.5, 1.5);}
+        });
+
+
+        var listCollection2 = new ListItemCollection();
+        var listView2 = new CenterStack.WindowListView({
+            data: listCollection2,
+            slider: sliderModel2 
+        });
+
+        listCollection2.set([
+            {text: "Album 1"},
+            {text: "Album 2"},
+            {text: "Album 3"},
+            {text: "Album 4"}
+        ]);
+
+////////
+
         var me = this;
 
         // var whichSlider = new CenterStack.SliderPicker({
@@ -120,6 +146,9 @@ CenterStack.RouteMapping = Backbone.Marionette.AppRouter.extend({
             lists: [{
                 listView: me.listView,
                 slider: me.sliderView
+            }, {
+                listView: listView2,
+                slider: sliderView2
             }]
         });//contentLeft: this.listView,  sliderPicker: whichSlider, inputZone1: this.sliderView});
         this.homeApp = new CenterStack.AppView({
@@ -130,6 +159,11 @@ CenterStack.RouteMapping = Backbone.Marionette.AppRouter.extend({
     },
 
     album: function(args) {
+        var artist = args.split("=")[1];
+
+        $('#contentRight').prepend('<br />' + artist);
+
+        /*
         console.log("creating Album", args);
         this.clearApp();
         // create slider
@@ -190,6 +224,7 @@ CenterStack.RouteMapping = Backbone.Marionette.AppRouter.extend({
         this.homeApp = new AppView({model: homeModel, id: '#home'});
 
         $('#appContainer').append(this.homeApp.render().el);
+        */
     },
 
     clearApp: function() {
