@@ -7,7 +7,7 @@ module.exports = function(grunt) {
     grunt.initConfig({
         nodewebkit: {
             options: {
-                build_dir: '../webkitbuilds',
+                build_dir: 'webkitbuilds',
 
                 // Select opperating
                 mac: isPlatform('darwin'),
@@ -49,7 +49,7 @@ module.exports = function(grunt) {
         },
         shell: {
             nodeWebkitDev: {
-                command: 'open -n -a node-webkit "" ||LD_LIBRARY_PATH=../nw:$LD_LIBRARY_PATH ../nw/nw ./'
+                command: 'open -n -a node-webkit "" || LD_LIBRARY_PATH=nw:$LD_LIBRARY_PATH nw/nw ./'
             }
         }
     });

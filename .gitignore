@@ -5,8 +5,8 @@
 /.settings
 *.o
 *.dylib
-**/node_modules
-**/.sass-cache
+node_modules/
+.sass-cache/
 *.log
 /webkitbuilds
 
@@ -18,7 +18,7 @@
 
 *~
 
-vehicleApps/css/main.css
+/css/main.css
 /nw/
 
 *.mp3
