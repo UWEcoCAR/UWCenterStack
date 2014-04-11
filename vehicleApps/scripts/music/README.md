@@ -7,7 +7,9 @@ How to Use
 ----------
 
 ```javascript
-	new LastFmSupplier('username', 'password', function(supplier) {
+	var supplier = new LastFmSupplier(function(error) {
+		if (error) throw error;
+
 		Music.setSupplier(supplier);
 		Music.start();
 	});
@@ -17,7 +19,7 @@ How to Use
 Suppliers
 ---------
 
-In order to play a list of songs with the Music object you must create a Supplier object. Supplier objects need to implement at least these three functions.
+In order to play a list of songs with the Music object you must create a Supplier object. Supplier objects need to implement at least these two functions.
 
 #### next()
 
@@ -26,10 +28,6 @@ Returns the next song or null.
 #### previous()
 
 Returns the last song or null.
-
-#### isDone()
-
-Returns true if there is nothing left to play. False otherwise.
 
 Supplier objects can be initialized in any way as long as the last argument is a callback and are allowed to have any other functions or fields.
 
@@ -48,7 +46,7 @@ This function takes in a supplier object, overwriting the current one if it exis
 
 #### Music.start()
 
-Starts the playing the music object. Will throw an error if a supplier has not been set or the Music object was previously started and wasn't stopped.
+Starts playing the music object. Will throw an error if a supplier has not been set or the Music object was previously started and wasn't stopped.
 
 #### Music.stop()
 
@@ -68,7 +66,7 @@ Stops the current song and attempts to play the next song. Will throw an error i
 
 #### Music.previous()
 
-If the current song has been playing for over 3 seconds it starts the song over. Otherwise attempts to play the last long. Throws an error if the supplier is not set. If there is not song to play it will play nothing.
+If the current song has been playing for over 3 seconds it starts the song over. Otherwise attempts to play the last long. Throws an error if the supplier is not set. If there is not a song to play it will play nothing.
 
 #### Music.seek(seconds)
 

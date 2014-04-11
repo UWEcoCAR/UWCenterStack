@@ -46,7 +46,7 @@ app.get('/', function(req, res){
 app.get('/test', function(req, res) {
 
   // Initialize can interface
-  if (canInterface.initialize() == 0) {
+  if (canInterface.initialize() === 0) {
     console.log('Initialize failed!!!');
     res.send('Initialize failed!!!', 500);
     return;
