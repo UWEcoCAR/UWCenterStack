@@ -6,26 +6,6 @@
         <!-- Main CSS compiled from SCSS -->
         <link rel="stylesheet" type="text/css" href="../css/main.css">
 
-        <!-- Global Dependencies -->
-        <script src="../scripts/external/jquery.min.js"></script>
-        <script src="../scripts/external/backbone.min.js"></script>
-        <script src="../scripts/external/underscore.min.js"></script>
-
-        <!-- Our lovely js -->
-        <script src="../scripts/common/app/AppModel.js"></script>
-        <script src="../scripts/common/app/AppView.js"></script>
-        <script src="../scripts/common/slider/SliderView.js"></script>
-        <script src="../scripts/common/slider/SliderModel.js"></script>
-        <script src="../scripts/common/list/WindowListView.js"></script>
-        <script src="../scripts/common/list/ListView.js"></script>
-        <script src="../scripts/common/list/TopDownListView.js"></script>
-        <script src="../scripts/common/list/ListItemView.js"></script>
-        <script src="../scripts/common/list/ListItemModel.js"></script>
-        <script src="../scripts/common/list/ListItemCollection.js"></script>
-        <script src="../scripts/music/Music.js"></script>
-        <script src="../scripts/music/LastFmSupplier.js"></script>
-        <script src="../scripts/util/FileFinder.js"></script>
-        <script src="../scripts/music/MusicTree.js"></script>
 
         <!-- Reload page on js, css, or html file change -->
         <script>
@@ -46,31 +26,80 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- Javascript entry point -->
-        <script src="../scripts/main.js"></script>
-
-        <!-- Don't show the UI until it is completely loaded first-->
-        <script>
-            var gui = require('nw.gui');
-
-            window.onload = function() {
-//                gui.Window.get().showDevTools();
-//                gui.Window.get().maximize();
-//                gui.Window.get().moveTo(0, 0);
-                gui.Window.get().show();
-            }
+        <script type="text/template" id="appTemplate">
+            <div class="content">
+                <div id="contentLeft">
+                    <div id="listView1" class="hidden">
+                    </div>
+                    <div id="listView2" class="hidden">
+                    </div>
+                    <div id="listView3" class="hidden">
+                    </div>
+                    <div id="listView4" class="hidden">
+                    </div>
+                    <div id="listView5" class="hidden">
+                    </div>
+                </div>
+                <div id="contentRight">
+                </div>
+            </div>
+            <div class="sliderPicker">
+                <div class="inputZone1 hidden">
+                </div>
+                <div class="inputZone2 hidden">
+                </div>
+                <div class="inputZone3 hidden">
+                </div>
+                <div class="inputZone4 hidden">
+                </div>
+                <div class="inputZone5 hidden">
+                </div>
+            </div>
         </script>
+
+                <!-- Global Dependencies -->
+        <script src="../scripts/external/jquery.min.js"></script>
+        <script src="../scripts/external/backbone.min.js"></script>
+        <script src="../scripts/external/underscore.min.js"></script>
+        <script src="../scripts/external/backbone.marionette.js"></script>
 
         <!-- Open in Kiosk mode in production -->
         <script>
             if (process.env.NODE_ENV != 'development') {
                 var win = require('nw.gui').Window.get();
 
-                // This doesn't appear to be working on Mac, but works find on Linux
+                // This doesn't appear to be working on Mac
                 //win.enterKioskMode();
             }
+
+
+            global.$ = global.jQuery = $;
+            global._ = _;
+            global.Backbone = Backbone;
+
+            CenterStack = new Backbone.Marionette.Application();
+            CenterStack.start();
+            
         </script>
+
+
+
+                <!-- Javascript entry point -->
+                        <!-- Our lovely js -->
+        <script src="../scripts/common/app/AppModel.js"></script>
+        <script src="../scripts/common/app/AppView.js"></script>
+        <script src="../scripts/RouteMapping.js"></script>
+        <script src="../scripts/common/slider/SliderView.js"></script>
+        <script src="../scripts/common/slider/SliderModel.js"></script>
+        <script src="../scripts/common/slider/SliderPicker.js"></script>
+        <script src="../scripts/common/list/WindowListView.js"></script>
+        <script src="../scripts/common/list/ListView.js"></script>
+        <script src="../scripts/common/list/TopDownListView.js"></script>
+        <script src="../scripts/common/list/ListItemView.js"></script>
+        <script src="../scripts/common/list/ListItemModel.js"></script>
+        <script src="../scripts/common/list/ListItemCollection.js"></script>
+        <script src="../scripts/main.js"></script>
+
+
     </body>
 </html>

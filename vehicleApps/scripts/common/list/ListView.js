@@ -1,4 +1,6 @@
-var ListView = Backbone.View.extend({
+CenterStack.ListView = Marionette.CollectionView.extend({
+
+    itemView: CenterStack.ListItemView,
 
 	initialize: function(options) {
 		// add options as properties

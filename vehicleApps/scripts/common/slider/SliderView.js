@@ -8,7 +8,7 @@
 		diameter
 		equation
  */
-var SliderView = Backbone.View.extend({
+var SliderView = Marionette.CollectionView.extend({
 
     className: 'slider',
 
@@ -33,6 +33,7 @@ var SliderView = Backbone.View.extend({
         this.$el.append($('<div>').addClass('handle'));
     },
 
+/*
     reset: function(me) {
 
         console.log("reset fired", me.$el);
@@ -40,6 +41,7 @@ var SliderView = Backbone.View.extend({
         me.$el.hide();
         me.hidden = true;
     },
+    */
 
     _getEventPosition: function(evt) {
         evt = evt.originalEvent;
@@ -85,9 +87,11 @@ var SliderView = Backbone.View.extend({
         console.log('touch ended ', val);
         // fire selection for the list to see
         this.model.set({selection : (val + 1)});
+        this.close();
     },
 
     render: function() {
+        console.log("rendering");
         if (!this.hidden) {
             console.log("render");
             if(this.$el.width() === 0) {

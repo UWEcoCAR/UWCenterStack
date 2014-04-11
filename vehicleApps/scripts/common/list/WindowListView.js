@@ -1,4 +1,5 @@
-var WindowListView = Backbone.View.extend({
+CenterStack.WindowListView = Marionette.CollectionView.extend({
+    //
 
 	initialize: function(options) {
 		// add options as properties
@@ -26,27 +27,40 @@ var WindowListView = Backbone.View.extend({
 			);
 	},
 
+
+
     selectCurrent: function() {
-        console.log("selection fired");
         var listScroller = this.$el.find('.listScroller');
         var selected = listScroller.find('.selected');
-        console.log("selected", selected[0].innerText);
-        //How do we want to update the app given this?
-        //the ListModel should have a selected field,
-        //  - and when that changes then another element can update
-        var sliderVal = this.slider.get('value');
-        var elementNumber = Math.round(sliderVal * (this.windowSize - 1)) + this.lowerBound;
-        console.log(this.slider);
-        //this.$el.hide();
-        this.slider._events.reset[0].callback(this.slider._events.reset[0].context);
-        this.data.models[elementNumber].set({selected: true});
-        this.data = this.nextData;
-        console.log("this data", this.data.models);
-        console.log("next data", this.nextData.models);
+        if (selected[0]) {
+            console.log("selected", selected[0].innerText);
+            //How do we want to update the app given this?
+            //the ListModel should have a selected field,
+            //  - and when that changes then another element can update
+            //var sliderVal = this.slider.get('value');
+            //var elementNumber = Math.round(sliderVal * (this.windowSize - 1)) + this.lowerBound;
+            //console.log(this.slider);
+            //this.$el.hide();
+            //this.slider._events.reset[0].callback(this.slider._events.reset[0].context);
+            //this.data.models[elementNumber].set({selected: true});
+            //this.data = this.nextData;
+            //console.log("this data", this.data.models);
+            //console.log("next data", this.nextData.models);
+            this.close();
+
+            CenterStack.appRouter.navigate("music/album/selected=" + selected[0].innerText, {
+                trigger: true,
+            });   
+        }
+
+
+        /*
         this.data.set(this.nextData.models);
         this.render();
+
+        */
 //        console.log(this.nextListView());
-    },
+    }, 
 
 	render: function() {
         var me = this;
@@ -63,9 +77,12 @@ var WindowListView = Backbone.View.extend({
                 clearInterval(me.timer);
             }
 
+
             var listScroller = this.$el.find('.listScroller');
             var list = this.$el;
             var listItems = listScroller.children();
+            //console.log("list items", listItems);
+
             var elementNumber = Math.round(sliderVal * (me.windowSize - 1));
 
             itemHeight = Math.floor((listScroller.height() / listItems.size()));
@@ -91,9 +108,10 @@ var WindowListView = Backbone.View.extend({
                 listScroller.css('top', newPos);
             } else if (shiftHigh) {
                 // move the window towards the end
+                console.log("list scroller", listScroller);
                 me.timer = setInterval(function() {
                     listScroller.find('.selected').removeClass('selected');
-
+                    console.log("shifting");
                     while (me.itemNumber > me.windowSize + me.lowerBound) {
                         me.lowerBound++;
                     }
@@ -139,7 +157,7 @@ var WindowListView = Backbone.View.extend({
 
 	addOne: function(listItem) {
 		// create new view and force it to render, then add it to dom
-		var view = new ListItemView({model: listItem}).render();
+		var view = new CenterStack.ListItemView({model: listItem}).render();
 		this.$el.find('.listScroller').append(view.$el);
 	}
 }); 

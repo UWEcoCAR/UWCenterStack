@@ -1,4 +1,4 @@
-var ListItemView = Backbone.View.extend({
+CenterStack.ListItemView = Marionette.ItemView.extend({
 
 	initialize: function() {
 		// listen for changes on model
