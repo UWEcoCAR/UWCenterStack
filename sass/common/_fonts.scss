@@ -1,0 +1,38 @@
+@import 'colors';
+
+$fontStyles: 'black', 'blackitalic', 'bold', 'bolditalic', 'extrathin', 'extrathinitalic', 'light', 'lightitalic', 'medium', 'mediumitalic', 'regular', 'regularitalic', 'thin', 'thinitalic', 'ultra', 'ultraitalic';
+
+$fontSizeCaption: 18px;
+$fontSizeLabel: 18px;
+$fontSizeCaptionHeading: 26px;
+$fontSizeSliderLabel: 26px;
+$fontSizeButtonLabel: 26px;
+$fontSizeClock: 35px;
+$fontSizeWelcomeLabel: 35px;
+$fontSizeSelection: 40px;
+$fontSizeListItem: 53px;
+$fontSizeTitle: 144px;
+
+
+@each $style in $fontStyles {
+  @font-face {
+    font-family: 'alrightsans-#{$style}';
+    src: url('../fonts/alrightsans/alrightsans-#{$style}.otf');
+  }
+
+  .alrightsans-#{$style} {
+    font-family: alrightsans-#{$style};
+  }
+}
+
+@mixin alrightSans($style, $size, $color:$white) {
+  font-family: 'alrightsans-#{$style}';
+  font-size: $size;
+  color: $color;
+}
+
+body {
+  @include alrightSans('thin', $fontSizeWelcomeLabel);
+  -webkit-font-feature-settings: 'tnum', 'lnum';
+  font-weight: normal !important;
+}

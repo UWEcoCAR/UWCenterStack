@@ -1,12 +1,14 @@
+@import 'common/import';
+
 #dashGraphicWrapper {
-  height: 1485px;
-  width: 1920px;
+  height: 3883px;
+  width: 5020px;
   position: absolute;
   top: 50%;
   left: 50%;
 
   #dashGraphic {
-    background-image: url("../images/dash.png");
+    background-image: url("../images/dash.jpg");
     height: 100%;
     width: 100%;
     position: absolute;
@@ -15,10 +17,11 @@
 
     #appContainer {
       position: absolute;
-      width: 361px;
-      height: 493px;
-      top: 28.5%;
-      left: 47%;
+      width: $width;
+      height: $height;
+      background-color: green;
+      top: 28.75%;
+      left: 48.5%;
     }
   }
 }

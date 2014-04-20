@@ -1,33 +1,23 @@
+@import 'common/import';
 @import 'dash';
-@import 'common/app';
-@import 'common/list';
-@import 'common/slider';
-@import 'home/home';
+//@import 'components/app';
+//@import 'components/list';
+//@import 'components/slider';
+//@import 'home/home';
 
 body, html {
-  background-color: rgb(34, 32, 32);
+  background-color: $background;
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
   overflow: hidden;
-  color: rgb(210, 211, 212);
-  font-family: "Helvetica Neue", Helvetica;
-  font-weight: 100;
-  font-size: 12px;
 }
 
 * {
-  box-sizing:border-box;
-  -moz-box-sizing:border-box;
   -webkit-box-sizing:border-box
 }
 
 .hide {
   display: none;
-}
-
-@mixin square($size) {
-  width: $size;
-  height: $size;
 }

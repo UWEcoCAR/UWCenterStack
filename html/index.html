@@ -12,9 +12,9 @@
             if (process.env.NODE_ENV == 'development') {
                 var Gaze = require('gaze');
                 new Gaze(['html/**/*.html', 'css/**/*.css', 'scripts/**/*.js'])
-                        .on('all', function() {
-                            location && location.reload();
-                        });
+                    .on('all', function() {
+                        location && location.reload();
+                    });
             }
         </script>
     </head>
@@ -57,7 +57,7 @@
             </div>
         </script>
 
-                <!-- Global Dependencies -->
+        <!-- Global Dependencies -->
         <script src="../scripts/external/jquery.min.js"></script>
         <script src="../scripts/external/backbone.min.js"></script>
         <script src="../scripts/external/underscore.min.js"></script>
@@ -82,23 +82,29 @@
             
         </script>
 
+        <script>
+            var win = require('nw.gui').Window.get();
+            win.show();
+            win.zoomLevel = -3;
+        </script>
 
 
-                <!-- Javascript entry point -->
-                        <!-- Our lovely js -->
-        <script src="../scripts/common/app/AppModel.js"></script>
-        <script src="../scripts/common/app/AppView.js"></script>
-        <script src="../scripts/RouteMapping.js"></script>
-        <script src="../scripts/common/slider/SliderView.js"></script>
-        <script src="../scripts/common/slider/SliderModel.js"></script>
-        <script src="../scripts/common/slider/SliderPicker.js"></script>
-        <script src="../scripts/common/list/WindowListView.js"></script>
-        <script src="../scripts/common/list/ListView.js"></script>
-        <script src="../scripts/common/list/TopDownListView.js"></script>
-        <script src="../scripts/common/list/ListItemView.js"></script>
-        <script src="../scripts/common/list/ListItemModel.js"></script>
-        <script src="../scripts/common/list/ListItemCollection.js"></script>
-        <script src="../scripts/main.js"></script>
+
+        <!-- Javascript entry point -->
+        <!-- Our lovely js -->
+        <!--<script src="../scripts/common/app/AppModel.js"></script>-->
+        <!--<script src="../scripts/common/app/AppView.js"></script>-->
+        <!--<script src="../scripts/RouteMapping.js"></script>-->
+        <!--<script src="../scripts/common/slider/SliderView.js"></script>-->
+        <!--<script src="../scripts/common/slider/SliderModel.js"></script>-->
+        <!--<script src="../scripts/common/slider/SliderPicker.js"></script>-->
+        <!--<script src="../scripts/common/list/WindowListView.js"></script>-->
+        <!--<script src="../scripts/common/list/ListView.js"></script>-->
+        <!--<script src="../scripts/common/list/TopDownListView.js"></script>-->
+        <!--<script src="../scripts/common/list/ListItemView.js"></script>-->
+        <!--<script src="../scripts/common/list/ListItemModel.js"></script>-->
+        <!--<script src="../scripts/common/list/ListItemCollection.js"></script>-->
+        <!--<script src="../scripts/main.js"></script>-->
 
 
     </body>
