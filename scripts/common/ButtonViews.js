@@ -1,15 +1,12 @@
-var BackButtonView = Backbone.Marionette.ItemView.extend({
-  template: '#buttonTemplate'
-});
+var icon = "";
+var ButtonView = Backbone.Marionette.ItemView.extend({
+  template: '#buttonTemplate',
 
-var HomeButtonView = Backbone.Marionette.ItemView.extend({
-  template: '#buttonTemplate'
-});
+  initialize: function(options) {
+    icon = options.icon;
+  },
 
-var NextButtonView = Backbone.Marionette.ItemView.extend({
-  template: '#buttonTemplate'
-});
-
-var PlayPauseButtonView = Backbone.Marionette.ItemView.extend({
-  template: '#buttonTemplate'
+  onRender: function() {
+    (this.$el).find(".icon").copyIn(icon);
+  }
 });

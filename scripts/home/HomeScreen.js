@@ -4,29 +4,19 @@
 
 var HomeScreen = Backbone.Marionette.Layout.extend({
     template: '#screenTemplate',
-        regions: {
-            backButtonZoneContent: '#backButtonZoneContent',
-            homeButtonZoneContent: '#homeButtonZoneContent',
-            mainZoneContent: '#mainZoneContent',
-            inputZone1Content: '#inputZone1Content',
-            inputZone2Content: '#inputZone2Content',
-            inputZone3Content: '#inputZone3Content',
-            inputZone4Content: '#inputZone4Content',
-            inputZone5Content: '#inputZone5Content',
-            playPauseButtonZoneContent: '#playPauseButtonZoneContent',
-            nextButtonZoneContent: '#nextButtonZoneContent'
-    },
+    regions: {
+        backButtonZoneContent: '#backButtonZoneContent',
+        homeButtonZoneContent: '#homeButtonZoneContent',
+        mainZoneContent: '#mainZoneContent',
+        inputZone1Content: '#inputZone1Content',
+        inputZone2Content: '#inputZone2Content',
+        inputZone3Content: '#inputZone3Content',
+        inputZone4Content: '#inputZone4Content',
+        inputZone5Content: '#inputZone5Content',
+        playPauseButtonZoneContent: '#playPauseButtonZoneContent',
+        nextButtonZoneContent: '#nextButtonZoneContent'
+    }
 
-//    initialize: function() {
-//        var that = this;
-//        this.header.on('show', function(view) {
-//            that.listenTo(view, 'custom_event:btn_clicked', that.clicked);
-//        });
-//    },
-//
-//    clicked: function() {
-//        alert('has been clicked!');
-//    }
 });
 
 
