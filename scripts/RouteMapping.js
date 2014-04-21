@@ -6,8 +6,6 @@ RouteMapping = Backbone.Marionette.AppRouter.extend({
   // map path to function
   routes : {
     '' : 'index',
-    'climate' : 'goClimate',
-    'climate/help' : 'goClimate'
   },
 
   index: function() {

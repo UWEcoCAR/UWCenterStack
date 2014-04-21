@@ -13,26 +13,11 @@ CenterStack = new Backbone.Marionette.Application.extend({
 	appRouter: new RouteMapping()
 });
 
-// Layout definition
-MainLayout = Backbone.Marionette.Layout.extend({
-  template: "#layout-template",
-  regions: {
-    overallContent: '.overallContent'
-  },
-
-  onRender: function() {
-   // will be triggered on render;
-   console.log('onRender');
-  }
-
-});
-
 // creating layout and starting application
-var layout = new MainLayout();
+var homeScreen = new HomeScreen();
+$('#appContainer').append(homeScreen.render().el);
 
-$('#appContainer').append(layout.render().el);
 Backbone.history.start();
-
 
 /*
 console.log(CenterStack);
