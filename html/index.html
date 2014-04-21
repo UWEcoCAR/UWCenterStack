@@ -105,7 +105,7 @@
             win.zoomLevel = -3;
 
             var fs = require('fs');
-            _.each(['bezelOverlay', 'eventCatchers'], function(data) {
+            _.each(['bezelOverlay', 'eventCatchers', 'icons/back', 'icons/home', 'icons/person', 'icons/volumeDown', 'icons/volumeUp'], function(data) {
                 $('#svgContainer').append(fs.readFileSync('svg/' + data + '.svg', 'utf8'));
             });
             $('#bezelOverlayWrapper').copyIn('#bezelOverlay');
