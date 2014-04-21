@@ -1,4 +1,17 @@
-// create slider
+/**
+ * Model and View for home screen
+ */
+
+var model = new Backbone.Model({
+  "contentTest": "<p>home</p>",
+});
+
+var Home = Backbone.Marionette.ItemView.extend({
+  template: '#content-template',
+  model: model
+});
+
+/* create slider
 sliderModel = new SliderModel({
     value : 0.5
 });
@@ -69,4 +82,4 @@ $('#dashGraphic').append(
 
 appView.render();
 sliderView.render();
-listView.render();
+listView.render();*/

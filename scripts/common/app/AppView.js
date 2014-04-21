@@ -1,5 +1,7 @@
-CenterStack.AppView = Backbone.Marionette.ItemView.extend({
+CenterStack.AppView = Backbone.Marionette.Layout.extend({
 
+
+    
     // sectionNames : ['header', 'contentLeft', 'sliderPicker', 'footer'],
     tagName: 'div',
     id: 'home',

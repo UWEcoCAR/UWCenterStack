@@ -1,6 +1,32 @@
-CenterStack.RouteMapping = Backbone.Marionette.AppRouter.extend({
-    
-    homeApp : null,
+/**
+ * Route definition for CenterStack application
+ */
+RouteMapping = Backbone.Marionette.AppRouter.extend({
+
+  // map path to function
+  routes : {
+    '' : 'index',
+    'climate' : 'goClimate',
+    'climate/help' : 'goClimate'
+  },
+
+  index: function() {
+    console.log('index');
+    // show Home View in the content region
+    layout.overallContent.show(new Home());
+  },
+
+  goClimate: function() {
+    console.log('climate');
+    // show Climate View in the content region
+    layout.overallContent.show(new ClimateControl());
+  }
+});
+
+
+
+
+   /* homeApp : null,
     sliderView : null,
     listView : null,
 
@@ -9,17 +35,22 @@ CenterStack.RouteMapping = Backbone.Marionette.AppRouter.extend({
         "music/"             : "music",
         "music/artist/*args" : "artist",
         "music/album/*args"  : "album",
-        "music/song/*args"   : "song"
+        "music/song/*args"   : "song",
+        "climate"            : "climate"
     },
 
     index: function() {
         console.log("index");
-        this.artist();
+    },
+
+    climate: function() {
+        console.log("climate");
+        this.climate();
     },
 
     music: function() {
-        console.log("index");
-        this.artist();
+        console.log("music");
+        //this.artist();
     },
 
     artist: function(args) {
@@ -128,19 +159,6 @@ CenterStack.RouteMapping = Backbone.Marionette.AppRouter.extend({
 
 ////////
 
-        var me = this;
-
-        // var whichSlider = new CenterStack.SliderPicker({
-        //     sliderEquation: function(x) {return Math.pow(Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + 0.5, 1.5);},
-        //     numSliders: 5,
-        //     sliderHeight: 69,
-        //     sliderGap: 17,
-        //     sliders: [{
-        //         sliderView: me.sliderView,
-        //         listView: me.listView
-        //     }]
-        // });
-
         var homeModel = new AppModel({
             open: true,
             lists: [{
@@ -158,75 +176,6 @@ CenterStack.RouteMapping = Backbone.Marionette.AppRouter.extend({
         $('#appContainer').append(this.homeApp.render().el);
     },
 
-    album: function(args) {
-        var artist = args.split("=")[1];
-
-        $('#contentRight').prepend('<br />' + artist);
-
-        /*
-        console.log("creating Album", args);
-        this.clearApp();
-        // create slider
-        sliderModel = new SliderModel({
-            value : 0
-        });
-
-        var sliderView = new SliderView({
-            model: sliderModel,
-            equation: function(x) {return Math.pow(Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + 0.5, 1.5);}
-        });
-
-
-        var listCollection = new ListItemCollection();
-        var listView = new CenterStack.WindowListView({
-            data: listCollection,
-            slider: sliderModel
-        });
-
-        listCollection.set([
-            {text: "Album 1"},
-            {text: "Album 2"}
-        ]);
-
-
-        var homeModel = new AppModel({open: true, contentLeft: listView,  inputZone2: sliderView});
-        this.homeApp = new AppView({model: homeModel, id: '#home'});
-
-        $('#appContainer').append(this.homeApp.render().el);
-    },
-
-    song: function(args) {
-        console.log("creating Song", args);
-        this.clearApp();
-        sliderModel = new SliderModel({
-            value : 0
-        });
-
-        var sliderView = new SliderView({
-            model: sliderModel,
-            equation: function(x) {return Math.pow(Math.cos( x * Math.PI * 2 + Math.PI ) / 2 + 0.5, 1.5);}
-        });
-
-
-        var listCollection = new ListItemCollection();
-        var listView = new CenterStack.WindowListView({
-            data: listCollection,
-            slider: sliderModel
-        });
-
-        listCollection.set([
-            {text: "Song 1"},
-            {text: "Song 2"}
-        ]);
-
-
-        var homeModel = new AppModel({open: true, contentLeft: listView,  inputZone3: sliderView});
-        this.homeApp = new AppView({model: homeModel, id: '#home'});
-
-        $('#appContainer').append(this.homeApp.render().el);
-        */
-    },
-
     clearApp: function() {
         if (this.sliderView) {
             this.sliderView.close();
@@ -239,4 +188,4 @@ CenterStack.RouteMapping = Backbone.Marionette.AppRouter.extend({
         }
         $('#appContainer').empty();
     }
-});
+});*/
