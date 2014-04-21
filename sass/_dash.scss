@@ -19,13 +19,13 @@
       position: absolute;
       width: $width;
       height: $height;
-      background-color: $gray;
+      background-color: $background;
       top: 28.75%;
       left: 48.5%;
 
       #bezelOverlayWrapper {
         @include position(0, 0, 100%, 100%, 1000);
-        fill: $background;
+        fill: $bezel;
         pointer-events: none;
       }
     }

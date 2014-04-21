@@ -1,0 +1,112 @@
+
+$topIconTop: 18px;
+$bottomIconTop: 36px;
+$leftIconLeft: 310px;
+$rightIconLeft: $width/2 - $leftIconLeft - $iconSize;
+
+$leftInputIconTop: 122px;
+$leftInputIconLeft: 40px;
+$rightInputIconTop: $leftInputIconTop;
+$rightInputIconLeft: $width - $iconSize - $leftInputIconLeft;
+
+$topZonesHeight: 103px;
+$bottomZonesHeight: $topZonesHeight;
+$sliderHeight: 107px;
+$sliderMaskHeight: 200px;
+$topZoneTop: 0px;
+$mainZoneTop: 10px;
+$volumeSliderZoneTop: 531px;
+$inputZone1Top: $volumeSliderZoneTop + $sliderHeight;
+$inputZone2Top: $inputZone1Top + $sliderHeight;
+$inputZone3Top: $inputZone2Top + $sliderHeight;
+$inputZone4Top: $inputZone3Top + $sliderHeight;
+$inputZone5Top: $inputZone4Top + $sliderHeight;
+$tbottomZonesTop: 1177px;
+
+.icon {
+  @include square($iconSize);
+
+  > svg > * {
+    stroke: $gray;
+  }
+
+  &.active > svg > * {
+    stroke: $green;
+  }
+
+  &.rightIcon {
+    @include position($rightInputIconTop, $rightInputIconLeft);
+  }
+
+  &.leftIcon {
+    @include position($leftInputIconTop, $leftInputIconLeft);
+  }
+}
+
+.label {
+
+  &.label {
+    @include position($topIconTop, $leftIconLeft);
+  }
+
+}
+
+#backButtonZoneContent {
+  @include mask('backButtonZoneMask', $topZoneTop, 0px, $width/2, $topZonesHeight);
+
+  .icon {
+    @include position($topIconTop, $leftIconLeft);
+  }
+}
+
+#homeButtonZoneContent {
+  @include mask('homeButtonZoneMask', $topZoneTop, $width/2, $width/2, $topZonesHeight);
+
+  .icon {
+    @include position($topIconTop, $rightIconLeft);
+  }
+}
+
+#mainZoneContent {
+  @include mask('mainZoneMask', $mainZoneTop, 0px, $width, 614px);
+}
+
+#volumeSliderZoneContent {
+  @include mask('volumeSliderZoneMask', $volumeSliderZoneTop, 0px, $width, $sliderMaskHeight);
+}
+
+#inputZone1Content {
+  @include mask('inputZone1Mask', $inputZone1Top, 0px, $width, $sliderMaskHeight);
+}
+
+#inputZone2Content {
+  @include mask('inputZone2Mask', $inputZone2Top, 0px, $width, $sliderMaskHeight);
+}
+
+#inputZone3Content {
+  @include mask('inputZone3Mask', $inputZone3Top, 0px, $width, $sliderMaskHeight);
+}
+
+#inputZone4Content {
+  @include mask('inputZone4Mask', $inputZone4Top, 0px, $width, $sliderMaskHeight);
+}
+
+#inputZone5Content {
+  @include mask('inputZone5Mask', $inputZone5Top, 0px, $width, $sliderMaskHeight);
+}
+
+#playPauseButtonZoneContent {
+  @include mask('playPauseButtonZoneMask', $tbottomZonesTop, 0px, $width/2, $bottomZonesHeight);
+
+  .icon {
+    @include position($bottomIconTop, $leftIconLeft);
+  }
+}
+
+#nextButtonZoneContent {
+  @include mask('nextButtonZoneMask', $tbottomZonesTop, $width/2, $width/2, $bottomZonesHeight);
+
+  .icon {
+    @include position($bottomIconTop, $rightIconLeft);
+  }
+}
