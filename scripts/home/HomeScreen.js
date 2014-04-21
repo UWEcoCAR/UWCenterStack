@@ -2,7 +2,7 @@
  * Model and View for home screen
  */
 
-var HomeScreen = Backbone.Marionette.Layout.extend({
+var ScreenLayout = Backbone.Marionette.Layout.extend({
     template: '#screenTemplate',
     regions: {
         backButtonZoneContent: '#backButtonZoneContent',
@@ -13,10 +13,23 @@ var HomeScreen = Backbone.Marionette.Layout.extend({
         inputZone3Content: '#inputZone3Content',
         inputZone4Content: '#inputZone4Content',
         inputZone5Content: '#inputZone5Content',
+        volumeSliderZoneContent: '#volumeSliderZoneContent',
         playPauseButtonZoneContent: '#playPauseButtonZoneContent',
         nextButtonZoneContent: '#nextButtonZoneContent'
     }
+});
 
+var HomeScreen = ScreenLayout.extend({
+    onRender: function() {
+        this.mainZoneContent.show(new ClockView());
+        var vent = _.extend({}, Backbone.Events);
+        var backButtonView = new ButtonView({icon: "#backIcon", eventCatcher: "#backButtonZoneEventCatcher", vent: vent});
+        var homeButtonView = new ButtonView({icon: "#homeIcon", eventCatcher: "#homeButtonZoneEventCatcher", vent: vent});
+        var volumeSlider = new SliderView({iconLeft: "#volumeUpIcon", iconRight: "#volumeDownIcon", leftLabel: "", rightLight: "", eventCatcher: "#volumeSliderZoneEventCatcher", vent: vent});
+        vent.on('buttonClick', function(data) {
+            console.log(data.clientX);
+        });
+    }
 });
 
 

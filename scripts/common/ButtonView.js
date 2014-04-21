@@ -11,8 +11,7 @@ var ButtonView = Backbone.Marionette.ItemView.extend({
 
   clicked: function(data) {
     console.log("here");
-    this.vent.trigger('whooho', data);
-
+    this.vent.trigger('buttonClick', data);
   },
 
   onRender: function() {
