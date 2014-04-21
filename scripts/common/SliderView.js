@@ -1,3 +1,6 @@
+/**
+ * View for sliders
+ */
 var iconLeft = "";
 var iconRight = "";
 var leftLabel = "";
@@ -10,28 +13,25 @@ var SliderView = InputZoneView.extend({
     leftLabel = options.leftLabel;
     rightLabel = options.rightLabel;
 
+    // touch events to be fired
     this.vent = options.vent;
-    $(options.eventCatcher).on('touchstart', (_.bind(this.touch, this)));
+    $(options.eventCatcher).on('touchstart', _.bind(this.touch, this));
 
-    $(options.eventCatcher).on('touchmove', (_.bind(this.change, this)));
-    this.vent = options.vent;
-
-    $(options.eventCatcher).on('touchend', (_.bind(this.release, this)));
-    this.vent = options.vent;
+    $(options.eventCatcher).on('touchmove', _.bind(this.change, this));
+   
+    $(options.eventCatcher).on('touchend', _.bind(this.release, this));
+  
   },
 
   touch: function(data) {
-    console.log(data);
     this.vent.trigger('slider:touch', data);
   },
 
   change: function(data) {
-    console.log(data);
     this.vent.trigger('slider:change', data);
   },
 
   release: function(data) {
-    console.log(data);
     this.vent.trigger('slider:touchEnd', data);
   },
 
