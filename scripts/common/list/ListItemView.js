@@ -1,16 +1,4 @@
-centerStack.ListItemView = Marionette.ItemView.extend({
-
-	initialize: function() {
-		// listen for changes on model
-		this.listenTo(this.model, 'change', this.render);
-
-		// customize dom
-		this.$el
-			.addClass('listItem');
-	},
-
-	render: function() {
-		this.$el.text(this.model.get('text'));	
-		return this;
-	}
+ListItemView = Backbone.Marionette.ItemView.extend({
+    template: '#listItemTemplate',
+    className: 'listItem'
 });

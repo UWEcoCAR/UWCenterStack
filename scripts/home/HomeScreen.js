@@ -2,7 +2,7 @@
  * Model and View for home screen
  */
 
-var HomeScreen = Backbone.Marionette.Layout.extend({
+var ScreenLayout = Backbone.Marionette.Layout.extend({
     template: '#screenTemplate',
     regions: {
         backButtonZoneContent: '#backButtonZoneContent',
@@ -16,7 +16,27 @@ var HomeScreen = Backbone.Marionette.Layout.extend({
         playPauseButtonZoneContent: '#playPauseButtonZoneContent',
         nextButtonZoneContent: '#nextButtonZoneContent'
     }
+});
 
+var HomeScreen = ScreenLayout.extend({
+    onRender: function() {
+        window.vent = _.extend({}, Backbone.Events);
+        var collection = new Backbone.Collection([]);
+        var listView = new ListView({
+            collection: collection,
+            vent: window.vent
+        });
+        for (var i = 0; i < 100; i++) {
+            collection.push({text: 'test' + i});
+        }
+        this.mainZoneContent.show(listView);
+        var vent = _.extend({}, Backbone.Events);
+        var buttonView = new ButtonView({icon: "#backIcon", eventCatcher: "#backButtonZoneEventCatcher", vent: vent});
+        vent.on('whooho', function(data) {
+            console.log(data);
+        });
+        this.backButtonZoneContent.show(buttonView);
+    }
 });
 
 

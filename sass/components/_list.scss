@@ -1,26 +1,21 @@
+@import '../common/import';
+
 .list {
-  position: relative;
-  overflow: hidden;
-  height: 200px;
+  position: absolute;
   width: 200px;
-  margin: 20px;
+  margin-top: 300px;
+  margin-left: 40px;
+  transition: top 0.5s ease;
 
-  .listScroller {
-    position: absolute;
-    width: 100%;
-    transition: top 0.5s ease-out;
+  .listItem {
+    //transition: all 0.5s ease-out;
+    padding-bottom: 40px;
+    @include alrightSans('light', $fontSizeListItem);
 
-    .listItem {
-      transition: all 0.5s ease-out;
-      padding: 5px;
-      color: gray;
-      font: {
-        size : 13px;
-      }
-
-      &.selected {
-        color: white;
-      }
+    &.selected {
+      margin-top: 20px;
+      padding-bottom: 60px;
+      @include alrightSans('bold', $fontSizeListItem);
     }
   }
 }

@@ -12,8 +12,6 @@ var CenterStack = Backbone.Marionette.Application.extend({
     index: function() {
         var homeScreen = new HomeScreen();
         centerStack.main.show(homeScreen);
-        homeScreen.mainZoneContent.show(new ClockView());
-        homeScreen.backButtonZoneContent.show(new ButtonView({icon: "#backIcon"}));
     }
 
     // Route handlers go here
