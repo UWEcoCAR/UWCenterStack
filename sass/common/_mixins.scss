@@ -5,13 +5,20 @@
   height: $size;
 }
 
-@mixin position($top: 0, $left: 0, $width: 0, $height: 0, $zIndex: initial) {
+@mixin position($top: 0, $left: 0, $width: 0, $height: 0, $zIndex: 0) {
   position: absolute;
   top: $top;
   left: $left;
-  width: $width;
-  height: $height;
-  z-index: $zIndex;
+
+  @if $width != 0 {
+    width: $width;
+  }
+  @if $height != 0 {
+    height: $height;
+  }
+  @if $zIndex != 0 {
+    z-index: $zIndex;
+  }
 }
 
 @mixin mask($mask, $top: 0, $left: 0, $divWidth: 0, $divHeight: 0, $zIndex: initial) {
