@@ -1,13 +1,19 @@
+@import '../common/import';
 
 $topIconTop: 18px;
 $bottomIconTop: 36px;
 $leftIconLeft: 310px;
-$rightIconLeft: $width/2 - $leftIconLeft - $iconSize;
+$rightIconRight: $leftIconLeft;
 
 $leftInputIconTop: 122px;
 $leftInputIconLeft: 40px;
 $rightInputIconTop: $leftInputIconTop;
-$rightInputIconLeft: $width - $iconSize - $leftInputIconLeft;
+$rightInputIconRight: $leftInputIconLeft;
+
+$leftInputLabelTop: 134px;
+$leftInputLabelLeft: 40px;
+$rightInputLabelTop: $leftInputLabelTop;
+$rightInputLabelRight: $leftInputLabelLeft;
 
 $topZonesHeight: 103px;
 $bottomZonesHeight: $topZonesHeight;
@@ -21,7 +27,7 @@ $inputZone2Top: $inputZone1Top + $sliderHeight;
 $inputZone3Top: $inputZone2Top + $sliderHeight;
 $inputZone4Top: $inputZone3Top + $sliderHeight;
 $inputZone5Top: $inputZone4Top + $sliderHeight;
-$tbottomZonesTop: 1177px;
+$bottomZonesTop: 1177px;
 
 .icon {
   @include square($iconSize);
@@ -35,7 +41,7 @@ $tbottomZonesTop: 1177px;
   }
 
   &.rightIcon {
-    @include position($rightInputIconTop, $rightInputIconLeft);
+    @include positionRight($rightInputIconTop, $rightInputIconRight);
   }
 
   &.leftIcon {
@@ -44,9 +50,15 @@ $tbottomZonesTop: 1177px;
 }
 
 .label {
+  @include alrightSans('medium', $fontSizeButtonLabel, $gray);
 
-  &.label {
-    @include position($topIconTop, $leftIconLeft);
+  &.leftLabel {
+    @include position($leftInputLabelTop, $leftInputLabelLeft);
+  }
+
+  &.rightLabel {
+    text-align: right;
+    @include positionRight($rightInputLabelTop, $rightInputLabelRight);
   }
 
 }
@@ -63,7 +75,7 @@ $tbottomZonesTop: 1177px;
   @include mask('homeButtonZoneMask', $topZoneTop, $width/2, $width/2, $topZonesHeight);
 
   .icon {
-    @include position($topIconTop, $rightIconLeft);
+    @include positionRight($topIconTop, $rightIconRight);
   }
 }
 
@@ -96,7 +108,7 @@ $tbottomZonesTop: 1177px;
 }
 
 #playPauseButtonZoneContent {
-  @include mask('playPauseButtonZoneMask', $tbottomZonesTop, 0px, $width/2, $bottomZonesHeight);
+  @include mask('playPauseButtonZoneMask', $bottomZonesTop, 0px, $width/2, $bottomZonesHeight);
 
   .icon {
     @include position($bottomIconTop, $leftIconLeft);
@@ -104,9 +116,9 @@ $tbottomZonesTop: 1177px;
 }
 
 #nextButtonZoneContent {
-  @include mask('nextButtonZoneMask', $tbottomZonesTop, $width/2, $width/2, $bottomZonesHeight);
+  @include mask('nextButtonZoneMask', $bottomZonesTop, $width/2, $width/2, $bottomZonesHeight);
 
   .icon {
-    @include position($bottomIconTop, $rightIconLeft);
+    @include positionRight($bottomIconTop, $rightIconRight);
   }
 }

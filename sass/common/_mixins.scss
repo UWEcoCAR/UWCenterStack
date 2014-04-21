@@ -7,9 +7,13 @@
 
 @mixin position($top: 0, $left: 0, $width: 0, $height: 0, $zIndex: 0) {
   position: absolute;
-  top: $top;
-  left: $left;
 
+  @if $top != 0 {
+    top: $top;
+  }
+  @if $left != 0 {
+    left: $left;
+  }
   @if $width != 0 {
     width: $width;
   }
@@ -18,6 +22,14 @@
   }
   @if $zIndex != 0 {
     z-index: $zIndex;
+  }
+}
+
+@mixin positionRight($top: 0, $right: 0, $width: 0, $height: 0, $zIndex: 0) {
+  @include position($top, 0, $width, $height, $zIndex);
+
+  @if $right != 0 {
+    right: $right;
   }
 }
 
