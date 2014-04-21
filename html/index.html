@@ -22,52 +22,12 @@
         <div id="dashGraphicWrapper">
             <div id="dashGraphic">
                 <div id="appContainer">
-                    <div id="backButtonZoneContent"></div>
-                    <div id="homeButtonZoneContent"></div>
-                    <div id="mainZoneContent"></div>
-                    <div id="volumeSliderZoneContent"></div>
-                    <div id="inputZone1Content"></div>
-                    <div id="inputZone2Content"></div>
-                    <div id="inputZone3Content"></div>
-                    <div id="inputZone4Content"></div>
-                    <div id="inputZone5Content"></div>
-                    <div id="playPauseButtonZoneContent"></div>
-                    <div id="nextButtonZoneContent"></div>
                     <div id="eventCatchersWrapper"></div>
                     <div id="bezelOverlayWrapper"></div>
                 </div>
             </div>
         </div>
         <div id="svgContainer" class="hide"></div>
-
-        <script id="layout-template" type="text/html">
-            <div class="container">
-                <div class="overallContent"></div>
-            </div>
-        </script>
-
-        <script type="text/template" id="content-template">
-            <div class="content">
-                <div>
-                    <%= contentTest %>
-                </div>
-                <div>
-                    "2965621d asdasdasdas dsdasdasddsd a ds das  d as dasd adad a"
-                </div>
-            </div>
-            <div class="sliderPicker">
-                <div class="inputZone1">
-                </div>
-                <div class="inputZone2">
-                </div>
-                <div class="inputZone3">
-                </div>
-                <div class="inputZone4">
-                </div>
-                <div class="inputZone5">
-                </div>
-            </div>
-        </script>
 
         <!-- Global Dependencies -->
         <script src="../scripts/external/jquery.min.js"></script>
@@ -121,9 +81,36 @@
             $('#inputZone5EventCatcher').click(function() {console.log('inputZone5EventCatcher');});
         </script>
 
+        <!-- TEMPLATES -->
+        <script id="screenTemplate" type="text/html">
+            <div id="backButtonZoneContent"></div>
+            <div id="homeButtonZoneContent"></div>
+            <div id="mainZoneContent"></div>
+            <div id="volumeSliderZoneContent"></div>
+            <div id="inputZone1Content"></div>
+            <div id="inputZone2Content"></div>
+            <div id="inputZone3Content"></div>
+            <div id="inputZone4Content"></div>
+            <div id="inputZone5Content"></div>
+            <div id="playPauseButtonZoneContent"></div>
+            <div id="nextButtonZoneContent"></div>
+        </script>
+
+        <script id="buttonTemplate" type="text/html">
+            <div class="icon"></div>
+        </script>
+
+        <script id="inputZoneTemplate" type="text/html">
+            <div class="label labelLeft"></div>
+            <div class="icon iconLeft"></div>
+            <div class="icon iconRight"></div>
+            <div class="label labelRight"></div>
+        </script>
+
         <script src="../scripts/RouteMapping.js"></script>
-        <script src="../scripts/climateControl/climateHome.js"></script>
-        <script src="../scripts/home/Home.js"></script>
+        <script src="../scripts/home/HomeScreen.js"></script>
+        <script src="../scripts/common/MainZoneLayout.js"></script>
+        <script src="../scripts/common/ButtonViews.js"></script>
         <script src="../scripts/main.js"></script>
 
         <!-- Javascript entry point -->
