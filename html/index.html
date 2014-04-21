@@ -65,7 +65,7 @@
         <script>
             var win = require('nw.gui').Window.get();
             win.show();
-            win.zoomLevel = -3;
+            win.zoomLevel = -5;
 
             var fs = require('fs');
             _.each(['bezelOverlay', 'eventCatchers', 'icons/back', 'icons/home', 'icons/person', 'icons/volumeDown', 'icons/volumeUp'], function(data) {
@@ -106,10 +106,10 @@
         </script>
 
         <script id="inputZoneTemplate" type="text/html">
-            <div class="label labelLeft"></div>
+            <div class="label leftLabel"></div>
             <div class="icon iconLeft"></div>
             <div class="icon iconRight"></div>
-            <div class="label labelRight"></div>
+            <div class="label rightLabel"></div>
         </script>
 
         <script id="clockTemplate" type="text/html">
@@ -130,13 +130,17 @@
         </script>
 
         <!-- Our lovely js -->
-        <script src="../scripts/RouteMapping.js"></script>
-        <script src="../scripts/home/HomeScreen.js"></script>
-        <script src="../scripts/common/MainZoneLayout.js"></script>
-        <script src="../scripts/common/ButtonViews.js"></script>
-        <script src="../scripts/common/ClockView.js"></script>
         <script src="../scripts/common/list/ListItemView.js"></script>
         <script src="../scripts/common/list/ListView.js"></script>
+        <script src="../scripts/common/MainZoneLayout.js"></script>
+        <script src="../scripts/common/ButtonView.js"></script>
+        <script src="../scripts/common/InputZoneView.js"></script>
+        <script src="../scripts/common/SliderView.js"></script>
+        <script src="../scripts/common/SliderButtonsView.js"></script>
+        <script src="../scripts/common/ClockView.js"></script>
+        <script src="../scripts/common/ScreenLayout.js"></script>
+        <script src="../scripts/home/HomeScreen.js"></script>
+        <script src="../scripts/climateControl/ClimateHome.js"></script>
 
         <!-- Javascript entry point -->
         <script src="../scripts/main.js"></script>

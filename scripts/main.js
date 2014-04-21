@@ -12,6 +12,11 @@ var CenterStack = Backbone.Marionette.Application.extend({
     index: function() {
         var homeScreen = new HomeScreen();
         centerStack.main.show(homeScreen);
+    },
+
+    climateHome: function() {
+        var climateHomeScreen = new ClimateHomeScreen();
+        centerStack.main.show(climateHomeScreen);
     }
 
     // Route handlers go here
@@ -22,7 +27,8 @@ centerStack.addInitializer(function() {
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
         appRoutes: {
-            '' : 'index'
+            '' : 'index',
+            'climate' : 'climateHome'
             // Routes go here
         }
     });

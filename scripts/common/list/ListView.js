@@ -4,7 +4,7 @@ ListView = Backbone.Marionette.CollectionView.extend({
     itemView: ListItemView,
     className: 'list',
 
-    initialize: function(options) {   container.findByIndex(0);
+    initialize: function(options) {
         this.vent = options.vent;
         this.vent.on('slider:change', _.bind(function(data) {
             this.selection = this.$el.children().size() * data;
