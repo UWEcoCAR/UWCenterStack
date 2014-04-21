@@ -1,4 +1,4 @@
-ListView = Backbone.Marionette.CollectionView.extend({
+var ListView = Backbone.Marionette.CollectionView.extend({
     selection: 0,
     itemHeight: 104,
     itemView: ListItemView,
@@ -6,8 +6,8 @@ ListView = Backbone.Marionette.CollectionView.extend({
 
     initialize: function(options) {
         this.vent = options.vent;
-        this.vent.on('slider:change', _.bind(function(data) {
-            this.selection = this.$el.children().size() * data;
+        this.vent.on('slider:touchMove', _.bind(function(data) {
+            this.selection = Math.round(this.$el.children().size() * data);
             this.render();
         }, this));
         this.vent.on('slider:touchEnd', _.bind(function() {

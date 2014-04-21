@@ -61,6 +61,10 @@ $bottomZonesTop: 1177px;
     @include positionRight($rightInputLabelTop, $rightInputLabelRight);
   }
 
+  &.selected {
+    color: $green;
+  }
+
 }
 
 #backButtonZoneContent {

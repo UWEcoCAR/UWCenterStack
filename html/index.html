@@ -24,10 +24,7 @@
                 <div id="appContainerWrapper">
                     <div id="appContainer">
                         <div id="climateControlMainZone">
-                            <div class="temp tempLeft">75</div>
-                            <div class="icon personIconLeft"></div>
-                            <div class="temp tempRight">81</div>
-                            <div class="icon personIconRight"></div>
+
                         </div>
                     </div>
                     <div id="eventCatchersWrapper"></div>
@@ -75,15 +72,6 @@
             $('#eventCatchersWrapper').copyIn('#eventCatchers');
             $('.personIconRight').copyIn('#personIcon');
             $('.personIconLeft').copyIn('#personIcon');
-
-            $('#mainZoneEventCatcher').click(function() {console.log('mainZoneEventCatcher');});
-            $('#volumeSliderZoneEventCatcher').click(function() {console.log('volumeSliderZoneEventCatcher');});
-            $('#backButtonZoneEventCatcher').click(function() {console.log('backButtonZoneEventCatcher');});
-            $('#inputZone1EventCatcher').click(function() {console.log('inputZone1EventCatcher');});
-            $('#inputZone2EventCatcher').click(function() {console.log('inputZone2EventCatcher');});
-            $('#inputZone3EventCatcher').click(function() {console.log('inputZone3EventCatcher');});
-            $('#inputZone4EventCatcher').click(function() {console.log('inputZone4EventCatcher');});
-            $('#inputZone5EventCatcher').click(function() {console.log('inputZone5EventCatcher');});
         </script>
 
         <!-- TEMPLATES -->
@@ -123,10 +111,10 @@
         </script>
 
         <script id="climateControlMainZoneTemplate" type="text/html">
-            <div class="tempLeft"></div>
-            <div class="personIconLeft"></div>
-            <div class="tempRight"></div>
-            <div class="personIconRight"></div>
+            <div class="temp tempLeft"></div>
+            <div class="icon personIconLeft"></div>
+            <div class="temp tempRight"></div>
+            <div class="icon personIconRight"></div>
         </script>
 
         <!-- Our lovely js -->
@@ -134,12 +122,16 @@
         <script src="../scripts/common/list/ListView.js"></script>
         <script src="../scripts/common/MainZoneLayout.js"></script>
         <script src="../scripts/common/ButtonView.js"></script>
+        <script src="../scripts/common/BackButtonView.js"></script>
+        <script src="../scripts/common/HomeButtonView.js"></script>
         <script src="../scripts/common/InputZoneView.js"></script>
         <script src="../scripts/common/SliderView.js"></script>
         <script src="../scripts/common/SliderButtonsView.js"></script>
         <script src="../scripts/common/ClockView.js"></script>
         <script src="../scripts/common/ScreenLayout.js"></script>
         <script src="../scripts/home/HomeScreen.js"></script>
+        <script src="../scripts/climateControl/ClimateControlModel.js"></script>
+        <script src="../scripts/climateControl/ClimateControlMainZone.js"></script>
         <script src="../scripts/climateControl/ClimateHome.js"></script>
 
         <!-- Javascript entry point -->
