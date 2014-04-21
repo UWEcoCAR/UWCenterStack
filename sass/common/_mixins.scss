@@ -1,4 +1,22 @@
+@import 'constants';
+
 @mixin square($size) {
   width: $size;
   height: $size;
+}
+
+@mixin position($top: 0, $left: 0, $width: 0, $height: 0, $zIndex: initial) {
+  position: absolute;
+  top: $top;
+  left: $left;
+  width: $width;
+  height: $height;
+  z-index: $zIndex;
+}
+
+@mixin mask($mask, $top: 0, $left: 0, $divWidth: 0, $divHeight: 0, $zIndex: initial) {
+  @include position($top, $left, $divWidth, $divHeight, $zIndex);
+  -webkit-mask-image: url(#{"../svg/" + $mask + ".svg"});
+  -webkit-mask-position: $left * -1 $top * -1;
+  -webkit-mask-size: $width $height;
 }

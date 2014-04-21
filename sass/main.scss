@@ -18,6 +18,72 @@ body, html {
   -webkit-box-sizing:border-box
 }
 
+svg {
+  position: absolute;
+}
+
 .hide {
   display: none;
 }
+
+#backButtonZoneContent {
+  @include mask('backButtonZoneMask', 0px, 0px, $width/2, 103px);
+  background-color: green;
+}
+
+#homeButtonZoneContent {
+  @include mask('homeButtonZoneMask', 0px, $width/2, $width/2, 103px);
+  background-color: green;
+}
+
+#mainZoneContent {
+  @include mask('mainZoneMask', 10px, 0px, $width, 614px);
+  background-color: green;
+}
+
+#volumeSliderZoneContent {
+  @include mask('volumeSliderZoneMask', 531px, 0px, $width, 200px);
+  background-color: green;
+}
+
+#inputZone1Content {
+  @include mask('inputZone1Mask', 639px, 0px, $width, 200px);
+  background-color: green;
+}
+
+#inputZone2Content {
+  @include mask('inputZone2Mask', 746px, 0px, $width, 200px);
+  background-color: green;
+}
+
+#inputZone3Content {
+  @include mask('inputZone3Mask', 854px, 0px, $width, 200px);
+  background-color: green;
+}
+
+#inputZone4Content {
+  @include mask('inputZone4Mask', 961px, 0px, $width, 200px);
+  background-color: green;
+}
+
+#inputZone5Content {
+  @include mask('inputZone5Mask', 1069px, 0px, $width, 200px);
+  background-color: green;
+}
+
+#playPauseButtonZoneContent {
+  @include mask('playPauseButtonZoneMask', 1177px, 0px, $width/2, 103px);
+  background-color: green;
+}
+
+#nextButtonZoneContent {
+  @include mask('nextButtonZoneMask', 1177px, $width/2, $width/2, 103px);
+  background-color: green;
+}
+
+#eventCatchers {
+ > * {
+   fill: rgba(0, 0, 0, 0);
+ }
+}
+

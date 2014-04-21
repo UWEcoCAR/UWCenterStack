@@ -22,15 +22,30 @@
         <div id="dashGraphicWrapper">
             <div id="dashGraphic">
                 <div id="appContainer">
-                    <!-- Apps dynamically added here -->
+                    <div id="backButtonZoneContent"></div>
+                    <div id="homeButtonZoneContent"></div>
+                    <div id="mainZoneContent"></div>
+                    <div id="volumeSliderZoneContent"></div>
+                    <div id="inputZone1Content"></div>
+                    <div id="inputZone2Content"></div>
+                    <div id="inputZone3Content"></div>
+                    <div id="inputZone4Content"></div>
+                    <div id="inputZone5Content"></div>
+                    <div id="playPauseButtonZoneContent"></div>
+                    <div id="nextButtonZoneContent"></div>
+                    <div id="eventCatchersWrapper"></div>
+                    <div id="bezelOverlayWrapper"></div>
                 </div>
             </div>
         </div>
+        <div id="svgContainer" class="hide"></div>
+
         <script id="layout-template" type="text/html">
             <div class="container">
                 <div class="overallContent"></div>
             </div>
         </script>
+
         <script type="text/template" id="content-template">
             <div class="content">
                 <div>
@@ -59,6 +74,7 @@
         <script src="../scripts/external/backbone.min.js"></script>
         <script src="../scripts/external/underscore.min.js"></script>
         <script src="../scripts/external/backbone.marionette.js"></script>
+        <script src="http://cdn.jsdelivr.net/snap.svg/0.2.0/snap.svg-min.js"></script>
 
         <!-- Open in Kiosk mode in production -->
         <script>
@@ -73,13 +89,36 @@
             global.$ = global.jQuery = $;
             global._ = _;
             global.Backbone = Backbone;
+
+            $.fn.copyIn = function(element) {
+                this.html($(element).clone());
+            }
+
+            CenterStack = new Backbone.Marionette.Application();
+            CenterStack.start();
             
         </script>
 
         <script>
             var win = require('nw.gui').Window.get();
             win.show();
-            win.zoomLevel = -5;
+            win.zoomLevel = -3;
+
+            var fs = require('fs');
+            _.each(['bezelOverlay', 'eventCatchers'], function(data) {
+                $('#svgContainer').append(fs.readFileSync('svg/' + data + '.svg', 'utf8'));
+            });
+            $('#bezelOverlayWrapper').copyIn('#bezelOverlay');
+            $('#eventCatchersWrapper').copyIn('#eventCatchers');
+
+            $('#mainZoneEventCatcher').click(function() {console.log('mainZoneEventCatcher');});
+            $('#volumeSliderZoneEventCatcher').click(function() {console.log('volumeSliderZoneEventCatcher');});
+            $('#backButtonZoneEventCatcher').click(function() {console.log('backButtonZoneEventCatcher');});
+            $('#inputZone1EventCatcher').click(function() {console.log('inputZone1EventCatcher');});
+            $('#inputZone2EventCatcher').click(function() {console.log('inputZone2EventCatcher');});
+            $('#inputZone3EventCatcher').click(function() {console.log('inputZone3EventCatcher');});
+            $('#inputZone4EventCatcher').click(function() {console.log('inputZone4EventCatcher');});
+            $('#inputZone5EventCatcher').click(function() {console.log('inputZone5EventCatcher');});
         </script>
 
         <script src="../scripts/RouteMapping.js"></script>
