@@ -1,0 +1,32 @@
+@import '../common/import';
+
+$tempLabelTop: 500px;
+$tempIconTop: $tempLabelTop + 40;
+$climateControlMargin: 40px;
+
+#climateControlMainZone {
+
+  .temp {
+    @include alrightSans('bold', $fontSizeCaptionHeading);
+  }
+
+  .tempLeft {
+    @include position($tempLabelTop, $climateControlMargin);
+  }
+
+  .tempRight {
+    @include positionRight($tempLabelTop, $climateControlMargin);
+  }
+
+  .icon > svg > * {
+    stroke: $white;
+  }
+
+  .personIconLeft {
+    @include position($tempIconTop, $climateControlMargin);
+  }
+
+  .personIconRight {
+    @include positionRight($tempIconTop, $climateControlMargin);
+  }
+}

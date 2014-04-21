@@ -22,7 +22,14 @@
         <div id="dashGraphicWrapper">
             <div id="dashGraphic">
                 <div id="appContainerWrapper">
-                    <div id="appContainer"></div>
+                    <div id="appContainer">
+                        <div id="climateControlMainZone">
+                            <div class="temp tempLeft">75</div>
+                            <div class="icon personIconLeft"></div>
+                            <div class="temp tempRight">81</div>
+                            <div class="icon personIconRight"></div>
+                        </div>
+                    </div>
                     <div id="eventCatchersWrapper"></div>
                     <div id="bezelOverlayWrapper"></div>
                 </div>
@@ -66,6 +73,8 @@
             });
             $('#bezelOverlayWrapper').copyIn('#bezelOverlay');
             $('#eventCatchersWrapper').copyIn('#eventCatchers');
+            $('.personIconRight').copyIn('#personIcon');
+            $('.personIconLeft').copyIn('#personIcon');
 
             $('#mainZoneEventCatcher').click(function() {console.log('mainZoneEventCatcher');});
             $('#volumeSliderZoneEventCatcher').click(function() {console.log('volumeSliderZoneEventCatcher');});
@@ -111,6 +120,13 @@
 
         <script id="listItemTemplate" type="text/html">
             <%= text %>
+        </script>
+
+        <script id="climateControlMainZoneTemplate" type="text/html">
+            <div class="tempLeft"></div>
+            <div class="personIconLeft"></div>
+            <div class="tempRight"></div>
+            <div class="personIconRight"></div>
         </script>
 
         <!-- Our lovely js -->
