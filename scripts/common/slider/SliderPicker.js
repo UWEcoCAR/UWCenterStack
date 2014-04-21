@@ -1,4 +1,4 @@
-CenterStack.SliderPicker = Marionette.CollectionView.extend({
+centerStack.SliderPicker = Marionette.CollectionView.extend({
     className: 'sliderPicker',
 
     events: {
@@ -21,7 +21,7 @@ CenterStack.SliderPicker = Marionette.CollectionView.extend({
         console.log("x, y", x, y);
         console.log("offsetX, offsetY", offsetX, offsetY);
 
-        CenterStack.appRouter.navigate("slider/val=1", {
+        centerStack.appRouter.navigate("slider/val=1", {
             trigger: false,
         });
         console.log(this);

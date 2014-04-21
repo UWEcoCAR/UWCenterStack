@@ -1,0 +1,26 @@
+@import '../common/import';
+
+$clockLinesLength: 13px;
+$clockLinesThickness: 2px;
+$clockLinesColor: $green;
+$clockHeight: 60px;
+$clockWidth: 200px;
+$clockTop: 135px;
+#clock {
+  @include positionCentered($clockTop, $clockWidth, $clockHeight);
+  @include alrightSans('regular', $fontSizeClock);
+  text-align: center;
+  line-height: $clockHeight;
+
+  .topLeftLines {
+    @include position(0px, 0px, $clockLinesLength, $clockLinesLength);
+    border-top: $clockLinesThickness solid $clockLinesColor;
+    border-left: $clockLinesThickness solid $clockLinesColor;
+  }
+
+  .bottomRightLines {
+    @include positionBottomRight(0px, 0px, $clockLinesLength, $clockLinesLength);
+    border-bottom: $clockLinesThickness solid $clockLinesColor;
+    border-right: $clockLinesThickness solid $clockLinesColor;
+  }
+}

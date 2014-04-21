@@ -1,4 +1,4 @@
-CenterStack.WindowListView = Marionette.CollectionView.extend({
+centerStack.WindowListView = Marionette.CollectionView.extend({
     //
 
 	initialize: function(options) {
@@ -48,7 +48,7 @@ CenterStack.WindowListView = Marionette.CollectionView.extend({
             //console.log("next data", this.nextData.models);
             this.close();
 
-            CenterStack.appRouter.navigate("music/album/selected=" + selected[0].innerText, {
+            centerStack.appRouter.navigate("music/album/selected=" + selected[0].innerText, {
                 trigger: true,
             });   
         }
@@ -157,7 +157,7 @@ CenterStack.WindowListView = Marionette.CollectionView.extend({
 
 	addOne: function(listItem) {
 		// create new view and force it to render, then add it to dom
-		var view = new CenterStack.ListItemView({model: listItem}).render();
+		var view = new centerStack.ListItemView({model: listItem}).render();
 		this.$el.find('.listScroller').append(view.$el);
 	}
 }); 

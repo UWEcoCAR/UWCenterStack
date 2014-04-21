@@ -1,6 +1,6 @@
-CenterStack.ListView = Marionette.CollectionView.extend({
+centerStack.ListView = Marionette.CollectionView.extend({
 
-    itemView: CenterStack.ListItemView,
+    itemView: centerStack.ListItemView,
 
 	initialize: function(options) {
 		// add options as properties

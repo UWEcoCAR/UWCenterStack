@@ -8,19 +8,33 @@
  * node-webkit context: window
  */
 
-console.log("hello");
-CenterStack = new Backbone.Marionette.Application.extend({
-	appRouter: new RouteMapping()
+var CenterStack = Backbone.Marionette.Application.extend({
+    index: function() {
+        var homeScreen = new HomeScreen();
+        centerStack.main.show(homeScreen);
+        homeScreen.mainZoneContent.show(new ClockView());
+    }
+
+    // Route handlers go here
+});
+centerStack = new CenterStack();
+
+centerStack.addInitializer(function() {
+    new Backbone.Marionette.AppRouter({
+        controller: centerStack,
+        appRoutes: {
+            '' : 'index'
+            // Routes go here
+        }
+    });
+
+    Backbone.history.start();
+
+    console.log('Application Starting');
 });
 
-// creating layout and starting application
-var homeScreen = new HomeScreen();
-$('#appContainer').append(homeScreen.render().el);
+centerStack.addRegions({
+    main: '#appContainer'
+});
 
-Backbone.history.start();
-
-/*
-console.log(CenterStack);
-CenterStack.appRouter = new CenterStack.RouteMapping();
-Backbone.history.start();
-*/
+centerStack.start();

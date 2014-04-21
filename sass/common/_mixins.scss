@@ -27,9 +27,19 @@
 
 @mixin positionRight($top: 0, $right: 0, $width: 0, $height: 0, $zIndex: 0) {
   @include position($top, 0, $width, $height, $zIndex);
+  right: $right;
+}
 
-  @if $right != 0 {
-    right: $right;
+@mixin positionBottomRight($bottom: 0, $right: 0, $width: 0, $height: 0, $zIndex: 0) {
+  @include positionRight(0, $right, $width, $height, $zIndex);
+  bottom: $bottom;
+}
+
+@mixin positionCentered($top: 0, $width: 0, $height: 0, $zIndex: 0) {
+  @include position($top, 50%, $width, $height, $zIndex);
+
+  @if $width != 0 {
+    margin-left: -$width/2;
   }
 }
 

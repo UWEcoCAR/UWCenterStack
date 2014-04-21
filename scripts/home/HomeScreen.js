@@ -17,16 +17,16 @@ var HomeScreen = Backbone.Marionette.Layout.extend({
             nextButtonZoneContent: '#nextButtonZoneContent'
     },
 
-    initialize: function() {
-        var that = this;
-        this.header.on('show', function(view) {
-            that.listenTo(view, 'custom_event:btn_clicked', that.clicked);
-        });
-    },
-
-    clicked: function() {
-        alert('has been clicked!');
-    }
+//    initialize: function() {
+//        var that = this;
+//        this.header.on('show', function(view) {
+//            that.listenTo(view, 'custom_event:btn_clicked', that.clicked);
+//        });
+//    },
+//
+//    clicked: function() {
+//        alert('has been clicked!');
+//    }
 });
 
 

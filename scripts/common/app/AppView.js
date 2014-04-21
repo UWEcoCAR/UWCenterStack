@@ -1,4 +1,4 @@
-CenterStack.AppView = Backbone.Marionette.Layout.extend({
+centerStack.AppView = Backbone.Marionette.Layout.extend({
 
 
     

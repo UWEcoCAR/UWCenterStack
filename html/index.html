@@ -21,7 +21,8 @@
     <body>
         <div id="dashGraphicWrapper">
             <div id="dashGraphic">
-                <div id="appContainer">
+                <div id="appContainerWrapper">
+                    <div id="appContainer"></div>
                     <div id="eventCatchersWrapper"></div>
                     <div id="bezelOverlayWrapper"></div>
                 </div>
@@ -34,7 +35,15 @@
         <script src="../scripts/external/backbone.min.js"></script>
         <script src="../scripts/external/underscore.min.js"></script>
         <script src="../scripts/external/backbone.marionette.js"></script>
-        <script src="http://cdn.jsdelivr.net/snap.svg/0.2.0/snap.svg-min.js"></script>
+        <script>
+            global.$ = global.jQuery = $;
+            global._ = _;
+            global.Backbone = Backbone;
+
+            $.fn.copyIn = function(element) {
+                this.html($(element).clone());
+            }
+        </script>
 
         <!-- Open in Kiosk mode in production -->
         <script>
@@ -44,19 +53,6 @@
                 // This doesn't appear to be working on Mac
                 //win.enterKioskMode();
             }
-
-
-            global.$ = global.jQuery = $;
-            global._ = _;
-            global.Backbone = Backbone;
-
-            $.fn.copyIn = function(element) {
-                this.html($(element).clone());
-            }
-
-            CenterStack = new Backbone.Marionette.Application();
-            CenterStack.start();
-            
         </script>
 
         <script>
@@ -107,27 +103,21 @@
             <div class="label labelRight"></div>
         </script>
 
+        <script id="clockTemplate" type="text/html">
+            <div class="lines topLeftLines"></div>
+            <div class="lines bottomRightLines"></div>
+            <span class="time"></span>
+        </script>
+
+        <!-- Our lovely js -->
         <script src="../scripts/RouteMapping.js"></script>
         <script src="../scripts/home/HomeScreen.js"></script>
         <script src="../scripts/common/MainZoneLayout.js"></script>
         <script src="../scripts/common/ButtonViews.js"></script>
-        <script src="../scripts/main.js"></script>
+        <script src="../scripts/common/ClockView.js"></script>
 
         <!-- Javascript entry point -->
-        <!-- Our lovely js -->
-        <!--<script src="../scripts/common/app/AppModel.js"></script>
-        <script src="../scripts/common/app/AppView.js"></script>
-        <script src="../scripts/RouteMapping.js"></script>
-        <script src="../scripts/common/slider/SliderView.js"></script>
-        <script src="../scripts/common/slider/SliderModel.js"></script>
-        <script src="../scripts/common/slider/SliderPicker.js"></script>
-        <script src="../scripts/common/list/WindowListView.js"></script>
-        <script src="../scripts/common/list/ListView.js"></script>
-        <script src="../scripts/common/list/TopDownListView.js"></script>
-        <script src="../scripts/common/list/ListItemView.js"></script>
-        <script src="../scripts/common/list/ListItemModel.js"></script>
-        <script src="../scripts/common/list/ListItemCollection.js"></script>
-        <script src="../scripts/main.js"></script>-->
+        <script src="../scripts/main.js"></script>
 
 
     </body>
