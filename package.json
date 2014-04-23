@@ -18,7 +18,8 @@
     "moment": "~2.5.1",
     "backbone": "~1.1.0",
     "id3js": "~1.1.2",
-    "backbone.marionette": "1.6.2"
+    "backbone.marionette": "1.6.2",
+    "glob": "~3.2.9"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

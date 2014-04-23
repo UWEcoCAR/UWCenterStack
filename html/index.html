@@ -65,8 +65,11 @@
             win.zoomLevel = -5;
 
             var fs = require('fs');
-            _.each(['bezelOverlay', 'eventCatchers', 'icons/back', 'icons/home', 'icons/person', 'icons/volumeDown', 'icons/volumeUp'], function(data) {
-                $('#svgContainer').append(fs.readFileSync('svg/' + data + '.svg', 'utf8'));
+            var glob = require('glob');
+            _.each(['**/*.svg', 'icons/*.svg'], function(pattern) {
+                _.each(glob.sync(pattern), function(filePath) {
+                    $('#svgContainer').append(fs.readFileSync(filePath, 'utf8'));
+                });
             });
             $('#bezelOverlayWrapper').copyIn('#bezelOverlay');
             $('#eventCatchersWrapper').copyIn('#eventCatchers');
