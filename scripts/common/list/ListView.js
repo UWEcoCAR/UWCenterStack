@@ -7,7 +7,7 @@ var ListView = Backbone.Marionette.CollectionView.extend({
     initialize: function(options) {
         this.vent = options.vent;
         this.vent.on('slider:touchMove', _.bind(function(data) {
-            this.selection = Math.round(this.$el.children().size() * data);
+            this.selection = Math.min(Math.round(this.$el.children().size() * data), 25);
             this.render();
         }, this));
         this.vent.on('slider:touchEnd', _.bind(function() {
