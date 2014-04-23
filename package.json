@@ -30,6 +30,7 @@
     "grunt-shell": "~0.6.4"
   },
   "window": {
-    "show": false
+    "show": false,
+    "toolbar": false
   }
 }

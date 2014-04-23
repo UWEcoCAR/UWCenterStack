@@ -8,6 +8,15 @@
  * node-webkit context: window
  */
 
+$(document).keydown(function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.keyCode === 68) { // ctrl-d
+        var win = require('nw.gui').Window.get();
+        win.isDevToolsOpen() ? win.closeDevTools() : win.showDevTools();
+    } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 82) { // ctrl-r
+        window.location.reload();
+    }
+});
+
 var CenterStack = Backbone.Marionette.Application.extend({
     index: function() {
         var homeScreen = new HomeScreen();
