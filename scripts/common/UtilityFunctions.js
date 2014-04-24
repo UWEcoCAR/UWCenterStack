@@ -2,13 +2,11 @@
  * Utility functions for project
  */
 _.extend(Backbone.Marionette.View.prototype, {
-    _getMovementPercent: function(data) {
-        data.preventDefault();
-        var x = data.originalEvent.touches[0].pageX;
-        var offsetX = x - $("#inputZone2Content").offset().left;
-        var percentageX = offsetX / 800;
-        percentageX = Math.min(percentageX, 1);
-        percentageX = Math.max(percentageX, 0);
-        return percentageX;  
+    // will return a value that will be rounded to the closest boundary if it exceeds
+    // the range between them
+    _getValidValue: function(value, leftBoundary, rightBoundary) {
+        value = Math.min(value, rightBoundary);
+        value = Math.max(value, leftBoundary);
+        return value;  
     }
 });

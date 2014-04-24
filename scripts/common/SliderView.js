@@ -16,6 +16,14 @@ var SliderView = InputZoneView.extend({
     this.vent = options.vent;
   },
 
+  _getMovementPercent: function(data) {
+    data.preventDefault();
+    var x = data.originalEvent.touches[0].pageX;
+    var offsetX = x - $("#inputZone2Content").offset().left;
+    var percentageX = offsetX / 800;
+    return this._getValidValue(percentageX, 0, 1);  
+  },
+
   touch: function(data) {
     this.vent.trigger('slider:touchStart', this._getMovementPercent(data));
   },
