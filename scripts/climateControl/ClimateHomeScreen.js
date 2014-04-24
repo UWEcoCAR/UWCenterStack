@@ -17,6 +17,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.inputZone3View = new SliderView({leftLabel: "FAN", eventCatcher: "#inputZone3EventCatcher", vent: this.inputZone3Vent});
         this.renderedMainZoneView = this.mainZoneView = new ClimateControlMainZone({ model: this.model });
 
+        // collection of possible temperatures
         var temperatureCollection = new Backbone.Collection([]);
         this.temperatureListView = new ListView({
             collection: temperatureCollection,
@@ -26,6 +27,17 @@ ClimateHomeScreen = ScreenLayout.extend({
             temperatureCollection.push({text: i});
         }
 
+        // collection of possible fan speeds
+        var fanSpeedCollection = new Backbone.Collection([]);
+        this.fanSpeedListView = new ListView({
+            collection: fanSpeedCollection,
+            vent: this.inputZone3Vent
+        });
+        for (var j = 0; j <= 100; j+=4) {
+            fanSpeedCollection.push({text: j});
+        }
+
+        // Temperature Selection
         this.inputZone2Vent.on('slider:touchStart', _.bind(function(data) {
             this.renderedMainZoneView = this.temperatureListView;
             this.render();
@@ -40,6 +52,21 @@ ClimateHomeScreen = ScreenLayout.extend({
         }, this));
 
         this.inputZone2Vent.on('slider:touchEnd', _.bind(function(data) {
+            this.renderedMainZoneView = this.mainZoneView;
+            this.render();
+        }, this));
+
+        // Fan Speed Selection
+        this.inputZone3Vent.on('slider:touchStart', _.bind(function(data) {
+            this.renderedMainZoneView = this.fanSpeedListView;
+            this.render();
+        }, this));
+
+        this.inputZone3Vent.on('list:select', _.bind(function(data) {
+            // TODO: Need to decide what to do here
+        }, this));
+
+        this.inputZone3Vent.on('slider:touchEnd', _.bind(function(data) {
             this.renderedMainZoneView = this.mainZoneView;
             this.render();
         }, this));
