@@ -8,14 +8,8 @@
  * node-webkit context: window
  */
 
-$(document).keydown(function(e) {
-    if ((e.ctrlKey || e.metaKey) && e.keyCode === 68) { // ctrl-d
-        var win = require('nw.gui').Window.get();
-        win.isDevToolsOpen() ? win.closeDevTools() : win.showDevTools();
-    } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 82) { // ctrl-r
-        window.location.reload();
-    }
-});
+// Initialize keystrokes
+
 
 var CenterStack = Backbone.Marionette.Application.extend({
     index: function() {
@@ -32,6 +26,7 @@ var CenterStack = Backbone.Marionette.Application.extend({
 });
 centerStack = new CenterStack();
 
+// Initialize routing and history
 centerStack.addInitializer(function() {
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
@@ -44,11 +39,28 @@ centerStack.addInitializer(function() {
 
     Backbone.history.start();
 
-    console.log('Application Starting');
 });
+
+// Load SVG's
+centerStack.addInitializer(function() {
+
+});
+
+var fs = require('fs');
+var glob = require('glob');
+_.each(['**/*.svg', 'icons/*.svg'], function(pattern) {
+    _.each(glob.sync(pattern), function(filePath) {
+        $('#svgContainer').append(fs.readFileSync(filePath, 'utf8'));
+    });
+});
+$('#bezelOverlayWrapper').copyIn('#bezelOverlay');
+$('#eventCatchersWrapper').copyIn('#eventCatchers');
+$('.personIconRight').copyIn('#personIcon');
+$('.personIconLeft').copyIn('#personIcon');
 
 centerStack.addRegions({
     main: '#appContainer'
 });
 
+console.log('Application Starting');
 centerStack.start();

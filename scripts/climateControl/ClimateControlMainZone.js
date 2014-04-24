@@ -8,7 +8,7 @@ ClimateControlMainZone = Backbone.Marionette.ItemView.extend({
 
     onRender: function() {
         this.$el.find('.icon').copyIn('#personIcon');
-        this.$el.find('.tempLeft').html(this.model.get('driverTemp'));
-        this.$el.find('.tempRight').html(this.model.get('passengerTemp'));
+        this.$el.find('.tempLeft').html(this.model.get('driverTemp') + '&deg;');
+        this.$el.find('.tempRight').html(this.model.get('passengerTemp') + '&deg;');
     }
 });
