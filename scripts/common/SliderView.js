@@ -16,12 +16,20 @@ var SliderView = InputZoneView.extend({
     this.vent = options.vent;
   },
 
+  _getMovementPercent: function(data) {
+    data.preventDefault();
+    var x = data.originalEvent.touches[0].pageX;
+    var offsetX = x - $("#inputZone2Content").offset().left;
+    var percentageX = offsetX / 800;
+    return this._getValidValue(percentageX, 0, 1);  
+  },
+
   touch: function(data) {
-    this.vent.trigger('slider:touchStart', data);
+    this.vent.trigger('slider:touchStart', this._getMovementPercent(data));
   },
 
   change: function(data) {
-    this.vent.trigger('slider:touchMove', data);
+    this.vent.trigger('slider:touchMove', this._getMovementPercent(data));
   },
 
   release: function(data) {
