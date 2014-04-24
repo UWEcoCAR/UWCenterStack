@@ -45,7 +45,7 @@
 
 @mixin mask($mask, $top: 0, $left: 0, $divWidth: 0, $divHeight: 0, $zIndex: initial) {
   @include position($top, $left, $divWidth, $divHeight, $zIndex);
-  -webkit-mask-image: url(#{"../svg/" + $mask + ".svg"});
+  -webkit-mask-image: url(#{"../svg/masks/" + $mask + ".svg"});
   -webkit-mask-position: $left * -1 $top * -1;
   -webkit-mask-size: $width $height;
 }

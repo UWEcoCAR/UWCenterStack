@@ -47,11 +47,8 @@ centerStack.addInitializer(function() {
 });
 
 var fs = require('fs');
-var glob = require('glob');
-_.each(['**/*.svg', 'icons/*.svg'], function(pattern) {
-    _.each(glob.sync(pattern), function(filePath) {
-        $('#svgContainer').append(fs.readFileSync(filePath, 'utf8'));
-    });
+_.each(['bezelOverlay', 'eventCatchers', 'icons'], function(file) {
+    $('#svgContainer').append(fs.readFileSync('svg/' + file + '.svg', 'utf8'));
 });
 $('#bezelOverlayWrapper').copyIn('#bezelOverlay');
 $('#eventCatchersWrapper').copyIn('#eventCatchers');

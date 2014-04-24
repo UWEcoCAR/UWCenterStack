@@ -12,9 +12,9 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.inputZone3Vent = _.extend({}, Backbone.Events);
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
-        this.inputZone1View = new SliderButtonsView({leftLabel: "DRIVER", rightLabel: "PASSENGER", eventCatcher: "#inputZone1EventCatcher", vent: this.inputZone1Vent});
+        this.inputZone1View = new SliderButtonsView({labelLeft: "DRIVER", labelRight: "PASSENGER", eventCatcher: "#inputZone1EventCatcher", vent: this.inputZone1Vent});
         this.inputZone2View = new SliderView({iconLeft: "#temperatureIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.inputZone2Vent});
-        this.inputZone3View = new SliderView({leftLabel: "FAN", eventCatcher: "#inputZone3EventCatcher", vent: this.inputZone3Vent});
+        this.inputZone3View = new SliderView({iconLeft: "#fanIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.inputZone3Vent});
         this.renderedMainZoneView = this.mainZoneView = new ClimateControlMainZone({ model: this.model });
 
         // collection of possible temperatures
@@ -91,8 +91,8 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.inputZone3Content.show(this.inputZone3View);
 
 
-        this.inputZone1View.$el.find('.leftLabel').toggleClass('selected', this.model.get('controlMode') === 'driver');
-        this.inputZone1View.$el.find('.rightLabel').toggleClass('selected', this.model.get('controlMode') === 'passenger');
+        this.inputZone1View.$el.find('.labelLeft').toggleClass('selected', this.model.get('controlMode') === 'driver');
+        this.inputZone1View.$el.find('.labelRight').toggleClass('selected', this.model.get('controlMode') === 'passenger');
 
 
     }

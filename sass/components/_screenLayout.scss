@@ -40,11 +40,11 @@ $bottomZonesTop: 1177px;
     stroke: $green;
   }
 
-  &.rightIcon {
+  &.iconRight {
     @include positionRight($rightInputIconTop, $rightInputIconRight);
   }
 
-  &.leftIcon {
+  &.iconLeft {
     @include position($leftInputIconTop, $leftInputIconLeft);
   }
 }
@@ -52,11 +52,11 @@ $bottomZonesTop: 1177px;
 .label {
   @include alrightSans('medium', $fontSizeButtonLabel, $gray);
 
-  &.leftLabel {
+  &.labelLeft {
     @include position($leftInputLabelTop, $leftInputLabelLeft);
   }
 
-  &.rightLabel {
+  &.labelRight {
     text-align: right;
     @include positionRight($rightInputLabelTop, $rightInputLabelRight);
   }

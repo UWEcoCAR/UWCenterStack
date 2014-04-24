@@ -1,0 +1,52 @@
+<svg id="airCirculationIcon">
+    <path fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+        M31.944,22.847h-9.236v5.764h14.583l4.793-0.07c0.902-0.485,0.972-6.944-0.07-7.708c-0.486-0.347-5.416-0.278-5.973-0.417
+        c-0.416-0.069-3.264-4.167-4.93-4.93H20.556c-1.667,0.764-4.444,4.792-4.931,4.93c-0.556,0.139-5.486,0-5.972,0.417
+        c-1.042,0.764-0.972,7.292-0.069,7.708c0.069,0.07,2.222,0.07,7.014,0.07"/>
+    <line fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="31.944" y1="22.847" x2="29.375" y2="20.278"/>
+</svg>
+
+<svg id="backIcon">
+    <path fill="none" stroke="#7E8183" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M21.5,38.8L8.8,25l12.7-13.8 M41.2,38.8L28.5,25l12.7-13.8"/>
+</svg>
+
+<svg id="fanIcon">
+    <path fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M22.9,5.1c-2.5,0.3-4.8,2-5.1,5.4c-0.2,2.6-0.5,7-0.5,7s-2.9-1.8-5.5-2c-5-0.4-6.9,4-7,5.5C4.6,22.9,4.5,28.5,11,29
+	c2.6,0.2,9.1-2.7,9.1-2.7S20,19.6,26,20.1"/>
+    <path fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M27.1,44.9c2.5-0.3,4.8-2,5.1-5.4c0.2-2.6,0.5-7,0.5-7s2.9,1.8,5.5,2c5,0.4,6.9-4,7-5.5c0.1-1.8,0.2-7.3-6.2-7.8
+	c-2.6-0.2-9.1,2.7-9.1,2.7s0.1,6.7-5.9,6.2"/>
+</svg>
+
+<svg id="homeIcon">
+    <path fill="none" stroke="#7E8183" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M24.6,5.399L11.5,20.1v22.799 M18.3,44.6h20.2V20.5L24.6,5.399L11.5,20.1v22.799"/>
+</svg>
+
+<svg id="personIcon">
+    <circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="7.109" cy="7.164" r="5.615"/>
+    <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M7.152,15.7c5.103,0.211,5.348,3.459,5.348,5.122s0,15.679,0,15.679H20l6.771,5.885c0,0,1.707,3.076,0,5.346s-6.379,1.393-6.379,1.393l-3.052-4.896c0,0-13.48,2.426-14.783-0.09s0-24.978,0-24.978S2.806,15.52,7.152,15.7z"/>
+    <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="20.707" y1="16.913" x2="29.107" y2="9.276"/>
+    <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="27.53" y1="36.545" x2="41.597" y2="35.736"/>
+</svg>
+
+<svg id="temperatureIcon">
+    <path fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+	M19.9,12.6c0-2.6,0-3.1,0-3.2c0-1.2-0.4-6.8,5.2-6.8c5.5,0,5.1,5.5,5.1,7c0,0.5,0,24.1,0,24.1c1.7,1.4,2.7,3.6,2.7,6
+	c0,4.3-3.5,7.9-7.9,7.9c-4.3,0-7.9-3.5-7.9-7.9c0-2.4,1.1-4.5,2.7-6c0,0,0-12.9,0-14.5h2.1"/>
+    <line fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="19.9" y1="25" x2="22.2" y2="25"/>
+    <line fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="19.9" y1="13" x2="22.2" y2="13"/>
+    <line fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="19.9" y1="30.2" x2="22.2" y2="30.2"/>
+</svg>
+
+<svg id="volumeDownIcon">
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="4.14,30.413 5.119,17.5 16,17.5 27.5,6.401 27.5,40 16.305,30.165 6.96,30.255 "/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="30.275,16.553 34.409,21.091 30.814,28.458 "/>
+</svg>
+
+<svg id="volumeUpIcon">
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="4.14,30.413 5.119,17.5 16,17.5 27.5,6.401 27.5,40 16.305,30.165 6.96,30.255 "/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="30.275,16.553 34.409,21.091 30.814,28.458 "/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="33.421,12.331 40.788,21.405 30.814,33.759 "/>
+    <polyline fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="36.88,7.389 47.931,21.854 33.196,39.42 "/>
+</svg>

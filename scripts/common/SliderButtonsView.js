@@ -4,8 +4,8 @@ var SliderButtonsView = InputZoneView.extend({
     initialize: function(options) {
       this.iconLeft = options.iconLeft || '';
       this.iconRight = options.iconRight || '';
-      this.leftLabel = options.leftLabel || '';
-      this.rightLabel = options.rightLabel || '';
+      this.labelLeft = options.labelLeft || '';
+      this.labelRight = options.labelRight || '';
 
       $(options.eventCatcher).click(_.bind(this.clicked, this));
       this.vent = options.vent;
@@ -22,7 +22,7 @@ var SliderButtonsView = InputZoneView.extend({
     onRender: function() {
         this.$el.find('.iconLeft').copyIn(this.iconLeft);
         this.$el.find('.iconRight').copyIn(this.iconRight);
-        this.$el.find('.leftLabel').html(this.leftLabel);
-        this.$el.find('.rightLabel').html(this.rightLabel);
+        this.$el.find('.labelLeft').html(this.labelLeft);
+        this.$el.find('.labelRight').html(this.labelRight);
     }
 });
