@@ -26,7 +26,8 @@ ClimateHomeScreen = ScreenLayout.extend({
         var temperatureCollection = new Backbone.Collection([]);
         this.temperatureListView = new ListView({
             collection: temperatureCollection,
-            vent: this.inputZone2Vent
+            vent: this.inputZone2Vent,
+            numLevels: 25
         });
         for (var i = 60; i <= 85; i++) {
             temperatureCollection.push({text: i});
@@ -36,7 +37,8 @@ ClimateHomeScreen = ScreenLayout.extend({
         var fanSpeedCollection = new Backbone.Collection([]);
         this.fanSpeedListView = new ListView({
             collection: fanSpeedCollection,
-            vent: this.inputZone3Vent
+            vent: this.inputZone3Vent,
+            numLevels: 25
         });
         for (var j = 0; j <= 100; j+=4) {
             fanSpeedCollection.push({text: j});
@@ -68,7 +70,11 @@ ClimateHomeScreen = ScreenLayout.extend({
         }, this));
 
         this.inputZone3Vent.on('list:select', _.bind(function(data) {
-            // TODO: Need to decide what to do here
+            if (this.model.get('controlMode') === 'driver') {
+                this.model.set('driverFanSpeed', data.model.get('text'));
+            } else {
+                this.model.set('passengerFanSpeed', data.model.get('text'));
+            }
         }, this));
 
         this.inputZone3Vent.on('slider:touchEnd', _.bind(function(data) {
@@ -76,6 +82,7 @@ ClimateHomeScreen = ScreenLayout.extend({
             this.render();
         }, this));
 
+        // Driver-Passenger mode selection
         this.inputZone1Vent.on('clickLeft', _.bind(function() {
             this.model.set('controlMode', 'driver');
             this.render();
@@ -83,6 +90,26 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         this.inputZone1Vent.on('clickRight', _.bind(function() {
             this.model.set('controlMode', 'passenger');
+            this.render();
+        }, this));
+
+        // Air-Flow selection
+        this.inputZone4Vent.on('list:select', _.bind(function(data) {
+            if (this.model.get('controlMode') === 'driver') {
+                this.model.set('driverAirFlow', data.model.get('text'));
+            } else {
+                this.model.set('passengerAirFlow', data.model.get('text'));
+            }
+        }, this));
+
+        // Defrost selection
+        this.inputZone5Vent.on('clickLeft', _.bind(function() {
+            this.model.set('defrostFront', !this.model.get('defrostFront'));
+            this.render();
+        }, this));
+
+        this.inputZone5Vent.on('clickRight', _.bind(function() {
+            this.model.set('defrostRear', !this.model.get('defrostRear'));
             this.render();
         }, this));
     },
@@ -98,11 +125,11 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.inputZone4Content.show(this.inputZone4View);
         this.inputZone5Content.show(this.inputZone5View);
 
-
         this.inputZone1View.$el.find('.iconLeft').toggleClass('active', this.model.get('controlMode') === 'driver');
         this.inputZone1View.$el.find('.iconRight').toggleClass('active', this.model.get('controlMode') === 'passenger');
 
-
+        this.inputZone5View.$el.find('.iconLeft').toggleClass('active', this.model.get('defrostFront') === true);
+        this.inputZone5View.$el.find('.iconRight').toggleClass('active', this.model.get('defrostRear') === true);
     }
 });
 
