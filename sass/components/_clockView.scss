@@ -3,24 +3,28 @@
 $clockLinesLength: 13px;
 $clockLinesThickness: 2px;
 $clockLinesColor: $green;
-$clockHeight: 60px;
-$clockWidth: 200px;
+//$clockHeight: 60px;
+$clockWidth: 180px;
 $clockTop: 135px;
 #clock {
-  @include positionCentered($clockTop, $clockWidth, $clockHeight);
+  @include positionCentered($clockTop, $clockWidth, 0);
   @include alrightSans('regular', $fontSizeClock);
   text-align: center;
-  line-height: $clockHeight;
 
   .topLeftLines {
-    @include position(0px, 0px, $clockLinesLength, $clockLinesLength);
+    @include position(-$clockLinesLength, -$clockLinesLength, $clockLinesLength, $clockLinesLength);
     border-top: $clockLinesThickness solid $clockLinesColor;
     border-left: $clockLinesThickness solid $clockLinesColor;
   }
 
   .bottomRightLines {
-    @include positionBottomRight(0px, 0px, $clockLinesLength, $clockLinesLength);
+    @include positionBottomRight(-$clockLinesLength, -$clockLinesLength, $clockLinesLength, $clockLinesLength);
     border-bottom: $clockLinesThickness solid $clockLinesColor;
     border-right: $clockLinesThickness solid $clockLinesColor;
+  }
+
+  .title {
+    @include alrightSans('bold', $fontSizeClock - 4);
+    text-align: right;
   }
 }

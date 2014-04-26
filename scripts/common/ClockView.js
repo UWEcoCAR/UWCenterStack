@@ -3,7 +3,9 @@ var ClockView = Backbone.Marionette.ItemView.extend({
     id: 'clock',
     template: '#clockTemplate',
 
-    initialize: function() {
+    initialize: function(options) {
+        this.title = options.title;
+
         setInterval(_.bind(function() {
             this.render();
         }, this), 1000);
@@ -11,6 +13,7 @@ var ClockView = Backbone.Marionette.ItemView.extend({
 
     onRender: function() {
         this.$el.find('.time').html(require('moment')().format('h:mm A'));
+        this.$el.find('.title').html(this.title);
         return this;
     }
 });
