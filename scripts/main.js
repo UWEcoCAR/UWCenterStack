@@ -57,7 +57,7 @@ centerStack.addRegions({
     main: '#appContainer'
 });
 
-if (process.env.LEAP) {
+if (process.env.LEAP == 'true') {
     var Leap = require('leapjs');
     Leap.loop(function(frame) {
         var opacity = 1;

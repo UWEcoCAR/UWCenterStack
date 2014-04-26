@@ -4,7 +4,7 @@ var ClockView = Backbone.Marionette.ItemView.extend({
     template: '#clockTemplate',
 
     initialize: function(options) {
-        this.title = options.title;
+        this.title = options && options.title;
 
         setInterval(_.bind(function() {
             this.render();

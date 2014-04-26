@@ -7,7 +7,7 @@ HomeScreen = ScreenLayout.extend({
         this.climateControlButtonVent = _.extend({}, Backbone.Events);
         this.inputZone1View = new SliderButtonsView({iconLeft: "#fanIcon", eventCatcher: "#inputZone1EventCatcher", vent: this.climateControlButtonVent});
         this.volumeSliderView = new VolumeSliderView();
-        this.mainZoneView = new HomeMainZone({title: 'HOME'});
+        this.mainZoneView = new HomeMainZone();
 
         this.climateControlButtonVent.on('clickLeft', function(data) {
             Backbone.history.navigate('climate', { trigger: true });
