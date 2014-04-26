@@ -42,10 +42,6 @@ centerStack.addInitializer(function() {
 });
 
 // Load SVG's
-centerStack.addInitializer(function() {
-
-});
-
 var fs = require('fs');
 _.each(['bezelOverlay', 'eventCatchers', 'icons'], function(file) {
     $('#svgContainer').append(fs.readFileSync('svg/' + file + '.svg', 'utf8'));

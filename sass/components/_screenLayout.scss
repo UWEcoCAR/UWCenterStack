@@ -40,6 +40,10 @@ $bottomZonesTop: 1177px;
     stroke: $green;
   }
 
+  &.inactive > svg > * {
+    opacity: 0.5;
+  }
+
   &.iconRight {
     @include positionRight($rightInputIconTop, $rightInputIconRight);
   }
