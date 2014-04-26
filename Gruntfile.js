@@ -49,8 +49,13 @@ module.exports = function(grunt) {
         },
         shell: {
             nodeWebkitDev: {
-                command: isPlatform('darwin') ? 'open -n -a node-webkit ""' :
-                         isPlatform('linux') ? 'LD_LIBRARY_PATH=nw:$LD_LIBRARY_PATH nw/nw ./' :
+                command: isPlatform('darwin') ? 'NODE_ENV=' + (grunt.option('node_env') || 'development') + ' ' +
+                                                'LEAP=' + (grunt.option('leap') || 'false') + ' ' +
+                                                'open -n -a node-webkit ""' :
+                         isPlatform('linux') ? 'NODE_ENV=' + (grunt.option('node_env') || 'development') + ' ' +
+                                               'LEAP=' + (grunt.option('leap') || 'false') + ' ' +
+                                               'LD_LIBRARY_PATH=nw:$LD_LIBRARY_PATH ' +
+                                               'nw/nw ./' :
                          isPlatform('win64') || isPlatform('win32') ? ['set NODE_ENV=development', 'nodewebkit'].join('&&') : ''
             }
         }

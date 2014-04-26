@@ -18,7 +18,23 @@ alias uwcs-init-mac='uwcs-global-modules ; uwcs ; sudo npm install'
 alias uwcs-init-linux='uwcs-global-modules ; uwcs ; sudo npm install ; uwcs ; ln -s /lib/x86_64-linux-gnu/libudev.so.1 ./nw/libudev.so.0'
 
 # uwcs-run - Runs the node-webkit vehicle apps in development mode with file watchers
-alias uwcs-run='uwcs ; export NODE_ENV=development ; grunt'
+alias uwcs-run='uwcs ; grunt --node_env=development'
+
+# uwcs-run-with-leap - Runs the node-webkit vehicle apps with Leap Motion functions enabled
+alias uwcs-run-with-leap='uwcs ; grunt --node_env=development --leaf=true'
 
 # uwcs-build - Builds the executable node-webkit vehicle apps
 alias uwcs-build='uwcs ; grunt build'
+
+uwcs-native-modules() {
+  uwcs
+  for module in `ls node_modules`;
+  do
+      uwcs
+      cd node_modules/$module
+      if [ -s binding.gyp ]; then
+        nw-gyp rebuild --target=0.8.5
+      fi
+  done
+  uwcs
+}
