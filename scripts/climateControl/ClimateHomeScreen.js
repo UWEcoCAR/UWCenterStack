@@ -10,11 +10,16 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.inputZone1Vent = _.extend({}, Backbone.Events);
         this.inputZone2Vent = _.extend({}, Backbone.Events);
         this.inputZone3Vent = _.extend({}, Backbone.Events);
+        this.inputZone4Vent = _.extend({}, Backbone.Events);
+        this.inputZone5Vent = _.extend({}, Backbone.Events);
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
-        this.inputZone1View = new SliderButtonsView({labelLeft: "DRIVER", labelRight: "PASSENGER", eventCatcher: "#inputZone1EventCatcher", vent: this.inputZone1Vent});
+        this.volumeSliderView = new VolumeSliderView();
+        this.inputZone1View = new SliderButtonsView({iconLeft: "#driverIcon", iconRight: "#passengerIcon", eventCatcher: "#inputZone1EventCatcher", vent: this.inputZone1Vent});
         this.inputZone2View = new SliderView({iconLeft: "#temperatureIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.inputZone2Vent});
         this.inputZone3View = new SliderView({iconLeft: "#fanIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.inputZone3Vent});
+        this.inputZone4View = new SliderView({labelLeft: "AIRFLOW", eventCatcher: "#inputZone4EventCatcher", vent: this.inputZone4Vent});
+        this.inputZone5View = new SliderButtonsView({iconLeft: "#defrostFrontIcon", iconRight: "#defrostRearIcon",eventCatcher: "#inputZone5EventCatcher", vent: this.inputZone5Vent});
         this.renderedMainZoneView = this.mainZoneView = new ClimateControlMainZone({ model: this.model });
 
         // collection of possible temperatures
@@ -86,13 +91,16 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
         this.backButtonZoneContent.show(this.backButtonView);
         this.homeButtonZoneContent.show(this.homeButtonView);
+        this.volumeSliderZoneContent.show(this.volumeSliderView);
         this.inputZone1Content.show(this.inputZone1View);
         this.inputZone2Content.show(this.inputZone2View);
         this.inputZone3Content.show(this.inputZone3View);
+        this.inputZone4Content.show(this.inputZone4View);
+        this.inputZone5Content.show(this.inputZone5View);
 
 
-        this.inputZone1View.$el.find('.labelLeft').toggleClass('selected', this.model.get('controlMode') === 'driver');
-        this.inputZone1View.$el.find('.labelRight').toggleClass('selected', this.model.get('controlMode') === 'passenger');
+        this.inputZone1View.$el.find('.iconLeft').toggleClass('active', this.model.get('controlMode') === 'driver');
+        this.inputZone1View.$el.find('.iconRight').toggleClass('active', this.model.get('controlMode') === 'passenger');
 
 
     }

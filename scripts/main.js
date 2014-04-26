@@ -52,8 +52,6 @@ _.each(['bezelOverlay', 'eventCatchers', 'icons'], function(file) {
 });
 $('#bezelOverlayWrapper').copyIn('#bezelOverlay');
 $('#eventCatchersWrapper').copyIn('#eventCatchers');
-$('.personIconRight').copyIn('#personIcon');
-$('.personIconLeft').copyIn('#personIcon');
 
 centerStack.addRegions({
     main: '#appContainer'

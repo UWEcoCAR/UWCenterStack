@@ -5,10 +5,10 @@
   width: 200px;
   margin-top: 300px;
   margin-left: 40px;
-  transition: top 0.5s ease;
+  transition: top 0.2s ease-out;
 
   .listItem {
-    //transition: all 0.5s ease-out;
+    transition: all 0.2s ease-out;
     padding-bottom: 40px;
     @include alrightSans('light', $fontSizeListItem);
 
