@@ -38,7 +38,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         var fanSpeedCollection = new Backbone.Collection([]);
         var fanSpeedListView = new ListView({
             id: 'inputZone3',
-            feature: 'FanSpeed',
+            feature: 'ventFanSpeed',
             collection: fanSpeedCollection,
             vent: this.sliderVent,
             numLevels: 25
@@ -62,12 +62,25 @@ ClimateHomeScreen = ScreenLayout.extend({
         }, this));
 
         // updating model after temperature/fan speed selection
-        this.sliderVent.on('inputZone2:list:select inputZone3:list:select inputZone4:list:select', _.bind(function(data, feature) {
+        this.sliderVent.on('inputZone2:list:select inputZone4:list:select', _.bind(function(data, feature) {
+            var temp = Number(data.model.get('text'));
+            var tempPercent = Math.round(((temp - 60)/30) * 100);
+            canReadWriter.write('diagnosticMode', 1); 
             if (this.model.get('controlMode') === 'driver') {
-                this.model.set('driver' + feature, data.model.get('text'));
+                this.model.set('driver' + feature, temp);
+                canReadWriter.write('diagnosticMode', 1);
+                canReadWriter.write('driver' + feature, tempPercent);
             } else {
-                this.model.set('passenger' + feature, data.model.get('text'));
+                this.model.set('passenger' + feature, temp);
+                canReadWriter.write('passenger' + feature, tempPercent);
             }
+        }, this));
+
+        this.sliderVent.on('inputZone3:list:select ', _.bind(function(data, feature) {
+            this.model.set(feature, Number(data.model.get('text')));
+            canReadWriter.write('diagnosticMode', 1); 
+            canReadWriter.write(feature, Number(data.model.get('text')));
+            console.log(this.model.get(feature));
         }, this));
 
         // updatie main view back to default climate control view after sliders have been used
