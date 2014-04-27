@@ -6,13 +6,13 @@ HomeScreen = ScreenLayout.extend({
     initialize: function() {
         this.climateControlButtonVent = _.extend({}, Backbone.Events);
         this.inputZone1View = new SliderButtonsView({iconLeft: "#musicIcon", iconRight: "#playIcon", eventCatcher: "#inputZone1EventCatcher", vent: this.climateControlButtonVent});
-        this.inputZone2View = new SliderButtonsView({iconLeft: "#fanIcon", iconRight: "#leafIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.climateControlButtonVent});
+        this.inputZone2View = new SliderButtonsView({id: 'climateControlButton', iconLeft: "#fanIcon", iconRight: "#leafIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.climateControlButtonVent});
         this.inputZone3View = new SliderButtonsView({iconLeft: "#phoneIcon", iconRight: "#settingsIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.climateControlButtonVent});
         this.inputZone4View = new SliderButtonsView({iconLeft: "#navigationIcon", iconRight: "#moreIcon", eventCatcher: "#inputZone4EventCatcher", vent: this.climateControlButtonVent});
         this.volumeSliderView = new VolumeSliderView();
         this.mainZoneView = new HomeMainZone();
 
-        this.climateControlButtonVent.on('clickLeft', function(data) {
+        this.climateControlButtonVent.on('climateControlButton:clickLeft', function(data) {
             Backbone.history.navigate('climate', { trigger: true });
         });
     },

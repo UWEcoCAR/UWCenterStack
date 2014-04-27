@@ -5,6 +5,8 @@ var SliderView = InputZoneView.extend({
         this.iconRight = options.iconRight || '';
         this.labelLeft = options.labelLeft || '';
         this.labelRight = options.labelRight || '';
+        this.id = options.id || '';
+        this.view = options.view || '';
 
         this.vent = options.vent;
         $(options.eventCatcher)
@@ -22,15 +24,15 @@ var SliderView = InputZoneView.extend({
     },
 
     touch: function(data) {
-        this.vent.trigger('slider:touchStart', this._getMovementPercent(data));
+        this.vent.trigger(this.id + ':touchStart', this._getMovementPercent(data), this.view);
     },
 
     change: function(data) {
-        this.vent.trigger('slider:touchMove', this._getMovementPercent(data));
+        this.vent.trigger(this.id + ':touchMove', this._getMovementPercent(data));
     },
 
     release: function(data) {
-        this.vent.trigger('slider:touchEnd', data);
+        this.vent.trigger(this.id + ':touchEnd', data);
     },
 
     onRender: function() {

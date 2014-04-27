@@ -6,12 +6,12 @@ var ListView = Backbone.Marionette.CollectionView.extend({
 
     initialize: function(options) {
         this.vent = options.vent;
-        this.vent.on('slider:touchMove', _.bind(function(data) {
+        this.vent.on(options.id + ':touchMove', _.bind(function(data) {
             this.selection = Math.min(Math.round(this.$el.children().size() * data), options.numLevels);
             this.render();
         }, this));
-        this.vent.on('slider:touchEnd', _.bind(function() {
-            this.vent.trigger('list:select', this.children.findByIndex(this.selection));
+        this.vent.on(options.id + ':touchEnd', _.bind(function() {
+            this.vent.trigger(options.id + ':list:select', this.children.findByIndex(this.selection));
         }, this));
     },
 
