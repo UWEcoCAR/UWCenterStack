@@ -78,9 +78,10 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         this.sliderVent.on('inputZone3:list:select ', _.bind(function(data, feature) {
             this.model.set(feature, Number(data.model.get('text')));
-            canReadWriter.write('diagnosticMode', 1); 
+console.log("here1");            
+canReadWriter.write('diagnosticMode', 1); 
             canReadWriter.write(feature, Number(data.model.get('text')));
-            console.log(this.model.get(feature));
+            console.log("new model " + this.model.get(feature));
         }, this));
 
         // updatie main view back to default climate control view after sliders have been used

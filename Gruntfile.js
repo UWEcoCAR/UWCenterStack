@@ -52,10 +52,9 @@ module.exports = function(grunt) {
                 command: isPlatform('darwin') ? 'NODE_ENV=' + (grunt.option('node_env') || 'development') + ' ' +
                                                 'LEAP=' + (grunt.option('leap') || 'false') + ' ' +
                                                 'open -n -a node-webkit ""' :
-                         isPlatform('linux') ? 'NODE_ENV=' + (grunt.option('node_env') || 'development') + ' ' +
-                                               'LEAP=' + (grunt.option('leap') || 'false') + ' ' +
-                                               'LD_LIBRARY_PATH=nw:$LD_LIBRARY_PATH ' +
-                                               'nw/nw ./' :
+                         isPlatform('linux') ? ['export NODE_ENV=' + (grunt.option('node_env') || 'development'),
+                                               'export LEAP=' + (grunt.option('leap') || 'false'),
+                                               './nw/nw .'].join(' && ') :
                          isPlatform('win64') || isPlatform('win32') ? ['set NODE_ENV=development', 'nodewebkit'].join('&&') : ''
             }
         }
