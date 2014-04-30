@@ -10,7 +10,6 @@
 
 // Initialize keystrokes
 
-
 var CenterStack = Backbone.Marionette.Application.extend({
     index: function() {
         var homeScreen = new HomeScreen();
@@ -20,7 +19,7 @@ var CenterStack = Backbone.Marionette.Application.extend({
     climateHome: function() {
         var climateHomeScreen = new ClimateHomeScreen();
         centerStack.main.show(climateHomeScreen);
-    }
+    },
 
     // Route handlers go here
 });

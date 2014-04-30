@@ -23,9 +23,6 @@ alias uwcs-run='uwcs ; grunt --node_env=development'
 # uwcs-run-with-leap - Runs the node-webkit vehicle apps with Leap Motion functions enabled
 alias uwcs-run-with-leap='uwcs ; grunt --leap=true --node_env=development'
 
-# uwcs-build - Builds the executable node-webkit vehicle apps
-alias uwcs-build='uwcs ; grunt build'
-
 uwcs-native-modules() {
     uwcs
     for module in `ls node_modules`;
@@ -38,3 +35,6 @@ uwcs-native-modules() {
     done
     uwcs
 }
+
+# uwcs-build - Builds the executable node-webkit vehicle apps
+alias uws-build='uwcs ; grunt build'

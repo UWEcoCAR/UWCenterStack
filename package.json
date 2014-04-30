@@ -18,12 +18,12 @@
     "leapjs": "~0.5.0"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-node-webkit-builder": "~0.1.15",
-    "grunt-contrib-sass": "^0.7.3",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-shell": "~0.6.4"
+    "grunt": "~0.4.4",
+    "grunt-node-webkit-builder": "~0.1.20",
+    "grunt-contrib-sass": "~0.7.3",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-shell": "~0.7.0"
   },
   "window": {
     "show": false,
