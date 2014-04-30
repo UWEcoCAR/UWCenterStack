@@ -49,13 +49,21 @@ module.exports = function(grunt) {
         },
         shell: {
             nodeWebkitDev: {
-                command: isPlatform('darwin') ? 'NODE_ENV=' + (grunt.option('node_env') || 'development') + ' ' +
-                                                'LEAP=' + (grunt.option('leap') || 'false') + ' ' +
-                                                'open -n -a node-webkit ""' :
-                         isPlatform('linux') ? ['export NODE_ENV=' + (grunt.option('node_env') || 'development'),
-                                               'export LEAP=' + (grunt.option('leap') || 'false'),
-                                               './nw/nw .'].join(' && ') :
-                         isPlatform('win64') || isPlatform('win32') ? ['set NODE_ENV=development', 'nodewebkit'].join('&&') : ''
+                command: isPlatform('darwin') ?
+                             ['NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
+                              'LEAP='     + (grunt.option('leap')    || 'false'),
+                              'FAKE_CAN=' + (grunt.option('fakeCan') || 'true'),
+                              'open -n -a node-webkit ""'].join(' ') :
+                         isPlatform('linux') ?
+                             ['export NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
+                              'export LEAP='     + (grunt.option('leap')    || 'false'),
+                              'export FAKE_CAN=' + (grunt.option('fakeCan') || 'false'),
+                              './nw/nw .'].join(' && ') :
+                         isPlatform('win64') || isPlatform('win32') ?
+                             ['set NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
+                              'set LEAP='     + (grunt.option('leap')    || 'false'),
+                              'set FAKE_CAN=' + (grunt.option('fakeCan') || 'true'),
+                              'nodewebkit'].join(' && ') : ''
             }
         }
     });
