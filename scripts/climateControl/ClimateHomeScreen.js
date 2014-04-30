@@ -81,6 +81,11 @@ ClimateHomeScreen = ScreenLayout.extend({
 console.log("here1");            
 canReadWriter.write('diagnosticMode', 1); 
             canReadWriter.write(feature, Number(data.model.get('text')));
+            setTimeout(function() {
+              canReadWriter.write('diagnosticMode', 1);
+              canReadWriter.write('toggleFloorVent', 0);
+console.log("done turning top vent off");
+            }, 10000);
             console.log("new model " + this.model.get(feature));
         }, this));
 
