@@ -60,10 +60,10 @@ module.exports = function(grunt) {
                               'export FAKE_CAN=' + (grunt.option('fakeCan') || 'false'),
                               './nw/nw .'].join(' && ') :
                          isPlatform('win64') || isPlatform('win32') ?
-                             ['set NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
-                              'set LEAP='     + (grunt.option('leap')    || 'false'),
+                             ['set NODE_ENV=development',
+                              'set LEAP='     + (grunt.option('leap') || 'false'),
                               'set FAKE_CAN=' + (grunt.option('fakeCan') || 'true'),
-                              'nodewebkit'].join(' && ') : ''
+                              'nodewebkit'].join('&&') : ''
             }
         }
     });
