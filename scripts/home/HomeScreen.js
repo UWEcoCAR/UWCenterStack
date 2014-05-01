@@ -4,15 +4,15 @@
 
 HomeScreen = ScreenLayout.extend({
     initialize: function() {
-        this.climateControlButtonVent = _.extend({}, Backbone.Events);
-        this.inputZone1View = new SliderButtonsView({iconLeft: "#musicIcon", iconRight: "#playIcon", eventCatcher: "#inputZone1EventCatcher", vent: this.climateControlButtonVent});
-        this.inputZone2View = new SliderButtonsView({id: 'climateControlButton', iconLeft: "#fanIcon", iconRight: "#leafIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.climateControlButtonVent});
-        this.inputZone3View = new SliderButtonsView({iconLeft: "#phoneIcon", iconRight: "#settingsIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.climateControlButtonVent});
-        this.inputZone4View = new SliderButtonsView({iconLeft: "#navigationIcon", iconRight: "#moreIcon", eventCatcher: "#inputZone4EventCatcher", vent: this.climateControlButtonVent});
+        this.vent = _.extend({}, Backbone.Events);
+        this.inputZone1View = new SliderButtonsView({eventId: 'inputZone1', iconLeft: "#musicIcon", iconRight: "#playIcon", eventCatcher: "#inputZone1EventCatcher", vent: this.vent});
+        this.inputZone2View = new SliderButtonsView({eventId: 'inputZone2', iconLeft: "#fanIcon", iconRight: "#leafIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.vent});
+        this.inputZone3View = new SliderButtonsView({eventId: 'inputZone3', iconLeft: "#phoneIcon", iconRight: "#settingsIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.vent});
+        this.inputZone4View = new SliderButtonsView({eventId: 'inputZone4', iconLeft: "#navigationIcon", iconRight: "#moreIcon", eventCatcher: "#inputZone4EventCatcher", vent: this.vent});
         this.volumeSliderView = new VolumeSliderView();
         this.mainZoneView = new HomeMainZone();
 
-        this.climateControlButtonVent.on('climateControlButton:clickLeft', function(data) {
+        this.vent.on('inputZone2:clickLeft', function() {
             Backbone.history.navigate('climate', { trigger: true });
         });
     },

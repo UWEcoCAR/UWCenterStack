@@ -2,7 +2,7 @@ var SliderButtonsView = InputZoneView.extend({
     template: '#inputZoneTemplate',
     
     initialize: function(options) {
-      this.id = options.id;
+      this.eventId = options.eventId;
       this.buttonLeft = options.buttonLeft || "";
       this.buttonRight = options.buttonRight || "";
       this.iconLeft = options.iconLeft || '';
@@ -16,9 +16,9 @@ var SliderButtonsView = InputZoneView.extend({
 
     clicked: function(data) {
         if (data.offsetX < 200) {
-            this.vent.trigger(this.id + ':clickLeft', data, this.buttonLeft);
+            this.vent.trigger(this.eventId + ':clickLeft', data, this.buttonLeft);
         } else if (data.offsetX > 600) {
-            this.vent.trigger(this.id + ':clickRight', data, this.buttonRight);
+            this.vent.trigger(this.eventId + ':clickRight', data, this.buttonRight);
         }
     },
 

@@ -1,4 +1,5 @@
 var ScreenLayout = Backbone.Marionette.Layout.extend({
+    vent: _.extend({}, Backbone.Events),
     template: '#screenTemplate',
     regions: {
         backButtonZoneContent: '#backButtonZoneContent',

@@ -6,16 +6,18 @@ var ListView = Backbone.Marionette.CollectionView.extend({
 
     initialize: function(options) {
         this.vent = options.vent;
-        this.id = options.id;
-        this.feature = options.feature;
+        this.eventId = options.eventId;
+        this.eventSource = options.eventSource;
 
-        this.vent.on(this.id + ':touchMove', _.bind(function(data) {
-            this.selection = Math.min(Math.round(this.$el.children().size() * data), options.numLevels);
-            this.render();
-        }, this));
-        this.vent.on(this.id + ':touchEnd', _.bind(function() {
-            this.vent.trigger(this.id + ':list:select', this.children.findByIndex(this.selection), this.feature);
-        }, this));
+        var self = this;
+
+        this.vent.on(this.eventSource + ':touchMove', function(data) {
+            self.selection = Math.min(Math.round(self.$el.children().size() * data), options.numLevels);
+            self.render();
+        });
+        this.vent.on(this.eventSource + ':touchEnd', function() {
+            self.vent.trigger(self.eventId + ':select', self.children.findByIndex(self.selection));
+        });
     },
 
     onRender: function() {
