@@ -107,7 +107,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.vent.on('fanSpeedList:select ', function(data) {
             var ventFanSpeed = Number(data.model.get('text'));
             self.model.set('ventFanSpeed', ventFanSpeed);
-            canReadWriter.write('ventFanSpeed', ventFanSpeed)
+            canReadWriter.write('ventFanSpeed', ventFanSpeed);
         });
 
         // updatie main view back to default climate control view after sliders have been used

@@ -4,6 +4,7 @@ var MainZoneLayout = Backbone.Marionette.Layout.extend({
         clock: '.clock',
         currentTrack: '.currentTrack',
         contentLeft: '.contentLeft',
-        contentRight: '.contentRight'
+        contentRight: '.contentRight',
+        content: '.content'
     }
 });

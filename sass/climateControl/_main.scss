@@ -10,23 +10,30 @@ $climateControlMargin: 40px;
     @include alrightSans('bold', $fontSizeCaptionHeading);
   }
 
-  .tempLeft {
-    @include position($tempLabelTop, $climateControlMargin);
+  .contentLeft {
+
+    .temp {
+      @include position($tempLabelTop, $climateControlMargin);
+    }
+
+    .personIcon {
+      @include position($tempIconTop, $climateControlMargin);
+    }
   }
 
-  .tempRight {
-    @include positionRight($tempLabelTop, $climateControlMargin);
+  .contentRight {
+
+    .temp {
+      @include positionRight($tempLabelTop, $climateControlMargin);
+    }
+
+    .personIcon {
+      @include positionRight($tempIconTop, $climateControlMargin);
+    }
   }
 
   .icon > svg > * {
     stroke: $white;
   }
 
-  .personIconLeft {
-    @include position($tempIconTop, $climateControlMargin);
-  }
-
-  .personIconRight {
-    @include positionRight($tempIconTop, $climateControlMargin);
-  }
 }

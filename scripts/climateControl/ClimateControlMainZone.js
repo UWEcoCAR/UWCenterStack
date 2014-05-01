@@ -1,16 +1,16 @@
-ClimateControlMainZone = Backbone.Marionette.ItemView.extend({
-    template: '#climateControlMainZoneTemplate',
+var ClimateControlMainZone = MainZoneLayout.extend({
     id: 'climateControlMainZone',
 
-    clicked: function(data) {
-        this.vent.trigger('click', data);
+    initialize: function() {
+        this.clockView = new ClockView({title: 'CLIMATE CONTROL'});
+        this.contentLeftView = new ClimateControlMainZoneView({side: 'driver', model: this.model});
+        this.contentRightView = new ClimateControlMainZoneView({side: 'passenger', model: this.model});
     },
 
     onRender: function() {
-        this.$el.find('.icon').copyIn('#personIcon');
-        this.$el.find('.tempLeft').html(this.model.get('driverTemp') + '&deg;');
-        this.$el.find('.tempRight').html(this.model.get('passengerTemp') + '&deg;');
-        this.$el.find('.personIconRight').copyIn('#passengerIcon');
-        this.$el.find('.personIconLeft').copyIn('#driverIcon');
+        this.clock.show(this.clockView);
+        this.contentLeft.show(this.contentLeftView);
+        this.contentRight.show(this.contentRightView);
     }
+
 });
