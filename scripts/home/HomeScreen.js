@@ -14,7 +14,7 @@ HomeScreen = ScreenLayout.extend({
 
         this.vent.on('inputZone2:clickLeft', function() {
             Backbone.history.navigate('climate', { trigger: true });
-        });
+        }, this);
     },
 
     onRender: function() {
@@ -24,5 +24,9 @@ HomeScreen = ScreenLayout.extend({
         this.inputZone2Content.show(this.inputZone2View);
         this.inputZone3Content.show(this.inputZone3View);
         this.inputZone4Content.show(this.inputZone4View);
+    },
+
+    onClose: function() {
+        this.vent.off(null, null, this);
     }
 });
