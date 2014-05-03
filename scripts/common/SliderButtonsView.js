@@ -2,17 +2,15 @@ var SliderButtonsView = InputZoneView.extend({
     template: '#inputZoneTemplate',
     
     initialize: function(options) {
-      this.eventId = options.eventId;
-      this.buttonLeft = options.buttonLeft || "";
-      this.buttonRight = options.buttonRight || "";
-      this.iconLeft = options.iconLeft || '';
-      this.iconRight = options.iconRight || '';
-      this.labelLeft = options.labelLeft || '';
-      this.labelRight = options.labelRight || '';
-      this.eventCatcher = options.eventCatcher || '';
-      this.sameEvents = false;
-      this.vent = options.vent;
-     $(this.eventCatcher).on('click.' + this.cid, _.bind(this.clicked, this));
+        this.eventId = options.eventId;
+        this.buttonLeft = options.buttonLeft || "";
+        this.buttonRight = options.buttonRight || "";
+        this.iconLeft = options.iconLeft || '';
+        this.iconRight = options.iconRight || '';
+        this.labelLeft = options.labelLeft || '';
+        this.labelRight = options.labelRight || '';
+        this.eventCatcher = options.eventCatcher || '';
+        this.vent = options.vent;
     },
 
     clicked: function(data) {
@@ -31,11 +29,10 @@ var SliderButtonsView = InputZoneView.extend({
     },
 
     onClose: function() {
-        // stop listening for events, if this is a different view
-        if(!this.sameEvents) {
-            $(this.eventCatcher).off("." + this.cid);
-        } else {
-            this.sameEvents = false;
-        }
+        $(this.eventCatcher).off("." + this.cid);
+    },
+
+    onShow: function() {
+        $(this.eventCatcher).on('click.' + this.cid, _.bind(this.clicked, this));
     }
 });

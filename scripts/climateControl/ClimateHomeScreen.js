@@ -90,14 +90,12 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         // starting to slide the sliders
         this.vent.on('inputZone2:touchStart', function() {
-            self.renderedMainZoneView = temperatureListView;
-            self.setSame(); 
+            self.renderedMainZoneView = temperatureListView; 
             self.render();
         }, this);
 
         this.vent.on('inputZone3:touchStart', function() {
             self.renderedMainZoneView = fanSpeedListView;
-            self.setSame();
             self.render();
         }, this);
 
@@ -123,43 +121,28 @@ ClimateHomeScreen = ScreenLayout.extend({
         // updatie main view back to default climate control view after sliders have been used
         this.vent.on('inputZone2:touchEnd inputZone3:touchEnd', function() {
             self.renderedMainZoneView = self.mainZoneView;
-            self.setSameEvents();
             self.render();
         }, this);
 
         // updating model after driver/passenger selection
         this.vent.on('inputZone1:clickLeft', function() {
             self.model.set('controlMode', 'driver');
-            self.setSameEvents();
             self.render();
         }, this);
         this.vent.on('inputZone1:clickRight', function() {
             self.model.set('controlMode', 'passenger');
-            self.setSameEvents();
             self.render();
         }, this);
 
         // updating model after defros selection
         this.vent.on('inputZone5:clickLeft', function() {
             self.model.set('defrostFront', !self.model.get('defrostFront'));
-            self.setSameEvents();
             self.render();
         }, this);
         this.vent.on('inputZone5:clickRight', function() {
             self.model.set('defrostRear', !self.model.get('defrostRear'));
-            self.setSameEvents();
             self.render();
         }, this);
-    },
-
-    setSameEvents: function() {
-        // indicting that the slider bars still should have some functionality
-        // and listen to the same events
-        this.inputZone1View.sameEvents = true;
-        this.inputZone2View.sameEvents = true; 
-        this.inputZone3View.sameEvents = true; 
-        this.inputZone4View.sameEvents = true; 
-        this.inputZone5View.sameEvents = true; 
     },
 
     onRender: function() {

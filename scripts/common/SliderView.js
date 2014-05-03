@@ -7,13 +7,8 @@ var SliderView = InputZoneView.extend({
         this.labelRight = options.labelRight || '';
         this.eventId = options.eventId;
         this.eventCatcher = options.eventCatcher;
-        this.sameEvents = false;
 
         this.vent = options.vent;
-        $(this.eventCatcher)
-            .on('touchstart.' + this.cid, (_.bind(this.touch, this)))
-            .on('touchmove.' + this.cid, (_.bind(this.change, this)))
-            .on('touchend.' + this.cid, (_.bind(this.release, this)));
     },
 
     _getMovementPercent: function(data) {
@@ -44,13 +39,14 @@ var SliderView = InputZoneView.extend({
     }, 
 
     onClose: function() {
-        // stop listening for events, if this is a different view
-        if(!this.sameEvents) {
-            $(this.eventCatcher).off("." + this.cid);
-        } else  {
-            this.sameEvents = false;
-        }
+        $(this.eventCatcher).off("." + this.cid);
+    },
 
+    onShow: function() {
+        $(this.eventCatcher)
+            .on('touchstart.' + this.cid, (_.bind(this.touch, this)))
+            .on('touchmove.' + this.cid, (_.bind(this.change, this)))
+            .on('touchend.' + this.cid, (_.bind(this.release, this)));
     }
 });
 
