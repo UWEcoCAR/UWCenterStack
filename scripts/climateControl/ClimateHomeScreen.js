@@ -7,7 +7,7 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         var self = this;
 
-        window.model = this.model = new ClimateControlModel();
+        window.model = this.model;
         
         // back/home button defaults
         this.backButtonView = new BackButtonView();

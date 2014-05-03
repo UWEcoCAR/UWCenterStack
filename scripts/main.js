@@ -17,7 +17,7 @@ var CenterStack = Backbone.Marionette.Application.extend({
     },
 
     climateHome: function() {
-        var climateHomeScreen = new ClimateHomeScreen();
+        var climateHomeScreen = new ClimateHomeScreen({ model: this.climateModel });
         centerStack.main.show(climateHomeScreen);
     },
 
@@ -27,6 +27,8 @@ centerStack = new CenterStack();
 
 // Initialize routing and history
 centerStack.addInitializer(function() {
+
+    centerStack.climateModel = new ClimateControlModel();
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
         appRoutes: {
