@@ -21,6 +21,16 @@ var CenterStack = Backbone.Marionette.Application.extend({
         centerStack.main.show(climateHomeScreen);
     },
 
+    musicHome: function() {
+        var musicHomeScreen = new MusicHomeScreen({ model: this.musicModel });
+        centerStack.main.show(musicHomeScreen);
+    },
+
+    musicUSBHome: function() {
+        var musicUSBHomeScreen = new MusicUSBHomeScreen({ model: this.musicModel });
+        centerStack.main.show(musicUSBHomeScreen);
+    }
+
     // Route handlers go here
 });
 centerStack = new CenterStack();
@@ -29,11 +39,14 @@ centerStack = new CenterStack();
 centerStack.addInitializer(function() {
 
     centerStack.climateModel = new ClimateControlModel();
+    centerStack.musicModel = new MusicModel();
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
         appRoutes: {
             '' : 'index',
-            'climate' : 'climateHome'
+            'climate' : 'climateHome',
+            'music' : 'musicHome',
+            'musicUSB' : 'musicUSBHome'
             // Routes go here
         }
     });

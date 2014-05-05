@@ -79,7 +79,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         });
         this.inputZone4View = new SliderView({
             eventId: 'inputZone4',
-            labelLeft: "AIRFLOW",
+            labelLeft: 'AIRFLOW',
             eventCatcher: "#inputZone4EventCatcher",
             viewId: '',
             vent: this.vent
