@@ -14,8 +14,8 @@ var SliderView = InputZoneView.extend({
     _getMovementPercent: function(data) {
         data.preventDefault();
         var x = data.originalEvent.touches[0].pageX;
-        var offsetX = x - $('#inputZone2Content').offset().left;
-        var percentageX = offsetX / 800;
+        var offsetX = x - $('#inputZone2Content').offset().left-25;
+        var percentageX = offsetX / 750;
         return this._getValidValue(percentageX, 0, 1);  
     },
 

@@ -1,6 +1,6 @@
 var WindowListView = Backbone.Marionette.CollectionView.extend({
     selection: 0,
-    itemHeight: 104,
+    itemHeight: 102,
     itemView: ListItemView,
     className: 'list',
 
@@ -9,39 +9,64 @@ var WindowListView = Backbone.Marionette.CollectionView.extend({
         this.eventId = options.eventId;
         this.eventSource = options.eventSource;
         this.numLevels = options.numLevels;
-        this.windowSizePercent = Math.round((25/500)*100);
-        this.percent = 0;
+        this.windowSize = 24;
+        this.windowStart = 0;
+        this.selection = 0;
+        this.windowSpeed = 500;
     
         var self = this;
+        var move = 0;
+        var moving = false;
         this.vent.on(this.eventSource + ':touchMove', function(data) {
+            if (data != 1 && data !== 0) {
+                // no window shifting
+                clearInterval(move);
+                moving = false;
 
-            var newPercent = Math.round(data*100);
+                self.selection = Math.min(Math.round(self.windowSize * data) + this.windowStart, this.numLevels-1);
+                self.redraw();
+            } else if (data == 1) {
+                // window shifting up
 
-            if (Math.floor(this.percent/this.windowSizePercent) > Math.floor(newPercent/this.windowSizePercent)) {
-                // shift one window up
-            } else if (Math.floor(this.percent/this.windowSizePercent) < Math.floor(newPercent/this.windowSizePercent)) {
-                // shift one window down
-                console.log(Math.floor(this.percent/this.windowSizePercent) + " " + Math.floor(newPercent/this.windowSizePercent));
+                if (!moving) {
+                    move = setInterval(function() {
+                        self.selection = Math.min(self.selection + self.windowSize, self.numLevels - 1);
+                        self.windowStart = self.selection - self.windowSize;
+                        if(self.selection == self.numLevels - 1) {
+                            self.windowStart = self.selection - self.windowSize;
+                        }
+                        self.redraw();
+                    }, self.windowSpeed);
+                    moving = true;
+                }
             } else {
-                // no shift necessary, in same window
-                self.selection = Math.min(Math.round(self.$el.children().size() * data), this.numLevels);
-            	self.render();
+                // window shifting down
+                if (!moving) {
+                    move = setInterval(function() {
+                        self.windowStart = Math.max(self.windowStart - self.windowSize, 0);
+                        self.selection = self.windowStart;
+                        self.redraw();
+                    }, self.windowSpeed);
+                    moving = true;
+                }
             }
-
-        	this.percent = newPercent;
-  			      	
         }, this);
 
         this.vent.on(this.eventSource + ':touchEnd', function() {
+            clearInterval(move);
+            moving = false;
             self.vent.trigger(self.eventId + ':select', self.children.findByIndex(self.selection));
         }, this);
     },
 
-    onRender: function() {
+    redraw: function() {
+        this.onRender();
+        this.$el.css('top', - this.selection * this.itemHeight);
+    },
 
+    onRender: function() {
         var listItems = this.$el.children();
         this.$el.find('.selected').removeClass('selected');
         listItems.eq(this.selection).addClass('selected');
-        this.$el.css('top', - this.selection * this.itemHeight);
     }
 });
