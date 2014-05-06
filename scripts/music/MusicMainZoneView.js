@@ -1,4 +1,4 @@
-var ClimateControlMainZoneView = Backbone.Marionette.Layout.extend({
+var MusicMainZoneView = Backbone.Marionette.Layout.extend({
     template: '#musicMainZoneTemplate',
 
     initialize: function(options) {
@@ -6,12 +6,5 @@ var ClimateControlMainZoneView = Backbone.Marionette.Layout.extend({
     },
 
     onRender: function() {
-        if (this.side === 'driver') {
-            this.$el.find('.temp').html(this.model.get('driverTemp') + '&deg;');
-            this.$el.find('.personIcon').copyIn('#driverIcon');
-        } else {
-            this.$el.find('.temp').html(this.model.get('passengerTemp') + '&deg;');
-            this.$el.find('.personIcon').copyIn('#passengerIcon');
-        }
     }
 });

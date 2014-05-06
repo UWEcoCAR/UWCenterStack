@@ -25,6 +25,20 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             vent: this.vent
         });
 
+        // collection and view of songs
+        var songCollection = new Backbone.Collection([]);
+        var songListView = new WindowListView({
+            eventId: 'songList',
+            eventSource: 'inputZone2',
+            collection: songCollection,
+            viewId: '',
+            vent: this.vent,
+            numLevels: 500
+        });
+        for (var i = 1; i <= 500; i++) {
+            songCollection.push({text: 'song' + i});
+        }
+
         this.inputZone2View = new SliderView({
             eventId: 'inputZone2',
             labelLeft: 'SONGS',
@@ -57,6 +71,18 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         // default main zone view of musicUSB home
         this.renderedMainZoneView = this.mainZoneView = new MusicMainZone({ model: this.model });
 
+        // starting to slide the sliders
+        this.vent.on('inputZone2:touchStart', function() {
+            self.renderedMainZoneView = songListView; 
+            self.render();
+        }, this);
+
+        // updatie main view back to default music USB
+        this.vent.on('inputZone2:touchEnd inputZone3:touchEnd', function() {
+            self.renderedMainZoneView = self.mainZoneView;
+            self.render();
+        }, this);
+
     },
 
     onRender: function() {
@@ -74,7 +100,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
     },
 
     onClose: function() {
-        this.vent.off(null, null, this);
+        this.vent.off();
     }
 
 });

@@ -105,17 +105,17 @@ ClimateHomeScreen = ScreenLayout.extend({
             var tempPercent = Math.round(((temp - 60)/30) * 100);
             if (self.model.get('controlMode') === 'driver') {
                 self.model.set('driverTemp', temp);
-                canReadWriter.write('driverTemp', tempPercent);
+                //canReadWriter.write('driverTemp', tempPercent);
             } else {
                 self.model.set('passengerTemp', temp);
-                canReadWriter.write('passengerTemp', tempPercent);
+                //canReadWriter.write('passengerTemp', tempPercent);
             }
         }, this);
 
         this.vent.on('fanSpeedList:select ', function(data) {
             var ventFanSpeed = Number(data.model.get('text'));
             self.model.set('ventFanSpeed', ventFanSpeed);
-            canReadWriter.write('ventFanSpeed', ventFanSpeed);
+            //canReadWriter.write('ventFanSpeed', ventFanSpeed);
         }, this);
 
         // updatie main view back to default climate control view after sliders have been used
@@ -164,8 +164,8 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.inputZone5View.$el.find('.iconRight').toggleClass('active', this.model.get('defrostRear') === true);
     },
 
-    onClose: function() {
-        this.vent.off(null, null, this);
+    onBeforeClose: function() {
+        this.vent.off();
     }
 
 });
