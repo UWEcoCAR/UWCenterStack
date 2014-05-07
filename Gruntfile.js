@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                              ['NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
                               'LEAP='     + (grunt.option('leap')    || 'false'),
                               'FAKE_CAN=' + (grunt.option('fakeCan') || 'true'),
-                              'open -n -a node-webkit ""'].join(' ') :
+                              'open -n -a /Applications/node-webkit.app ""'].join(' ') :
                          isPlatform('linux') ?
                              ['export NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
                               'export LEAP='     + (grunt.option('leap')    || 'false'),
