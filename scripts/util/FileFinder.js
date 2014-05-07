@@ -12,7 +12,7 @@ finder.find = function(directory, filetype, callback) {
         var pending = list.length;
         if (!pending) return callback(null, results);
         list.forEach(function(file) {
-            file = directory + '\\' + file;
+            file = directory + '/' + file;
             fs.stat(file, function(err, stat) {
 
                 if (stat && stat.isDirectory()) {

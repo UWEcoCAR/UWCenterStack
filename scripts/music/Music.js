@@ -22,8 +22,7 @@
         }
         if (song) {
             var playing = {
-                src : song.src || song,
-                data : song.data || null,
+                model: song,
                 element : new Audio()
             };
 
@@ -38,8 +37,11 @@
                     music.emit(evt.type, music.getInfo());
                 });
 
-            playing.element.src = playing.src;
+            playing.element.src = playing.model.get('src');
             currentlyPlaying = playing;
+            currentTrack.set('name', currentlyPlaying.model.get('name'));
+            currentTrack.set('image', currentlyPlaying.model.get('image'));
+            currentTrack.set('artistName', currentlyPlaying.model.get('artistName'));
         }
     };
 
@@ -176,6 +178,7 @@
         };
     };
 
-    var music = window.Music = new Music();
+    window.currentTrack = new TrackModel({name: '', image: '', artistName: ''});
+    var music = window.Music = new Music(currentTrack);
 
 })();
