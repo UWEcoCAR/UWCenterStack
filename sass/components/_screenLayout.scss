@@ -34,6 +34,11 @@ $bottomZonesTop: 1177px;
 
   > svg > * {
     stroke: $gray;
+
+    &:not([fill="none"]) {
+      fill: $gray;
+      stroke: none;
+    }
   }
 
   &.active > svg > * {

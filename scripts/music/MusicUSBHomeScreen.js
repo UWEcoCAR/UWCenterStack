@@ -18,7 +18,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
         this.inputZone1View = new SliderView({
             eventId: 'inputZone1',
-            labelLeft: 'ARTISTS',
+            iconLeft: '#artistIcon',
             eventCatcher: '#inputZone1EventCatcher',
             viewId: '',
             vent: this.vent
@@ -26,7 +26,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
         this.inputZone2View = new SliderView({
             eventId: 'inputZone2',
-            labelLeft: 'TRACKS',
+            iconLeft: '#songIcon',
             eventCatcher: "#inputZone2EventCatcher",
             viewId: '',
             vent: this.vent
@@ -34,7 +34,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
         this.inputZone3View = new SliderView({
             eventId: 'inputZone3',
-            labelLeft: 'ALBUMS',
+            iconLeft: '#albumIcon',
             eventCatcher: "#inputZone3EventCatcher",
             viewId: '',
             vent: this.vent
@@ -42,7 +42,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
         this.inputZone4View = new SliderView({
             eventId: 'inputZone4',
-            labelLeft: "PLAYLISTS",
+            iconLeft: '#playlistIcon',
             eventCatcher: "#inputZone4EventCatcher",
             viewId: '',
             vent: this.vent

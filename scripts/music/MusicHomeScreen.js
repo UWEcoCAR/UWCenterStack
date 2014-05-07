@@ -20,7 +20,7 @@ MusicHomeScreen = ScreenLayout.extend({
         // driver/passenger and defrost choices
         this.inputZone1View = new SliderButtonsView({
             eventId: 'inputZone1',
-            labelLeft: 'USB',
+            iconLeft: '#iPodIcon',
             eventCatcher: '#inputZone1EventCatcher',
             viewId: '',
             vent: this.vent
@@ -28,7 +28,7 @@ MusicHomeScreen = ScreenLayout.extend({
 
         this.inputZone2View = new SliderButtonsView({
             eventId: 'inputZone2',
-            labelLeft: 'ANALOG',
+            labelLeft: 'AUX',
             eventCatcher: "#inputZone2EventCatcher",
             viewId: '',
             vent: this.vent
@@ -36,7 +36,7 @@ MusicHomeScreen = ScreenLayout.extend({
 
         this.inputZone3View = new SliderButtonsView({
             eventId: 'inputZone3',
-            labelLeft: 'FUZZ',
+            iconLeft: '#radioIcon',
             eventCatcher: "#inputZone3EventCatcher",
             viewId: '',
             vent: this.vent

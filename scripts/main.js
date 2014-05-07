@@ -91,6 +91,3 @@ centerStack.addRegions({
 console.log('Application Starting');
 centerStack.start();
 
-window.MusicTree = require('../scripts/music/MusicTree');
-window.musicTree = new MusicTree('/Users/mitchellloeppky/Downloads/songs', function() {});
-
