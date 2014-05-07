@@ -22,6 +22,7 @@ var WindowListView = Backbone.Marionette.CollectionView.extend({
         this.vent.on(this.eventSource + ':touchStart', function(data) {
             // resume from current selection
             this.windowStart = this.selection - Math.round(data * this.windowSize);
+            self.redraw();
         }, this);
 
         this.vent.on(this.eventSource + ':touchMove', function(data) {
@@ -59,7 +60,7 @@ var WindowListView = Backbone.Marionette.CollectionView.extend({
         this.vent.on(this.eventSource + ':touchEnd', function() {
             clearInterval(move);
             moving = false;
-            self.vent.trigger(self.eventId + ':select', self.children.findByIndex(self.selection));
+            self.vent.trigger(self.eventId + ':select', self.children.findByIndex(self.selection), self.selection);
         }, this);
     },
 

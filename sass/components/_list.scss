@@ -9,6 +9,10 @@
 
   .listItem {
     height: 104px;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     transition: all 0.2s ease-out;
     padding-bottom: 40px;
     @include alrightSans('light', $fontSizeListItem);

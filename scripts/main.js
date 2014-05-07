@@ -28,7 +28,7 @@ var CenterStack = Backbone.Marionette.Application.extend({
     },
 
     musicUSBHome: function() {
-        var musicUSBHomeScreen = new MusicUSBHomeScreen({ model: this.musicModel });
+        var musicUSBHomeScreen = new MusicUSBHomeScreen({ model: this.musicUSBModel });
         centerStack.main.show(musicUSBHomeScreen);
     }
     // Route handlers go here
@@ -40,6 +40,7 @@ centerStack.addInitializer(function() {
 
     centerStack.climateModel = new ClimateControlModel();
     centerStack.musicModel = new MusicModel();
+    centerStack.musicUSBModel = new MusicUSBModel();
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
         appRoutes: {
@@ -82,4 +83,4 @@ console.log('Application Starting');
 centerStack.start();
 
 window.MusicTree = require('../scripts/music/MusicTree');
-window.musicTree = new MusicTree('/Users/mitchellloeppky/Downloads/songs', function() {});
+window.musicTree = new MusicTree('C:\\Users\\Vinod\\Music\\music', function() {});
