@@ -12,3 +12,7 @@ _.extend(Backbone.Marionette.View.prototype, {
         return value;  
     }
 });
+
+function equal(string1, string2) {
+    return string1.localeCompare(string2) === 0;
+}

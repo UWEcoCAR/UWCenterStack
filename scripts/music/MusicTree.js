@@ -7,7 +7,8 @@ var tree = module.exports = function(directory, onReady) {
     this.tree = {
         tracks: new window.TrackCollection(),
         albums: new window.AlbumCollection(),
-        artists: new window.ArtistCollection()
+        artists: new window.ArtistCollection(),
+        playlists: new window.PlaylistCollection()
     };
 
     this._init(onReady);
@@ -55,46 +56,47 @@ tree.prototype._getSongData = function(songs, callback) {
 // builds the artist-album-song tree
 tree.prototype._buildTree = function(songObjects) {
     var tree = this.tree;
+
+    var playlistNames = ['Road Trip', 'Favorites', 'Study Music', 'Gym Tunes'];
+    _.each(playlistNames, function(playlistName, index) {
+        tree.playlists.add(new window.PlaylistModel({id: index, name: playlistName, tracks: new window.TrackCollection()}));
+    });
+
     songObjects.forEach(function(trackObject, index) {
         var track = new window.TrackModel({
-            id: index,
             imageMime: trackObject.data.v2.image.mime,
             imageData: trackObject.data.v2.image.data,
             src: trackObject.src,
-            name: trackObject.data.v2.track,
+            name: trackObject.data.v2.title,
             albumName: trackObject.data.v2.album,
             artistName: trackObject.data.v2.artist,
-            track: trackObject.data.v2.track
+            trackNumber: trackObject.data.v2.track.substring(0, trackObject.data.v2.track.indexOf('/'))
         });
-        tree.tracks.push(track);
+        tree.tracks.add(track);
+
+        tree.playlists.get(Math.floor(Math.random() * playlistNames.length)).tracks.add(track);
 
         var album = tree.albums.findWhere({name: track.get('albumName')});
         if (!album) {
             album = new window.AlbumModel({
-                id: tree.albums.length,
-                tracks: new window.TrackCollection(),
                 name: track.get('albumName'),
                 artistName: track.get('artistName')
             });
-            tree.albums.push(album);
+            tree.albums.add(album);
         }
-        album.get('tracks').push(track);
+        album.tracks.add(track);
 
         var artist = tree.artists.findWhere({name: track.get('artistName')});
         if (!artist) {
             artist = new window.ArtistModel({
-                id: tree.artists.length,
-                tracks: new window.TrackCollection(),
-                albums: new window.AlbumCollection(),
                 name: track.get('artistName')
             });
-            tree.artists.push(artist);
+            tree.artists.add(artist);
         }
-        if (!artist.get('albums').findWhere({name: album.get('name')})) {
-            artist.get('albums').push(album);
+        if (!artist.albums.findWhere({name: album.get('name')})) {
+            artist.albums.add(album);
         }
-        artist.get('tracks').push(track);
-
+        artist.tracks.add(track);
     });
     return this.tree;
 };

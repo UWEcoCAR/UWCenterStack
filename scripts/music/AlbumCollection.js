@@ -1,3 +1,7 @@
 var AlbumCollection = Backbone.Collection.extend({
-   model: AlbumModel
+    model: AlbumModel,
+
+    comparator: function(album) {
+        return album.get('name');
+    }
 });

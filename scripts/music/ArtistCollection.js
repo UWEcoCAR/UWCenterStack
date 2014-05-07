@@ -1,3 +1,7 @@
 var ArtistCollection = Backbone.Collection.extend({
-    model: ArtistModel
+    model: ArtistModel,
+
+    comparator: function(artist) {
+        return artist.get('name');
+    }
 });
