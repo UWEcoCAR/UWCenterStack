@@ -4,5 +4,15 @@ HomeButtonView = ButtonView.extend({
         $(this.eventCatcher).click(_.bind(function() {
             Backbone.history.navigate('', { trigger: true });
         }, this));
+    },
+
+    onClose: function() {
+        $(this.eventCatcher).off("." + this.cid);
+    },
+
+    onShow: function() {
+        $(this.eventCatcher).on('click.' + this.cid, (_.bind(function() {
+            Backbone.history.navigate('', { trigger: true });
+        }, this)));
     }
 });

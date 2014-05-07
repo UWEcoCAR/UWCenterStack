@@ -63,7 +63,7 @@ module.exports = function(grunt) {
                              ['set NODE_ENV=development',
                               'set LEAP='     + (grunt.option('leap') || 'false'),
                               'set FAKE_CAN=' + (grunt.option('fakeCan') || 'true'),
-                              'nodewebkit'].join('&&') : ''
+                              'start nw/nw.exe .'].join('&&') : ''
             }
         }
     });

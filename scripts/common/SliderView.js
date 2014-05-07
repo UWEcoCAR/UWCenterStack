@@ -6,19 +6,16 @@ var SliderView = InputZoneView.extend({
         this.labelLeft = options.labelLeft || '';
         this.labelRight = options.labelRight || '';
         this.eventId = options.eventId;
+        this.eventCatcher = options.eventCatcher;
 
         this.vent = options.vent;
-        $(options.eventCatcher)
-            .on('touchstart', (_.bind(this.touch, this)))
-            .on('touchmove', (_.bind(this.change, this)))
-            .on('touchend', (_.bind(this.release, this)));
     },
 
     _getMovementPercent: function(data) {
         data.preventDefault();
         var x = data.originalEvent.touches[0].pageX;
-        var offsetX = x - $('#inputZone2Content').offset().left;
-        var percentageX = offsetX / 800;
+        var offsetX = x - $('#inputZone2Content').offset().left-25;
+        var percentageX = offsetX / 750;
         return this._getValidValue(percentageX, 0, 1);  
     },
 
@@ -39,6 +36,17 @@ var SliderView = InputZoneView.extend({
         (this.$el).find('.iconRight').copyIn(this.iconRight);
         (this.$el).find('.labelLeft').html(this.labelLeft);
         (this.$el).find('.labelRight').html(this.labelRight);
+    }, 
+
+    onClose: function() {
+        $(this.eventCatcher).off("." + this.cid);
+    },
+
+    onShow: function() {
+        $(this.eventCatcher)
+            .on('touchstart.' + this.cid, (_.bind(this.touch, this)))
+            .on('touchmove.' + this.cid, (_.bind(this.change, this)))
+            .on('touchend.' + this.cid, (_.bind(this.release, this)));
     }
 });
 

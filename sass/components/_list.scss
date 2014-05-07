@@ -8,6 +8,7 @@
   transition: top 0.2s ease-out;
 
   .listItem {
+    height: 104px;
     transition: all 0.2s ease-out;
     padding-bottom: 40px;
     @include alrightSans('light', $fontSizeListItem);

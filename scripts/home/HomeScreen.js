@@ -12,9 +12,6 @@ HomeScreen = ScreenLayout.extend({
         this.volumeSliderView = new VolumeSliderView();
         this.mainZoneView = new HomeMainZone();
 
-        this.vent.on('inputZone2:clickLeft', function() {
-            Backbone.history.navigate('climate', { trigger: true });
-        });
     },
 
     onRender: function() {
@@ -24,5 +21,19 @@ HomeScreen = ScreenLayout.extend({
         this.inputZone2Content.show(this.inputZone2View);
         this.inputZone3Content.show(this.inputZone3View);
         this.inputZone4Content.show(this.inputZone4View);
+    },
+
+    onBeforeClose: function() {
+        this.vent.off();
+    },
+
+    onShow: function() {
+        this.vent.on('inputZone1:clickLeft', function() {
+            Backbone.history.navigate('music', { trigger: true});
+        }, this);
+
+        this.vent.on('inputZone2:clickLeft', function() {
+            Backbone.history.navigate('climate', { trigger: true });
+        }, this);
     }
 });

@@ -11,27 +11,42 @@
 // Initialize keystrokes
 
 var CenterStack = Backbone.Marionette.Application.extend({
+
     index: function() {
         var homeScreen = new HomeScreen();
         centerStack.main.show(homeScreen);
     },
 
     climateHome: function() {
-        var climateHomeScreen = new ClimateHomeScreen();
+        var climateHomeScreen = new ClimateHomeScreen({ model: this.climateModel });
         centerStack.main.show(climateHomeScreen);
     },
 
+    musicHome: function() {
+        var musicHomeScreen = new MusicHomeScreen({ model: this.musicModel });
+        centerStack.main.show(musicHomeScreen);
+    },
+
+    musicUSBHome: function() {
+        var musicUSBHomeScreen = new MusicUSBHomeScreen({ model: this.musicModel });
+        centerStack.main.show(musicUSBHomeScreen);
+    }
     // Route handlers go here
 });
 centerStack = new CenterStack();
 
 // Initialize routing and history
 centerStack.addInitializer(function() {
+
+    centerStack.climateModel = new ClimateControlModel();
+    centerStack.musicModel = new MusicModel();
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
         appRoutes: {
             '' : 'index',
-            'climate' : 'climateHome'
+            'climate' : 'climateHome',
+            'music' : 'musicHome',
+            'music/musicUSB' : 'musicUSBHome'
             // Routes go here
         }
     });
