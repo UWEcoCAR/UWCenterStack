@@ -4,14 +4,14 @@
 MusicUSBHomeScreen = ScreenLayout.extend({
 
     initialize: function() {
-
-        var self = this;
-
+       // console.log(this.vent);
         window.model = this.model;
         
         // back/home button defaults
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
+
+        this.vent = _.extend({}, Backbone.Events);
         
         // volume slider
         this.volumeSliderView = new VolumeSliderView();
@@ -27,7 +27,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
         // collection and view of songs
         var songCollection = new Backbone.Collection([]);
-        var songListView = new WindowListView({
+        this.songListView = new WindowListView({
             eventId: 'songList',
             eventSource: 'inputZone2',
             collection: songCollection,
@@ -71,18 +71,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         // default main zone view of musicUSB home
         this.renderedMainZoneView = this.mainZoneView = new MusicMainZone({ model: this.model });
 
-        // starting to slide the sliders
-        this.vent.on('inputZone2:touchStart', function() {
-            self.renderedMainZoneView = songListView; 
-            self.render();
-        }, this);
-
-        // updatie main view back to default music USB
-        this.vent.on('inputZone2:touchEnd inputZone3:touchEnd', function() {
-            self.renderedMainZoneView = self.mainZoneView;
-            self.render();
-        }, this);
-
     },
 
     onRender: function() {
@@ -99,8 +87,23 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         
     },
 
-    onClose: function() {
+    onBeforeClose: function() {
         this.vent.off();
+    },
+
+    onShow: function() {
+        var self = this;
+        // starting to slide the sliders
+        this.vent.on('inputZone2:touchStart', function() {
+            self.renderedMainZoneView = self.songListView; 
+            self.render();
+        }, this);
+
+        // updatie main view back to default music USB
+        this.vent.on('inputZone2:touchEnd', function() {
+            self.renderedMainZoneView = self.mainZoneView;
+            self.render();
+        }, this);
     }
 
 });

@@ -3,15 +3,15 @@
  */
 ClimateHomeScreen = ScreenLayout.extend({
 
-    initialize: function() {
-
-        var self = this;
+    initialize: function(options) {
 
         window.model = this.model;
-        
+
         // back/home button defaults
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
+
+        this.vent = _.extend({}, Backbone.Events);
         
         // volume slider
         this.volumeSliderView = new VolumeSliderView();
@@ -36,7 +36,7 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         // collection and view of temperatures
         var temperatureCollection = new Backbone.Collection([]);
-        var temperatureListView = new ListView({
+        this.temperatureListView = new ListView({
             eventId: 'temperatureList',
             eventSource: 'inputZone2',
             collection: temperatureCollection,
@@ -50,7 +50,7 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         // collection and view of fan speeds
         var fanSpeedCollection = new Backbone.Collection([]);
-        var fanSpeedListView = new ListView({
+        this.fanSpeedListView = new ListView({
             eventId: 'fanSpeedList',
             eventSource: 'inputZone3',
             collection: fanSpeedCollection,
@@ -87,15 +87,44 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         // default main zone view of climte control
         this.renderedMainZoneView = this.mainZoneView = new ClimateControlMainZone({ model: this.model });
+    },
+
+    onRender: function() {
+
+        this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
+        this.backButtonZoneContent.show(this.backButtonView);
+        this.homeButtonZoneContent.show(this.homeButtonView);
+        this.volumeSliderZoneContent.show(this.volumeSliderView);
+
+        this.inputZone1Content.show(this.inputZone1View);
+        this.inputZone2Content.show(this.inputZone2View);
+        this.inputZone3Content.show(this.inputZone3View);
+        this.inputZone4Content.show(this.inputZone4View);
+        this.inputZone5Content.show(this.inputZone5View);
+
+        this.inputZone1View.$el.find('.iconLeft').toggleClass('active', this.model.get('controlMode') === 'driver');
+        this.inputZone1View.$el.find('.iconRight').toggleClass('active', this.model.get('controlMode') === 'passenger');
+
+        this.inputZone5View.$el.find('.iconLeft').toggleClass('active', this.model.get('defrostFront') === true);
+        this.inputZone5View.$el.find('.iconRight').toggleClass('active', this.model.get('defrostRear') === true);
+    },
+
+    onBeforeClose: function() {
+        this.vent.off();
+    },
+
+    onShow: function() {
+
+        var self = this;
 
         // starting to slide the sliders
         this.vent.on('inputZone2:touchStart', function() {
-            self.renderedMainZoneView = temperatureListView; 
+            self.renderedMainZoneView = self.temperatureListView; 
             self.render();
         }, this);
 
         this.vent.on('inputZone3:touchStart', function() {
-            self.renderedMainZoneView = fanSpeedListView;
+            self.renderedMainZoneView = self.fanSpeedListView;
             self.render();
         }, this);
 
@@ -143,29 +172,6 @@ ClimateHomeScreen = ScreenLayout.extend({
             self.model.set('defrostRear', !self.model.get('defrostRear'));
             self.render();
         }, this);
-    },
-
-    onRender: function() {
-        this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
-        this.backButtonZoneContent.show(this.backButtonView);
-        this.homeButtonZoneContent.show(this.homeButtonView);
-        this.volumeSliderZoneContent.show(this.volumeSliderView);
-
-        this.inputZone1Content.show(this.inputZone1View);
-        this.inputZone2Content.show(this.inputZone2View);
-        this.inputZone3Content.show(this.inputZone3View);
-        this.inputZone4Content.show(this.inputZone4View);
-        this.inputZone5Content.show(this.inputZone5View);
-
-        this.inputZone1View.$el.find('.iconLeft').toggleClass('active', this.model.get('controlMode') === 'driver');
-        this.inputZone1View.$el.find('.iconRight').toggleClass('active', this.model.get('controlMode') === 'passenger');
-
-        this.inputZone5View.$el.find('.iconLeft').toggleClass('active', this.model.get('defrostFront') === true);
-        this.inputZone5View.$el.find('.iconRight').toggleClass('active', this.model.get('defrostRear') === true);
-    },
-
-    onBeforeClose: function() {
-        this.vent.off();
     }
 
 });

@@ -4,10 +4,11 @@
 MusicHomeScreen = ScreenLayout.extend({
 
     initialize: function() {
-
         var self = this;
 
         window.model = this.model;
+
+        this.vent = _.extend({}, Backbone.Events);
         
         // back/home button defaults
         this.backButtonView = new BackButtonView();
@@ -48,7 +49,7 @@ MusicHomeScreen = ScreenLayout.extend({
         this.renderedMainZoneView = this.mainZoneView = new MusicMainZone({ model: this.model });
 
         this.vent.on('inputZone1:clickLeft', function() {
-            Backbone.history.navigate('musicUSB', { trigger: true});
+            Backbone.history.navigate('music/musicUSB', { trigger: true});
         }, this);
 
     },
@@ -67,8 +68,14 @@ MusicHomeScreen = ScreenLayout.extend({
         
     },
 
-    onClose: function() {
-        this.vent.off(null, null, this);
+    onBeforeClose: function() {
+        this.vent.off();
+    }, 
+
+    onShow: function() {
+        this.vent.on('inputZone1:clickLeft', function() {
+            Backbone.history.navigate('music/musicUSB', { trigger: true});
+        }, this);
     }
 
 });

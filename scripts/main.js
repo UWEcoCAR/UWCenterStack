@@ -11,6 +11,7 @@
 // Initialize keystrokes
 
 var CenterStack = Backbone.Marionette.Application.extend({
+
     index: function() {
         var homeScreen = new HomeScreen();
         centerStack.main.show(homeScreen);
@@ -30,7 +31,6 @@ var CenterStack = Backbone.Marionette.Application.extend({
         var musicUSBHomeScreen = new MusicUSBHomeScreen({ model: this.musicModel });
         centerStack.main.show(musicUSBHomeScreen);
     }
-
     // Route handlers go here
 });
 centerStack = new CenterStack();
@@ -46,7 +46,7 @@ centerStack.addInitializer(function() {
             '' : 'index',
             'climate' : 'climateHome',
             'music' : 'musicHome',
-            'musicUSB' : 'musicUSBHome'
+            'music/musicUSB' : 'musicUSBHome'
             // Routes go here
         }
     });

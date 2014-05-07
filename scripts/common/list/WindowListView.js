@@ -5,6 +5,7 @@ var WindowListView = Backbone.Marionette.CollectionView.extend({
     className: 'list',
 
     initialize: function(options) {
+
         this.vent = options.vent;
         this.eventId = options.eventId;
         this.eventSource = options.eventSource;
