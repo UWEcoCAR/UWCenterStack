@@ -1,6 +1,6 @@
 var WindowListView = Backbone.Marionette.CollectionView.extend({
     selection: 0,
-    itemHeight: 102,
+    itemHeight: 104,
     itemView: ListItemView,
     className: 'list',
 
@@ -12,29 +12,32 @@ var WindowListView = Backbone.Marionette.CollectionView.extend({
         this.windowSize = 24;
         this.windowStart = 0;
         this.selection = 0;
-        this.windowSpeed = 500;
+        this.windowSpeed = 25;
     
         var self = this;
         var move = 0;
         var moving = false;
+
+        this.vent.on(this.eventSource + ':touchStart', function(data) {
+        	// resume from current selection
+        	this.windowStart = this.selection - Math.round(data * this.windowSize);
+        }, this);
+
         this.vent.on(this.eventSource + ':touchMove', function(data) {
+
             if (data != 1 && data !== 0) {
                 // no window shifting
                 clearInterval(move);
                 moving = false;
-
-                self.selection = Math.min(Math.round(self.windowSize * data) + this.windowStart, this.numLevels-1);
+                self.selection = self._getValidValue(Math.round(self.windowSize * data) + this.windowStart, 0, this.numLevels-1);
                 self.redraw();
             } else if (data == 1) {
                 // window shifting up
 
                 if (!moving) {
                     move = setInterval(function() {
-                        self.selection = Math.min(self.selection + self.windowSize, self.numLevels - 1);
+                        self.selection = Math.min(self.selection + 1, self.numLevels - 1);
                         self.windowStart = self.selection - self.windowSize;
-                        if(self.selection == self.numLevels - 1) {
-                            self.windowStart = self.selection - self.windowSize;
-                        }
                         self.redraw();
                     }, self.windowSpeed);
                     moving = true;
@@ -43,7 +46,7 @@ var WindowListView = Backbone.Marionette.CollectionView.extend({
                 // window shifting down
                 if (!moving) {
                     move = setInterval(function() {
-                        self.windowStart = Math.max(self.windowStart - self.windowSize, 0);
+                        self.windowStart = Math.max(self.windowStart - 1, 0);
                         self.selection = self.windowStart;
                         self.redraw();
                     }, self.windowSpeed);

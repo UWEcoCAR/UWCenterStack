@@ -13,7 +13,7 @@ var ListView = Backbone.Marionette.CollectionView.extend({
         var self = this;
         this.vent.on(this.eventSource + ':touchMove', function(data) {
             self.selection = Math.min(Math.round(self.$el.children().size() * data), this.numLevels);
-            self.render();
+            self.redraw();
         }, this);
 
         this.vent.on(this.eventSource + ':touchEnd', function() {
@@ -21,11 +21,15 @@ var ListView = Backbone.Marionette.CollectionView.extend({
         }, this);
     },
 
+    redraw: function() {
+        this.onRender();
+        this.$el.css('top', - this.selection * this.itemHeight);
+    },
+
     onRender: function() {
 
         var listItems = this.$el.children();
         this.$el.find('.selected').removeClass('selected');
         listItems.eq(this.selection).addClass('selected');
-        this.$el.css('top', - this.selection * this.itemHeight);
     }
 });
