@@ -55,6 +55,26 @@ centerStack.addInitializer(function() {
 
 });
 
+// Load music
+centerStack.addInitializer(function() {
+    window.MusicTree = require('../scripts/music/MusicTree');
+    window.musicTree = new MusicTree('/Users/mitchellloeppky/Downloads/songs', function() {});
+});
+
+// Load LEAP
+centerStack.addInitializer(function() {
+    if (process.env.LEAP == 'true') {
+        var Leap = require('leapjs');
+        Leap.loop(function(frame) {
+            var opacity = 1;
+            if (frame.hands.length < 1) {
+                opacity = 0.5;
+            }
+            $('body').css('opacity', opacity);
+        });
+    }
+});
+
 // Load SVG's
 var fs = require('fs');
 _.each(['bezelOverlay', 'eventCatchers', 'icons'], function(file) {
@@ -67,19 +87,7 @@ centerStack.addRegions({
     main: '#appContainer'
 });
 
-if (process.env.LEAP == 'true') {
-    var Leap = require('leapjs');
-    Leap.loop(function(frame) {
-        var opacity = 1;
-        if (frame.hands.length < 1) {
-            opacity = 0.5;
-        }
-        $('body').css('opacity', opacity);
-    });
-}
-
 console.log('Application Starting');
 centerStack.start();
 
-window.MusicTree = require('../scripts/music/MusicTree');
-window.musicTree = new MusicTree('/Users/mitchellloeppky/Downloads/songs', function() {});
+

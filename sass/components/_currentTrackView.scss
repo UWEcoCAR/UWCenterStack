@@ -1,0 +1,42 @@
+@import '../common/import';
+
+$currentTrackCoverSize: 71px;
+$currentTrackTop: 363px;
+$currentTrackLeft: 363px;
+$currentTrackMargin: 18px;
+
+.currentTrack {
+  > div {
+    position: absolute;
+    left: $currentTrackTop;
+    top: $currentTrackLeft;
+
+    img {
+      width: $currentTrackCoverSize;
+      height: $currentTrackCoverSize;
+      display: inline-block;
+      -webkit-filter: grayscale(100%);
+    }
+
+    .labels {
+      display: inline-block;
+      margin-left: $currentTrackMargin - 8; // Accounts for inline-block spacing
+      width: 300px;
+
+      > * {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+
+      .name {
+        @include alrightSans('Bold', $fontSizeCurrentTrack);
+      }
+
+      .artist {
+        @include alrightSans('Light', $fontSizeCurrentTrack);
+        text-transform:uppercase;
+      }
+    }
+  }
+}

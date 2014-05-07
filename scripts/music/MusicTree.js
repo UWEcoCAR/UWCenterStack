@@ -64,8 +64,8 @@ tree.prototype._buildTree = function(songObjects) {
 
     songObjects.forEach(function(trackObject, index) {
         var track = new window.TrackModel({
-            imageMime: trackObject.data.v2.image.mime,
-            imageData: trackObject.data.v2.image.data,
+            // http://stackoverflow.com/questions/9429234/convert-base64-string-to-image-with-javascript
+            image: '<img src="data:' + trackObject.data.v2.image.mime + ';base64,' + _arrayBufferToBase64(trackObject.data.v2.image.data) + '" />',
             src: trackObject.src,
             name: trackObject.data.v2.title,
             albumName: trackObject.data.v2.album,
@@ -100,3 +100,13 @@ tree.prototype._buildTree = function(songObjects) {
     });
     return this.tree;
 };
+
+function _arrayBufferToBase64(buffer) {
+    var binary = '';
+    var bytes = new Uint8Array(buffer);
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[ i ]);
+    }
+    return window.btoa(binary);
+}
