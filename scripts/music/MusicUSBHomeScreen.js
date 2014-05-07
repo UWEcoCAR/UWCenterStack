@@ -33,7 +33,11 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             collection: songCollection,
             viewId: '',
             vent: this.vent,
-            numLevels: 500
+            numLevels: 500,
+            windowSize: 24,
+            windowStart: 0,
+            windowSpeed: 25,
+            selection: 0
         });
         for (var i = 1; i <= 500; i++) {
             songCollection.push({text: 'song' + i});
@@ -105,7 +109,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.render();
         }, this);
     }
-
 });
 
 

@@ -10,18 +10,18 @@ var WindowListView = Backbone.Marionette.CollectionView.extend({
         this.eventId = options.eventId;
         this.eventSource = options.eventSource;
         this.numLevels = options.numLevels;
-        this.windowSize = 24;
-        this.windowStart = 0;
-        this.selection = 0;
-        this.windowSpeed = 25;
+        this.windowSize = options.windowSize;
+        this.windowStart = options.windowStart;
+        this.windowSpeed = options.windowSpeed;
+        this.selection = options.selection;
     
         var self = this;
         var move = 0;
         var moving = false;
 
         this.vent.on(this.eventSource + ':touchStart', function(data) {
-        	// resume from current selection
-        	this.windowStart = this.selection - Math.round(data * this.windowSize);
+            // resume from current selection
+            this.windowStart = this.selection - Math.round(data * this.windowSize);
         }, this);
 
         this.vent.on(this.eventSource + ':touchMove', function(data) {
