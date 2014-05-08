@@ -2,7 +2,7 @@ var MusicUSBMainZone = MainZoneLayout.extend({
     id: 'musicUSBMainZone',
 
     initialize: function() {
-        this.clockView = new ClockView({title: 'MUSIC'});
+        this.clockView = new ClockView({title: 'MUSIC USB'});
         this.currentTrackView = new CurrentTrackView({model: currentTrack});
     },
 

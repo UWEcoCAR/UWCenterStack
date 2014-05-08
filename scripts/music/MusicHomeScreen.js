@@ -14,6 +14,9 @@ MusicHomeScreen = ScreenLayout.extend({
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
         
+        this.playPauseButtonView = new PlayPauseButtonView({vent: this.vent});
+        this.nextButtonView = new NextButtonView({vent: this.vent});
+
         // volume slider
         this.volumeSliderView = new VolumeSliderView();
         
@@ -59,6 +62,8 @@ MusicHomeScreen = ScreenLayout.extend({
         this.backButtonZoneContent.show(this.backButtonView);
         this.homeButtonZoneContent.show(this.homeButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
+        this.playPauseButtonZoneContent.show(this.playPauseButtonView);
+        this.nextButtonZoneContent.show(this.nextButtonView);
 
         this.inputZone1Content.show(this.inputZone1View);
         this.inputZone2Content.show(this.inputZone2View);

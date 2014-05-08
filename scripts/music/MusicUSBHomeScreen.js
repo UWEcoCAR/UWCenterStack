@@ -12,6 +12,9 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.homeButtonView = new HomeButtonView();
 
         this.vent = _.extend({}, Backbone.Events);
+
+        this.playPauseButtonView = new PlayPauseButtonView({vent: this.vent});
+        this.nextButtonView = new NextButtonView({vent: this.vent});
         
         // volume slider
         this.volumeSliderView = new VolumeSliderView();
@@ -62,6 +65,8 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
         this.backButtonZoneContent.show(this.backButtonView);
         this.homeButtonZoneContent.show(this.homeButtonView);
+        this.playPauseButtonZoneContent.show(this.playPauseButtonView);
+        this.nextButtonZoneContent.show(this.nextButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
 
         this.inputZone1Content.show(this.inputZone1View);
@@ -191,6 +196,9 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             var qs = new QueueSupplier(function() {}, self.model.get('tracks').slice(selection));
             Music.setSupplier(qs);
             Music.start();
+
+            self.playPauseButtonView.icon = '#pauseIcon';
+            self.render();
         }, this);
 
         this.vent.on('albumList:select ', function(data, selection) {
