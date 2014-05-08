@@ -70,6 +70,7 @@
 
         <!-- TEMPLATES -->
         <script id="screenTemplate" type="text/html">
+            <div id="backgroundIconContent"></div>
             <div id="backButtonZoneContent"></div>
             <div id="homeButtonZoneContent"></div>
             <div id="mainZoneContent"></div>
@@ -89,6 +90,10 @@
             <div class="content"></div>
             <div class="contentLeft"></div>
             <div class="contentRight"></div>
+        </script>
+
+        <script id="backgroundIconTemplate" type="text/html">
+
         </script>
 
         <script id="buttonTemplate" type="text/html">
@@ -111,6 +116,12 @@
 
         <script id="listItemTemplate" type="text/html">
             <%= text %>
+        </script>
+
+        <script id="dotListItemTemplate" type="text/html">
+            <svg class="circle <%= state %>">
+                <circle fill="#FFFFFF" stroke="#000000" stroke-width="4" stroke-miterlimit="10" cx="25" cy="25" r="22.5"/>
+            </svg>
         </script>
 
         <script id="currentTrackTemplate" type="text/html">
@@ -144,7 +155,10 @@
         <script src="../scripts/common/CurrentTrackView.js"></script>
         <script src="../scripts/common/list/ListItemView.js"></script>
         <script src="../scripts/common/list/ListView.js"></script>
+        <script src="../scripts/common/list/DotListItemView.js"></script>
+        <script src="../scripts/common/list/DotListView.js"></script>
         <script src="../scripts/common/list/WindowListView.js"></script>
+        <script src="../scripts/common/BackgroundIconView.js"></script>
         <script src="../scripts/common/ButtonView.js"></script>
         <script src="../scripts/common/BackButtonView.js"></script>
         <script src="../scripts/common/HomeButtonView.js"></script>

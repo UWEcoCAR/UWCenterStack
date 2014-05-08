@@ -8,6 +8,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         window.model = this.model;
 
         // back/home button defaults
+        this.backgroundIconView = new BackgroundIconView({icon: '#fanIcon'});
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
 
@@ -53,7 +54,7 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         // collection and view of fan speeds
         var fanSpeedCollection = new Backbone.Collection([]);
-        this.fanSpeedListView = new ListView({
+        this.fanSpeedListView = new DotListView({
             eventId: 'fanSpeedList',
             eventSource: 'inputZone3',
             collection: fanSpeedCollection,
@@ -95,6 +96,7 @@ ClimateHomeScreen = ScreenLayout.extend({
     onRender: function() {
 
         this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
+        this.backgroundIconContent.show(this.backgroundIconView);
         this.backButtonZoneContent.show(this.backButtonView);
         this.homeButtonZoneContent.show(this.homeButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
@@ -125,7 +127,8 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         // starting to slide the sliders
         this.vent.on('inputZone2:touchStart', function() {
-            self.renderedMainZoneView = self.temperatureListView; 
+            self.renderedMainZoneView = self.temperatureListView;
+            self.backgroundIconView = new BackgroundIconView({icon: '#temperatureIcon'});
             self.render();
         }, this);
 
@@ -148,14 +151,14 @@ ClimateHomeScreen = ScreenLayout.extend({
         }, this);
 
         this.vent.on('fanSpeedList:select ', function(data) {
-            var ventFanSpeed = Number(data.model.get('text'));
-            self.model.set('ventFanSpeed', ventFanSpeed);
+            self.model.set('ventFanSpeed', data);
             //canReadWriter.write('ventFanSpeed', ventFanSpeed);
         }, this);
 
         // updatie main view back to default climate control view after sliders have been used
         this.vent.on('inputZone2:touchEnd inputZone3:touchEnd', function() {
             self.renderedMainZoneView = self.mainZoneView;
+            self.backgroundIconView = new BackgroundIconView({icon: '#fanIcon'});
             self.render();
         }, this);
 

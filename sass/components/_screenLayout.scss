@@ -76,6 +76,19 @@ $bottomZonesTop: 1177px;
 
 }
 
+#backgroundIconContent {
+  position: absolute;
+  top: 30%;
+  right: 30%;
+  width: 0;
+  height: 0;
+  opacity: .1;
+
+  svg {
+    -webkit-transform: scale(15);
+  }
+}
+
 #backButtonZoneContent {
   @include mask('backButtonZoneMask', $topZoneTop, 0px, $width/2, $topZonesHeight);
 

@@ -11,6 +11,7 @@ MusicHomeScreen = ScreenLayout.extend({
         this.vent = _.extend({}, Backbone.Events);
         
         // back/home button defaults
+        this.backgroundIconView = new BackgroundIconView({icon: '#musicIcon'});
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
         
@@ -59,6 +60,7 @@ MusicHomeScreen = ScreenLayout.extend({
 
     onRender: function() {
         this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
+        this.backgroundIconContent.show(this.backgroundIconView);
         this.backButtonZoneContent.show(this.backButtonView);
         this.homeButtonZoneContent.show(this.homeButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
