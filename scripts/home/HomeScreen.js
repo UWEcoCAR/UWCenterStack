@@ -5,6 +5,7 @@
 HomeScreen = ScreenLayout.extend({
     initialize: function() {
         this.vent = _.extend({}, Backbone.Events);
+        this.backgroundIconView = new BackgroundIconView({icon: '#homeIcon'});
         this.inputZone1View = new SliderButtonsView({eventId: 'inputZone1', iconLeft: "#musicIcon", iconRight: "#playIcon", eventCatcher: "#inputZone1EventCatcher", vent: this.vent});
         this.inputZone2View = new SliderButtonsView({eventId: 'inputZone2', iconLeft: "#fanIcon", iconRight: "#leafIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.vent});
         this.inputZone3View = new SliderButtonsView({eventId: 'inputZone3', iconLeft: "#phoneIcon", iconRight: "#settingsIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.vent});
@@ -15,6 +16,7 @@ HomeScreen = ScreenLayout.extend({
     },
 
     onRender: function() {
+        this.backgroundIconContent.show(this.backgroundIconView);
         this.mainZoneContent.show(this.mainZoneView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
         this.inputZone1Content.show(this.inputZone1View);

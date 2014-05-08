@@ -8,6 +8,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         window.model = this.model;
         
         // back/home button defaults
+        this.backgroundIconView = new BackgroundIconView({icon: '#iPodIcon'});
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
 
@@ -60,6 +61,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
     onRender: function() {
         this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
+        this.backgroundIconContent.show(this.backgroundIconView);
         this.backButtonZoneContent.show(this.backButtonView);
         this.homeButtonZoneContent.show(this.homeButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
@@ -156,29 +158,34 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
         // starting to slide the sliders
         this.vent.on('inputZone1:touchStart', function() {
-            self.renderedMainZoneView = artistListView; 
+            self.renderedMainZoneView = artistListView;
+            self.backgroundIconView = new BackgroundIconView({icon: '#artistIcon'});
             self.render();
         }, this);
 
         // starting to slide the sliders
         this.vent.on('inputZone2:touchStart', function() {
-            self.renderedMainZoneView = trackListView; 
+            self.renderedMainZoneView = trackListView;
+            self.backgroundIconView = new BackgroundIconView({icon: '#songIcon'});
             self.render();
         }, this);
 
         this.vent.on('inputZone3:touchStart', function() {
-            self.renderedMainZoneView = albumListView; 
+            self.renderedMainZoneView = albumListView;
+            self.backgroundIconView = new BackgroundIconView({icon: '#albumIcon'});
             self.render();
         }, this);
 
         this.vent.on('inputZone4:touchStart', function() {
-            self.renderedMainZoneView = playListView; 
+            self.renderedMainZoneView = playListView;
+            self.backgroundIconView = new BackgroundIconView({icon: '#playlistIcon'});
             self.render();
         }, this);
 
         // updatie main view back to default music USB
         this.vent.on('inputZone1:touchEnd inputZone2:touchEnd inputZone3:touchEnd inputZone4:touchEnd', function() {
             self.renderedMainZoneView = self.mainZoneView;
+            self.backgroundIconView = new BackgroundIconView({icon: '#musicIcon'});
             self.render();
         }, this);
 
