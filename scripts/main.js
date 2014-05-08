@@ -59,7 +59,7 @@ centerStack.addInitializer(function() {
 // Load music
 centerStack.addInitializer(function() {
     window.MusicTree = require('../scripts/music/MusicTree');
-    window.musicTree = new MusicTree('/Users/mitchellloeppky/Downloads/songs', function() {});
+    window.musicTree = new MusicTree(process.env.MUSIC_PATH, function() {});
 });
 
 // Load LEAP

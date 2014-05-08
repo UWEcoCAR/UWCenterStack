@@ -55,7 +55,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         });
 
         // default main zone view of musicUSB home
-        this.renderedMainZoneView = this.mainZoneView = new MusicMainZone({ model: this.model });
+        this.renderedMainZoneView = this.mainZoneView = new MusicUSBMainZone({ model: this.model });
 
     },
 
@@ -98,6 +98,8 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         for (var i = 0; i < 79; i++) {
             trackCollection.push({text: musicTree.tree.tracks.models[i].get('name')});
         }
+
+        this.model.set('tracks', musicTree.tree.tracks.models);
 
         // collection and view of artists
         var artistCollection = new Backbone.Collection([]);
@@ -192,6 +194,10 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.vent.on('trackList:select ', function(data, selection) {
             self.model.set('track', data.model.get('text'));
             self.model.set('trackSelection', selection);
+
+            var qs = new QueueSupplier(function() {}, self.model.get('tracks').slice(selection));
+            Music.setSupplier(qs);
+            Music.start();
         }, this);
 
         this.vent.on('albumList:select ', function(data, selection) {
@@ -205,6 +211,8 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             for (var j = 0; j < dataForAlbum.tracks.length; j++) {
                 trackCollection.push({text: dataForAlbum.tracks.models[j].get('name')});
             }
+            self.model.set('tracks', dataForAlbum.tracks.models);
+
             trackListView.numLevels = dataForAlbum.tracks.length;
             trackListView.windowSize = windowSize;
             trackListView.windowStart = 0;
@@ -228,6 +236,8 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             for (var j = 0; j < dataForPlayList.tracks.length; j++) {
                 trackCollection.push({text: dataForPlayList.tracks.models[j].get('name')});
             }
+            self.model.set('tracks', dataForPlayList.tracks.models);
+
             trackListView.numLevels = dataForPlayList.tracks.length;
             trackListView.windowSize = windowSize;
             trackListView.windowStart = 0;
@@ -273,6 +283,8 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             for (var j = 0; j < dataForArtist.tracks.length; j++) {
                 trackCollection.push({text: dataForArtist.tracks.models[j].get('name')});
             }
+            self.model.set('tracks', dataForArtist.tracks.models);
+
             trackListView.numLevels = dataForArtist.tracks.length;
             trackListView.windowSize = windowSize;
             trackListView.windowStart = 0;
