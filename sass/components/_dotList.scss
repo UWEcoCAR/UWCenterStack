@@ -1,0 +1,28 @@
+@import '../common/import';
+
+$dotDiameter: 50px;
+$dotMarginRight: 10px;
+$dotListTop: 333px;
+$dotListLeft: 41px;
+
+.dotList {
+  position: absolute;
+  top: $dotListTop;
+  left: $dotListLeft;
+}
+
+.dotListItem {
+  display: inline-block;
+  width: $dotDiameter;
+  height: $dotDiameter;
+  margin-right: $dotMarginRight;
+
+  .circle > * {
+    fill: none;
+    stroke: $white;
+  }
+
+  .filled > * {
+    fill: $white;
+  }
+}

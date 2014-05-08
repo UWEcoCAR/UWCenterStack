@@ -50,7 +50,7 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         // collection and view of fan speeds
         var fanSpeedCollection = new Backbone.Collection([]);
-        this.fanSpeedListView = new ListView({
+        this.fanSpeedListView = new DotListView({
             eventId: 'fanSpeedList',
             eventSource: 'inputZone3',
             collection: fanSpeedCollection,
@@ -142,8 +142,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         }, this);
 
         this.vent.on('fanSpeedList:select ', function(data) {
-            var ventFanSpeed = Number(data.model.get('text'));
-            self.model.set('ventFanSpeed', ventFanSpeed);
+            self.model.set('ventFanSpeed', data);
             //canReadWriter.write('ventFanSpeed', ventFanSpeed);
         }, this);
 
