@@ -33,6 +33,8 @@ or
 uwcs-init-linux
 ```
 
+If there are additional environment variables you would like to set to be available in node-webkit scope on a Mac,
+add them following the instructions [here](http://stackoverflow.com/questions/135688/setting-environment-variables-in-os-x).
 
 Shell Commands
 --------------
