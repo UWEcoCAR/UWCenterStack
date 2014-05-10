@@ -5,7 +5,7 @@ var ClimateControlMainZone = MainZoneLayout.extend({
         this.clockView = new ClockView({title: 'TEMP'});
         this.contentLeftView = new ClimateControlMainZoneView({side: 'driver', model: this.model});
         this.contentRightView = new ClimateControlMainZoneView({side: 'passenger', model: this.model});
-        this.currentTrackView = new CurrentTrackView({model: currentTrack});
+        this.currentTrackView = new CurrentTrackView();
     },
 
     onRender: function() {

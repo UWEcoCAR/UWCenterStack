@@ -205,15 +205,13 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.model.set('track', data.model.get('text'));
             self.model.set('trackSelection', selection);
             
-            var qs = new QueueSupplier(function() {}, self.model.get('tracks'));
+            var qs = new QueueSupplier(self.model.get('tracks'));
             for (var z = 0; z < selection; z++) {
                 qs.next();
             }
             Music.setSupplier(qs);
             Music.start();
 
-            self.nextButtonView.updateIcon();
-            self.playPauseButtonView.updateIcon();
             self.render();
         }, this);
 
@@ -229,7 +227,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 trackCollection.push({text: dataForAlbum.tracks.models[j].get('name')});
             }
             self.model.set('tracks', dataForAlbum.tracks.models);
-            var qs = new QueueSupplier(function() {}, self.model.get('tracks'));
+            var qs = new QueueSupplier(self.model.get('tracks'));
             Music.setSupplier(qs);
             Music.start();
 
@@ -258,7 +256,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 trackCollection.push({text: dataForPlayList.tracks.models[j].get('name')});
             }
             self.model.set('tracks', dataForPlayList.tracks.models);
-            var qs = new QueueSupplier(function() {}, self.model.get('tracks'));
+            var qs = new QueueSupplier(self.model.get('tracks'));
             Music.setSupplier(qs);
             Music.start();
 
@@ -308,7 +306,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 trackCollection.push({text: dataForArtist.tracks.models[j].get('name')});
             }
             self.model.set('tracks', dataForArtist.tracks.models);
-            var qs = new QueueSupplier(function() {}, self.model.get('tracks'));
+            var qs = new QueueSupplier(self.model.get('tracks'));
             Music.setSupplier(qs);
             Music.start();
 
