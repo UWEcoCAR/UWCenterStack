@@ -4,7 +4,7 @@
 MusicUSBHomeScreen = ScreenLayout.extend({
 
     initialize: function() {
-       // console.log(this.vent);
+
         window.model = this.model = new MusicUSBModel();
         
         // back/home button defaults
@@ -207,7 +207,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         }, this);
 
         this.vent.on('trackList:select ', function(data, selection) {
-            self.model.set('tracks', data.model);
             self.model.set('trackSelection', selection);
             
             var qs = new QueueSupplier(function() {}, self.model.get('tracks'));
@@ -232,27 +231,31 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         }, this);
 
         this.vent.on('albumList:select ', function(data, selection) {
-            self.model.set('albums', data.model);
             self.model.set('albumSelection', selection);
             
-            var dataForAlbum = null;
+            var dataForTracks = null;
             if (selection === 0) {
-                dataForAlbum = musicTree.tree;
+                if (self.model.get('artistInformation') !== null) {
+                    dataForTracks = self.model.get('artistInformation').tracks.models;
+                } else {
+                    dataForTracks = music.tree.tracks.models;
+                }
             } else {
 
-                dataForAlbum = musicTree.tree.albums.find(function(album) {
+                var dataForAlbum = musicTree.tree.albums.find(function(album) {
                     return _.equal(album.get('name'), data.model.get('text'));
                 });
+                dataForTracks = dataForAlbum.tracks.models;
             }
 
-            var windowSize = Math.min(dataForAlbum.tracks.length, 25);
+            var windowSize = Math.min(dataForTracks.length, 25);
             trackCollection.reset();
-            for (var j = 0; j < dataForAlbum.tracks.length; j++) {
-                trackCollection.push({text: dataForAlbum.tracks.models[j].get('name')});
+            for (var j = 0; j < dataForTracks.length; j++) {
+                trackCollection.push({text: dataForTracks[j].get('name')});
             }
-            self.model.set('tracks', dataForAlbum.tracks.models);
+            self.model.set('tracks', dataForTracks);
         
-            trackListView.numLevels = dataForAlbum.tracks.length;
+            trackListView.numLevels = dataForTracks.length;
             trackListView.windowSize = windowSize;
             trackListView.windowStart = 0;
             trackListView.selection = 0;
@@ -299,17 +302,21 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
 
         this.vent.on('artistList:select ', function(data, selection) {
-            self.model.set('artist', data.model);
             self.model.set('artistSelection', selection);
 
+            var dataForAlbums = null;
+            var dataForTracks = null;
             var dataForArtist = null;
 
             if (selection === 0) {
-                dataForArtist = musicTree.tree;
+                dataForAlbums = self.model.get('albums');
+                dataForTracks = self.model.get('tracks');
             } else {
                 dataForArtist = musicTree.tree.artists.find(function(artist) {
                     return _.equal(artist.get('name'), data.model.get('text'));
                 });
+                dataForAlbums = dataForArtist.albums.models;
+                dataForTracks = dataForArtist.tracks.models;
             }
 
            /* var windowSize = Math.min(dataForArtist.albums.length, 25);
@@ -323,9 +330,9 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             albumListView.windowSize = windowSize;
             albumListView.windowStart = 0;
             albumListView.selection = 0;*/
-            self.model.set('albums', null);
+            self.model.set('albums', dataForAlbums);
             self.model.set('albumSelection', 0);
-            self.resetView(albumCollection, dataForArtist.albums.models, albumListView, 3);
+            self.resetView(albumCollection, dataForAlbums, albumListView, 3);
 
 
             /*windowSize = Math.min(dataForArtist.tracks.length, 25);
@@ -339,14 +346,15 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             trackListView.windowSize = windowSize;
             trackListView.windowStart = 0;
             trackListView.selection = 0;*/
-            self.model.set('tracks', null);
+            self.model.set('tracks', dataForTracks);
             self.model.set('trackSelection', 0);
-            self.resetView(trackCollection, dataForArtist.tracks.models, trackListView, 4);
+            self.resetView(trackCollection, dataForTracks, trackListView, 4);
 
+            self.model.set('artistInformation', dataForArtist);
 
             playListView.windowStart = 0;
             playListView.selection = 0;
-            self.model.set('playList', null);
+            self.model.set('playlists', musicTree.tree.artists.models);
             self.model.set('playListSelection', 0);
 
         }, this);
@@ -356,11 +364,12 @@ MusicUSBHomeScreen = ScreenLayout.extend({
     resetModel: function() {
         this.model.set('tracks', musicTree.tree.tracks.models);
         this.model.set('trackSelection', 0);
-        this.model.set('albums', musicTree.tree.tracks.models);
+        this.model.set('albums', musicTree.tree.albums.models);
         this.model.set('albumSelection', 0);
-        this.model.set('artists', musicTree.tree.tracks.models);
+        this.model.set('artists', musicTree.tree.artists.models);
         this.model.set('artistSelection', 0);
-        this.model.set('playlist', musicTree.tree.tracks.models);
+        this.model.set('artistInformation', null);
+        this.model.set('playlists', musicTree.tree.playlists.models);
         this.model.set('playlistSelection', 0);
     },
 
