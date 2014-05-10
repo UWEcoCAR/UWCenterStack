@@ -31,12 +31,8 @@ var SliderView = InputZoneView.extend({
     },
 
     release: function(data) {
-        if (this.moveStart && moment().diff(this.moveStart) < _.sliderDotThreshold() && !this.$el.hasClass('active')) {
-            this.$el.addClass('active');
-            var el = this.$el;
-            this.timeout = setTimeout(function() {
-                el.removeClass('active');
-            }, _.sliderDotDuration());
+        if (this.moveStart && moment().diff(this.moveStart) < _.sliderDotThreshold()) {
+            this.triggerDots();
         }
         this.vent.trigger(this.eventId + ':touchEnd', data);
     },
@@ -57,6 +53,16 @@ var SliderView = InputZoneView.extend({
             .on('touchstart.' + this.cid, (_.bind(this.touch, this)))
             .on('touchmove.' + this.cid, (_.bind(this.change, this)))
             .on('touchend.' + this.cid, (_.bind(this.release, this)));
+    },
+
+    triggerDots: function() {
+        if (!this.$el.hasClass('active')) {
+            this.$el.addClass('active');
+            var el = this.$el;
+            this.timeout = setTimeout(function() {
+                el.removeClass('active');
+            }, _.sliderDotDuration());
+        }
     }
 });
 
