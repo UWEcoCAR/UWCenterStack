@@ -70,7 +70,7 @@ tree.prototype._buildTree = function(songObjects) {
             name: trackObject.data.v2.title,
             albumName: trackObject.data.v2.album,
             artistName: trackObject.data.v2.artist,
-            trackNumber: trackObject.data.v2.track.substring(0, trackObject.data.v2.track.indexOf('/'))
+            trackNumber: trackObject.data.v2.track.indexOf('/') !== -1 ? trackObject.data.v2.track.substring(0, trackObject.data.v2.track.indexOf('/')) : trackObject.data.v2.track
         });
         tree.tracks.add(track);
 
