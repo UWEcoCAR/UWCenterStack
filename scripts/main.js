@@ -28,7 +28,7 @@ var CenterStack = Backbone.Marionette.Application.extend({
     },
 
     musicUSBHome: function() {
-        var musicUSBHomeScreen = new MusicUSBHomeScreen({ model: this.musicUSBModel });
+        var musicUSBHomeScreen = new MusicUSBHomeScreen();
         centerStack.main.show(musicUSBHomeScreen);
     }
     // Route handlers go here
@@ -40,7 +40,7 @@ centerStack.addInitializer(function() {
 
     centerStack.climateModel = new ClimateControlModel();
     centerStack.musicModel = new MusicModel();
-    centerStack.musicUSBModel = new MusicUSBModel();
+
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
         appRoutes: {

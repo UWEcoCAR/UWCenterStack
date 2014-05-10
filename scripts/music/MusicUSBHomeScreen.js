@@ -5,7 +5,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
     initialize: function() {
        // console.log(this.vent);
-        window.model = this.model;
+        window.model = this.model = new MusicUSBModel();
         
         // back/home button defaults
         this.backgroundIconView = new BackgroundIconView({icon: '#iPodIcon'});
@@ -234,7 +234,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 albumCollection.push({text: musicTree.tree.albums.models[k].get('name')});
             }
             self.model.set('albums', musicTree.tree.albums.models);
-            albumListView.numLevels = musicTree.tree.albums.length;
+            albumListView.numLevels = musicTree.tree.albums.length + 1;
             albumListView.windowSize = Math.min(musicTree.tree.albums.length, 25);
             albumListView.windowStart = 0;
             albumListView.selection = 0;
@@ -335,10 +335,12 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
             var windowSize = Math.min(dataForArtist.albums.length, 25);
             albumCollection.reset();
+
+            albumCollection.push({text: 'All Albums'});
             for (var i = 0; i < dataForArtist.albums.length; i++) {
                 albumCollection.push({text: dataForArtist.albums.models[i].get('name')});
             }
-            albumListView.numLevels = dataForArtist.albums.length;
+            albumListView.numLevels = dataForArtist.albums.length + 1;
             albumListView.windowSize = windowSize;
             albumListView.windowStart = 0;
             albumListView.selection = 0;
