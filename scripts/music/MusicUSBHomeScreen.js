@@ -209,7 +209,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.vent.on('trackList:select ', function(data, selection) {
             self.model.set('trackSelection', selection);
             
-            var qs = new QueueSupplier(function() {}, self.model.get('tracks'));
+            var qs = new QueueSupplier(self.model.get('tracks'));
             for (var z = 0; z < selection; z++) {
                 qs.next();
             }
@@ -225,8 +225,10 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             playListView.selection = 0;
             self.model.set('playListSelection', 0);
 
-            self.nextButtonView.updateIcon();
-            self.playPauseButtonView.updateIcon();
+            artistListView.windowStart = 0;
+            artistListView.selection = 0;
+            self.model.set('artistListSelection', 0);
+
             self.render();
         }, this);
 
@@ -253,9 +255,11 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             for (var j = 0; j < dataForTracks.length; j++) {
                 trackCollection.push({text: dataForTracks[j].get('name')});
             }
+
             self.model.set('tracks', dataForTracks);
         
             trackListView.numLevels = dataForTracks.length;
+
             trackListView.windowSize = windowSize;
             trackListView.windowStart = 0;
             trackListView.selection = 0;
@@ -280,7 +284,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 trackCollection.push({text: dataForPlayList.tracks.models[j].get('name')});
             }
             self.model.set('tracks', dataForPlayList.tracks.models);
-            
+
             trackListView.numLevels = dataForPlayList.tracks.length;
             trackListView.windowSize = windowSize;
             trackListView.windowStart = 0;
@@ -341,7 +345,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 trackCollection.push({text: dataForArtist.tracks.models[j].get('name')});
             }
             self.model.set('tracks', dataForArtist.tracks.models);
-            
+
             trackListView.numLevels = dataForArtist.tracks.length;
             trackListView.windowSize = windowSize;
             trackListView.windowStart = 0;

@@ -2,7 +2,7 @@ var HomeMainZone = MainZoneLayout.extend({
 
     initialize: function() {
         this.clockView = new ClockView({title: 'HOME'});
-        this.currentTrackView = new CurrentTrackView({model: currentTrack});
+        this.currentTrackView = new CurrentTrackView();
     },
 
     onRender: function() {

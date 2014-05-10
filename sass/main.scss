@@ -17,7 +17,9 @@ body, html {
 }
 
 * {
-  -webkit-box-sizing:border-box
+  -webkit-box-sizing: border-box;
+  -webkit-user-select: none !important;
+  user-select: none !important;
 }
 
 svg {

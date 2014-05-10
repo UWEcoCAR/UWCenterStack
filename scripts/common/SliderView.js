@@ -1,6 +1,5 @@
 var SliderView = InputZoneView.extend({
-    template: '#inputZoneTemplate',
-    className: 'slider',
+    className: InputZoneView.prototype.className + ' slider',
     initialize: function(options) {
         this.iconLeft = options.iconLeft || '';
         this.iconRight = options.iconRight || '';
@@ -12,31 +11,21 @@ var SliderView = InputZoneView.extend({
         this.vent = options.vent;
     },
 
-    _getMovementPercent: function(data) {
-        data.preventDefault();
-        var x = data.originalEvent.touches[0].pageX;
-        var offsetX = x - $('#inputZone2Content').offset().left-25;
-        var percentageX = offsetX / 750;
-        return this._getValidValue(percentageX, 0, 1);  
-    },
-
     touch: function(data) {
         this.moveStart = moment();
+        data.preventDefault();
         this.vent.trigger(this.eventId + ':touchStart', this._getMovementPercent(data));
     },
 
     change: function(data) {
         this.moveStart = undefined;
+        data.preventDefault();
         this.vent.trigger(this.eventId + ':touchMove', this._getMovementPercent(data));
     },
 
     release: function(data) {
-        if (this.moveStart && moment().diff(this.moveStart) < _.sliderDotThreshold() && !this.$el.hasClass('active')) {
-            this.$el.addClass('active');
-            var el = this.$el;
-            this.timeout = setTimeout(function() {
-                el.removeClass('active');
-            }, _.sliderDotDuration());
+        if (this.moveStart && moment().diff(this.moveStart) < _.sliderDotThreshold()) {
+            this.triggerDots();
         }
         this.vent.trigger(this.eventId + ':touchEnd', data);
     },
@@ -57,6 +46,16 @@ var SliderView = InputZoneView.extend({
             .on('touchstart.' + this.cid, (_.bind(this.touch, this)))
             .on('touchmove.' + this.cid, (_.bind(this.change, this)))
             .on('touchend.' + this.cid, (_.bind(this.release, this)));
+    },
+
+    triggerDots: function() {
+        if (!this.$el.hasClass('active')) {
+            this.$el.addClass('active');
+            var el = this.$el;
+            this.timeout = setTimeout(function() {
+                el.removeClass('active');
+            }, _.sliderDotDuration());
+        }
     }
 });
 

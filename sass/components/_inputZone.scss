@@ -1,0 +1,53 @@
+@import '../common/import';
+
+$inputZoneCircleHeight: 83px;
+$inputZoneCircleTop: 106px;
+$inputZoneCircleLeft: 10px;
+.inputZone {
+  .circle {
+    background-color: $green;
+    opacity: 0;
+    position: absolute;
+    height: $inputZoneCircleHeight;
+    width: $inputZoneCircleHeight;
+    border-radius: $inputZoneCircleHeight / 2;
+    top: $inputZoneCircleTop;
+    transition: all .25s ease-in;
+  }
+
+  .circleLeft {
+    left: $inputZoneCircleLeft;
+  }
+
+  .circleRight {
+    right: $inputZoneCircleLeft;
+  }
+
+  &.touchLeft {
+    .iconLeft {
+      @include svgColor($green);
+    }
+
+    .labelLeft {
+      color: $green;
+    }
+
+    .circleLeft {
+      opacity: .25;
+    }
+  }
+
+  &.touchRight {
+    .iconRight {
+      @include svgColor($green);
+    }
+
+    .labelRight {
+      color: $green;
+    }
+
+    .circleRight {
+      opacity: .25;
+    }
+  }
+}

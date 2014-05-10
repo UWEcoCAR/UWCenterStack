@@ -1,12 +1,9 @@
 (function() {
 
 	// constructor
-    var supplier = window.QueueSupplier = function(callback, array, doLoop) {
-        this.queue = array || [],
-        this._index = -1,
-        this.loop = doLoop === undefined ? false : doLoop;
-
-        callback();
+    var supplier = window.QueueSupplier = function(array) {
+        this.queue = array || [];
+        this._index = -1;
     };
 
     /**
@@ -20,11 +17,13 @@
 
     // returns the next item if it exists
     supplier.prototype.next = function() {
-        return this._getItem(++this._index) || null;
+        this._index = Math.min(this._index + 1, this.queue.length);
+        return this._getItem(this._index) || null;
     };
 
     // returns the previous item if it exists
     supplier.prototype.previous = function() {
-        return this._getItem(--this._index) || null;
+        this._index = Math.max(this._index - 1, 0);
+        return this._getItem(this._index);
     };
 })();

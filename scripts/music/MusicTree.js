@@ -70,11 +70,9 @@ tree.prototype._buildTree = function(songObjects) {
             name: trackObject.data.v2.title,
             albumName: trackObject.data.v2.album,
             artistName: trackObject.data.v2.artist,
-            trackNumber: trackObject.data.v2.track.substring(0, trackObject.data.v2.track.indexOf('/'))
+            trackNumber: trackObject.data.v2.track.indexOf('/') !== -1 ? trackObject.data.v2.track.substring(0, trackObject.data.v2.track.indexOf('/')) : trackObject.data.v2.track
         });
         tree.tracks.add(track);
-
-        tree.playlists.get(Math.floor(Math.random() * playlistNames.length)).tracks.add(track);
 
         var album = tree.albums.findWhere({name: track.get('albumName')});
         if (!album) {
@@ -97,6 +95,15 @@ tree.prototype._buildTree = function(songObjects) {
             artist.albums.add(album);
         }
         artist.tracks.add(track);
+
+        var playlist = tree.playlists.get(Math.floor(Math.random() * playlistNames.length));
+        if (!playlist.artists.findWhere({name: artist.get('name')})) {
+            playlist.artists.add(artist);
+        }
+        if (!playlist.albums.findWhere({name: album.get('name')})) {
+            playlist.albums.add(album);
+        }
+        playlist.tracks.add(track);
     });
     return this.tree;
 };
