@@ -2,14 +2,14 @@
 
 .list {
   position: absolute;
-  width: 200px;
+  width: 650px;
   margin-top: 300px;
   margin-left: 40px;
   transition: top 0.2s ease-out;
 
   .listItem {
     height: 104px;
-    width: 200px;
+    width: 650px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

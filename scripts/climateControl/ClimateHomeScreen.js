@@ -14,7 +14,7 @@ ClimateHomeScreen = ScreenLayout.extend({
 
         this.vent = _.extend({}, Backbone.Events);
 
-        this.playPauseButtonView = new PlayPauseButtonView({vent: this.vent});
+        this.playPauseButtonView = new PreviousButtonView();
         this.nextButtonView = new NextButtonView({vent: this.vent});
         
         // volume slider

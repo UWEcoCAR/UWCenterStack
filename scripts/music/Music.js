@@ -42,7 +42,7 @@
             currentTrack.set('name', currentlyPlaying.model.get('name'));
             currentTrack.set('image', currentlyPlaying.model.get('image'));
             currentTrack.set('artistName', currentlyPlaying.model.get('artistName'));
-            currentTrack.set('currentState', 'play');
+            currentTrack.set('isPlaying', 'play');
         }
     };
 
@@ -93,7 +93,7 @@
             this.pause();
             supplier = null;
             currentlyPlaying = null;
-            currentTrack.set('currentState', false);
+            currentTrack.set('isPlaying', false);
         } else {
             throw "Supplier must be set.";
         }
@@ -108,7 +108,7 @@
             if (currentlyPlaying) {
                 currentlyPlaying.element.play();
             }
-            currentTrack.set('currentState', 'play');
+            currentTrack.set('isPlaying', 'play');
         } else {
             throw "Supplier must be set.";
         }
@@ -123,7 +123,7 @@
             if (currentlyPlaying) {
                 currentlyPlaying.element.pause();
             }
-            currentTrack.set('currentState', 'pause');
+            currentTrack.set('isPlaying', 'pause');
         } else {
             throw "Supplier must be set.";
         }
@@ -182,7 +182,7 @@
         };
     };
 
-    window.currentTrack = new TrackModel({name: '', image: '', artistName: '', currentState: false});
+    window.currentTrack = new TrackModel({name: '', image: '', artistName: '', isPlaying: false});
     var music = window.Music = new Music(currentTrack);
 
 })();
