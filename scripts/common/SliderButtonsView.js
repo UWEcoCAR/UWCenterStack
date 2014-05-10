@@ -1,5 +1,4 @@
 var SliderButtonsView = InputZoneView.extend({
-    template: '#inputZoneTemplate',
     
     initialize: function(options) {
         this.eventId = options.eventId;
@@ -11,6 +10,18 @@ var SliderButtonsView = InputZoneView.extend({
         this.labelRight = options.labelRight || '';
         this.eventCatcher = options.eventCatcher || '';
         this.vent = options.vent;
+    },
+
+    touchStart: function(data) {
+        if (this._getMovementPercent(data) < 0.05) {
+            this.$el.addClass('touchLeft');
+        } else if (this._getMovementPercent(data) > 0.95) {
+            this.$el.addClass('touchRight');
+        }
+    },
+
+    touchEnd: function() {
+        this.$el.removeClass('touchLeft touchRight');
     },
 
     clicked: function(data) {
@@ -29,10 +40,12 @@ var SliderButtonsView = InputZoneView.extend({
     },
 
     onClose: function() {
-        $(this.eventCatcher).off("." + this.cid);
+        $(this.eventCatcher).off('.' + this.cid);
     },
 
     onShow: function() {
+        $(this.eventCatcher).on('touchstart.' + this.cid, _.bind(this.touchStart, this));
+        $(this.eventCatcher).on('touchend.' + this.cid, _.bind(this.touchEnd, this));
         $(this.eventCatcher).on('click.' + this.cid, _.bind(this.clicked, this));
     }
 });

@@ -6,12 +6,12 @@ $leftIconLeft: 310px;
 $rightIconRight: $leftIconLeft;
 
 $leftInputIconTop: 122px;
-$leftInputIconLeft: 40px;
+$leftInputIconLeft: 25px;
 $rightInputIconTop: $leftInputIconTop;
 $rightInputIconRight: $leftInputIconLeft;
 
 $leftInputLabelTop: 134px;
-$leftInputLabelLeft: 40px;
+$leftInputLabelLeft: 25px;
 $rightInputLabelTop: $leftInputLabelTop;
 $rightInputLabelRight: $leftInputLabelLeft;
 
@@ -31,18 +31,10 @@ $bottomZonesTop: 1177px;
 
 .icon {
   @include square($iconSize);
+  @include svgColor();
 
-  > svg > * {
-    stroke: $gray;
-
-    &:not([fill="none"]) {
-      fill: $gray;
-      stroke: none;
-    }
-  }
-
-  &.active > svg > * {
-    stroke: $green;
+  &.active {
+    @include svgColor($green);
   }
 
   &.inactive > svg > * {

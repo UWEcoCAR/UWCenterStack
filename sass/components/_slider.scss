@@ -9,18 +9,6 @@ $sliderDotsFadeIn: 25%;
 .slider {
   width: 100%;
   height: 100%;
-  ////background-color: $background;
-  ////-webkit-transition: background-color 1s linear;
-  //background-image: linear-gradient(to right, $background 0%, $background 40%, $green 60%, $green 100%);
-  //background-repeat: no-repeat;
-  //background-position: 0px 0px;
-  //background-size: 2400px 100%;
-  ////-webkit-animation: sliderGray 2s ease forwards;
-
-  //&.active {
-  //  -webkit-animation: sliderGreen 2s ease forwards;
-  //  //background-color: $green;
-  //}
 
   .dot {
     width: $sliderDotSize;
@@ -35,7 +23,7 @@ $sliderDotsFadeIn: 25%;
 
     @for $i from 1 through $numSliderDots {
       .dot#{$i} {
-        -webkit-animation: loading-animation 1s linear #{($i - 1) * $sliderDotDelay};
+        -webkit-animation: sliderDots 1s linear #{($i - 1) * $sliderDotDelay};
       }
     }
   }
@@ -60,7 +48,7 @@ $dotPointXs: (
 );
 $numSliderDotPoints: length($dotPointXs);
 
-@-webkit-keyframes loading-animation{
+@-webkit-keyframes sliderDots {
 
   0.1% {
     opacity: 0;

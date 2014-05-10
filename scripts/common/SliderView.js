@@ -1,6 +1,5 @@
 var SliderView = InputZoneView.extend({
-    template: '#inputZoneTemplate',
-    className: 'slider',
+    className: InputZoneView.prototype.className + ' slider',
     initialize: function(options) {
         this.iconLeft = options.iconLeft || '';
         this.iconRight = options.iconRight || '';
@@ -12,21 +11,15 @@ var SliderView = InputZoneView.extend({
         this.vent = options.vent;
     },
 
-    _getMovementPercent: function(data) {
-        data.preventDefault();
-        var x = data.originalEvent.touches[0].pageX;
-        var offsetX = x - $('#inputZone2Content').offset().left-25;
-        var percentageX = offsetX / 750;
-        return this._getValidValue(percentageX, 0, 1);  
-    },
-
     touch: function(data) {
         this.moveStart = moment();
+        data.preventDefault();
         this.vent.trigger(this.eventId + ':touchStart', this._getMovementPercent(data));
     },
 
     change: function(data) {
         this.moveStart = undefined;
+        data.preventDefault();
         this.vent.trigger(this.eventId + ':touchMove', this._getMovementPercent(data));
     },
 
