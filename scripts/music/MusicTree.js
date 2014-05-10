@@ -74,8 +74,6 @@ tree.prototype._buildTree = function(songObjects) {
         });
         tree.tracks.add(track);
 
-        tree.playlists.get(Math.floor(Math.random() * playlistNames.length)).tracks.add(track);
-
         var album = tree.albums.findWhere({name: track.get('albumName')});
         if (!album) {
             album = new window.AlbumModel({
@@ -97,6 +95,15 @@ tree.prototype._buildTree = function(songObjects) {
             artist.albums.add(album);
         }
         artist.tracks.add(track);
+
+        var playlist = tree.playlists.get(Math.floor(Math.random() * playlistNames.length));
+        if (!playlist.artists.findWhere({name: artist.get('name')})) {
+            playlist.artists.add(artist);
+        }
+        if (!playlist.albums.findWhere({name: album.get('name')})) {
+            playlist.albums.add(album);
+        }
+        playlist.tracks.add(track);
     });
     return this.tree;
 };
