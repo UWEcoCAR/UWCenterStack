@@ -1,8 +1,8 @@
 /**
  * Utility functions for project
  */
-//var CanReadWriter = require('uwcenterstack-canreadwriter');
-//var canReadWriter = new CanReadWriter();
+
+// Marrionette extensions
 _.extend(Backbone.Marionette.View.prototype, {
     // will return a value that will be rounded to the closest boundary if it exceeds
     // the range between them
@@ -13,6 +13,30 @@ _.extend(Backbone.Marionette.View.prototype, {
     }
 });
 
-function equal(string1, string2) {
-    return string1.localeCompare(string2) === 0;
-}
+
+// jQuery extensions
+$.fn.copyIn = function(element) {
+    this.html($(element).clone());
+};
+
+// Underscore extensions
+_.mixin({
+    equal: function(string1, string2) {
+        return string1.localeCompare(string2) === 0;
+    },
+
+    /*
+        The duration of the slider dot animation (in milliseconds)
+     */
+    sliderDotDuration: function() {
+        return 1500;
+    },
+
+    /*
+        The maximum amount of time (in milliseconds) the user can hold their finger on the slider
+        without moving and still be considered a click.
+    */
+    sliderDotThreshold: function() {
+        return 500;
+    }
+});

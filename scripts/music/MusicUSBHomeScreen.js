@@ -262,7 +262,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             } else {
 
                 dataForAlbum = musicTree.tree.albums.find(function(album) {
-                    return equal(album.get('name'), data.model.get('text'));
+                    return _.equal(album.get('name'), data.model.get('text'));
                 });
             }
 
@@ -289,7 +289,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.model.set('playListSelection', selection);
             
             var dataForPlayList = musicTree.tree.playlists.find(function(playlist) {
-                return equal(playlist.get('name'), data.model.get('text'));
+                return _.equal(playlist.get('name'), data.model.get('text'));
             });
             var windowSize = Math.min(dataForPlayList.tracks.length, 25);
             trackCollection.reset();
@@ -329,7 +329,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 dataForArtist = musicTree.tree;
             } else {
                 dataForArtist = musicTree.tree.artists.find(function(artist) {
-                    return equal(artist.get('name'), data.model.get('text'));
+                    return _.equal(artist.get('name'), data.model.get('text'));
                 });
             }
 

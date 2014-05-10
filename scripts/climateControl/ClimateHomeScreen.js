@@ -94,7 +94,6 @@ ClimateHomeScreen = ScreenLayout.extend({
     },
 
     onRender: function() {
-
         this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
         this.backgroundIconContent.show(this.backgroundIconView);
         this.backButtonZoneContent.show(this.backButtonView);
@@ -110,15 +109,22 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.inputZone4Content.show(this.inputZone4View);
         this.inputZone5Content.show(this.inputZone5View);
 
+        this.redraw();
+    },
+
+    onBeforeClose: function() {
+        this.vent.off();
+    },
+
+    redraw: function() {
+        this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
+        this.backgroundIconContent.show(this.backgroundIconView);
+
         this.inputZone1View.$el.find('.iconLeft').toggleClass('active', this.model.get('controlMode') === 'driver');
         this.inputZone1View.$el.find('.iconRight').toggleClass('active', this.model.get('controlMode') === 'passenger');
 
         this.inputZone5View.$el.find('.iconLeft').toggleClass('active', this.model.get('defrostFront') === true);
         this.inputZone5View.$el.find('.iconRight').toggleClass('active', this.model.get('defrostRear') === true);
-    },
-
-    onBeforeClose: function() {
-        this.vent.off();
     },
 
     onShow: function() {
@@ -129,12 +135,12 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.vent.on('inputZone2:touchStart', function() {
             self.renderedMainZoneView = self.temperatureListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#temperatureIcon'});
-            self.render();
+            self.redraw();
         }, this);
 
         this.vent.on('inputZone3:touchStart', function() {
             self.renderedMainZoneView = self.fanSpeedListView;
-            self.render();
+            self.redraw();
         }, this);
 
         // updating model after temperature selection
@@ -159,27 +165,27 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.vent.on('inputZone2:touchEnd inputZone3:touchEnd', function() {
             self.renderedMainZoneView = self.mainZoneView;
             self.backgroundIconView = new BackgroundIconView({icon: '#fanIcon'});
-            self.render();
+            self.redraw();
         }, this);
 
         // updating model after driver/passenger selection
         this.vent.on('inputZone1:clickLeft', function() {
             self.model.set('controlMode', 'driver');
-            self.render();
+            self.redraw();
         }, this);
         this.vent.on('inputZone1:clickRight', function() {
             self.model.set('controlMode', 'passenger');
-            self.render();
+            self.redraw();
         }, this);
 
         // updating model after defros selection
         this.vent.on('inputZone5:clickLeft', function() {
             self.model.set('defrostFront', !self.model.get('defrostFront'));
-            self.render();
+            self.redraw();
         }, this);
         this.vent.on('inputZone5:clickRight', function() {
             self.model.set('defrostRear', !self.model.get('defrostRear'));
-            self.render();
+            self.redraw();
         }, this);
     }
 
