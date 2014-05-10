@@ -230,8 +230,8 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
             albumCollection.reset();
             albumCollection.push({text: 'All Albums'});
-            for (var j = 0; j < musicTree.tree.albums.length; j++) {
-                albumCollection.push({text: musicTree.tree.albums.models[j].get('name')});
+            for (var k = 0; k < musicTree.tree.albums.length; k++) {
+                albumCollection.push({text: musicTree.tree.albums.models[k].get('name')});
             }
             self.model.set('albums', musicTree.tree.albums.models);
             albumListView.numLevels = musicTree.tree.albums.length;
