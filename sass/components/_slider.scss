@@ -1,15 +1,90 @@
+@import '../common/import';
+
+$sliderDotSize: 20px;
+$sliderWidth: 800px;
+$numSliderDots: 5;
+$sliderDotDelay: .125s;
+$sliderDotsFadeIn: 25%;
+
 .slider {
   width: 100%;
   height: 100%;
-  position: relative;
+  ////background-color: $background;
+  ////-webkit-transition: background-color 1s linear;
+  //background-image: linear-gradient(to right, $background 0%, $background 40%, $green 60%, $green 100%);
+  //background-repeat: no-repeat;
+  //background-position: 0px 0px;
+  //background-size: 2400px 100%;
+  ////-webkit-animation: sliderGray 2s ease forwards;
 
-  .handle {
+  //&.active {
+  //  -webkit-animation: sliderGreen 2s ease forwards;
+  //  //background-color: $green;
+  //}
+
+  .dot {
+    width: $sliderDotSize;
+    height: $sliderDotSize;
+    background-color: $green;
+    border-radius: $sliderDotSize/2;
     position: absolute;
-    background-color: black;
-    border-radius: 100%;
-    pointer-events: all;
-    bottom: 0;
-    width: 20px;
-    height: 20px;
+    -webkit-transform: translate(0, 0);
+  }
+
+  &.active {
+
+    @for $i from 1 through $numSliderDots {
+      .dot#{$i} {
+        -webkit-animation: loading-animation 1s linear #{($i - 1) * $sliderDotDelay};
+      }
+    }
+  }
+
+}
+
+$dotPointYs: (
+  139px,
+  139px,
+  124px,
+  85px,
+  60px,
+  50px
+);
+$dotPointXs: (
+  0px,
+  64px,
+  128px,
+  240px,
+  310px,
+  400px
+);
+$numSliderDotPoints: length($dotPointXs);
+
+@-webkit-keyframes loading-animation{
+
+  0.1% {
+    opacity: 0;
+  }
+  #{$sliderDotsFadeIn + 0.1} {
+    opacity: 1;
+  }
+  #{100 - $sliderDotsFadeIn - 0.1} {
+    opacity: 1;
+  }
+  99.9% {
+    opacity: 0;
+  }
+
+  @for $i from 1 through $numSliderDotPoints {
+    #{stripUnits(nth($dotPointXs, $i) / $sliderWidth * 100) + '%'} {
+      //left: nth($dotPointXs, $i) - $sliderDotSize / 2;
+      //top: nth($dotPointYs, $i);
+      -webkit-transform: translate(nth($dotPointXs, $i) - $sliderDotSize / 2, nth($dotPointYs, $i));
+    }
+    #{stripUnits(($sliderWidth - nth($dotPointXs, $i)) / $sliderWidth * 100) + '%'} {
+      //left: $sliderWidth - nth($dotPointXs, $i) - $sliderDotSize / 2;
+      //top: nth($dotPointYs, $i);
+      -webkit-transform: translate($sliderWidth - nth($dotPointXs, $i) - $sliderDotSize / 2, nth($dotPointYs, $i));
+    }
   }
 }

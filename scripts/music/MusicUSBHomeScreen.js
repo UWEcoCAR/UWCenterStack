@@ -212,7 +212,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.model.set('album', data.model.get('text'));
             self.model.set('albumSelection', selection);
              var dataForAlbum = musicTree.tree.albums.find(function(album) {
-                return equal(album.get('name'), data.model.get('text'));
+                return _.equal(album.get('name'), data.model.get('text'));
             });
             windowSize = Math.min(dataForAlbum.tracks.length, 25);
             trackCollection.reset();
@@ -237,7 +237,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.model.set('playListSelection', selection);
             
             var dataForPlayList = musicTree.tree.playlists.find(function(playlist) {
-                return equal(playlist.get('name'), data.model.get('text'));
+                return _.equal(playlist.get('name'), data.model.get('text'));
             });
             windowSize = Math.min(dataForPlayList.tracks.length, 25);
             trackCollection.reset();
@@ -270,7 +270,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.model.set('artist', data.model.get('text'));
             self.model.set('artistSelection', selection);
             var dataForArtist = musicTree.tree.artists.find(function(artist) {
-                return equal(artist.get('name'), data.model.get('text'));
+                return _.equal(artist.get('name'), data.model.get('text'));
             });
 
             var windowSize = Math.min(dataForArtist.albums.length, 25);

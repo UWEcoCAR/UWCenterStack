@@ -1,5 +1,6 @@
 var SliderView = InputZoneView.extend({
     template: '#inputZoneTemplate',
+    className: 'slider',
     initialize: function(options) {
         this.iconLeft = options.iconLeft || '';
         this.iconRight = options.iconRight || '';
@@ -20,14 +21,23 @@ var SliderView = InputZoneView.extend({
     },
 
     touch: function(data) {
+        this.moveStart = moment();
         this.vent.trigger(this.eventId + ':touchStart', this._getMovementPercent(data));
     },
 
     change: function(data) {
+        this.moveStart = undefined;
         this.vent.trigger(this.eventId + ':touchMove', this._getMovementPercent(data));
     },
 
     release: function(data) {
+        if (this.moveStart && moment().diff(this.moveStart) < _.sliderDotThreshold() && !this.$el.hasClass('active')) {
+            this.$el.addClass('active');
+            var el = this.$el;
+            this.timeout = setTimeout(function() {
+                el.removeClass('active');
+            }, _.sliderDotDuration());
+        }
         this.vent.trigger(this.eventId + ':touchEnd', data);
     },
 

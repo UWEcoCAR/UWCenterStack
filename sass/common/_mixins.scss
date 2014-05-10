@@ -61,3 +61,7 @@
     }
   }
 }
+
+@function stripUnits($number) {
+  @return $number / ($number * 0 + 1);
+}

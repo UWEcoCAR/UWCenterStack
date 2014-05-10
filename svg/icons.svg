@@ -268,6 +268,14 @@
     <path d="M45.3,43.2H43v-1.4h6.2v1.4h-2.3V49h-1.5V43.2z"/>
 </svg>
 
+<svg id="previousIcon" width="50px" height="50px">
+    <polygon fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	    26.6,11.3 14.5,24.9 26.6,38.7 28.1,38.7 28.1,11.3 "/>
+    <polygon fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="
+	    41.4,11.3 29.1,24.9 41.4,38.7 42.7,38.7 42.7,11.3 "/>
+    <line fill="none" stroke="#7E8183" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" x1="7.3" y1="38.7" x2="7.3" y2="11.3"/>
+</svg>
+
 <svg id="profileIcon" width="50px" height="50px">
     <path fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
 			M25,16.5c3.1,0,5.6-2.4,5.6-5.3S28.1,5.8,25,5.8s-5.6,2.4-5.6,5.3S21.9,16.5,25,16.5z M33.4,41.6V29c0-2.3-0.9-7.5-8.5-7.5
