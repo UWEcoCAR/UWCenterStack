@@ -1,6 +1,6 @@
-var NextButtonView = ButtonView.extend({
+var PreviousButtonView = ButtonView.extend({
     initialize: function(options) {
-        ButtonView.prototype.initialize.apply(this, [_.extend({icon: '', eventCatcher: '#nextButtonZoneEventCatcher'}, options)]);
+        ButtonView.prototype.initialize.apply(this, [_.extend({icon: '', eventCatcher: '#playPauseButtonZoneEventCatcher'}, options)]);
         this.updateIcon();
     },
 
@@ -18,7 +18,7 @@ var NextButtonView = ButtonView.extend({
         var self = this;
         $(this.eventCatcher).on('click.' + this.cid, (_.bind(function() {
             if(currentTrack.get('isPlaying')) {
-                Music.next();
+                Music.previous();
             }
         }, this)));
     }

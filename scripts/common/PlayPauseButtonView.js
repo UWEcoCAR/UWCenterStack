@@ -1,4 +1,6 @@
-var PlayPauseButtonView = ButtonView.extend({
+//May not use, still yet to decied
+
+/*var PlayPauseButtonView = ButtonView.extend({
     initialize: function(options) {
         var iconState = '#pauseIcon';
         if (!currentTrack.get('currentState') || currentTrack.get('currentState').localeCompare('pause')===0) {
@@ -24,4 +26,4 @@ var PlayPauseButtonView = ButtonView.extend({
             this.render();
         }, this)));
     }
-});
+});*/

@@ -15,7 +15,7 @@ MusicHomeScreen = ScreenLayout.extend({
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
         
-        this.playPauseButtonView = new PlayPauseButtonView({vent: this.vent});
+        this.playPauseButtonView = new PreviousButtonView();
         this.nextButtonView = new NextButtonView({vent: this.vent});
 
         // volume slider
