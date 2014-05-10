@@ -1,13 +1,12 @@
 MusicUSBModel = Backbone.Model.extend({
     defaults: {
-        artist: null,
+        artists: null,
         artistSelection: 0,
-        album: null,
+        albums: null,
         albumSelection: 0,
-        track: null,
         tracks: null,
         trackSelection: 0,
-        playList: null,
+        playlists: null,
         playlistSelection: 0
     }
 });
