@@ -239,11 +239,12 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             if (selection === 0) {
                 if (self.model.get('artistInformation') !== null) {
                     dataForTracks = self.model.get('artistInformation').tracks.models;
+                } else if (self.model.get('playListInformation') !== null) {
+                    dataForTracks = self.model.get('playListInformation').tracks.models;
                 } else {
-                    dataForTracks = music.tree.tracks.models;
+                    dataForTracks = MusicTree.tracks.models;                  
                 }
             } else {
-
                 var dataForAlbum = MusicTree.albums.find(function(album) {
                     return _.equal(album.get('name'), data.model.get('text'));
                 });
@@ -265,15 +266,46 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             trackListView.selection = 0;
             self.model.set('trackSelection', 0);
 
-            playListView.windowStart = 0;
+           /* playListView.windowStart = 0;
             playListView.selection = 0;
-            self.model.set('playListSelection', 0);
+            self.model.set('playListSelection', 0);*/
         }, this);
 
         this.vent.on('playList:select ', function(data, selection) {
-            self.model.set('playLists', data.model);
             self.model.set('playListSelection', selection);
-            
+
+            var dataForArtists = null;
+            var dataForAlbums = null;
+            var dataForTracks = null;
+            var dataForPlayList = null;
+
+            if (selection === 0) {
+                dataForArtists = MusicTree.artists.models;
+                dataForAlbums = MusicTree.albums.models;
+                dataForTracks = MusicTree.tracks.models;
+            } else {
+                dataForPlayList = MusicTree.playlists.find(function(playlist) {
+                    return _.equal(playlist.get('name'), data.model.get('text'));
+                });
+                dataForArtists = dataForPlayList.artists.models;
+                dataForAlbums = dataForPlayList.albums.models;
+                dataForTracks = dataForPlayList.tracks.models;   
+            }
+
+            self.model.set('artists', dataForArtists);
+            self.model.set('artistSelection', 0);
+            self.resetView(artistCollection, dataForArtists, artistListView, 2);
+
+            self.model.set('albums', dataForAlbums);
+            self.model.set('albumSelection', 0);
+            self.resetView(albumCollection, dataForAlbums, albumListView, 3);
+
+            self.model.set('tracks', dataForTracks);
+            self.model.set('trackSelection', 0);
+            self.resetView(trackCollection, dataForTracks, trackListView, 4);
+
+            self.model.set('playListInformation', dataForPlayList);
+/*
             var dataForPlayList = MusicTree.playlists.find(function(playlist) {
                 return _.equal(playlist.get('name'), data.model.get('text'));
             });
@@ -300,7 +332,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             artistListView.windowStart = 0;
             artistListView.selection = 0;
             self.model.set('artist', null);
-            self.model.set('artistSelection', 0);
+            self.model.set('artistSelection', 0);*/
 
         }, this);
 
@@ -313,8 +345,13 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             var dataForArtist = null;
 
             if (selection === 0) {
-                dataForAlbums = self.model.get('albums');
-                dataForTracks = self.model.get('tracks');
+                if (self.model.get('playListInformation') !== null) {
+                    dataForAlbums = self.model.get('playListInformation').albums.models;
+                    dataForTracks = self.model.get('playListInformation').tracks.models;
+                } else {
+                    dataForAlbums = MusicTree.albums.models;
+                    dataForTracks = MusicTree.tracks.models;
+                }
             } else {
                 dataForArtist = MusicTree.artists.find(function(artist) {
                     return _.equal(artist.get('name'), data.model.get('text'));
@@ -323,43 +360,20 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 dataForTracks = dataForArtist.tracks.models;
             }
 
-           /* var windowSize = Math.min(dataForArtist.albums.length, 25);
-            albumCollection.reset();
-
-            albumCollection.push({text: 'All Albums'});
-            for (var i = 0; i < dataForArtist.albums.length; i++) {
-                albumCollection.push({text: dataForArtist.albums.models[i].get('name')});
-            }
-            albumListView.numLevels = dataForArtist.albums.length + 1;
-            albumListView.windowSize = windowSize;
-            albumListView.windowStart = 0;
-            albumListView.selection = 0;*/
             self.model.set('albums', dataForAlbums);
             self.model.set('albumSelection', 0);
             self.resetView(albumCollection, dataForAlbums, albumListView, 3);
 
-
-            /*windowSize = Math.min(dataForArtist.tracks.length, 25);
-            trackCollection.reset();
-            for (var j = 0; j < dataForArtist.tracks.length; j++) {
-                trackCollection.push({text: dataForArtist.tracks.models[j].get('name')});
-            }
-            self.model.set('tracks', dataForArtist.tracks.models);
-
-            trackListView.numLevels = dataForArtist.tracks.length;
-            trackListView.windowSize = windowSize;
-            trackListView.windowStart = 0;
-            trackListView.selection = 0;*/
             self.model.set('tracks', dataForTracks);
             self.model.set('trackSelection', 0);
             self.resetView(trackCollection, dataForTracks, trackListView, 4);
 
-            self.model.set('artistInformation', dataForArtist);
-
-            playListView.windowStart = 0;
+            /*playListView.windowStart = 0;
             playListView.selection = 0;
             self.model.set('playlists', MusicTree.artists.models);
-            self.model.set('playListSelection', 0);
+            self.model.set('playListSelection', 0);*/
+
+            self.model.set('artistInformation', dataForArtist);
 
         }, this);
 
@@ -370,11 +384,13 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.model.set('trackSelection', 0);
         this.model.set('albums', MusicTree.albums.models);
         this.model.set('albumSelection', 0);
+        this.model.set('albumInformation', null);
         this.model.set('artists', MusicTree.artists.models);
         this.model.set('artistSelection', 0);
         this.model.set('artistInformation', null);
         this.model.set('playlists', MusicTree.playlists.models);
         this.model.set('playlistSelection', 0);
+        this.model.set('playListInformation', null);
     },
 
     resetView: function(collection, data, view, allOption) {
