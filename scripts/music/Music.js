@@ -25,7 +25,7 @@
                     this.play();
                 })
                 .on('error abort ended', function() {
-                    music.next();
+                    music._next();
                 })
                 .on('canplay timeupdate waiting playing abort ended pause', function(evt) {
                     vent.trigger(evt.type, music.getTrack());
@@ -69,7 +69,7 @@
      */
     Music.prototype.start = function() {
         if (supplier) {
-            this.next();
+            this._next();
         } else {
             throw "Supplier must be set.";
         }
@@ -116,13 +116,26 @@
             throw "Supplier must be set.";
         }
     };
+
     /**
      * Attemps to the play the next song
      * Throws error if supplier isn't set
      */
-    Music.prototype.next = function(autoplay) {
+    Music.prototype.next = function() {
         if (supplier) {
             vent.trigger('ended', music.getTrack());
+            this._next();
+        } else {
+            throw "Supplier must be set.";
+        }
+    };
+
+    /**
+     * Attemps to the play the next song
+     * Throws error if supplier isn't set
+     */
+    Music.prototype._next = function() {
+        if (supplier) {
             music._play(supplier.next());
         } else {
             throw "Supplier must be set.";

@@ -53,11 +53,19 @@ module.exports = function(grunt) {
                              ['NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
                               'LEAP='     + (grunt.option('leap')    || 'false'),
                               'FAKE_CAN=' + (grunt.option('fakeCan') || 'true'),
+                              'MUSIC_PATH=' + process.env.MUSIC_PATH,
+                              'FEED_TOKEN=' + process.env.FEED_TOKEN,
+                              'FEED_SECRET=' + process.env.FEED_SECRET,
+                              'FEED_CLIENT=' + process.env.FEED_CLIENT,
                               'open -n -a /Applications/node-webkit.app ""'].join(' ') :
                          isPlatform('linux') ?
                              ['export NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
                               'export LEAP='     + (grunt.option('leap')    || 'false'),
                               'export FAKE_CAN=' + (grunt.option('fakeCan') || 'false'),
+                              'export MUSIC_PATH=' + process.env.MUSIC_PATH,
+                              'export FEED_TOKEN=' + process.env.FEED_TOKEN,
+                              'export FEED_SECRET=' + process.env.FEED_SECRET,
+                              'export FEED_CLIENT=' + process.env.FEED_CLIENT,
                               './nw/nw .'].join(' && ') :
                          isPlatform('win64') || isPlatform('win32') ?
                              ['set NODE_ENV=development',
