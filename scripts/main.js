@@ -65,13 +65,15 @@ centerStack.addInitializer(function() {
 // Load LEAP
 centerStack.addInitializer(function() {
     if (process.env.LEAP == 'true') {
-        var Leap = require('leapjs');
+        var opacity = 1;
         Leap.loop(function(frame) {
-            var opacity = 1;
-            if (frame.hands.length < 1) {
+            if (frame.hands.length < 1 && opacity !== 0.5) {
                 opacity = 0.5;
+                $('body').css('opacity', opacity);
+            } else if (frame.hands.length >= 1 && opacity !== 1) {
+                opacity = 1;
+                $('body').css('opacity', opacity);
             }
-            $('body').css('opacity', opacity);
         });
     }
 });
