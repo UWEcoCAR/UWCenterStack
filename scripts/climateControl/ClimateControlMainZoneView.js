@@ -6,12 +6,27 @@ var ClimateControlMainZoneView = Backbone.Marionette.Layout.extend({
     },
 
     onRender: function() {
+        var ventIcon;
         if (this.side === 'driver') {
             this.$el.find('.temp').html(this.model.get('driverTemp') + '&deg;');
-            this.$el.find('.personIcon').copyIn('#driverIcon');
+
+            ventIcon = '#driverIcon';
+            switch (this.model.get('driverAirFlow')) {
+                case 'both': ventIcon = '#driverAirFlowBothIcon'; break;
+                case 'face': ventIcon = '#driverAirFlowFaceIcon'; break;
+                case 'feet': ventIcon = '#driverAirFlowFeetIcon'; break;
+            }
+            this.$el.find('.personIcon').copyIn(ventIcon);
         } else {
             this.$el.find('.temp').html(this.model.get('passengerTemp') + '&deg;');
-            this.$el.find('.personIcon').copyIn('#passengerIcon');
+
+            ventIcon = '#passengerIcon';
+            switch (this.model.get('passengerAirFlow')) {
+                case 'both': ventIcon = '#passengerAirFlowBothIcon'; break;
+                case 'face': ventIcon = '#passengerAirFlowFaceIcon'; break;
+                case 'feet': ventIcon = '#passengerAirFlowFeetIcon'; break;
+            }
+            this.$el.find('.personIcon').copyIn(ventIcon);
         }
     }
 });

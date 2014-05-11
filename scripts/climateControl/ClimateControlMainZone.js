@@ -8,7 +8,7 @@ var ClimateControlMainZone = MainZoneLayout.extend({
         this.currentTrackView = new CurrentTrackView();
     },
 
-    onRender: function() {
+    onShow: function() {
         this.clock.show(this.clockView);
         this.currentTrack.show(this.currentTrackView);
         this.contentLeft.show(this.contentLeftView);

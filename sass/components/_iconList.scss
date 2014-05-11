@@ -1,0 +1,13 @@
+.iconListItem {
+  position: absolute;
+  left: 40px;
+  top: 290px;
+  -webkit-transform: scale(3);
+  display: none;
+
+  @include svgColor($white);
+
+  &.active {
+    display: initial;
+  }
+}

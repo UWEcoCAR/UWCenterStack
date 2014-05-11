@@ -7,9 +7,9 @@ HomeScreen = ScreenLayout.extend({
         this.vent = _.extend({}, Backbone.Events);
         this.backgroundIconView = new BackgroundIconView({icon: '#homeIcon'});
         this.inputZone1View = new SliderButtonsView({eventId: 'inputZone1', iconLeft: "#musicIcon", iconRight: "#playIcon", eventCatcher: "#inputZone1EventCatcher", vent: this.vent});
-        this.inputZone2View = new SliderButtonsView({eventId: 'inputZone2', iconLeft: "#fanIcon", iconRight: "#leafIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.vent});
-        this.inputZone3View = new SliderButtonsView({eventId: 'inputZone3', iconLeft: "#phoneIcon", iconRight: "#settingsIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.vent});
-        this.inputZone4View = new SliderButtonsView({eventId: 'inputZone4', iconLeft: "#navigationIcon", iconRight: "#moreIcon", eventCatcher: "#inputZone4EventCatcher", vent: this.vent});
+        this.inputZone2View = new SliderButtonsView({eventId: 'inputZone2', iconLeft: "#fanIcon", iconRight: "#phoneIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.vent});
+        this.inputZone3View = new SliderButtonsView({eventId: 'inputZone3', iconLeft: "#leafIcon", iconRight: "#navigationIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.vent});
+        this.inputZone4View = new SliderButtonsView({eventId: 'inputZone4', iconLeft: "#settingsIcon", iconRight: "#moreIcon", eventCatcher: "#inputZone4EventCatcher", vent: this.vent});
         this.volumeSliderView = new VolumeSliderView();
 
         this.playPauseButtonView = new PreviousButtonView();
