@@ -234,10 +234,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             playListView.selection = 0;
             self.model.set('playListSelection', 0);
 
-            artistListView.windowStart = 0;
-            artistListView.selection = 0;
-            self.model.set('artistListSelection', 0);
-
             self.render();
         }, this);
 
@@ -260,24 +256,10 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 dataForTracks = dataForAlbum.tracks.models;
             }
 
-            var windowSize = Math.min(dataForTracks.length, 25);
-            trackCollection.reset();
-            for (var j = 0; j < dataForTracks.length; j++) {
-                trackCollection.push({text: dataForTracks[j].get('name')});
-            }
-
             self.model.set('tracks', dataForTracks);
-
-            trackListView.numLevels = dataForTracks.length;
-
-            trackListView.windowSize = windowSize;
-            trackListView.windowStart = 0;
-            trackListView.selection = 0;
             self.model.set('trackSelection', 0);
+            self.resetView(trackCollection, dataForTracks, trackListView, 4);
 
-           /* playListView.windowStart = 0;
-            playListView.selection = 0;
-            self.model.set('playListSelection', 0);*/
         }, this);
 
         this.vent.on('playList:select ', function(data, selection) {
@@ -349,11 +331,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.model.set('trackSelection', 0);
             self.resetView(trackCollection, dataForTracks, trackListView, 4);
 
-            /*playListView.windowStart = 0;
-            playListView.selection = 0;
-            self.model.set('playlists', MusicTree.artists.models);
-            self.model.set('playListSelection', 0);*/
-
             self.model.set('artistInformation', dataForArtist);
 
         }, this);
@@ -365,7 +342,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.model.set('trackSelection', 0);
         this.model.set('albums', MusicTree.albums.models);
         this.model.set('albumSelection', 0);
-        this.model.set('albumInformation', null);
         this.model.set('artists', MusicTree.artists.models);
         this.model.set('artistSelection', 0);
         this.model.set('artistInformation', null);
