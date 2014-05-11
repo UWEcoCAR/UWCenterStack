@@ -58,8 +58,14 @@ centerStack.addInitializer(function() {
 
 // Load music
 centerStack.addInitializer(function() {
-    window.MusicTree = require('../scripts/music/MusicTree');
-    window.musicTree = new MusicTree(process.env.MUSIC_PATH, function() {});
+    window.MusicTree = new (require('../scripts/music/MusicTree.js'))();
+    var fileWatcher = new FileWatcher(process.env.MUSIC_PATH);
+    fileWatcher.getVent().on('connected', function(filepath) {
+        console.log('connected');
+        MusicTree.load(filepath, function() {
+            console.log('done');
+        });
+    });
 });
 
 // Load LEAP

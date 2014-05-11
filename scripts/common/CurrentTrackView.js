@@ -4,10 +4,6 @@ var CurrentTrackView = Backbone.Marionette.ItemView.extend({
     initialize: function() {
         this.model = Music.isPlaying() ? Music.getTrack().model : new TrackModel();
     },
-    
-    onClose: function() {
-        Music.getVent().off(null, null, this);
-    },
 
     onShow: function() {
     	Music.getVent()
@@ -19,5 +15,9 @@ var CurrentTrackView = Backbone.Marionette.ItemView.extend({
                 this.model = new TrackModel();
                 this.render();
             }, this);
+    },
+
+    onClose: function() {
+        Music.getVent().off(null, null, this);
     }
 });
