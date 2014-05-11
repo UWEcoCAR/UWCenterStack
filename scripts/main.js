@@ -58,13 +58,9 @@ centerStack.addInitializer(function() {
 
 // Load music
 centerStack.addInitializer(function() {
-    window.MusicTree = new (require('../scripts/music/MusicTree.js'))();
     var fileWatcher = new FileWatcher(process.env.MUSIC_PATH);
     fileWatcher.getVent().on('connected', function(filepath) {
-        console.log('connected');
-        MusicTree.load(filepath, function() {
-            console.log('done');
-        });
+        MusicTree.load(filepath);
     });
 });
 
@@ -95,6 +91,8 @@ $('#eventCatchersWrapper').copyIn('#eventCatchers');
 centerStack.addRegions({
     main: '#appContainer'
 });
+
+window.MusicTree = new (require('../scripts/music/MusicTree.js'))();
 
 console.log('Application Starting');
 centerStack.start();
