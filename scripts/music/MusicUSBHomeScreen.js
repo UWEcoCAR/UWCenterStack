@@ -18,7 +18,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.nextButtonView = new NextButtonView();
         
         // volume slider
-        this.volumeSliderView = new VolumeSliderView();
+        this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
 
         this.inputZone1View = new SliderView({
             eventId: 'inputZone1',

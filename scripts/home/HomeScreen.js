@@ -10,7 +10,7 @@ HomeScreen = ScreenLayout.extend({
         this.inputZone2View = new SliderButtonsView({eventId: 'inputZone2', iconLeft: "#fanIcon", iconRight: "#phoneIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.vent});
         this.inputZone3View = new SliderButtonsView({eventId: 'inputZone3', iconLeft: "#leafIcon", iconRight: "#navigationIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.vent});
         this.inputZone4View = new SliderButtonsView({eventId: 'inputZone4', iconLeft: "#settingsIcon", iconRight: "#moreIcon", eventCatcher: "#inputZone4EventCatcher", vent: this.vent});
-        this.volumeSliderView = new VolumeSliderView();
+        this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
 
         this.playPauseButtonView = new PreviousButtonView();
         this.nextButtonView = new NextButtonView({vent: this.vent});
