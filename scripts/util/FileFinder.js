@@ -12,13 +12,13 @@ finder.find = function(directory, filetype, callback) {
         var pending = list.length;
         if (!pending) return callback(null, results);
         list.forEach(function(file) {
-            if(process.env.MUSIC_PATH.indexOf('\\') != -1) {
+            if(directory.indexOf('\\') != -1) {
                 file = directory + '\\' + file;
             } else {
                 file = directory + '/' + file;
             }
             fs.stat(file, function(err, stat) {
-
+                if (err) return callback(err);
                 if (stat && stat.isDirectory()) {
                     finder.find(file, filetype, function(err, res) {
                         results = results.concat(res);

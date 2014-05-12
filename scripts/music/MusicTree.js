@@ -33,13 +33,10 @@ MusicTree.prototype.load = function(directory) {
     this.loading = true;
     this.vent.trigger('loading');
     FileFinder.find(directory, 'mp3', _.bind(function(err, results) {
-        console.log('found results');
         if (err) throw err;
         this._getSongData(results, _.bind(function(err, results) {
-            console.log('got data');
             if (err) throw err;
             this._buildTree(results);
-            console.log('built tree');
             this.loading = false;
             this.vent.trigger('loaded');
         },this));
@@ -82,7 +79,6 @@ MusicTree.prototype._buildTree = function(songObjects) {
     });
 
     songObjects.forEach(function(trackObject, index) {
-        console.log(index);
         var track = new window.TrackModel({
             // http://stackoverflow.com/questions/9429234/convert-base64-string-to-image-with-javascript
             image: '<img src="data:' + trackObject.data.v2.image.mime + ';base64,' + _arrayBufferToBase64(trackObject.data.v2.image.data) + '" />',

@@ -56,13 +56,18 @@ centerStack.addInitializer(function() {
 
 });
 
-// Load music
+// Load media
 centerStack.addInitializer(function() {
-    var fileWatcher = new FileWatcher(process.env.MUSIC_PATH);
+    var fileWatcher = new FileWatcher(process.env.MEDIA_PATH);
     fileWatcher.getVent()
         .on('connected', function(filepath) {
-            console.log('loading');
             MusicTree.load(filepath);
+
+            var jsonFileReader = new JsonFileReader(filepath + '/user.json');
+            jsonFileReader.getVent().on('parsed', function(user) {
+                Controllers.User.setUser(user);
+            });
+
         }, this)
         .on('disconnected', function() {
             MusicTree.empty();
@@ -99,6 +104,9 @@ centerStack.addRegions({
 });
 
 window.MusicTree = new (require('../scripts/music/MusicTree.js'))();
+window.Controllers = {
+    User: new UserController()
+};
 
 console.log('Application Starting');
 centerStack.start();

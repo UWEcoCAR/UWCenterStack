@@ -100,7 +100,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
     onBeforeClose: function() {
         this.vent.off();
-        console.log('close');
     },
 
     onShow: function() {
