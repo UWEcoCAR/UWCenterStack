@@ -9,14 +9,14 @@
         this.parentpath = null;
         this.filename = null;
 
-        if(process.env.MUSIC_PATH.indexOf('\\') != -1) {
+        if(filepath.indexOf('\\') != -1) {
             this.parentpath = filepath.substr(0, filepath.lastIndexOf('\\'));
             this.filename = filepath.substr(filepath.lastIndexOf('\\') + 1);
         } else {
             this.parentpath = filepath.substr(0, filepath.lastIndexOf('/'));
             this.filename = filepath.substr(filepath.lastIndexOf('/') + 1);
         }
-        
+
         // Fire a connected event if initially connected
         if (fs.existsSync(this.filepath)) {
             _.defer(_.bind(function() {
