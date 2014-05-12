@@ -24,7 +24,7 @@ finder.find = function(directory, filetype, callback) {
                         results = results.concat(res);
                         if (!--pending) callback(null, results);
                     });
-                } else if (file.substring(file.length - filetype.length, file.length) === filetype) {
+                } else if (file.substring(file.length - filetype.length, file.length) === filetype && !(/(^|.\/)\.+[^\/\.]/g).test(file)) {
                     results.push(file);
                     if (!--pending) callback(null, results);
                 } else {

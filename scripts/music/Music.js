@@ -77,15 +77,13 @@
 
     /**
      * Stops the music and unsets the supplier
-     * Throws error if supplier isn't set
      */
     Music.prototype.stop = function() {
         if (supplier) {
             this.pause();
+            vent.trigger('ended', music.getTrack());
             supplier = null;
             currentlyPlaying = null;
-        } else {
-            throw "Supplier must be set.";
         }
     };
 

@@ -26,7 +26,11 @@
 
             // Determine if it was a connect, or disconnect
             if (fs.existsSync(this.filepath)) {
-                this.vent.trigger('connected', this.filepath);
+                var self = this;
+                // Delay before notifying others because the file system still probably isn't ready.
+                setTimeout(function() {
+                    self.vent.trigger('connected', self.filepath);
+                }, 3000);
             } else {
                 this.vent.trigger('disconnected', this.filepath);
             }

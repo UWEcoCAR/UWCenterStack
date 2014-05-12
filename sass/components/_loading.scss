@@ -1,0 +1,125 @@
+@import '../common/import';
+
+$loadingDotDiameter: 20px;
+$loadingSize: 200px;
+$loadingMainZoneWidth: $width;
+$numLoadingDots: 5;
+$loadingDotDelay: .30s;
+
+//#loadingMainZone.run {
+//  .dot {
+//    width: $loadingDotDiameter;
+//    height: $loadingDotDiameter;
+//    border-radius: $loadingDotDiameter/2;
+//    background: $green;
+//    position: absolute;
+//    opacity: 0;
+//  }
+//
+//  @for $i from 1 through $numLoadingDots {
+//    .dot#{$i} {
+//      -webkit-animation: loadingDots 2.5s linear #{($i - 1) * $loadingDotDelay} infinite;
+//    }
+//  }
+//}
+//
+//@-webkit-keyframes loadingDots {
+//
+//  0% {
+//    -webkit-animation-timing-function: cubic-bezier(0.05, 0.50, 0.50, 0.80);
+//    opacity: 0;
+//    -webkit-transform: translate(0, 100px);
+//  }
+//  25% {
+//    -webkit-animation-timing-function: cubic-bezier(0.50, 0.20, 0.80, 0.50);
+//    opacity: 1;
+//    -webkit-transform: translate(400px, 100px);
+//  }
+//  50% {
+//    opacity: 0;
+//    -webkit-transform: translate(800px, 100px);
+//  }
+//  100% {
+//    opacity: 0;
+//    -webkit-transform: translate(0px, 100px);
+//  }
+//}
+
+#loadingMainZone.run {
+  .content {
+    position: absolute;
+    top: 280px;
+    left: $loadingMainZoneWidth / 2 - $loadingSize / 2;
+
+    .dot {
+      position: absolute;
+      width: $loadingSize;
+      height: $loadingSize;
+      opacity: 0;
+
+      -webkit-animation: loadingDots 6s infinite;
+
+      .innerDot {
+        position: absolute;
+        width: $loadingDotDiameter;
+        height: $loadingDotDiameter;
+        background: $green;
+        border-radius: $loadingDotDiameter/2;
+      }
+    }
+
+    @for $i from 1 through $numLoadingDots {
+      .dot#{$i} {
+        -webkit-animation-delay: $loadingDotDelay * $i;
+      }
+    }
+  }
+}
+
+@-webkit-keyframes loadingDots {
+  0% {
+    opacity: 1;
+    z-index:99;
+    -webkit-transform: rotate(180deg);
+    -webkit-animation-timing-function: ease-out;
+  }
+
+  7% {
+    opacity: 1;
+    -webkit-transform: rotate(300deg);
+    -webkit-animation-timing-function: linear;
+  }
+
+  30% {
+    opacity: 1;
+    -webkit-transform:rotate(410deg);
+    -webkit-animation-timing-function: ease-in-out;
+  }
+
+  37% {
+    opacity: 1;
+    -webkit-transform: rotate(675deg);
+    -webkit-animation-timing-function: linear;
+  }
+
+  68% {
+    opacity: 1;
+    -webkit-transform: rotate(800deg);
+    -webkit-animation-timing-function: ease-in;
+  }
+
+  73% {
+    opacity: 1;
+    -webkit-transform: rotate(900deg);
+  }
+
+  73.1% {
+    opacity: 0;
+    -webkit-transform:rotate(900deg);
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: rotate(900deg);
+  }
+}

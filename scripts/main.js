@@ -59,9 +59,15 @@ centerStack.addInitializer(function() {
 // Load music
 centerStack.addInitializer(function() {
     var fileWatcher = new FileWatcher(process.env.MUSIC_PATH);
-    fileWatcher.getVent().on('connected', function(filepath) {
-        MusicTree.load(filepath);
-    });
+    fileWatcher.getVent()
+        .on('connected', function(filepath) {
+            console.log('loading');
+            MusicTree.load(filepath);
+        }, this)
+        .on('disconnected', function() {
+            MusicTree.empty();
+            Music.stop();
+        }, this);
 });
 
 // Load LEAP

@@ -1,7 +1,7 @@
 @import '../common/import';
 
 $sliderDotSize: 20px;
-$sliderWidth: 800px;
+$sliderWidth: $width;
 $numSliderDots: 5;
 $sliderDotDelay: .125s;
 $sliderDotsFadeIn: 25%;

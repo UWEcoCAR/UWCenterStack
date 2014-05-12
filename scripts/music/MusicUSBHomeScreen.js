@@ -60,19 +60,17 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         // default main zone view of musicUSB home
         this.renderedMainZoneView = this.mainZoneView = new MusicUSBMainZone({ model: this.model });
 
-        MusicTree.getVent().on('loading loaded', function() {
-            this.render();
-        }, this);
+        MusicTree.getVent()
+            .on('loading loaded', function() {
+                this.render();
+            }, this)
+            .on('emptied', function() {
+                window.history.back();
+            }, this);
 
     },
 
     onRender: function() {
-
-        if (MusicTree.isLoading()) {
-            return;
-        }
-
-        this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
         this.backgroundIconContent.show(this.backgroundIconView);
         this.backButtonZoneContent.show(this.backButtonView);
         this.homeButtonZoneContent.show(this.homeButtonView);
@@ -80,16 +78,29 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.nextButtonZoneContent.show(this.nextButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
 
-        this.inputZone1Content.show(this.inputZone1View);
-        this.inputZone2Content.show(this.inputZone2View);
-        this.inputZone3Content.show(this.inputZone3View);
-        this.inputZone4Content.show(this.inputZone4View);
-        this.inputZone5Content.show(this.inputZone5View);
+        if (MusicTree.isLoading() || MusicTree.tracks.length === 0) {
+            this.mainZoneContent.show(new LoadingMainZone({title: 'MUSIC USB'}));
+
+            this.inputZone1Content.close();
+            this.inputZone2Content.close();
+            this.inputZone3Content.close();
+            this.inputZone4Content.close();
+            this.inputZone5Content.close();
+        } else {
+            this.renderedMainZoneView ? this.mainZoneContent.show(this.renderedMainZoneView) : this.mainZoneContent.close();
+
+            this.inputZone1Content.show(this.inputZone1View);
+            this.inputZone2Content.show(this.inputZone2View);
+            this.inputZone3Content.show(this.inputZone3View);
+            this.inputZone4Content.show(this.inputZone4View);
+            this.inputZone5Content.show(this.inputZone5View);
+        }
         
     },
 
     onBeforeClose: function() {
         this.vent.off();
+        console.log('close');
     },
 
     onShow: function() {

@@ -8,14 +8,8 @@ var BackButtonView = ButtonView.extend({
     },
 
     onShow: function() {
-        $(this.eventCatcher).on('click.' + this.cid, (_.bind(function() {
-            var parts = Backbone.history.fragment.split('/');
-            if (parts.length <= 1) {
-                Backbone.history.navigate('', { trigger: true });
-            } else {
-                parts.pop();
-                Backbone.history.navigate(parts.join('/'), { trigger: true });
-            }
-        }, this)));
+        $(this.eventCatcher).on('click.' + this.cid, function() {
+            window.history.back();
+        });
     }
 });
