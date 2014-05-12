@@ -63,7 +63,13 @@ centerStack.addInitializer(function() {
         .on('connected', function(filepath) {
             MusicTree.load(filepath);
 
-            var jsonFileReader = new JsonFileReader(filepath + '/user.json');
+            var jsonFileReader = null;
+            if(filepath.indexOf('\\') != -1) {
+                jsonFileReader = new JsonFileReader(filepath + '\\user.json');
+            } else {
+                jsonFileReader = new JsonFileReader(filepath + '/user.json');
+            }
+
             jsonFileReader.getVent().on('parsed', function(user) {
                 Controllers.User.setUser(user);
             });
