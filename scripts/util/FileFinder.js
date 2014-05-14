@@ -3,32 +3,36 @@
 // modified from http://stackoverflow.com/questions/5827612/node-js-fs-readdir-recursive-directory-search
 
 var fs = require('fs');
+var path = require('path');
 var finder = module.exports = {};
 
 finder.find = function(directory, filetype, callback) {
     var results = [];
     fs.readdir(directory, function(err, list) {
         if (err) return callback(err);
-        var pending = list.length;
-        if (!pending) return callback(null, results);
+
+        if (list.length === 0) return callback(null, results);
+
+        var doneFn = _.after(list.length, function() {
+            callback(null, results);
+        });
         list.forEach(function(file) {
-            if(directory.indexOf('\\') != -1) {
-                file = directory + '\\' + file;
-            } else {
-                file = directory + '/' + file;
-            }
-            fs.stat(file, function(err, stat) {
+            var filepath = path.join(directory, file);
+            fs.stat(filepath, function(err, stat) {
                 if (err) return callback(err);
+
                 if (stat && stat.isDirectory()) {
-                    finder.find(file, filetype, function(err, res) {
-                        results = results.concat(res);
-                        if (!--pending) callback(null, results);
+                    finder.find(filepath, filetype, function(err, res) {
+                        if (res && res.length > 0) {
+                            results = results.concat(res);
+                        }
+                        doneFn();
                     });
-                } else if (file.substring(file.length - filetype.length, file.length) === filetype && !(/(^|.\/)\.+[^\/\.]/g).test(file)) {
-                    results.push(file);
-                    if (!--pending) callback(null, results);
+                } else if (path.extname(file) === '.' + filetype && !(/(^|.\/)\.+[^\/\.]/g).test(filepath)) {
+                    results.push(filepath);
+                    doneFn();
                 } else {
-                    if (!--pending) callback(null, results);
+                    doneFn();
                 }
             });
         });

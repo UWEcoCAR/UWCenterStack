@@ -59,15 +59,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
         // default main zone view of musicUSB home
         this.renderedMainZoneView = this.mainZoneView = new MusicUSBMainZone({ model: this.model });
-
-        MusicTree.getVent()
-            .on('loading loaded', function() {
-                this.render();
-            }, this)
-            .on('emptied', function() {
-                window.history.back();
-            }, this);
-
     },
 
     onRender: function() {
@@ -78,7 +69,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.nextButtonZoneContent.show(this.nextButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
 
-        if (MusicTree.isLoading() || MusicTree.tracks.length === 0) {
+        if (Controllers.MusicTree.isLoading() || Controllers.MusicTree.tracks.length === 0) {
             this.mainZoneContent.show(new LoadingMainZone({title: 'MUSIC USB'}));
 
             this.inputZone1Content.close();
@@ -105,6 +96,13 @@ MusicUSBHomeScreen = ScreenLayout.extend({
     onShow: function() {
         var self = this;
 
+        this.listenTo(Controllers.MusicTree, 'loading loaded', function() {
+            this.render();
+        });
+        this.listenTo(Controllers.MusicTree, 'emptied', function() {
+            window.history.back();
+        });
+
         if (this.model.get('tracks') === null) {
             self.resetModel();
         }
@@ -125,7 +123,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             selection: self.model.get('trackSelection')
         });
 
-        MusicTree.tracks.forEach(function(track) {
+        Controllers.MusicTree.tracks.forEach(function(track) {
             trackCollection.push({text: track.get('name')});
         });
 
@@ -146,7 +144,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         });
 
         artistCollection.push({text: 'All Artists'});
-        MusicTree.artists.forEach(function(artist) {
+        Controllers.MusicTree.artists.forEach(function(artist) {
             artistCollection.push({text: artist.get('name')});
         });
         if (self.model.get('artist') !== null) {
@@ -170,7 +168,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         });
 
         albumCollection.push({text: 'All Albums'});
-        MusicTree.albums.forEach(function(album) {
+        Controllers.MusicTree.albums.forEach(function(album) {
             albumCollection.push({text: album.get('name')});
         });
 
@@ -191,7 +189,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         });
 
         playListCollection.push({text: 'All Playlists'});
-        MusicTree.playlists.forEach(function(playlist) {
+        Controllers.MusicTree.playlists.forEach(function(playlist) {
             playListCollection.push({text: playlist.get('name')});
         });
 
@@ -238,16 +236,16 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             for (var z = 0; z < selection; z++) {
                 qs.next();
             }
-            Music.setSupplier(qs);
-            Music.start();
+            Controllers.Music.setSupplier(qs);
+            Controllers.Music.start();
 
             self.resetModel();
             //self.resetCollection(trackCollection, MusicTree.tracks.models, 4);
-            self.resetView(trackListView, MusicTree.tracks.models.length);
+            self.resetView(trackListView, Controllers.MusicTree.tracks.models.length);
             //self.resetCollection(albumCollection, MusicTree.albums.models, 3);
-            self.resetView(albumListView, MusicTree.albums.models.length + 1);
+            self.resetView(albumListView, Controllers.MusicTree.albums.models.length + 1);
             //self.resetCollection(artistCollection, MusicTree.artists.models, 2);
-            self.resetView(artistListView, MusicTree.artists.models.length + 1);
+            self.resetView(artistListView, Controllers.MusicTree.artists.models.length + 1);
 
             playListView.windowStart = 0;
             playListView.selection = 0;
@@ -266,7 +264,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                 } else if (self.model.get('playListInformation') !== null) {
                     dataForTracks = self.model.get('playListInformation').tracks.models;
                 } else {
-                    dataForTracks = MusicTree.tracks.models;                  
+                    dataForTracks = Controllers.MusicTree.tracks.models;
                 }
             } else {
                 var dataForAlbum = null;
@@ -279,7 +277,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                         return _.equal(album.get('name'), data.model.get('text'));
                     });
                 } else {
-                    dataForAlbum = MusicTree.albums.find(function(album) {
+                    dataForAlbum = Controllers.MusicTree.albums.find(function(album) {
                         return _.equal(album.get('name'), data.model.get('text'));
                     });
                 }
@@ -302,11 +300,11 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             var dataForPlayList = null;
 
             if (selection === 0) {
-                dataForArtists = MusicTree.artists.models;
-                dataForAlbums = MusicTree.albums.models;
-                dataForTracks = MusicTree.tracks.models;
+                dataForArtists = Controllers.MusicTree.artists.models;
+                dataForAlbums = Controllers.MusicTree.albums.models;
+                dataForTracks = Controllers.MusicTree.tracks.models;
             } else {
-                dataForPlayList = MusicTree.playlists.find(function(playlist) {
+                dataForPlayList = Controllers.MusicTree.playlists.find(function(playlist) {
                     return _.equal(playlist.get('name'), data.model.get('text'));
                 });
                 dataForArtists = dataForPlayList.artists.models;
@@ -346,8 +344,8 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                     dataForAlbums = self.model.get('playListInformation').albums.models;
                     dataForTracks = self.model.get('playListInformation').tracks.models;
                 } else {
-                    dataForAlbums = MusicTree.albums.models;
-                    dataForTracks = MusicTree.tracks.models;
+                    dataForAlbums = Controllers.MusicTree.albums.models;
+                    dataForTracks = Controllers.MusicTree.tracks.models;
                 }
             } else {
                 if (self.model.get('playListInformation') !== null) {
@@ -355,7 +353,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
                         return _.equal(artist.get('name'), data.model.get('text'));
                     });
                 } else {
-                    dataForArtist = MusicTree.artists.find(function(artist) {
+                    dataForArtist = Controllers.MusicTree.artists.find(function(artist) {
                         return _.equal(artist.get('name'), data.model.get('text'));
                     });
                 }
@@ -380,14 +378,14 @@ MusicUSBHomeScreen = ScreenLayout.extend({
     },
 
     resetModel: function() {
-        this.model.set('tracks', MusicTree.tracks.models);
+        this.model.set('tracks', Controllers.MusicTree.tracks.models);
         this.model.set('trackSelection', 0);
-        this.model.set('albums', MusicTree.albums.models);
+        this.model.set('albums', Controllers.MusicTree.albums.models);
         this.model.set('albumSelection', 0);
-        this.model.set('artists', MusicTree.artists.models);
+        this.model.set('artists', Controllers.MusicTree.artists.models);
         this.model.set('artistSelection', 0);
         this.model.set('artistInformation', null);
-        this.model.set('playlists', MusicTree.playlists.models);
+        this.model.set('playlists', Controllers.MusicTree.playlists.models);
         this.model.set('playlistSelection', 0);
         this.model.set('playListInformation', null);
     },

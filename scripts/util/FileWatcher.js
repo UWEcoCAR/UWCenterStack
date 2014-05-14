@@ -1,26 +1,18 @@
-(function() {
-    var fs = require('fs');
+var fs = require('fs');
+var path = require('path');
 
-    window.FileWatcher = function(filepath) {
-        this.vent = _.extend({}, Backbone.Events);
+var FileWatcher = Marionette.Controller.extend({
+    initialize: function(options) {
 
         // Parse filepath
-        this.filepath = filepath;
-        this.parentpath = null;
-        this.filename = null;
-
-        if(filepath.indexOf('\\') != -1) {
-            this.parentpath = filepath.substr(0, filepath.lastIndexOf('\\'));
-            this.filename = filepath.substr(filepath.lastIndexOf('\\') + 1);
-        } else {
-            this.parentpath = filepath.substr(0, filepath.lastIndexOf('/'));
-            this.filename = filepath.substr(filepath.lastIndexOf('/') + 1);
-        }
+        this.filepath = options.filepath;
+        this.parentpath = path.dirname(this.filepath);
+        this.filename = path.basename(this.filepath);
 
         // Fire a connected event if initially connected
         if (fs.existsSync(this.filepath)) {
             _.defer(_.bind(function() {
-                this.vent.trigger('connected', this.filepath);
+                this.trigger('connected', this.filepath);
             }, this));
         }
 
@@ -34,23 +26,18 @@
 
             // Determine if it was a connect, or disconnect
             if (fs.existsSync(this.filepath)) {
-                var self = this;
                 // Delay before notifying others because the file system still probably isn't ready.
-                setTimeout(function() {
-                    self.vent.trigger('connected', self.filepath);
-                }, 3000);
+                setTimeout(_.bind(function() {
+                    this.trigger('connected', this.filepath);
+                }, this), 3000);
             } else {
-                this.vent.trigger('disconnected', this.filepath);
+                this.trigger('disconnected', this.filepath);
             }
 
         }, this));
-    };
+    },
 
-    FileWatcher.prototype.fileExists = function() {
+    fileExists: function() {
         return fs.existsSync(this.filepath);
-    };
-
-    FileWatcher.prototype.getVent = function() {
-        return this.vent;
-    };
-})();
+    }
+});

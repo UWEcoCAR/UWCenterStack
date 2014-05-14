@@ -1,25 +1,23 @@
-(function() {
-    var fs = require('fs');
+var fs = require('fs');
 
-    window.JsonFileReader = function(filepath) {
+var JsonFileReader = Marionette.Controller.extend({
+    initialize: function(options) {
+        var filepath = options.filepath;
+        var callback = options.callback;
         var self = this;
-        this.vent = _.extend({}, Backbone.Events);
-        this.filepath = filepath;
 
-        if (!fs.existsSync(this.filepath)) {
-            throw 'JSON file does not exist: ' + this.filepath;
+        if (!fs.existsSync(filepath)) {
+            throw 'JSON file does not exist: ' + filepath;
         }
+
         fs.readFile(filepath, 'utf8', function (err, data) {
             if (err) {
                 console.log('Error: ' + err);
-                return;
+                callback && callback(err);
             }
-
-            self.vent.trigger('parsed', JSON.parse(data));
+            var object = JSON.parse(data);
+            callback && callback(object);
+            self.trigger('parsed', object);
         });
-    };
-
-    JsonFileReader.prototype.getVent = function() {
-        return this.vent;
-    };
-})();
+    }
+});

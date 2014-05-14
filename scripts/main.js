@@ -58,21 +58,23 @@ centerStack.addInitializer(function() {
 
 // Load media
 centerStack.addInitializer(function() {
-    var fileWatcher = new FileWatcher(process.env.MEDIA_PATH);
-    fileWatcher.getVent()
-        .on('connected', function(filepath) {
-            MusicTree.load(filepath);
+    var fileWatcher = new FileWatcher({filepath: process.env.MEDIA_PATH});
+    this.listenTo(fileWatcher, 'connected', function(filepath) {
+        console.log('CONNECTED: ' + filepath);
+        Controllers.MusicTree.load(filepath);
 
-            var jsonFileReader = new JsonFileReader(filepath + '/user.json');
-            jsonFileReader.getVent().on('parsed', function(user) {
+        new JsonFileReader({
+            filepath: filepath + '/user.json',
+            callback: function(user) {
                 Controllers.User.setUser(user);
-            });
-
-        }, this)
-        .on('disconnected', function() {
-            MusicTree.empty();
-            Music.stop();
-        }, this);
+            }
+        });
+    });
+    this.listenTo(fileWatcher, 'disconnected', function(filepath) {
+        console.log('DISCONNECTED: ' + filepath);
+        Controllers.MusicTree.empty();
+        Controllers.Music.stop();
+    });
 });
 
 // Load LEAP
@@ -103,9 +105,10 @@ centerStack.addRegions({
     main: '#appContainer'
 });
 
-window.MusicTree = new (require('../scripts/music/MusicTree.js'))();
 window.Controllers = {
-    User: new UserController()
+    User: new UserController(),
+    Music: new MusicController(),
+    MusicTree: new (require('music/MusicTreeController.js'))()
 };
 
 console.log('Application Starting');
