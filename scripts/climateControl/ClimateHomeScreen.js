@@ -16,7 +16,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.nextButtonView = new NextButtonView({vent: this.vent});
         
         // volume slider
-        this.volumeSliderView = new VolumeSliderView();
+        this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
         
         // driver/passenger and defrost choices
         this.inputZone1View = new SliderButtonsView({

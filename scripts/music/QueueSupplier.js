@@ -17,8 +17,12 @@
 
     // returns the next item if it exists
     supplier.prototype.next = function() {
-        this._index = Math.min(this._index + 1, this.queue.length);
+        this._index++;
         return this._getItem(this._index) || null;
+    };
+
+    supplier.prototype.hasNext = function() {
+        return this._index + 1 < this.queue.length;
     };
 
     // returns the previous item if it exists

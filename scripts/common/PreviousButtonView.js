@@ -18,12 +18,8 @@ var PreviousButtonView = ButtonView.extend({
                 }
             });
 
-        this.listenTo(Controllers.Music, 'playing', function() {
-            this.icon = '#previousIcon';
-            this.render();
-        });
-        this.listenTo(Controllers.Music, 'ended', function() {
-            this.icon = '';
+        this.listenTo(Controllers.Music, 'start stop', function() {
+            Controllers.Music.isPlaying() ? this.icon = '#previousIcon' : this.icon = '';
             this.render();
         });
     }

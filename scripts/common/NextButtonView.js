@@ -16,8 +16,8 @@ var NextButtonView = ButtonView.extend({
             .on('touchstart.' + this.cid, function() {
                 if (Controllers.Music.isPlaying()) {
                     self.timeout = setTimeout(function() {
-                        if (Music.getTrack()) {
-                            Music.getTrack().element.playbackRate = 3;
+                        if (Controllers.Music.getTrack()) {
+                            Controllers.Music.getTrack().element.playbackRate = 3;
                         }
                     }, 1000);
                     self.holding = true;
@@ -36,14 +36,12 @@ var NextButtonView = ButtonView.extend({
                 }
             });
 
-        this.listenTo(Controllers.Music, 'playing', function() {
-            this.icon = '#nextIcon';
+        this.listenTo(Controllers.Music, 'start stop', function() {
+            Controllers.Music.isPlaying() ? this.icon = '#nextIcon' : this.icon = '';
             this.render();
         });
         this.listenTo(Controllers.Music, 'ended', function() {
-            this.icon = '';
             this.holding = false;
-            this.render();
         });
     }
 });

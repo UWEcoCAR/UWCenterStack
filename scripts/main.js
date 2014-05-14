@@ -8,7 +8,7 @@
  * node-webkit context: window
  */
 
-// Initialize keystrokes
+var path = require('path');
 
 var CenterStack = Backbone.Marionette.Application.extend({
 
@@ -64,7 +64,7 @@ centerStack.addInitializer(function() {
         Controllers.MusicTree.load(filepath);
 
         new JsonFileReader({
-            filepath: filepath + '/user.json',
+            filepath: path.join(filepath, 'user.json'),
             callback: function(user) {
                 Controllers.User.setUser(user);
             }
@@ -108,7 +108,7 @@ centerStack.addRegions({
 window.Controllers = {
     User: new UserController(),
     Music: new MusicController(),
-    MusicTree: new (require('music/MusicTreeController.js'))()
+    MusicTree: new (require('../scripts/music/MusicTreeController'))()
 };
 
 console.log('Application Starting');
