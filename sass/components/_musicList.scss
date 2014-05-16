@@ -1,0 +1,34 @@
+@import '../common/import';
+
+#musicSection {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  margin-bottom: 200px;
+}
+.musicList {
+  position: absolute;
+  width: 650px;
+  margin-top: 300px;
+  margin-left: 40px;
+  overflow: hidden;
+  transition: top 0.2s ease-out;
+
+  .musicListItem {
+    height: 104px;
+    width: 650px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.2s ease-out;
+    padding-bottom: 40px;
+    @include alrightSans('light', $fontSizeListItem);
+
+    &.selected {
+      margin-top: 20px;
+      padding-bottom: 60px;
+      @include alrightSans('bold', $fontSizeListItem);
+    }
+  }
+}

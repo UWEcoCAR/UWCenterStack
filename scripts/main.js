@@ -28,9 +28,20 @@ var CenterStack = Backbone.Marionette.Application.extend({
     },
 
     musicUSBHome: function() {
-        var musicUSBHomeScreen = new MusicUSBHomeScreen();
+        var musicUSBHomeScreen = new MusicUSBHomeScreen({ model: this.musicUSBModel });
         centerStack.main.show(musicUSBHomeScreen);
+    },
+
+    filteredTrackSelect: function() {
+        var filteredTrackSelectScreen = new FilteredTrackSelectScreen({ model: this.musicUSBModel });
+        centerStack.main.show(filteredTrackSelectScreen);
+    },
+
+    filteredAlbumTrackSelect: function() {
+        var filteredAlbumTrackSelectScreen = new FilteredAlbumTrackSelectScreen({ model: this.musicUSBModel });
+        centerStack.main.show(filteredAlbumTrackSelectScreen);
     }
+
     // Route handlers go here
 });
 centerStack = new CenterStack();
@@ -40,6 +51,7 @@ centerStack.addInitializer(function() {
 
     centerStack.climateModel = new ClimateControlModel();
     centerStack.musicModel = new MusicModel();
+    centerStack.musicUSBModel = new MusicUSBModel();
 
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
@@ -47,7 +59,9 @@ centerStack.addInitializer(function() {
             '' : 'index',
             'climate' : 'climateHome',
             'music' : 'musicHome',
-            'music/musicUSB' : 'musicUSBHome'
+            'music/musicUSB' : 'musicUSBHome',
+            'music/musicUSB/filteredTrackSelect' : 'filteredTrackSelect',
+            'music/musicUSB/filteredAlbumTrackSelect' : 'filteredAlbumTrackSelect'
             // Routes go here
         }
     });
