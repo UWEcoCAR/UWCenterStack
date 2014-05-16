@@ -55,6 +55,12 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
     onShow: function() {
         var self = this;
 
+        // whether the artist filter was applied as well
+        var artistSelected = false;
+        if (self.model.get('artist').length > 0) {
+            artistSelected = true;
+        }
+
         this.listenTo(Controllers.MusicTree, 'loading loaded', function() {
             this.render();
         });
@@ -107,8 +113,9 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
 
 
         this.vent.on('inputZone4:touchEnd', function() {
-            window.history.back();
-            if (self.model.get('artist').length > 0) {
+            if (artistSelected) {
+                window.history.go(-2);
+            } else {
                 window.history.back();
             }
         }, this);
