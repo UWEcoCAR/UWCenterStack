@@ -13,11 +13,11 @@ var CurrentTrackView = Backbone.Marionette.ItemView.extend({
     		this.model = Controllers.Music.getTrack().model;
     	} else if (!this.model) {
     		this.model = new TrackModel();
-    	} 
+    	}
     },
 
     onShow: function() {
-        this.listenTo(Controllers.Music, 'start next stop', function(track) {
+        this.listenTo(Controllers.Music, 'start next previous stop', function(track) {
             this.render();
         });
     }
