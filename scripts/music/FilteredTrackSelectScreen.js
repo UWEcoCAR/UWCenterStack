@@ -29,9 +29,7 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
 
 
         // default main zone view
-        this.currentMusicModel = new CurrentMusicModel();
-        this.currentMusicModel.set('playList', 'some playlist');
-        this.renderedMainZoneView = this.mainZoneView = new CurrentMusicSelectionView({model: this.currentMusicModel});
+        this.renderedMainZoneView = this.mainZoneView = new MusicUSBMainZone({ model: this.model });
     },
 
     onRender: function() {
@@ -82,7 +80,7 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
             windowSize: windowSize,
             windowStart: 0,
             windowSpeed: 25,
-            selection: self.model.get('trackSelection')
+            selection: 0
         });
 
         var albumCollection = new Backbone.Collection([]);
@@ -121,7 +119,6 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
         }, this);
 
         this.vent.on('trackList:select ', function(data, selection) {
-            self.model.set('trackSelection', selection);
 
             var qs = new QueueSupplier(self.model.get('tracks'));
             for (var z = 0; z < selection; z++) {
@@ -137,18 +134,13 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
 
     resetModel: function() {
         this.model.set('tracks', Controllers.MusicTree.tracks.models);
-        this.model.set('trackSelection', 0);
         this.model.set('album', '');
+        this.model.set('albumImage', '');
         this.model.set('albums', Controllers.MusicTree.albums.models);
-        this.model.set('albumSelection', 0);
         this.model.set('artist', '');
         this.model.set('artists', Controllers.MusicTree.artists.models);
-        this.model.set('artistSelection', 0);
-        this.model.set('artistInformation', null);
         this.model.set('playlist', '');
         this.model.set('playlists', Controllers.MusicTree.playlists.models);
-        this.model.set('playlistSelection', 0);
-        this.model.set('playlistInformation', null);
     },
 
    resetCollection: function(collection, data) {

@@ -5,8 +5,8 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
     initialize: function() {
 
-        console.log(this.cid);
         window.model = this.model;
+        this.resetModel();
         
         // back/home button defaults
         this.backgroundIconView = new BackgroundIconView({icon: '#iPodIcon'});
@@ -104,14 +104,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             window.history.back();
         });
 
-        this.currentMusicModel = new CurrentMusicModel();
-        this.currentMusicSelectionView = new CurrentMusicSelectionView({model: this.currentMusicModel});
-
-
-        if (this.model.get('tracks') === null) {
-            self.resetModel();
-        }
-
         // collection and view of tracks
         var trackCollection = new Backbone.Collection([]);
         var windowSize = Math.min(self.model.get('tracks').length, 25);
@@ -151,9 +143,6 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         Controllers.MusicTree.artists.forEach(function(artist) {
             artistCollection.push({text: artist.get('name')});
         });
-        if (self.model.get('artist') !== null) {
-            artistListView.selection = self.model.get('artistSelection');
-        }
 
         // collection and view of tracks
         var albumCollection = new Backbone.Collection([]);
@@ -267,22 +256,19 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
         this.vent.on('albumList:select ', function(data, selection) {
             self.model.set('albumSelection', selection);
-            self.currentMusicSelectionView.model.set('album', data.model.get('text'));
 
             var dataForAlbum = Controllers.MusicTree.albums.find(function(album) {
                 return _.equal(album.get('name'), data.model.get('text'));
             });
 
-            self.model.set('album', data.model.get('text'));
             var dataForTracks = dataForAlbum.tracks.models;
-            self.model.set('tracks', dataForTracks);
-            self.model.set('trackSelection', 0);
+            self.model.set('album', data.model.get('text'));
+            self.model.set('albumImage', dataForTracks[0].get('image'));
 
+            self.model.set('tracks', dataForTracks);
         }, this);
 
         this.vent.on('playlist:select ', function(data, selection) {
-            self.model.set('playlistSelection', selection);
-            self.currentMusicSelectionView.model.set('playlist', data.model.get('text'));
 
             dataForPlayList = Controllers.MusicTree.playlists.find(function(playlist) {
                 return _.equal(playlist.get('name'), data.model.get('text'));
@@ -291,14 +277,11 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.model.set('playlist', data.model.get('text'));
             var dataForTracks = dataForPlayList.tracks.models;   
             self.model.set('tracks', dataForTracks);
-            self.model.set('trackSelection', 0);
 
         }, this);
 
 
         this.vent.on('artistList:select ', function(data, selection) {
-            self.model.set('artistSelection', 0);
-            self.currentMusicSelectionView.model.set('artist', data.model.get('text'));
 
             var dataForArtist = Controllers.MusicTree.artists.find(function(artist) {
                 return _.equal(artist.get('name'), data.model.get('text'));
@@ -310,17 +293,12 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             var dataForTracks = dataForArtist.tracks.models;
 
             self.model.set('albums', dataForAlbums);
-            self.model.set('albumSelection', 0);
-            self.currentMusicSelectionView.model.set('album', 'All Albums');
 
             self.resetView(albumListView, dataForAlbums.length);
 
             self.model.set('tracks', dataForTracks);
-            self.model.set('trackSelection', 0);
 
             self.resetView(trackListView, dataForTracks.length);
-
-            self.model.set('artistInformation', dataForArtist);
 
         }, this);
 
@@ -328,18 +306,13 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
     resetModel: function() {
         this.model.set('tracks', Controllers.MusicTree.tracks.models);
-        this.model.set('trackSelection', 0);
         this.model.set('album', '');
+        this.model.set('albumImage', '');
         this.model.set('albums', Controllers.MusicTree.albums.models);
-        this.model.set('albumSelection', 0);
         this.model.set('artist', '');
         this.model.set('artists', Controllers.MusicTree.artists.models);
-        this.model.set('artistSelection', 0);
-        this.model.set('artistInformation', null);
         this.model.set('playlist', '');
         this.model.set('playlists', Controllers.MusicTree.playlists.models);
-        this.model.set('playlistSelection', 0);
-        this.model.set('playlistInformation', null);
     },
 
     resetCollection: function(collection, data) {

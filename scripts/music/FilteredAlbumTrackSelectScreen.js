@@ -5,7 +5,9 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
 
     initialize: function() {
         window.model = this.model;
-        
+
+        // album Image must be empty here
+        this.model.set('albumImage', '');
         // back/home button defaults
         this.backgroundIconView = new BackgroundIconView({icon: '#iPodIcon'});
         this.backButtonView = new BackButtonView();
@@ -35,11 +37,7 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
             vent: this.vent
         });
 
-
-        // default main zone view
-        this.currentMusicModel = new CurrentMusicModel();
-        this.currentMusicModel.set('playList', 'some playlist');
-        this.renderedMainZoneView = this.mainZoneView = new CurrentMusicSelectionView({model: this.currentMusicModel});
+        this.renderedMainZoneView = this.mainZoneView = new MusicUSBMainZone({ model: this.model });
     },
 
     onRender: function() {
@@ -85,7 +83,7 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
             windowSize: windowSize,
             windowStart: 0,
             windowSpeed: 25,
-            selection: self.model.get('trackSelection')
+            selection: 0
         });
 
         Controllers.MusicTree.tracks.forEach(function(track) {
@@ -147,17 +145,17 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
         }, this);
 
         this.vent.on('albumList:select ', function(data, selection) {
-            self.model.set('albumSelection', selection);
 
             var dataForAlbum = Controllers.MusicTree.albums.find(function(album) {
                 return _.equal(album.get('name'), data.model.get('text'));
             });
+            var dataForTracks = dataForAlbum.tracks.models;
 
             self.model.set('album', data.model.get('text'));
+            self.model.set('albumImage', dataForTracks[0].get('image'));
 
-            var dataForTracks = dataForAlbum.tracks.models;
             self.model.set('tracks', dataForTracks);
-            self.model.set('trackSelection', 0);
+
 
         }, this);
 
@@ -165,18 +163,14 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
 
     resetModel: function() {
         this.model.set('tracks', Controllers.MusicTree.tracks.models);
-        this.model.set('trackSelection', 0);
         this.model.set('album', '');
+        this.model.set('albumImage', '');
         this.model.set('albums', Controllers.MusicTree.albums.models);
-        this.model.set('albumSelection', 0);
         this.model.set('artist', '');
         this.model.set('artists', Controllers.MusicTree.artists.models);
-        this.model.set('artistSelection', 0);
-        this.model.set('artistInformation', null);
         this.model.set('playlist', '');
         this.model.set('playlists', Controllers.MusicTree.playlists.models);
-        this.model.set('playlistSelection', 0);
-        this.model.set('playlistInformation', null);
+
     },
 
    resetCollection: function(collection, data) {
