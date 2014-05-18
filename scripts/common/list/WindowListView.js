@@ -1,8 +1,4 @@
-var WindowListView = Backbone.Marionette.CollectionView.extend({
-    selection: 0,
-    itemHeight: 104,
-    itemView: ListItemView,
-    className: 'list',
+var WindowListView = ListView.extend({
 
     initialize: function(options) {
 
@@ -62,16 +58,5 @@ var WindowListView = Backbone.Marionette.CollectionView.extend({
             moving = false;
             self.vent.trigger(self.eventId + ':select', self.children.findByIndex(self.selection), self.selection);
         }, this);
-    },
-
-    redraw: function() {
-        this.onRender();
-        this.$el.css('top', - this.selection * this.itemHeight);
-    },
-
-    onRender: function() {
-        var listItems = this.$el.children();
-        this.$el.find('.selected').removeClass('selected');
-        listItems.eq(this.selection).addClass('selected');
     }
 });

@@ -27,5 +27,7 @@ var IconListView = ListView.extend({
     redraw: function() {
         this.$el.children().removeClass('active');
         this.$el.children().eq(this.selection).addClass('active');
-    }
+    },
+
+    drawCoveringLine: function() {}
 });

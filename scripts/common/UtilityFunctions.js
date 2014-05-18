@@ -16,7 +16,7 @@ _.extend(Backbone.Marionette.View.prototype, {
 
 // jQuery extensions
 $.fn.copyIn = function(element) {
-    this.html($(element).clone());
+    return this.html($(element).clone());
 };
 
 // Underscore extensions

@@ -2,18 +2,22 @@
 
 .list {
   position: absolute;
-  width: 650px;
+  max-width: 650px;
   margin-top: 300px;
   margin-left: 40px;
-  transition: top 0.2s ease-out;
+  transition: top 0.2s ease-out, opacity 1s;
+  opacity: 0;
+
+  &.fadeIn {
+    opacity: 1;
+  }
 
   .listItem {
     height: 104px;
-    width: 650px;
+    max-width: 650px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: all 0.2s ease-out;
     padding-bottom: 40px;
     @include alrightSans('light', $fontSizeListItem);
 
@@ -22,5 +26,20 @@
       padding-bottom: 60px;
       @include alrightSans('bold', $fontSizeListItem);
     }
+  }
+}
+
+.coveringLine {
+  opacity: 0;
+  transition: opacity 1s;
+
+  svg {
+    position: absolute;
+    top: 515px;
+    left: 31px;
+  }
+
+  &.fadeIn {
+    opacity: 1;
   }
 }

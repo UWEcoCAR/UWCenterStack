@@ -28,7 +28,6 @@ var VolumeSliderView = SliderView.extend({
     release: function() {},
 
     redraw: function() {
-        console.log(Controllers.Music.isPlaying());
         this.$el.toggle(Controllers.Music.isPlaying());
     }
 
