@@ -41,8 +41,9 @@ ClimateHomeScreen = ScreenLayout.extend({
             eventSource: 'inputZone2',
             collection: temperatureCollection,
             vent: this.vent,
-            numLevels: 25
+            numLevels: 26
         });
+        temperatureCollection.push({text: 'AC'});
         for (var i = 60; i <= 85; i++) {
             temperatureCollection.push({text: i});
         }
@@ -148,22 +149,37 @@ ClimateHomeScreen = ScreenLayout.extend({
         }, this);
 
         // updating model after temperature selection
-        this.vent.on('temperatureList:select', function(data) {
-            var temp = Number(data.model.get('text'));
-            var tempPercent = Math.round(((temp - 60)/30) * 100);
-            if (this.model.get('controlMode') === 'driver') {
+        this.vent.on('temperatureList:select', function(data, selection) {
+
+            var temp = data.model.get('text');
+            var tempPercent = Math.round(((Number(temp) - 60)/30) * 100);
+            if (selection === 0) {
+                canReadWriter.write('hvACOn', 1);
+                this.model.set('ac', 1);
                 this.model.set('driverTemp', temp);
-                //canReadWriter.write('driverTemp', tempPercent);
-            } else {
                 this.model.set('passengerTemp', temp);
-                //canReadWriter.write('passengerTemp', tempPercent);
+            } else if (this.model.get('ac') === 1) {
+                canReadWriter.write('hvACOn', 0);
+                this.model.set('ac', 0);
+                this.model.set('driverTemp', temp);
+                canReadWriter.write('driverTemp', tempPercent);
+                this.model.set('passengerTemp', temp);
+                canReadWriter.write('passengerTemp', tempPercent);
+            } else {    
+                if (this.model.get('controlMode') === 'driver') {
+                    this.model.set('driverTemp', temp);
+                    canReadWriter.write('driverTemp', tempPercent);
+                } else {
+                    this.model.set('passengerTemp', temp);
+                    canReadWriter.write('passengerTemp', tempPercent);
+                }
             }
         }, this);
 
         // updating model after fan speed selection
         this.vent.on('fanSpeedList:select ', function(data) {
             this.model.set('ventFanSpeed', data);
-            //canReadWriter.write('ventFanSpeed', ventFanSpeed);
+            canReadWriter.write('ventFanSpeed', this.model.get('ventFanSpeed'));
         }, this);
 
         // updating model after air flow selection

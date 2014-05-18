@@ -17,7 +17,7 @@ var ListView = Backbone.Marionette.CollectionView.extend({
         }, this);
 
         this.vent.on(this.eventSource + ':touchEnd', function() {
-            self.vent.trigger(self.eventId + ':select', self.children.findByIndex(self.selection));
+            self.vent.trigger(self.eventId + ':select', self.children.findByIndex(self.selection), self.selection);
         }, this);
     },
 
