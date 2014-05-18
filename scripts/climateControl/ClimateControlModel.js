@@ -6,6 +6,7 @@ ClimateControlModel = Backbone.Model.extend({
         ventFanSpeed: 25,
         driverAirFlow: 'both',
         passengerAirFlow: 'both',
+        ac: 0,
         defrostFront: false,
         defrostRear: false
     }
