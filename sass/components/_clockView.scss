@@ -7,7 +7,7 @@ $clockLinesColor: $green;
 $clockWidth: 180px;
 $clockTop: 135px;
 #clock {
-  @include positionCentered($clockTop, $clockWidth, 0);
+  @include positionCenteredHorizontal($clockTop, $clockWidth, 0);
   @include alrightSans('regular', $fontSizeClock);
   text-align: center;
 

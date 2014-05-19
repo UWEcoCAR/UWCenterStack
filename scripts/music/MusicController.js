@@ -133,15 +133,15 @@ var MusicController = Marionette.Controller.extend({
     },
 
     setVolume: function(newVolume) {
-        if (!newVolume) {
-            return;
-        }
-
-        this.volume = newVolume;
+        this.volume = _.saturate(newVolume, 0, 1);
 
         if (this.currentlyPlaying) {
             this.currentlyPlaying.element.volume = this.volume;
         }
+    },
+
+    getVolume: function() {
+        return this.volume;
     }
 
 });

@@ -74,6 +74,7 @@
             <div id="backButtonZoneContent"></div>
             <div id="homeButtonZoneContent"></div>
             <div id="mainZoneContent"></div>
+            <div id="leapContent"></div>
             <div id="volumeSliderZoneContent"></div>
             <div id="inputZone1Content"></div>
             <div id="inputZone2Content"></div>
@@ -158,9 +159,25 @@
         <script id="musicMainZoneTemplate" type="text/html">
         </script>
 
+        <script id="leapTemplate" type="text/html">
+            <div class="overlay"></div>
+            <div class="leapViewContent">
+                <div class="icon iconLeft"></div>
+                <div class="icon iconRight"></div>
+                <div class="icon iconTop"></div>
+                <div class="icon iconBottom"></div>
+                <div class="box">
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </script>
+
         <!-- Our lovely js -->
         <script src="../scripts/util/FileWatcher.js"></script>
         <script src="../scripts/util/JsonFileReader.js"></script>
+        <script src="../scripts/util/Vector.js"></script>
+        <script src="../scripts/leap/LeapController.js"></script>
+        <script src="../scripts/leap/LeapView.js"></script>
         <script src="../scripts/music/TrackModel.js"></script>
         <script src="../scripts/music/TrackCollection.js"></script>
         <script src="../scripts/music/AlbumModel.js"></script>

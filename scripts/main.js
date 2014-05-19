@@ -92,20 +92,21 @@ centerStack.addInitializer(function() {
 });
 
 // Load LEAP
-centerStack.addInitializer(function() {
-    if (process.env.LEAP == 'true') {
-        var opacity = 1;
-        Leap.loop(function(frame) {
-            if (frame.hands.length < 1 && opacity !== 0.5) {
-                opacity = 0.5;
-                $('body').css('opacity', opacity);
-            } else if (frame.hands.length >= 1 && opacity !== 1) {
-                opacity = 1;
-                $('body').css('opacity', opacity);
-            }
-        });
-    }
-});
+//centerStack.addInitializer(function() {
+//    if (process.env.LEAP == 'true') {
+//        Controllers.Leap = new LeapController();
+////        var opacity = 1;
+////        Leap.loop(function(frame) {
+////            if (frame.hands.length < 1 && opacity !== 0.5) {
+////                opacity = 0.5;
+////                $('body').css('opacity', opacity);
+////            } else if (frame.hands.length >= 1 && opacity !== 1) {
+////                opacity = 1;
+////                $('body').css('opacity', opacity);
+////            }
+////        });
+//    }
+//});
 
 // Load SVG's
 var fs = require('fs');
@@ -122,7 +123,8 @@ centerStack.addRegions({
 window.Controllers = {
     User: new UserController(),
     Music: new MusicController(),
-    MusicTree: new (require('../scripts/music/MusicTreeController'))()
+    MusicTree: new (require('../scripts/music/MusicTreeController'))(),
+    Leap: new LeapController()
 };
 
 console.log('Application Starting');
