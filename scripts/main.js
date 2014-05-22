@@ -91,23 +91,6 @@ centerStack.addInitializer(function() {
     });
 });
 
-// Load LEAP
-//centerStack.addInitializer(function() {
-//    if (process.env.LEAP == 'true') {
-//        Controllers.Leap = new LeapController();
-////        var opacity = 1;
-////        Leap.loop(function(frame) {
-////            if (frame.hands.length < 1 && opacity !== 0.5) {
-////                opacity = 0.5;
-////                $('body').css('opacity', opacity);
-////            } else if (frame.hands.length >= 1 && opacity !== 1) {
-////                opacity = 1;
-////                $('body').css('opacity', opacity);
-////            }
-////        });
-//    }
-//});
-
 // Load SVG's
 var fs = require('fs');
 _.each(['bezelOverlay', 'eventCatchers', 'icons'], function(file) {
@@ -120,11 +103,15 @@ centerStack.addRegions({
     main: '#appContainer'
 });
 
+var CanReadWriter = require('uwcenterstack-canreadwriter');
+
 window.Controllers = {
     User: new UserController(),
     Music: new MusicController(),
     MusicTree: new (require('../scripts/music/MusicTreeController'))(),
-    Leap: new LeapController()
+    Leap: new LeapController(),
+    CanReadWriter: CONFIG.FAKE_CAN ? new CanReadWriter.TestCanEmitter() : new CanReadWriter()
+
 };
 
 console.log('Application Starting');
