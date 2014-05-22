@@ -105,7 +105,7 @@ FeedSupplier.prototype.next = function() {
         async: false,
         data: {
             station_id: this.currentStation.get('id'),
-            client_id: process.env.FEED_CLIENT
+            client_id: CONFIG.FEED_CLIENT
         },
         headers: {
             'Authorization': this._getAuthenticationString()
@@ -134,7 +134,7 @@ FeedSupplier.prototype.isDone = function() {
 };
 
 FeedSupplier.prototype._getAuthenticationString = function() {
-    return 'Basic ' + btoa(process.env.FEED_TOKEN + ':' + process.env.FEED_SECRET);
+    return 'Basic ' + btoa(CONFIG.FEED_TOKEN + ':' + CONFIG.FEED_SECRET);
 };
 
 FeedSupplier.prototype.cleanUp = function() {

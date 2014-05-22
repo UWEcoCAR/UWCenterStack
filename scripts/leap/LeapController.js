@@ -1,8 +1,8 @@
 var LeapController = Marionette.Controller.extend({
     initialize: function() {
         this.state = 'OUTSIDE_ACTIVE_ZONE';
-        this.midPoint = new Vector(0, 240, 40);
-        this.edgeLengths = new Vector(200, 200, 200);
+        this.midPoint = new Vector(CONFIG.LEAP_ACTIVE_ZONE_MIDPOINT);
+        this.edgeLengths = new Vector(CONFIG.LEAP_ACTIVE_ZONE_SIZE);
         this.velocityThreshold = 100;
         this.stoppedThreshold = 500;
         Leap.loop(_.bind(function(frame) {

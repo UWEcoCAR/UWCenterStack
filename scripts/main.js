@@ -72,7 +72,7 @@ centerStack.addInitializer(function() {
 
 // Load media
 centerStack.addInitializer(function() {
-    var fileWatcher = new FileWatcher({filepath: process.env.MEDIA_PATH});
+    var fileWatcher = new FileWatcher({filepath: CONFIG.MEDIA_PATH});
     this.listenTo(fileWatcher, 'connected', function(filepath) {
         console.log('CONNECTED: ' + filepath);
         Controllers.MusicTree.load(filepath);

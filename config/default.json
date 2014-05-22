@@ -1,0 +1,9 @@
+{
+    "NODE_ENV": "development",
+    "LEAP_ENABLED": true,
+    "LEAP_ACTIVE_ZONE_MIDPOINT": [0, 240, 40],
+    "LEAP_ACTIVE_ZONE_SIZE": [200, 200, 200],
+    "FAKE_CAN": true,
+    "MEDIA_PATH": "~/Downloads",
+    "CAN_LOGS_DRIVE": "~/Downloads"
+}

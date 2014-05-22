@@ -49,29 +49,9 @@ module.exports = function(grunt) {
         },
         shell: {
             nodeWebkitDev: {
-                command: isPlatform('darwin') ?
-                             ['NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
-                              'LEAP='     + (grunt.option('leap')    || 'false'),
-                              'FAKE_CAN=' + (grunt.option('fakeCan') || 'true'),
-                              'MUSIC_PATH=' + process.env.MUSIC_PATH,
-                              'FEED_TOKEN=' + process.env.FEED_TOKEN,
-                              'FEED_SECRET=' + process.env.FEED_SECRET,
-                              'FEED_CLIENT=' + process.env.FEED_CLIENT,
-                              'open -n -a /Applications/node-webkit.app ""'].join(' ') :
-                         isPlatform('linux') ?
-                             ['export NODE_ENV=' + (grunt.option('nodeEnv') || 'development'),
-                              'export LEAP='     + (grunt.option('leap')    || 'false'),
-                              'export FAKE_CAN=' + (grunt.option('fakeCan') || 'false'),
-                              'export MUSIC_PATH=' + process.env.MUSIC_PATH,
-                              'export FEED_TOKEN=' + process.env.FEED_TOKEN,
-                              'export FEED_SECRET=' + process.env.FEED_SECRET,
-                              'export FEED_CLIENT=' + process.env.FEED_CLIENT,
-                              './nw/nw .'].join(' && ') :
-                         isPlatform('win64') || isPlatform('win32') ?
-                             ['set NODE_ENV=development',
-                              'set LEAP='     + (grunt.option('leap') || 'false'),
-                              'set FAKE_CAN=' + (grunt.option('fakeCan') || 'true'),
-                              'start nw/nw.exe .'].join('&&') : ''
+                command: isPlatform('darwin') ? 'NODE_ENV=' + (grunt.option('nodeEnv') || 'development') + 'open -n -a /Applications/node-webkit.app ""' :
+                         isPlatform('linux') ? 'export NODE_ENV=' + (grunt.option('nodeEnv') || 'development') + ' && ./nw/nw .' :
+                         isPlatform('win64') || isPlatform('win32') ? 'set NODE_ENV=development&&start nw/nw.exe .' : ''
             }
         }
     });
@@ -83,12 +63,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-node-webkit-builder');
     grunt.loadNpmTasks('grunt-shell');
 
-    // Default task(s).
     grunt.registerTask('build', ['sass', 'jshint', 'nodewebkit']);
-//    grunt.registerTask('server', 'Start the web server', function() {
-//        grunt.log.writeln('Started web server');
-//        require('./scripts/can/multiply.js');
-//    });
     grunt.registerTask('default', ['sass', 'jshint', 'shell:nodeWebkitDev', 'watch']);
 
 };

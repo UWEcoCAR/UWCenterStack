@@ -34,6 +34,7 @@
             global.Backbone = Backbone;
             global.Marionette = Marionette;
             global.moment = moment;
+            window.CONFIG = global.CONFIG = require('config');
         </script>
 
         <!-- Open in Kiosk mode in production -->
@@ -50,7 +51,7 @@
             var win = require('nw.gui').Window.get();
             win.show();
 
-            if (process.env.NODE_ENV === 'development') {
+            if (CONFIG.NODE_ENV === 'development') {
                 win.zoomLevel = -5;
 
                 // Add keystrokes
