@@ -158,6 +158,30 @@
         <script id="musicMainZoneTemplate" type="text/html">
         </script>
 
+        <script id="eveHomeScreenLeftTemplate" type="text/html">
+            <div class="userProfile">
+                <div class="greeting"><%= greeting %></div>
+                <div class="userImage">
+                    <img id="userImage" src="" alt="User Image" height="42" width="42">
+                </div>
+                <div class="efficiencyScore">
+                    SCORE
+                    <div class="leaf1"></div>
+                    <div class="leaf2"></div>
+                    <div class="leaf3"></div>
+                    <div class="leaf4"></div>
+                    <div class="leaf5"></div>
+                </div> 
+            </div>
+        </script>
+
+        <script id="eveHomeScreenRightTemplate" type="text/html">
+            <div class="userImprovement">
+                <div class="improve">LET&#39;S IMPROVE</div>
+                <div class="improveMessage"><%= improveMessage %></div>
+            </div>
+        </script>
+
         <!-- Our lovely js -->
         <script src="../scripts/util/FileWatcher.js"></script>
         <script src="../scripts/util/JsonFileReader.js"></script>
@@ -215,6 +239,12 @@
         <script src="../scripts/music/MusicUSBHomeScreen.js"></script>
         <script src="../scripts/music/FilteredTrackSelectScreen.js"></script>
         <script src="../scripts/music/FilteredAlbumTrackSelectScreen.js"></script>
+        <script src="../scripts/eve/EveModel.js"></script>
+        <script src="../scripts/eve/EveHomeMainZoneLeftView.js"></script>
+        <script src="../scripts/eve/EveHomeMainZoneRightView.js"></script>
+        <script src="../scripts/eve/EveHomeMainZone.js"></script>
+        <script src="../scripts/eve/EveHomeScreen.js"></script>
+
 
         <!-- Javascript entry point -->
         <script src="../scripts/main.js"></script>

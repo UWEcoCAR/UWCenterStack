@@ -45,5 +45,12 @@ HomeScreen = ScreenLayout.extend({
         this.vent.on('inputZone2:clickLeft', function() {
             Backbone.history.navigate('climate', { trigger: true });
         }, this);
+
+        this.vent.on('inputZone3:clickLeft', function() {
+            console.log('hola');
+            Backbone.history.navigate('eve', { trigger: true });
+        }, this);
+
+
     }
 });
