@@ -129,7 +129,6 @@ var MusicController = Marionette.Controller.extend({
     },
 
     isPlaying: function() {
-        console.log(this.currentlyPlaying);
         return this.currentlyPlaying ? true : false;
     },
 

@@ -22,14 +22,33 @@ var ListView = Backbone.Marionette.CollectionView.extend({
     },
 
     redraw: function() {
-        this.onRender();
-        this.$el.css('top', - this.selection * this.itemHeight);
-    },
-
-    onRender: function() {
-
         var listItems = this.$el.children();
         this.$el.find('.selected').removeClass('selected');
         listItems.eq(this.selection).addClass('selected');
+        this.$el.css('top', - this.selection * this.itemHeight);
+    },
+
+    onShow: function() {
+        this.redraw();
+        this.drawCoveringLine();
+        _.defer(_.bind(function() {this.$el.addClass('fadeIn');}, this));
+    },
+
+    drawCoveringLine: function() {
+        this.$el.siblings('.coveringLine').remove();
+        var line = $('<div>').addClass('coveringLine').copyIn('#line');
+        line.find('#line').width(this.$el.width() + 14);
+        this.$el.after(line);
+        _.defer(function() {line.addClass('fadeIn');});
     }
+
+    // Still needs work
+//    close: function() {
+//        console.log('close');
+//        this.$el.removeClass('fadeIn');
+//        setTimeout(_.bind(function() {
+//            console.log('closeLater');
+//            Backbone.Marionette.CollectionView.prototype.close.apply(this);
+//        }, this), 1000);
+//    }
 });

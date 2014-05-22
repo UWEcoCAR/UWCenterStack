@@ -35,5 +35,9 @@ var DotListView = ListView.extend({
                 dot.set('state', 'empty');
             }
         });
-    }
+    },
+
+    redraw: function() {},
+
+    drawCoveringLine: function() {}
 });
