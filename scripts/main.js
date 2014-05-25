@@ -79,7 +79,7 @@ centerStack.addInitializer(function() {
 
 // Load media
 centerStack.addInitializer(function() {
-    var fileWatcher = new FileWatcher({filepath: process.env.MEDIA_PATH});
+    var fileWatcher = new FileWatcher({filepath: CONFIG.MEDIA_PATH});
     this.listenTo(fileWatcher, 'connected', function(filepath) {
         console.log('CONNECTED: ' + filepath);
         Controllers.MusicTree.load(filepath);
@@ -98,22 +98,6 @@ centerStack.addInitializer(function() {
     });
 });
 
-// Load LEAP
-centerStack.addInitializer(function() {
-    if (process.env.LEAP == 'true') {
-        var opacity = 1;
-        Leap.loop(function(frame) {
-            if (frame.hands.length < 1 && opacity !== 0.5) {
-                opacity = 0.5;
-                $('body').css('opacity', opacity);
-            } else if (frame.hands.length >= 1 && opacity !== 1) {
-                opacity = 1;
-                $('body').css('opacity', opacity);
-            }
-        });
-    }
-});
-
 // Load SVG's
 var fs = require('fs');
 _.each(['bezelOverlay', 'eventCatchers', 'icons'], function(file) {
@@ -126,11 +110,21 @@ centerStack.addRegions({
     main: '#appContainer'
 });
 
+var CanReadWriter = require('uwcenterstack-canreadwriter');
+
 window.Controllers = {
     User: new UserController(),
     Music: new MusicController(),
-    MusicTree: new (require('../scripts/music/MusicTreeController'))()
+    MusicTree: new (require('../scripts/music/MusicTreeController'))(),
+    Leap: new LeapController(),
+    //CanReadWriter: CONFIG.FAKE_CAN ? new CanReadWriter.TestCanEmitter() : new CanReadWriter()
 };
+
+centerStack.on('start', function() {
+    Controllers.Gradient = new GradientController();
+
+
+});
 
 console.log('Application Starting');
 centerStack.start();

@@ -98,7 +98,12 @@ $bottomZonesTop: 1177px;
 }
 
 #mainZoneContent {
-  @include mask('mainZoneMask', $mainZoneTop, 0px, $width, 614px);
+  @include mask('mainZoneMask', $mainZoneTop, 0px, $width, 723px);
+}
+
+#leapContent {
+  @include position(0, 0, 100%, 100%, 2);
+  pointer-events: none;
 }
 
 #volumeSliderZoneContent {

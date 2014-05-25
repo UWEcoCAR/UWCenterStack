@@ -80,4 +80,16 @@ The `scripts` folder is setup to mirror the `sass` folder. `main.js` is the Java
 Anything that directly interacts with the DOM should be in the window context and loaded as a script tag in index.html.
 Anything that interacts with hardware (the file system, audio, CAN) should be in the Node context and loaded through require().
 
+###Configuration
+You should create a file ```config/development.json``` that includes configuration properties for the application.
+
+Some common configuration properties that should be set include:
+```
+    MEDIA_PATH,
+    CAN_LOGS_DRIVE,
+    FEED_TOKEN,
+    FEED_SECRET,
+    FEED_CLIENT
+```
+
 

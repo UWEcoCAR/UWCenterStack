@@ -1,0 +1,70 @@
+@import '../common/import';
+
+$leapIconSize: 50px;
+$leapWidth: 400px;
+$leapHeight: $leapWidth;
+$leapBoxPadding: 10px;
+
+#leapContent {
+  .leapView {
+    @include position(0, 0, 100%, 100%);
+    opacity: 0;
+    -webkit-transition: opacity .5s;
+
+    .leapViewContent {
+      @include positionCenteredHorizontal(150px, $leapWidth, $leapHeight, 101);
+
+      .iconLeft {
+        @include positionCenteredVertical(0, $leapIconSize, $leapIconSize);
+        left: $leapBoxPadding;
+      }
+
+      .iconRight {
+        @include positionCenteredVertical($leapWidth - $leapIconSize - $leapBoxPadding, $leapIconSize, $leapIconSize);
+      }
+
+      .iconTop {
+        @include positionCenteredHorizontal(0, $leapIconSize, $leapIconSize);
+        top: $leapBoxPadding;
+      }
+
+      .iconBottom {
+        @include positionCenteredHorizontal($leapHeight - $leapIconSize - $leapBoxPadding, $leapIconSize, $leapIconSize);
+      }
+    }
+
+    .box {
+      border: 1px solid $gray;
+      @include position(0, 0, $leapWidth, $leapHeight);
+      border-radius: $leapIconSize / 2;
+      overflow: hidden;
+    }
+
+    .overlay {
+      @include position(0, 0, 100%, 100%, 100);
+      background-color: $background;
+    }
+
+    .dot {
+      @include positionCentered($leapIconSize, $leapIconSize);
+      background: $white;
+      border-radius: $leapIconSize / 2;
+      opacity: 0;
+      -webkit-transition: opacity .5s;
+
+      &.fadeIn {
+        opacity: 1;
+      }
+    }
+
+    &.fadeIn {
+      opacity: 1;
+    }
+  }
+
+
+}
+
+.gradientMode #leapContent .box {
+  border: 1px solid $white;
+}

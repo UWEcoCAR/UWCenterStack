@@ -6,6 +6,7 @@ var ScreenLayout = Backbone.Marionette.Layout.extend({
         backButtonZoneContent: '#backButtonZoneContent',
         homeButtonZoneContent: '#homeButtonZoneContent',
         mainZoneContent: '#mainZoneContent',
+        leapContent: '#leapContent',
         inputZone1Content: '#inputZone1Content',
         inputZone2Content: '#inputZone2Content',
         inputZone3Content: '#inputZone3Content',

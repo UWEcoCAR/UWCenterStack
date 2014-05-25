@@ -36,11 +36,24 @@
   bottom: $bottom;
 }
 
-@mixin positionCentered($top: 0, $width: 0, $height: 0, $zIndex: 0) {
+@mixin positionCentered($width: 0, $height: 0, $zIndex: 0) {
+  @include positionCenteredHorizontal(50%, $width, $height, $zIndex);
+  @include positionCenteredVertical(50%, $width, $height, $zIndex);
+}
+
+@mixin positionCenteredHorizontal($top: 0, $width: 0, $height: 0, $zIndex: 0) {
   @include position($top, 50%, $width, $height, $zIndex);
 
   @if $width != 0 {
     margin-left: -$width/2;
+  }
+}
+
+@mixin positionCenteredVertical($left: 0, $width: 0, $height: 0, $zIndex: 0) {
+  @include position(50%, $left, $width, $height, $zIndex);
+
+  @if $height != 0 {
+    margin-top: -$height/2;
   }
 }
 
