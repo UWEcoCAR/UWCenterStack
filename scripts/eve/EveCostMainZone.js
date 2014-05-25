@@ -7,7 +7,7 @@ var EveCostMainZone = MainZoneLayout.extend({
         // fake mpge collection
         var mpgeCollection = [];
         for (var i = 0; i <= 30; i++) {
-            var val = Math.floor(Math.random() * 85) + 1;
+            var val = Math.floor(Math.random() * 85) + 20;
             mpgeCollection[i] = val;
         }
         this.contentView = new EveCostMainZoneView({data: mpgeCollection});

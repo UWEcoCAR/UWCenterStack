@@ -31,7 +31,7 @@ var EveCostMainZoneView = Backbone.Marionette.ItemView.extend({
                 gridLineWidth: 3,
                 tickInterval: 1,
                 min: 0,
-                max: 1,
+                max: 5,
                 labels: {
                     style: {
                         fontFamily: 'alrightsans-light',
@@ -51,21 +51,9 @@ var EveCostMainZoneView = Backbone.Marionette.ItemView.extend({
             },
             yAxis: {
                 color: 'rgb(255,255,255)',
-                plotBands: [
-                    {
-                        color: 'rgb(102,45,145)',
-                        from: 5,
-                        to: 10
-                    },
-                    {
-                        color: 'rgb(208,221,40)',
-                        from: 10,
-                        to: 25
-                    }
-                ],
                 title: {
                     align: 'high',
-                    text: 'Temp',
+                    text: 'mpge',
                     offset: 0,
                     rotation: 0,
                     x: 15,
@@ -109,5 +97,29 @@ var EveCostMainZoneView = Backbone.Marionette.ItemView.extend({
         });
 
         this.chart.series[0].setData(this.data);
+
+        var min = this.chart.yAxis[0].min;
+        var max = this.chart.yAxis[0].max;
+        var divider = (max - min) * .25;
+
+        this.chart.yAxis[0].addPlotBand({
+            color: 'rgb(102,45,145)',
+            from: min,
+            to: divider
+        });
+
+        this.chart.yAxis[0].addPlotBand({
+            color: 'rgb(208,221,40)',
+            from: divider,
+            to: max
+        });
+
+        console.log(max);
+        console.log(min);
+        console.log(divider);
+        console.log(this.chart.yAxis[0].plotLinesAndBands[0].from);
+        console.log(this.chart.yAxis[0].plotLinesAndBands[0].to);
+        console.log(divider);
+        this.chart.redraw();
     }
 });
