@@ -50,6 +50,14 @@ $loadingDotDelay: .30s;
     position: absolute;
     top: 280px;
     left: $loadingMainZoneWidth / 2 - $loadingSize / 2;
+    width: $loadingSize;
+    height: $loadingSize;
+
+    .label {
+      text-align: center;
+      @include positionCenteredVertical(0, 100%, 20px);
+      color: $white;
+    }
 
     .dot {
       position: absolute;

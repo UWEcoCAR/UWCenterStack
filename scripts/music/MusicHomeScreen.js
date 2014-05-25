@@ -57,6 +57,10 @@ MusicHomeScreen = ScreenLayout.extend({
             Backbone.history.navigate('music/musicUSB', { trigger: true});
         }, this);
 
+        this.vent.on('inputZone3:clickLeft', function() {
+            Backbone.history.navigate('music/internetRadio', { trigger: true});
+        }, this);
+
     },
 
     onRender: function() {

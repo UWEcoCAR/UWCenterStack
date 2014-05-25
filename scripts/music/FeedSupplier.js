@@ -27,9 +27,9 @@ FeedSupplier.prototype._init = function(callback) {
         }
     });
 
-    Music.getVent()
+    Controllers.Music
         .on('playing', function(track) {
-            console.log('playing ' + track);
+            console.log('playing ' + track.model.get('id'));
             if (!track || !track.model.get('id')) {
                 return;
             }
@@ -42,7 +42,7 @@ FeedSupplier.prototype._init = function(callback) {
             });
         }, this)
         .on('ended', function(track) {
-            console.log('ended ' + track);
+            console.log('ended ' + track.model.get('id'));
             if (!track || !track.model.get('id')) {
                 return;
             }
@@ -111,11 +111,12 @@ FeedSupplier.prototype.next = function() {
             'Authorization': this._getAuthenticationString()
         },
         success: function(data) {
+            console.log(data);
             trackModel = new TrackModel({
                 id: data.play.id,
                 name: data.play.audio_file.track.title,
                 albumName: data.play.audio_file.release.title,
-                artistName: data.play.audio_file.artist.title,
+                artistName: data.play.audio_file.artist.name,
                 src: data.play.audio_file.url
             });
         },
@@ -129,8 +130,8 @@ FeedSupplier.prototype.next = function() {
 /**
  *  this radio never ends, i think
  */
-FeedSupplier.prototype.isDone = function() {
-    return false;
+FeedSupplier.prototype.hasNext = function() {
+    return true;
 };
 
 FeedSupplier.prototype._getAuthenticationString = function() {
@@ -138,5 +139,5 @@ FeedSupplier.prototype._getAuthenticationString = function() {
 };
 
 FeedSupplier.prototype.cleanUp = function() {
-    Music.getVent().off(null, null, this);
+    Controllers.Music.off(null, null, this);
 };

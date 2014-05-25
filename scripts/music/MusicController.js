@@ -18,11 +18,11 @@ var MusicController = Marionette.Controller.extend({
                 .on('canplay', function() {
                     this.play();
                 })
-                .on('error abort ended', function() {
-                    self._next();
-                })
                 .on('canplay timeupdate waiting playing abort ended pause', function(evt) {
                     self.trigger(evt.type, self.getTrack());
+                })
+                .on('error abort ended', function() {
+                    self._next();
                 });
 
             playing.element.src = playing.model.get('src');
@@ -89,8 +89,9 @@ var MusicController = Marionette.Controller.extend({
             throw "Supplier must be set.";
         }
 
+        var lastTrack = this.getTrack();
         this._next();
-        this.trigger('ended', this.getTrack());
+        this.trigger('ended', lastTrack);
     },
 
     _next: function() {
