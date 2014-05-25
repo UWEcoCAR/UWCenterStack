@@ -100,7 +100,7 @@ var EveCostMainZoneView = Backbone.Marionette.ItemView.extend({
 
         var min = this.chart.yAxis[0].min;
         var max = this.chart.yAxis[0].max;
-        var divider = (max - min) * .25;
+        var divider = (max - min) * 0.25;
 
         this.chart.yAxis[0].addPlotBand({
             color: 'rgb(102,45,145)',
