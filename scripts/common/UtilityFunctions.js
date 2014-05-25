@@ -38,5 +38,9 @@ _.mixin({
     */
     sliderDotThreshold: function() {
         return 500;
+    },
+
+    saturate: function(value, min, max) {
+        return Math.max(Math.min(value, max), min);
     }
 });

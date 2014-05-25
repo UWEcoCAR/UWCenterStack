@@ -24,9 +24,6 @@ alias uwcs-global-modules='uwcs ; sudo npm i -g nw-gyp && sudo npm i -g grunt-cl
 # uwcs-run - Runs the node-webkit vehicle apps in development mode with file watchers
 alias uwcs-run='uwcs ; grunt --nodeEnv=development'
 
-# uwcs-run-with-leap - Runs the node-webkit vehicle apps with Leap Motion functions enabled
-alias uwcs-run-with-leap='uwcs ; grunt --leap=true --nodeEnv=development'
-
 uwcs-native-modules() {
     uwcs
     _uwcs-native-modules

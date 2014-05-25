@@ -22,3 +22,7 @@ node_modules/
 /nw/
 
 *.mp3
+
+config/development.*
+config/production.*
+config/runtime.json

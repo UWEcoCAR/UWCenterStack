@@ -29,7 +29,7 @@ var MusicController = Marionette.Controller.extend({
             playing.element.volume = this.volume;
             this.currentlyPlaying = playing;
         } else {
-            this.currentlyPlaying = null;
+            this.currentlyPlaying = undefined;
         }
     },
 
@@ -57,8 +57,8 @@ var MusicController = Marionette.Controller.extend({
         }
 
         this.pause();
-        this.supplier = null;
-        this.currentlyPlaying = null;
+        this.supplier = undefined;
+        this.currentlyPlaying = undefined;
         this.trigger('ended', this.getTrack());
         console.log('MUSIC:STOP');
         this.trigger('stop');
@@ -132,16 +132,24 @@ var MusicController = Marionette.Controller.extend({
         return this.currentlyPlaying ? true : false;
     },
 
-    setVolume: function(newVolume) {
-        if (!newVolume) {
-            return;
-        }
+    canPlay: function() {
+        return (!this.currentlyPlaying && this.supplier && this.supplier.hasNext()) || (this.currentlyPlaying && this.currentlyPlaying.element.paused);
+    },
 
-        this.volume = newVolume;
+    canPause: function() {
+        return this.currentlyPlaying !== undefined && !this.currentlyPlaying.element.paused;
+    },
+
+    setVolume: function(newVolume) {
+        this.volume = _.saturate(newVolume, 0, 1);
 
         if (this.currentlyPlaying) {
             this.currentlyPlaying.element.volume = this.volume;
         }
+    },
+
+    getVolume: function() {
+        return this.volume;
     }
 
 });

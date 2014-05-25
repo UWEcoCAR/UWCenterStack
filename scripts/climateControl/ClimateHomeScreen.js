@@ -9,6 +9,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.backgroundIconView = new BackgroundIconView({icon: '#fanIcon'});
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
+        this.leapView = new LeapView();
 
         this.vent = _.extend({}, Backbone.Events);
 
@@ -105,6 +106,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.backButtonZoneContent.show(this.backButtonView);
         this.homeButtonZoneContent.show(this.homeButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
+        this.leapContent.show(this.leapView);
 
         this.playPauseButtonZoneContent.show(this.playPauseButtonView);
         this.nextButtonZoneContent.show(this.nextButtonView);
@@ -154,24 +156,24 @@ ClimateHomeScreen = ScreenLayout.extend({
             var temp = data.model.get('text');
             var tempPercent = Math.round(((Number(temp) - 60)/30) * 100);
             if (selection === 0) {
-                canReadWriter.write('hvACOn', 1);
+                Controllers.CanReadWriter.write('hvACOn', 1);
                 this.model.set('ac', 1);
                 this.model.set('driverTemp', temp);
                 this.model.set('passengerTemp', temp);
             } else if (this.model.get('ac') === 1) {
-                canReadWriter.write('hvACOn', 0);
+                Controllers.CanReadWriter.write('hvACOn', 0);
                 this.model.set('ac', 0);
                 this.model.set('driverTemp', temp);
-                canReadWriter.write('driverTemp', tempPercent);
+                Controllers.CanReadWriter.write('driverTemp', tempPercent);
                 this.model.set('passengerTemp', temp);
-                canReadWriter.write('passengerTemp', tempPercent);
+                Controllers.CanReadWriter.write('passengerTemp', tempPercent);
             } else {    
                 if (this.model.get('controlMode') === 'driver') {
                     this.model.set('driverTemp', temp);
-                    canReadWriter.write('driverTemp', tempPercent);
+                    Controllers.CanReadWriter.write('driverTemp', tempPercent);
                 } else {
                     this.model.set('passengerTemp', temp);
-                    canReadWriter.write('passengerTemp', tempPercent);
+                    Controllers.CanReadWriter.write('passengerTemp', tempPercent);
                 }
             }
         }, this);
@@ -179,7 +181,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         // updating model after fan speed selection
         this.vent.on('fanSpeedList:select ', function(data) {
             this.model.set('ventFanSpeed', data);
-            canReadWriter.write('ventFanSpeed', this.model.get('ventFanSpeed'));
+            Controllers.CanReadWriter.write('ventFanSpeed', this.model.get('ventFanSpeed'));
         }, this);
 
         // updating model after air flow selection

@@ -11,7 +11,6 @@ var IconListView = ListView.extend({
         var self = this;
         this.vent.on(this.eventSource + ':touchMove', function(data) {
             this.selection = Math.floor(data * (this.collection.length - 1));
-            console.log('selection ' + this.selection);
             this.redraw();
         }, this);
 
