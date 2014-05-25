@@ -10,10 +10,12 @@ var LeapView = Backbone.Marionette.ItemView.extend({
             }
         });
         this.listenTo(Controllers.Leap, 'enterState:GESTURE_MODE', function() {
-            if (Controllers.Music.isPlaying()) {
+            //if (Controllers.Music.isPlaying()) {
+                this.render();
+                Controllers.Gradient.redraw();
                 this.$el.find('.dot').addClass('fadeIn');
                 this.$el.addClass('fadeIn');
-            }
+            //}
         });
         this.listenTo(Controllers.Leap, 'enterState:OUTSIDE_ACTIVE_ZONE', function() {
             this.$el.removeClass('fadeIn');
@@ -33,21 +35,40 @@ var LeapView = Backbone.Marionette.ItemView.extend({
             }
         });
         this.listenTo(Controllers.Leap, 'gesture:up', function() {
-            if (Controllers.Music.isPlaying()) {
-                Controllers.Music.setVolume(Controllers.Music.getVolume() + 0.25);
-            }
+            Controllers.Gradient.toggle();
+//            if (Controllers.Music.isPlaying()) {
+//                Controllers.Music.setVolume(Controllers.Music.getVolume() + 0.25);
+//            }
         });
         this.listenTo(Controllers.Leap, 'gesture:down', function() {
-            if (Controllers.Music.isPlaying()) {
-                Controllers.Music.setVolume(Controllers.Music.getVolume() - 0.25);
+            if (Controllers.Music.canPause()) {
+                Controllers.Music.pause();
+            } else if (Controllers.Music.canPlay()) {
+                Controllers.Music.play();
             }
+//            if (Controllers.Music.isPlaying()) {
+//                Controllers.Music.setVolume(Controllers.Music.getVolume() - 0.25);
+//            }
         });
     },
 
     onRender: function() {
-        this.$el.find('.iconLeft').copyIn('#previousIcon');
-        this.$el.find('.iconRight').copyIn('#nextIcon');
-        this.$el.find('.iconTop').copyIn('#volumeUpIcon');
-        this.$el.find('.iconBottom').copyIn('#volumeDownIcon');
+        if (Controllers.Music.isPlaying()) {
+            this.$el.find('.iconLeft').copyIn('#previousIcon');
+            this.$el.find('.iconRight').copyIn('#nextIcon');
+        } else {
+            this.$el.find('.iconLeft').html('');
+            this.$el.find('.iconRight').html('');
+        }
+
+        if (Controllers.Music.canPlay()) {
+            this.$el.find('.iconBottom').copyIn('#playIcon');
+        } else if (Controllers.Music.canPause()) {
+            this.$el.find('.iconBottom').copyIn('#pauseIcon');
+        } else {
+            this.$el.find('.iconBottom').html('');
+        }
+
+        this.$el.find('.iconTop').copyIn('#leafIcon');
     }
 });

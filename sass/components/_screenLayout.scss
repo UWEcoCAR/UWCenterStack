@@ -98,7 +98,7 @@ $bottomZonesTop: 1177px;
 }
 
 #mainZoneContent {
-  @include mask('mainZoneMask', $mainZoneTop, 0px, $width, 614px);
+  @include mask('mainZoneMask', $mainZoneTop, 0px, $width, 723px);
 }
 
 #leapContent {

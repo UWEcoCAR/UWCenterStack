@@ -111,8 +111,13 @@ window.Controllers = {
     MusicTree: new (require('../scripts/music/MusicTreeController'))(),
     Leap: new LeapController(),
     CanReadWriter: CONFIG.FAKE_CAN ? new CanReadWriter.TestCanEmitter() : new CanReadWriter()
-
 };
+
+centerStack.on('start', function() {
+    Controllers.Gradient = new GradientController();
+
+
+});
 
 console.log('Application Starting');
 centerStack.start();

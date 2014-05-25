@@ -1,0 +1,16 @@
+@import 'common/import';
+
+.gradientMode {
+  background: -webkit-linear-gradient(top, $gradientPurple 0%, $gradientPurple 25%, $gradientBlue 50%, $gradientGreen 75%, $gradientGreen 100%);
+  -webkit-background-size: 100% 200%;
+  -webkit-transition: background-position .5s linear;
+  background-position: 0% 50%;
+
+  svg {
+    @include svgColor($white);
+  }
+
+  * {
+    color: $white !important;
+  }
+}

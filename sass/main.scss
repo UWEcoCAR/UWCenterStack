@@ -1,10 +1,8 @@
 @import 'common/import';
 @import 'dash';
+@import 'gradient';
 @import 'components/import';
 @import 'climateControl/import';
-//@import 'components/list';
-//@import 'components/slider';
-//@import 'home/home';
 
 body, html {
   background-color: $bezel;
@@ -19,7 +17,6 @@ body, html {
 * {
   -webkit-box-sizing: border-box;
   -webkit-user-select: none !important;
-  user-select: none !important;
 }
 
 svg {

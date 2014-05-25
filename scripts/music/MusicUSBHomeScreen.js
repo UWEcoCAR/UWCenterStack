@@ -12,6 +12,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.backgroundIconView = new BackgroundIconView({icon: '#iPodIcon'});
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
+        this.leapView = new LeapView();
 
         this.vent = _.extend({}, Backbone.Events);
 
@@ -69,6 +70,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         this.playPauseButtonZoneContent.show(this.playPauseButtonView);
         this.nextButtonZoneContent.show(this.nextButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
+        this.leapContent.show(this.leapView);
 
         if (Controllers.MusicTree.isLoading() || Controllers.MusicTree.tracks.length === 0) {
             this.mainZoneContent.show(new LoadingMainZone({title: 'MUSIC USB'}));

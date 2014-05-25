@@ -9,6 +9,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.backgroundIconView = new BackgroundIconView({icon: '#fanIcon'});
         this.backButtonView = new BackButtonView();
         this.homeButtonView = new HomeButtonView();
+        this.leapView = new LeapView();
 
         this.vent = _.extend({}, Backbone.Events);
 
@@ -105,6 +106,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.backButtonZoneContent.show(this.backButtonView);
         this.homeButtonZoneContent.show(this.homeButtonView);
         this.volumeSliderZoneContent.show(this.volumeSliderView);
+        this.leapContent.show(this.leapView);
 
         this.playPauseButtonZoneContent.show(this.playPauseButtonView);
         this.nextButtonZoneContent.show(this.nextButtonView);
