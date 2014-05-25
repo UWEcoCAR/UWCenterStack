@@ -23,7 +23,7 @@ body, html {
   user-select: none !important;
 }
 
-svg {
+svg:not([version]) {
   position: absolute;
 
   @include svgColor();

@@ -45,9 +45,8 @@ EveHomeScreen = ScreenLayout.extend({
             eventCatcher: "#inputZone5EventCatcher",
             vent: this.vent
         });
-
-        // default main zone view of climte control
         this.mainZoneView = new EveHomeMainZone();
+
     },
 
     onRender: function() {
@@ -76,6 +75,12 @@ EveHomeScreen = ScreenLayout.extend({
         var self = this;
         this.vent.on('inputZone1:clickLeft', function() {
             self.mainZoneView = new EveHomeMainZone();
+            self.render();
+        }, this);
+
+        this.vent.on('inputZone3:touchStart', function() {
+
+            self.mainZoneView = new EveCostMainZone();
             self.render();
         }, this);
     }
