@@ -40,34 +40,36 @@
 
         <!-- Open in Kiosk mode in production -->
         <script>
-            if (process.env.NODE_ENV !== 'development') {
+            if (CONFIG.NODE_ENV !== 'development') {
                 var win = require('nw.gui').Window.get();
 
                 // This doesn't appear to be working on Mac
                 win.enterKioskMode();
+
+                $('html').addClass('production');
+                win.zoomLevel = 0;
             }
         </script>
 
         <script>
             var win = require('nw.gui').Window.get();
             win.show();
-
             if (CONFIG.NODE_ENV === 'development') {
                 win.zoomLevel = -5;
-
-                // Add keystrokes
-                $(document).keydown(function(e) {
-                    if ((e.ctrlKey || e.metaKey) && e.keyCode === 68) { // ctrl-d -> toggle dev tools
-                        win.isDevToolsOpen() ? win.closeDevTools() : win.showDevTools();
-                    } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 82) { // ctrl-r -> refresh
-                        win.reloadIgnoringCache();
-                    } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 73) { // ctrl-i -> zoom in
-                        win.zoomLevel++;
-                    } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 79) { // ctrl-o -> zoom out
-                        win.zoomLevel--;
-                    }
-                });
             }
+
+            // Add keystrokes
+            $(document).keydown(function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.keyCode === 68) { // ctrl-d -> toggle dev tools
+                    win.isDevToolsOpen() ? win.closeDevTools() : win.showDevTools();
+                } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 82) { // ctrl-r -> refresh
+                    win.reloadIgnoringCache();
+                } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 73) { // ctrl-i -> zoom in
+                    win.zoomLevel++;
+                } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 79) { // ctrl-o -> zoom out
+                    win.zoomLevel--;
+                }
+            });
         </script>
 
         <!-- TEMPLATES -->

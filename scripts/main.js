@@ -117,7 +117,7 @@ window.Controllers = {
     Music: new MusicController(),
     MusicTree: new (require('../scripts/music/MusicTreeController'))(),
     Leap: new LeapController(),
-    //CanReadWriter: CONFIG.FAKE_CAN ? new CanReadWriter.TestCanEmitter() : new CanReadWriter()
+    CanReadWriter: CONFIG.FAKE_CAN ? new CanReadWriter.TestCanEmitter() : new CanReadWriter()
 };
 
 centerStack.on('start', function() {
