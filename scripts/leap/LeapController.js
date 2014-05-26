@@ -8,7 +8,6 @@ var LeapController = Marionette.Controller.extend({
         Leap.loop(_.bind(function(frame) {
             var palmPosition;
             var palmVelocity;
-            console.log(frame.hands.length);
             if (frame.hands[0]) {
                 palmPosition = new Vector(frame.hands[0].palmPosition);
                 palmVelocity = new Vector(frame.hands[0].palmVelocity);

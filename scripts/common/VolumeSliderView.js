@@ -6,6 +6,7 @@ var VolumeSliderView = SliderView.extend({
             eventCatcher: '#volumeSliderZoneEventCatcher',
 
         }, options)]);
+        this.vibrationSelection = -1;
     },
 
     onShow: function() {
@@ -28,12 +29,22 @@ var VolumeSliderView = SliderView.extend({
     click: function(data) {
         this.clickMotion = true;
         data.preventDefault();
+        var newVibrationSelection =  Math.round(this._getMovementPercentClick(data) * 30);
+        if (this.vibrationSelection !== newVibrationSelection) {
+            Controllers.Haptic.mainPulse();
+            this.vibrationSelection = newVibrationSelection;
+        }
         Controllers.Music.setVolume(this._getMovementPercentClick(data));
     },
 
     clickChange: function(data) {
         if (this.clickMotion) {
             data.preventDefault();
+            var newVibrationSelection =  Math.round(this._getMovementPercentClick(data) * 30);
+            if (this.vibrationSelection !== newVibrationSelection) {
+                Controllers.Haptic.mainPulse();
+                this.vibrationSelection = newVibrationSelection;
+            }
             Controllers.Music.setVolume(this._getMovementPercentClick(data));
         }
     },
