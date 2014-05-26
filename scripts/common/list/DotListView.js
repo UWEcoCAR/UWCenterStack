@@ -30,6 +30,7 @@ var DotListView = ListView.extend({
         var self = this;
         this.collection.forEach(function(dot, index) {
             if (Math.round(self.selection / self.numLevels * self.numDots) > index) {
+                console.log('filled');
                 dot.set('state', 'filled');
             } else {
                 dot.set('state', 'empty');

@@ -9,6 +9,7 @@ var SliderView = InputZoneView.extend({
         this.eventCatcher = options.eventCatcher;
 
         this.vent = options.vent;
+        this.clickMotion= false;
     },
 
     touch: function(data) {
@@ -18,7 +19,6 @@ var SliderView = InputZoneView.extend({
     },
 
     change: function(data) {
-        console.log(this);
         this.moveStart = undefined;
         data.preventDefault();
         this.vent.trigger(this.eventId + ':touchMove', this._getMovementPercent(data));
@@ -29,25 +29,23 @@ var SliderView = InputZoneView.extend({
             this.triggerDots();
         }
         this.vent.trigger(this.eventId + ':touchEnd', data);
+        this.clickMotion = false;
     },
 
     click: function(data) {
+        this.clickMotion = true;
         this.moveStart = moment();
         data.preventDefault();
-        this.vent.trigger(this.eventId + ':clickStart', this._getMovementPercentClick(data));
+        this.vent.trigger(this.eventId + ':touchStart', this._getMovementPercentClick(data));
     },
 
     clickChange: function(data) {
-        this.moveStart = undefined;
-        data.preventDefault();
-        this.vent.trigger(this.eventId + ':clickMove', this._getMovementPercentClick(data));
-    },
-
-    clickRelease: function(data) {
-        if (this.moveStart && moment().diff(this.moveStart) < _.sliderDotThreshold()) {
-            this.triggerDots();
+        // if clicked and dragging
+        if (this.clickMotion) {
+            this.moveStart = undefined;
+            data.preventDefault();
+            this.vent.trigger(this.eventId + ':touchMove', this._getMovementPercentClick(data));
         }
-        this.vent.trigger(this.eventId + ':touchEnd', data);
     },
 
     onRender: function() {
@@ -65,10 +63,9 @@ var SliderView = InputZoneView.extend({
         $(this.eventCatcher)
             .on('mousedown.' + this.cid, (_.bind(this.click, this)))
             .on('mousemove.' + this.cid, (_.bind(this.clickChange, this)))
-            .on('mouseup.' + this.cid, (_.bind(this.clickRelease, this)))
+            .on('mouseup.' + this.cid, (_.bind(this.release, this)))
             .on('touchstart.' + this.cid, (_.bind(this.touch, this)))
-            .on('touchmove.' + this.cid, (_.bind(this.change, this)))
-            .on('touchend.' + this.cid, (_.bind(this.release, this)));
+            .on('touchmove.' + this.cid, (_.bind(this.change, this)));
     },
 
     triggerDots: function() {

@@ -24,7 +24,7 @@ body, html {
   -webkit-user-select: none !important;
 }
 
-svg:not([version]) {
+svg:not([version]):not(.filled) {
   position: absolute;
 
   @include svgColor();

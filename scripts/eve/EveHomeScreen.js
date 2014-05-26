@@ -78,12 +78,12 @@ EveHomeScreen = ScreenLayout.extend({
             self.render();
         }, this);
 
-       this.vent.on('inputZone2:touchStart inputZone2:clickStart', function() {
+       this.vent.on('inputZone2:touchStart', function() {
             self.mainZoneView = new EveMPGEMainZone();
             self.render();
         }, this);
 
-        this.vent.on('inputZone3:touchStart inputZone3:clickStart', function() {
+        this.vent.on('inputZone3:touchStart', function() {
             self.mainZoneView = new EveCostMainZone();
             self.render();
         }, this);
