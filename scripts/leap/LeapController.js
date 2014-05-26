@@ -3,30 +3,35 @@ var LeapController = Marionette.Controller.extend({
         this.state = 'OUTSIDE_ACTIVE_ZONE';
         this.midPoint = new Vector(CONFIG.LEAP_ACTIVE_ZONE_MIDPOINT);
         this.edgeLengths = new Vector(CONFIG.LEAP_ACTIVE_ZONE_SIZE);
+        this.outerBoundsEdgeLengths = new Vector(this.edgeLengths.x + 40, this.edgeLengths.y + 40, this.edgeLengths.z + 40);
         this.velocityThreshold = 100;
         this.stoppedThreshold = 500;
         Leap.loop(_.bind(function(frame) {
             var palmPosition;
             var palmVelocity;
-            console.log(frame.hands.length);
-            if (frame.hands[0]) {
-                palmPosition = new Vector(frame.hands[0].palmPosition);
-                palmVelocity = new Vector(frame.hands[0].palmVelocity);
+            for (var i = 0; i < frame.hands.length; i++) {
+                var palmPositionCandidate = new Vector(frame.hands[i].palmPosition);
+                var palmVelocityCandidate = new Vector(frame.hands[i].palmVelocity);
                 if (CONFIG.LEAP_INVERT) {
-                    palmPosition.x *= -1;
-                    palmPosition.y *= -1;
-                    palmPosition.y += 600;
-                    palmPosition.z *= -1;
-                    palmVelocity.x *= -1;
-                    palmVelocity.y *= -1;
-                    palmVelocity.z *= -1;
+                    palmPositionCandidate.x *= -1;
+                    palmPositionCandidate.y *= -1;
+                    palmPositionCandidate.y += 600;
+                    palmPositionCandidate.z *= -1;
+                    palmVelocityCandidate.x *= -1;
+                    palmVelocityCandidate.y *= -1;
+                    palmVelocityCandidate.z *= -1;
                 }
-                console.log('palmPosition ' + palmPosition);
-                this.trigger('position', new Vector(
-                    (palmPosition.x - this.midPoint.x) / (this.edgeLengths.x / 2),
-                    (palmPosition.y - this.midPoint.y) / (this.edgeLengths.y / 2),
-                    (palmPosition.z - this.midPoint.z) / (this.edgeLengths.z / 2)
-                ));
+
+                if (palmPositionCandidate.containedInRectangularPrism(this.midPoint, this.outerBoundsEdgeLengths)) {
+                    palmPosition = palmPositionCandidate;
+                    palmVelocity = palmVelocityCandidate;
+                    this.trigger('position', new Vector(
+                        (palmPosition.x - this.midPoint.x) / (this.edgeLengths.x / 2),
+                        (palmPosition.y - this.midPoint.y) / (this.edgeLengths.y / 2),
+                        (palmPosition.z - this.midPoint.z) / (this.edgeLengths.z / 2)
+                    ));
+                    break;
+                }
             }
             switch (this.state) {
                 case 'OUTSIDE_ACTIVE_ZONE':
@@ -50,6 +55,7 @@ var LeapController = Marionette.Controller.extend({
                     break;
                 case 'GESTURE_MODE':
                     if (!palmPosition) {
+                        console.log('how did we get here?');
                         this._goToState('OUTSIDE_ACTIVE_ZONE');
                         break;
                     }
