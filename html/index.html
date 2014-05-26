@@ -28,6 +28,7 @@
         <script src="../scripts/external/backbone.marionette.js"></script>
         <script src="../scripts/external/moment.min.js"></script>
         <script src="../scripts/external/leap.min.js"></script>
+        <script src="../scripts/external/highstock.js"></script>
         <script>
             global.$ = global.jQuery = $;
             global._ = _;
@@ -39,34 +40,36 @@
 
         <!-- Open in Kiosk mode in production -->
         <script>
-            if (process.env.NODE_ENV !== 'development') {
+            if (CONFIG.NODE_ENV !== 'development') {
                 var win = require('nw.gui').Window.get();
 
                 // This doesn't appear to be working on Mac
                 win.enterKioskMode();
+
+                $('html').addClass('production');
+                win.zoomLevel = 0;
             }
         </script>
 
         <script>
             var win = require('nw.gui').Window.get();
             win.show();
-
             if (CONFIG.NODE_ENV === 'development') {
                 win.zoomLevel = -5;
-
-                // Add keystrokes
-                $(document).keydown(function(e) {
-                    if ((e.ctrlKey || e.metaKey) && e.keyCode === 68) { // ctrl-d -> toggle dev tools
-                        win.isDevToolsOpen() ? win.closeDevTools() : win.showDevTools();
-                    } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 82) { // ctrl-r -> refresh
-                        win.reloadIgnoringCache();
-                    } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 73) { // ctrl-i -> zoom in
-                        win.zoomLevel++;
-                    } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 79) { // ctrl-o -> zoom out
-                        win.zoomLevel--;
-                    }
-                });
             }
+
+            // Add keystrokes
+            $(document).keydown(function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.keyCode === 68) { // ctrl-d -> toggle dev tools
+                    win.isDevToolsOpen() ? win.closeDevTools() : win.showDevTools();
+                } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 82) { // ctrl-r -> refresh
+                    win.reloadIgnoringCache();
+                } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 73) { // ctrl-i -> zoom in
+                    win.zoomLevel++;
+                } else if ((e.ctrlKey || e.metaKey) && e.keyCode === 79) { // ctrl-o -> zoom out
+                    win.zoomLevel--;
+                }
+            });
         </script>
 
         <!-- TEMPLATES -->
@@ -160,6 +163,34 @@
         <script id="musicMainZoneTemplate" type="text/html">
         </script>
 
+        <script id="eveHomeScreenLeftTemplate" type="text/html">
+            <div class="userProfile">
+                <div class="greeting"><%= greeting %></div>
+                <div class="userImage">
+                    <img id="userImage" src="" alt="User Image" height="42" width="42">
+                </div>
+                <div class="efficiencyScore">
+                    SCORE
+                    <div class="leaf1"></div>
+                    <div class="leaf2"></div>
+                    <div class="leaf3"></div>
+                    <div class="leaf4"></div>
+                    <div class="leaf5"></div>
+                </div> 
+            </div>
+        </script>
+
+        <script id="eveHomeScreenRightTemplate" type="text/html">
+            <div class="userImprovement">
+                <div class="improve">LET&#39;S IMPROVE</div>
+                <div class="improveMessage"><%= improveMessage %></div>
+            </div>
+        </script>
+
+        <script id="eveCostScreenTemplate" type="text/html">
+            <div id="container" style="height:300px;"></div>
+        </script>
+
         <script id="leapTemplate" type="text/html">
             <div class="overlay"></div>
             <div class="leapViewContent">
@@ -237,6 +268,15 @@
         <script src="../scripts/music/internetRadio/InternetRadioModel.js"></script>
         <script src="../scripts/music/internetRadio/InternetRadioHomeScreen.js"></script>
         <script src="../scripts/music/internetRadio/InternetRadioMainZoneView.js"></script>
+        <script src="../scripts/eve/EveModel.js"></script>
+        <script src="../scripts/eve/EveHomeMainZoneLeftView.js"></script>
+        <script src="../scripts/eve/EveHomeMainZoneRightView.js"></script>
+        <script src="../scripts/eve/EveHomeMainZone.js"></script>
+        <script src="../scripts/eve/EveMPGEMainZoneView.js"></script>
+        <script src="../scripts/eve/EveMPGEMainZone.js"></script>
+        <script src="../scripts/eve/EveCostMainZoneView.js"></script>
+        <script src="../scripts/eve/EveCostMainZone.js"></script>
+        <script src="../scripts/eve/EveHomeScreen.js"></script>
 
         <!-- Javascript entry point -->
         <script src="../scripts/main.js"></script>

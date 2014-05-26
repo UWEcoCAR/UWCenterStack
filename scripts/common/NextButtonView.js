@@ -13,7 +13,7 @@ var NextButtonView = ButtonView.extend({
     onShow: function() {
         var self = this;
         $(this.eventCatcher)
-            .on('touchstart.' + this.cid, function() {
+            .on('touchstart. mousedown.' + this.cid, function() {
                 if (Controllers.Music.isPlaying()) {
                     self.timeout = setTimeout(function() {
                         if (Controllers.Music.getTrack()) {
@@ -23,7 +23,7 @@ var NextButtonView = ButtonView.extend({
                     self.holding = true;
                 }
             })
-            .on('touchend.' + this.cid, function() {
+            .on('touchend. mouseup.' + this.cid, function() {
                 clearTimeout(self.timeout);
                 var currentTrack = Controllers.Music.getTrack();
                 if (Controllers.Music.isPlaying() && currentTrack && self.holding) {

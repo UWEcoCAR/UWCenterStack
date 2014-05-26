@@ -38,3 +38,21 @@
     }
   }
 }
+
+.production {
+  #dashGraphicWrapper {
+    #dashGraphic {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      #appContainerWrapper {
+        position: initial;
+
+        #bezelOverlayWrapper {
+          display: none;
+        }
+      }
+    }
+  }
+}

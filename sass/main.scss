@@ -3,6 +3,11 @@
 @import 'gradient';
 @import 'components/import';
 @import 'climateControl/import';
+@import 'eve/import';
+//@import 'components/list';
+//@import 'components/slider';
+//@import 'home/home';
+
 
 body, html {
   background-color: $bezel;
@@ -19,7 +24,7 @@ body, html {
   -webkit-user-select: none !important;
 }
 
-svg {
+svg:not([version="1.1"]) {
   position: absolute;
 
   @include svgColor();

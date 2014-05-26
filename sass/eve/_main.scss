@@ -1,0 +1,74 @@
+@import '../common/import';
+
+#eveHomeMainZone {
+
+  .contentLeft {
+    width: 315px;
+
+    .userProfile {
+
+      .greeting {
+        @include alrightSans('bold', 26pt);
+        @include position(194px, 41px, 154px);
+      }
+
+      .efficiencyScore {
+        @include alrightSans('light', 24pt);
+        @include position(435px, 41px, 154px);
+
+        .leaf2 {
+          @include position(0, 50px);
+        }
+
+        .leaf3 {
+          @include position(0, 100px);
+        }
+
+        .leaf4 {
+          @include position(0, 150px);
+        }
+
+        .leaf5 {
+          @include position(0, 200px);
+        }
+
+        .scored {
+          @include svgColor($green);
+        }
+      }
+
+      .userImage {
+        @include position(240px, 41px);
+        width: 154px;
+        height: 175px;
+
+        #userImage {
+          -webkit-filter: grayscale(100%);
+          width: 100%;
+          height: 100%;      
+        }
+      }
+    }
+  }
+
+  .contentRight {
+    @include position(0px, 459px, 315px);
+
+    .improve {
+      @include position(237px, 0, 315px);
+      @include alrightSans('light', 24pt);
+    }
+
+    .improveMessage {
+      @include position(281px, 0, 315px);
+      @include alrightSans('light', 20pt);
+    }
+  }
+}
+
+#eveCostMainZone, #eveMPGEMainZone {
+  
+  .highcharts-container {
+    @include position(245px, 41px);
+  }
+}

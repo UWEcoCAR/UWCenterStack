@@ -45,6 +45,11 @@ var CenterStack = Backbone.Marionette.Application.extend({
     internetRadio: function() {
         var internetRadioHomeScreen = new InternetRadioHomeScreen({ model: this.internetRadioModel });
         centerStack.main.show(internetRadioHomeScreen);
+    },
+
+    eveHome: function() {
+        var eveHomeScreen = new EveHomeScreen({model: this.eveModel});
+        centerStack.main.show(eveHomeScreen);
     }
 
     // Route handlers go here
@@ -58,6 +63,7 @@ centerStack.addInitializer(function() {
     centerStack.musicModel = new MusicModel();
     centerStack.musicUSBModel = new MusicUSBModel();
     centerStack.internetRadioModel = new InternetRadioModel();
+    centerStack.eveModel = new EveModel();
 
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
@@ -68,7 +74,8 @@ centerStack.addInitializer(function() {
             'music/musicUSB' : 'musicUSBHome',
             'music/musicUSB/filteredTrackSelect' : 'filteredTrackSelect',
             'music/musicUSB/filteredAlbumTrackSelect' : 'filteredAlbumTrackSelect',
-            'music/internetRadio' : 'internetRadio'
+            'music/internetRadio' : 'internetRadio',
+            'eve' : 'eveHome'
             // Routes go here
         }
     });

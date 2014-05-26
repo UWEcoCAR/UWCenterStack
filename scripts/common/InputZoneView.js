@@ -7,5 +7,12 @@ var InputZoneView = Backbone.Marionette.ItemView.extend({
         var offsetX = x - $(data.originalEvent.target).offset().left-25;
         var percentageX = offsetX / 750;
         return this._getValidValue(percentageX, 0, 1);
+    },
+
+    _getMovementPercentClick: function(data) {
+        var x = data.originalEvent.pageX;
+        var offsetX = x - $(data.originalEvent.target).offset().left-25;
+        var percentageX = offsetX / 750;
+        return this._getValidValue(percentageX, 0, 1);
     }
 });

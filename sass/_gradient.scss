@@ -6,7 +6,7 @@
   -webkit-transition: background-position .5s linear;
   background-position: 0% 50%;
 
-  svg {
+  svg:not([version="1.1"]) {
     @include svgColor($white);
   }
 

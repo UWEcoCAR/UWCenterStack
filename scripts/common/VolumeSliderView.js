@@ -25,7 +25,22 @@ var VolumeSliderView = SliderView.extend({
         Controllers.Music.setVolume(this._getMovementPercent(data));
     },
 
-    release: function() {},
+    click: function(data) {
+        this.clickMotion = true;
+        data.preventDefault();
+        Controllers.Music.setVolume(this._getMovementPercentClick(data));
+    },
+
+    clickChange: function(data) {
+        if (this.clickMotion) {
+            data.preventDefault();
+            Controllers.Music.setVolume(this._getMovementPercentClick(data));
+        }
+    },
+
+    release: function() {
+        this.clickMotion = false;
+    },
 
     redraw: function() {
         this.$el.toggle(Controllers.Music.isPlaying());

@@ -12,7 +12,7 @@ var PreviousButtonView = ButtonView.extend({
 
     onShow: function() {
         $(this.eventCatcher)
-            .on('touchend.' + this.cid, function() {
+            .on('touchend. mouseup.' + this.cid, function() {
                 if (Controllers.Music.isPlaying()) {
                     Controllers.Music.previous();
                 }

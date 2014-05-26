@@ -8,6 +8,7 @@ $climateControlMargin: 40px;
 
   .temp {
     @include alrightSans('bold', $fontSizeCaptionHeading);
+    font-size: 26pt;
   }
 
   .contentLeft {
