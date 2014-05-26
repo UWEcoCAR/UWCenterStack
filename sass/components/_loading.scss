@@ -45,7 +45,7 @@ $loadingDotDelay: .30s;
 //  }
 //}
 
-#loadingMainZone.run {
+#loadingMainZone {
   .content {
     position: absolute;
     top: 280px;
@@ -65,8 +65,6 @@ $loadingDotDelay: .30s;
       height: $loadingSize;
       opacity: 0;
 
-      -webkit-animation: loadingDots 6s infinite;
-
       .innerDot {
         position: absolute;
         width: $loadingDotDiameter;
@@ -74,6 +72,12 @@ $loadingDotDelay: .30s;
         background: $green;
         border-radius: $loadingDotDiameter/2;
       }
+    }
+  }
+
+  &.run {
+    .dot {
+      -webkit-animation: loadingDots 6s infinite;
     }
 
     @for $i from 1 through $numLoadingDots {

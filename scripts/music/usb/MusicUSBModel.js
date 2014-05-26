@@ -1,4 +1,4 @@
-MusicUSBModel = Backbone.Model.extend({
+var MusicUSBModel = Backbone.Model.extend({
     defaults: {
         artist: '',
         artists: null,

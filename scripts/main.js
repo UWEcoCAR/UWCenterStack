@@ -57,7 +57,7 @@ centerStack.addInitializer(function() {
     centerStack.climateModel = new ClimateControlModel();
     centerStack.musicModel = new MusicModel();
     centerStack.musicUSBModel = new MusicUSBModel();
-    centerStack.internetRadioModel = new Backbone.Model();
+    centerStack.internetRadioModel = new InternetRadioModel();
 
     new Backbone.Marionette.AppRouter({
         controller: centerStack,
@@ -115,7 +115,7 @@ var CanReadWriter = require('uwcenterstack-canreadwriter');
 window.Controllers = {
     User: new UserController(),
     Music: new MusicController(),
-    MusicTree: new (require('../scripts/music/MusicTreeController'))(),
+    MusicTree: new (require('../scripts/music/usb/MusicTreeController'))(),
     Leap: new LeapController(),
     CanReadWriter: CONFIG.FAKE_CAN ? new CanReadWriter.TestCanEmitter() : new CanReadWriter()
 };

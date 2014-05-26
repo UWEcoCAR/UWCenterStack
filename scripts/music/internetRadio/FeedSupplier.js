@@ -18,7 +18,7 @@ FeedSupplier.prototype._init = function(callback) {
         },
         success: function(data) {
             _.each(data.stations, function(station) {
-                self.stations.push(new Backbone.Model(station));
+                self.stations.push(new InternetRadioModel(station));
             });
             callback && callback();
         },

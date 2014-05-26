@@ -4,7 +4,15 @@ var ConnectionChecker = Marionette.Controller.extend({
         this.connected = false;
 
         this.checkConnection();
-        setInterval(_.bind(this.checkConnection, this), 1000);
+    },
+
+    start: function(testUrl, interval) {
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+        this.interval = setInterval(_.bind(function() {
+            this.checkConnection(testUrl);
+        }, this), interval || 1000);
     },
 
     checkConnection: function(testUrl) {
@@ -17,6 +25,12 @@ var ConnectionChecker = Marionette.Controller.extend({
                 this.trigger('connected');
             }
         }, this));
+    },
+
+    stop: function() {
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
     }
 
 });

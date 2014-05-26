@@ -39,6 +39,7 @@ var MusicController = Marionette.Controller.extend({
         }
 
         this.supplier = newSupplier;
+        return this;
     },
 
     start: function() {
@@ -49,6 +50,7 @@ var MusicController = Marionette.Controller.extend({
         this._play(this.supplier.next());
         console.log('MUSIC:START ' + this.getTrack().model.get('src'));
         this.trigger('start', this.getTrack());
+        return this;
     },
 
     stop: function() {
@@ -62,6 +64,7 @@ var MusicController = Marionette.Controller.extend({
         this.trigger('ended', this.getTrack());
         console.log('MUSIC:STOP');
         this.trigger('stop');
+        return this;
     },
 
     play: function() {
@@ -72,6 +75,7 @@ var MusicController = Marionette.Controller.extend({
         if (this.currentlyPlaying) {
             this.currentlyPlaying.element.play();
         }
+        return this;
     },
 
     pause: function() {
@@ -82,6 +86,7 @@ var MusicController = Marionette.Controller.extend({
         if (this.currentlyPlaying) {
             this.currentlyPlaying.element.pause();
         }
+        return this;
     },
 
     next: function() {
@@ -92,6 +97,7 @@ var MusicController = Marionette.Controller.extend({
         var lastTrack = this.getTrack();
         this._next();
         this.trigger('ended', lastTrack);
+        return this;
     },
 
     _next: function() {
@@ -123,6 +129,7 @@ var MusicController = Marionette.Controller.extend({
             console.log('MUSIC:PREVIOUS ' + this.getTrack().model.get('src'));
             this.trigger('previous', this.getTrack());
         }
+        return this;
     },
 
     getTrack: function() {
@@ -147,6 +154,7 @@ var MusicController = Marionette.Controller.extend({
         if (this.currentlyPlaying) {
             this.currentlyPlaying.element.volume = this.volume;
         }
+        return this;
     },
 
     getVolume: function() {

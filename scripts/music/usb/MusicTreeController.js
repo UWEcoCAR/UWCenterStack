@@ -1,5 +1,5 @@
 var id3 = require('id3js');
-var FileFinder = require('../util/FileFinder');
+var FileFinder = require('../../util/FileFinder');
 
 // constructor
 var MusicTree = module.exports = Marionette.Controller.extend({
