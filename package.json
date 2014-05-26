@@ -17,7 +17,8 @@
     "glob": "~3.2.9",
     "leapjs": "~0.5.0",
     "uwcenterstack-canreadwriter": "~1.1.0",
-    "config": "~0.4.35"
+    "config": "~0.4.35",
+    "uwcenterstack-hapticcontroller": "~1.1.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

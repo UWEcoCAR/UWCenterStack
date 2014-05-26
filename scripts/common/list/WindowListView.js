@@ -15,13 +15,13 @@ var WindowListView = ListView.extend({
         var move = 0;
         var moving = false;
 
-        this.vent.on(this.eventSource + ':clickStart ' + this.eventSource + ':touchStart', function(data) {
+        this.vent.on(this.eventSource + ':touchStart', function(data) {
             // resume from current selection
             this.windowStart = this.selection - Math.round(data * this.windowSize);
             self.redraw();
         }, this);
 
-        this.vent.on(this.eventSource + ':clickMove ' + this.eventSource + ':touchMove', function(data) {
+        this.vent.on(this.eventSource + ':touchMove', function(data) {
 
             if (data != 1 && data !== 0) {
                 // no window shifting
@@ -53,7 +53,7 @@ var WindowListView = ListView.extend({
             }
         }, this);
 
-        this.vent.on(this.eventSource + ':clickEnd ' + this.eventSource + ':touchEnd', function() {
+        this.vent.on(this.eventSource + ':touchEnd', function() {
             clearInterval(move);
             moving = false;
             self.vent.trigger(self.eventId + ':select', self.children.findByIndex(self.selection), self.selection);
