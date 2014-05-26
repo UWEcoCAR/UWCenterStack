@@ -18,6 +18,7 @@ var WindowListView = ListView.extend({
         this.vent.on(this.eventSource + ':touchStart', function(data) {
             // resume from current selection
             this.windowStart = this.selection - Math.round(data * this.windowSize);
+            Controllers.Haptic.mainPulse();
             self.redraw();
         }, this);
 
@@ -27,11 +28,14 @@ var WindowListView = ListView.extend({
                 // no window shifting
                 clearInterval(move);
                 moving = false;
-                self.selection = self._getValidValue(Math.round(self.windowSize * data) + this.windowStart, 0, this.numLevels-1);
+                var newSelection = self._getValidValue(Math.round(self.windowSize * data) + this.windowStart, 0, this.numLevels-1);
+                if (self.selection !== newSelection) {
+                    Controllers.Haptic.mainPulse();                 
+                }
+                self.selection = newSelection;
                 self.redraw();
             } else if (data == 1) {
                 // window shifting up
-
                 if (!moving) {
                     move = setInterval(function() {
                         self.selection = Math.min(self.selection + 1, self.numLevels - 1);

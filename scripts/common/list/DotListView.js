@@ -1,6 +1,6 @@
 var DotListView = ListView.extend({
     numDots: 5,
-    selection: 0,
+    selection: -1000,
     itemView: DotListItemView,
     className: 'dotList',
 
@@ -16,13 +16,19 @@ var DotListView = ListView.extend({
         this.numLevels = 100;
 
         var self = this;
-        this.vent.on(this.eventSource + ':touchMove', function(data) {
-            self.selection = Math.round(data * this.numLevels);
+        this.vent.on(this.eventSource + ':touchMove ' + this.eventSource + ':touchStart', function(data) {
+            var newSelection = Math.round(data * this.numLevels);
+            if (Math.round(self.selection / self.numLevels * self.numDots) !== Math.round(newSelection / self.numLevels * self.numDots)) {
+                console.log(self.selection + ' ' + newSelection);
+                Controllers.Haptic.mainPulse();
+            }
+            self.selection = newSelection;
             self.render();
         }, this);
 
         this.vent.on(this.eventSource + ':touchEnd', function() {
             self.vent.trigger(self.eventId + ':select', self.selection);
+            self.selection = -1000;
         }, this);
     },
 
