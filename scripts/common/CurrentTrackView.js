@@ -3,17 +3,20 @@ var CurrentTrackView = Backbone.Marionette.ItemView.extend({
 
 
     initialize: function() {
-    	this.filterState = false;
+        this.filterState = false;
     },
 
     onBeforeRender: function() {
+        if (this.filterState) {
+            return;
+        }
 
-    	// show state of song currently playing unless currently filtering
-    	if (Controllers.Music.isPlaying() && !this.filterState) {
-    		this.model = Controllers.Music.getTrack().model;
-    	} else if (!this.model) {
-    		this.model = new TrackModel();
-    	}
+        // show state of song currently playing unless currently filtering
+        if (Controllers.Music.isPlaying()) {
+            this.model = Controllers.Music.getTrack().model;
+        } else {
+            this.model = new TrackModel();
+        }
     },
 
     onShow: function() {

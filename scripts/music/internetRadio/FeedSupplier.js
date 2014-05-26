@@ -42,6 +42,9 @@ FeedSupplier.prototype._init = function(callback) {
             });
         }, this)
         .on('ended', function(track) {
+            if (!track) {
+                return;
+            }
             console.log('ended ' + track.model.get('id'));
             if (!track || !track.model.get('id')) {
                 return;

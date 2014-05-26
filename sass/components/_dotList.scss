@@ -17,12 +17,12 @@ $dotListLeft: 41px;
   height: $dotDiameter;
   margin-right: $dotMarginRight;
 
-  .circle > * {
+  svg.circle > * {
     fill: none;
     stroke: $white;
   }
 
-  .filled > * {
+  svg.filled > * {
     fill: $white;
   }
 }

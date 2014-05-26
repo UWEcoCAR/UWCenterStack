@@ -47,6 +47,11 @@ var MusicController = Marionette.Controller.extend({
             throw "Supplier must be set.";
         }
 
+        if (this.aux) {
+            this.aux.kill();
+            this.aux = undefined;
+        }
+
         this._play(this.supplier.next());
         console.log('MUSIC:START ' + this.getTrack().model.get('src'));
         this.trigger('start', this.getTrack());
@@ -54,17 +59,42 @@ var MusicController = Marionette.Controller.extend({
     },
 
     stop: function() {
-        if (!this.supplier) {
-            return;
+        if (this.supplier) {
+            this.pause();
+            this.supplier = undefined;
+            this.currentlyPlaying = undefined;
+            this.trigger('ended', this.getTrack());
+            console.log('MUSIC:STOP');
+            this.trigger('stop');
+            return this;
+        } else if (this.aux) {
+            this.aux.kill();
+            this.aux = undefined;
         }
+    },
 
-        this.pause();
-        this.supplier = undefined;
-        this.currentlyPlaying = undefined;
-        this.trigger('ended', this.getTrack());
-        console.log('MUSIC:STOP');
-        this.trigger('stop');
-        return this;
+    startAux: function() {
+        this.stop();
+
+        var exec = require('child_process').exec;
+//        this.aux = spawn('yes');
+        this.aux = exec('gst-launch pulsesrc ! audioconvert ! pulsesink', function(error) {
+            if (error) {
+                console.error('Could not start aux input');
+            }
+        });
+
+//        this.aux.stdout.on('data', function (data) {
+//            console.log('stdout: ' + data);
+//        });
+//
+//        this.aux.stderr.on('data', function (data) {
+//            console.log('stderr: ' + data);
+//        });
+//
+//        this.aux.on('close', function (code) {
+//            console.log('child process exited with code ' + code);
+//        });
     },
 
     play: function() {

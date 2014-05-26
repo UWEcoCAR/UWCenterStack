@@ -57,6 +57,11 @@ MusicHomeScreen = ScreenLayout.extend({
             Backbone.history.navigate('music/musicUSB', { trigger: true});
         }, this);
 
+        this.vent.on('inputZone2:clickLeft', function() {
+            Controllers.Music.startAux();
+            //Backbone.history.navigate('music/aux', { trigger: true});
+        }, this);
+
         this.vent.on('inputZone3:clickLeft', function() {
             Backbone.history.navigate('music/internetRadio', { trigger: true});
         }, this);
