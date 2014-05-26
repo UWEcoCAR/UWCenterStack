@@ -66,9 +66,9 @@
   }
 }
 
-#eveCostMainZone {
+#eveCostMainZone, #eveMPGEMainZone {
   
   .highcharts-container {
-    @include position(250px, 41px);
+    @include position(245px, 41px);
   }
 }

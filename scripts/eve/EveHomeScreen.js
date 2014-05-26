@@ -21,7 +21,7 @@ EveHomeScreen = ScreenLayout.extend({
             vent: this.vent
         });
 
-        this.inputZone2View = new SliderButtonsView({
+        this.inputZone2View = new SliderView({
             eventId: 'inputZone2',
             iconLeft: "#batteryIcon",
             eventCatcher: "#inputZone2EventCatcher",
@@ -78,8 +78,12 @@ EveHomeScreen = ScreenLayout.extend({
             self.render();
         }, this);
 
-        this.vent.on('inputZone3:touchStart', function() {
+       this.vent.on('inputZone2:touchStart inputZone2:clickStart', function() {
+            self.mainZoneView = new EveMPGEMainZone();
+            self.render();
+        }, this);
 
+        this.vent.on('inputZone3:touchStart inputZone3:clickStart', function() {
             self.mainZoneView = new EveCostMainZone();
             self.render();
         }, this);

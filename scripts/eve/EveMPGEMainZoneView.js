@@ -1,4 +1,4 @@
-var EveCostMainZoneView = Backbone.Marionette.ItemView.extend({
+var EveMPGEMainZoneView = Backbone.Marionette.ItemView.extend({
     template: '#eveCostScreenTemplate',
 
     initialize: function(options) {
@@ -53,7 +53,7 @@ var EveCostMainZoneView = Backbone.Marionette.ItemView.extend({
                 color: 'rgb(255,255,255)',
                 title: {
                     align: 'high',
-                    text: '$$$',
+                    text: 'MPGE',
                     offset: 0,
                     rotation: 0,
                     x: 15,

@@ -18,12 +18,32 @@ var SliderView = InputZoneView.extend({
     },
 
     change: function(data) {
+        console.log(this);
         this.moveStart = undefined;
         data.preventDefault();
         this.vent.trigger(this.eventId + ':touchMove', this._getMovementPercent(data));
     },
 
     release: function(data) {
+        if (this.moveStart && moment().diff(this.moveStart) < _.sliderDotThreshold()) {
+            this.triggerDots();
+        }
+        this.vent.trigger(this.eventId + ':touchEnd', data);
+    },
+
+    click: function(data) {
+        this.moveStart = moment();
+        data.preventDefault();
+        this.vent.trigger(this.eventId + ':clickStart', this._getMovementPercentClick(data));
+    },
+
+    clickChange: function(data) {
+        this.moveStart = undefined;
+        data.preventDefault();
+        this.vent.trigger(this.eventId + ':clickMove', this._getMovementPercentClick(data));
+    },
+
+    clickRelease: function(data) {
         if (this.moveStart && moment().diff(this.moveStart) < _.sliderDotThreshold()) {
             this.triggerDots();
         }
@@ -43,6 +63,9 @@ var SliderView = InputZoneView.extend({
 
     onShow: function() {
         $(this.eventCatcher)
+            .on('mousedown.' + this.cid, (_.bind(this.click, this)))
+            .on('mousemove.' + this.cid, (_.bind(this.clickChange, this)))
+            .on('mouseup.' + this.cid, (_.bind(this.clickRelease, this)))
             .on('touchstart.' + this.cid, (_.bind(this.touch, this)))
             .on('touchmove.' + this.cid, (_.bind(this.change, this)))
             .on('touchend.' + this.cid, (_.bind(this.release, this)));

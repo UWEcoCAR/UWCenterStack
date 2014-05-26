@@ -4,7 +4,7 @@ var EveHomeMainZone = MainZoneLayout.extend({
 
     initialize: function() {
         this.userInfo = Controllers.User.getUser();
-        this.clockView = new ClockView({title: 'TEMP'});
+        this.clockView = new ClockView({title: 'EVE'});
         var homeModel = new EveModel();
         homeModel.set('greeting', 'hi ' + this.userInfo.get('firstName'));
         homeModel.set('userImage', this.userInfo.get('userImage'));

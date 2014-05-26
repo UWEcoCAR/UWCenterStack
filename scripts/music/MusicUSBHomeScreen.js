@@ -187,28 +187,28 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         });
 
         // starting to slide the sliders
-        this.vent.on('inputZone1:touchStart', function() {
+        this.vent.on('inputZone1:touchStart inputZone1:clickStart', function() {
             self.renderedMainZoneView = playlistView;
             self.backgroundIconView = new BackgroundIconView({icon: '#playlistIcon'});
             self.render();
         }, this);
 
         // starting to slide the sliders
-        this.vent.on('inputZone2:touchStart', function() {
+        this.vent.on('inputZone2:touchStart inputZone2:clickStart', function() {
             self.resetCollection(artistCollection, self.model.get('artists'));
             self.renderedMainZoneView = artistListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#artistIcon'});
             self.render();
         }, this);
 
-        this.vent.on('inputZone3:touchStart', function() {
+        this.vent.on('inputZone3:touchStart inputZone3:clickStart', function() {
             self.resetCollection(albumCollection, self.model.get('albums'));
             self.renderedMainZoneView = albumListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#albumIcon'});
             self.render();
         }, this);
 
-        this.vent.on('inputZone4:touchStart', function() {
+        this.vent.on('inputZone4:touchStart inputZone4:clickStart', function() {
             self.resetCollection(trackCollection, self.model.get('tracks'));
             self.renderedMainZoneView = trackListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#songIcon'});
@@ -216,7 +216,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
         }, this);
 
         // update main view back to default music USB
-        this.vent.on('inputZone4:touchEnd', function() {
+        this.vent.on('inputZone4:touchEnd inputZone4:clickEnd', function() {
             self.renderedMainZoneView = self.mainZoneView;
             self.backgroundIconView = new BackgroundIconView({icon: '#musicIcon'});
             self.render();
@@ -224,11 +224,11 @@ MusicUSBHomeScreen = ScreenLayout.extend({
 
 
         // update main view back to filtered music USB
-        this.vent.on('inputZone1:touchEnd inputZone3:touchEnd', function() {
+        this.vent.on('inputZone1:touchEnd inputZone3:touchEnd inputZone1:clickEnd inputZone3:clickEnd', function() {
             Backbone.history.navigate('music/musicUSB/filteredTrackSelect', { trigger: true});
         }, this);
 
-        this.vent.on('inputZone2:touchEnd', function() {
+        this.vent.on('inputZone2:touchEnd inputZone3:clickEnd', function() {
             Backbone.history.navigate('music/musicUSB/filteredAlbumTrackSelect', { trigger: true});
         }, this);
 

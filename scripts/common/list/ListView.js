@@ -11,12 +11,12 @@ var ListView = Backbone.Marionette.CollectionView.extend({
         this.numLevels = options.numLevels;
     
         var self = this;
-        this.vent.on(this.eventSource + ':touchMove ' + this.eventSource + ':touchStart', function(data) {
+        this.vent.on(this.eventSource + ':clickMove ' + this.eventSource + ':touchMove ' + this.eventSource + ':clickStart '  + this.eventSource + ':touchStart', function(data) {
             self.selection = Math.min(Math.round((this.numLevels+1) * data), this.numLevels);
             self.redraw();
         }, this);
 
-        this.vent.on(this.eventSource + ':touchEnd', function() {
+        this.vent.on(this.eventSource  + ':clickEnd ' + this.eventSource + ':touchEnd', function() {
             self.vent.trigger(self.eventId + ':select', self.children.findByIndex(self.selection), self.selection);
         }, this);
     },

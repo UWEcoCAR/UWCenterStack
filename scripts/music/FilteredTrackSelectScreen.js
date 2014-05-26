@@ -102,7 +102,7 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
             trackCollection.push({text: track.get('name')});
         });
 
-        this.vent.on('inputZone4:touchStart', function() {
+        this.vent.on('inputZone4:touchStart inputZone4:clickStart', function() {
             self.resetCollection(trackCollection, self.model.get('tracks'));
             self.renderedMainZoneView = trackListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#songIcon'});
@@ -110,7 +110,7 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
         }, this);
 
 
-        this.vent.on('inputZone4:touchEnd', function() {
+        this.vent.on('inputZone4:touchEnd inputZone4:clickEnd', function() {
             if (artistSelected) {
                 window.history.go(-2);
             } else {

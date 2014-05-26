@@ -135,17 +135,17 @@ ClimateHomeScreen = ScreenLayout.extend({
     onShow: function() {
 
         // starting to slide the sliders
-        this.vent.on('inputZone2:touchStart', function() {
+        this.vent.on('inputZone2:touchStart inputZone2:clickStart', function() {
             this.mainZoneContent.show(this.temperatureListView);
             this.backgroundIconContent.show(new BackgroundIconView({icon: '#temperatureIcon'}));
         }, this);
 
-        this.vent.on('inputZone3:touchStart', function() {
+        this.vent.on('inputZone3:touchStart inputZone3:clickStart', function() {
             this.mainZoneContent.show(this.fanSpeedListView);
             this.backgroundIconContent.show(new BackgroundIconView({icon: '#fanIcon'}));
         }, this);
 
-        this.vent.on('inputZone4:touchStart', function() {
+        this.vent.on('inputZone4:touchStart inputZone4:clickStart', function() {
             this.mainZoneContent.show(this.airFlowListView);
             this.backgroundIconContent.show(new BackgroundIconView({icon: '#airFlowIcon'}));
         }, this);

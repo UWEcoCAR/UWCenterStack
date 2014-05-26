@@ -1,16 +1,16 @@
-var EveCostMainZone = MainZoneLayout.extend({
-    id: 'eveCostMainZone',
+var EveMPGEMainZone = MainZoneLayout.extend({
+    id: 'eveMPGEMainZone',
 
     initialize: function() {
-        this.clockView = new ClockView({title: 'Cost Graph'});
+        this.clockView = new ClockView({title: 'MPGE Graph'});
 
         // fake mpge collection
-        var costCollection = [];
+        var mpgeCollection = [];
         for (var i = 0; i <= 30; i++) {
             var val = Math.floor(Math.random() * 60) + 20;
-            costCollection[i] = val;
+            mpgeCollection[i] = val;
         }
-        this.contentView = new EveCostMainZoneView({data: costCollection});
+        this.contentView = new EveMPGEMainZoneView({data: mpgeCollection});
     },
 
     onShow: function() {

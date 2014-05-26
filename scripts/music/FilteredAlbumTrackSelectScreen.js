@@ -109,14 +109,14 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
             albumCollection.push({text: album.get('name')});
         });
 
-        this.vent.on('inputZone4:touchStart', function() {
+        this.vent.on('inputZone4:touchStart inputZone4:clickStart', function() {
             self.resetCollection(trackCollection, self.model.get('tracks'));
             self.renderedMainZoneView = trackListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#songIcon'});
             self.render();
         }, this);
 
-        this.vent.on('inputZone4:touchEnd', function() {
+        this.vent.on('inputZone4:touchEnd inputZone4:clickEnd', function() {
             window.history.back();
         }, this);
 
@@ -133,14 +133,14 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
             self.resetModel();
         }, this);
 
-        this.vent.on('inputZone3:touchStart', function() {
+        this.vent.on('inputZone3:touchStart inputZone3:clickStart', function() {
             self.resetCollection(albumCollection, self.model.get('albums'));
             self.renderedMainZoneView = albumListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#albumIcon'});
             self.render();
         }, this);
 
-        this.vent.on('inputZone3:touchEnd', function() {
+        this.vent.on('inputZone3:touchEnd inputZone3:clickEnd', function() {
            Backbone.history.navigate('music/musicUSB/filteredTrackSelect', { trigger: true});
         }, this);
 
