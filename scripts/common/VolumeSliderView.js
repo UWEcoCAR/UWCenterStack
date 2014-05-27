@@ -6,7 +6,11 @@ var VolumeSliderView = SliderView.extend({
             eventCatcher: '#volumeSliderZoneEventCatcher',
 
         }, options)]);
-        this.vibrationSelection = -1;
+        this.vibrationSelection = Math.round(Controllers.Music.getVolume() * 30);
+        this.proportionalSelection = this.vibrationSelection;
+
+        this.moving = false;
+        this.move = 0;
     },
 
     onShow: function() {
@@ -27,29 +31,57 @@ var VolumeSliderView = SliderView.extend({
     },
 
     click: function(data) {
+
+        Controllers.Haptic.mainPulse();
         this.clickMotion = true;
-        data.preventDefault();
-        var newVibrationSelection =  Math.round(this._getMovementPercentClick(data) * 30);
-        if (this.vibrationSelection !== newVibrationSelection) {
-            Controllers.Haptic.mainPulse();
-            this.vibrationSelection = newVibrationSelection;
-        }
-        Controllers.Music.setVolume(this._getMovementPercentClick(data));
+        this.proportionalSelection = Math.round(this._getMovementPercentClick(data) * 30);
     },
 
     clickChange: function(data) {
+        var percentageData = this._getMovementPercentClick(data);
+        var self = this;
         if (this.clickMotion) {
-            data.preventDefault();
-            var newVibrationSelection =  Math.round(this._getMovementPercentClick(data) * 30);
-            if (this.vibrationSelection !== newVibrationSelection) {
-                Controllers.Haptic.mainPulse();
-                this.vibrationSelection = newVibrationSelection;
+            if (percentageData !== 0 && percentageData !==1 ) {
+                this.moving = false;
+                data.preventDefault();
+                var newVibrationSelection =  this.vibrationSelection + Math.round(percentageData * 30) - this.proportionalSelection;
+                this.proportionalSelection = Math.round(percentageData * 30);
+                if (this.vibrationSelection !== newVibrationSelection) {
+                    Controllers.Haptic.mainPulse();
+                    this.vibrationSelection = this._getValidValue(newVibrationSelection, 0, 30);
+
+                }
+                Controllers.Music.setVolume(this.vibrationSelection/30);
+            } else if (percentageData === 1) {
+                if (!this.moving) {
+                  this.move = setInterval(function() {
+                        if (self.vibrationSelection < 30) {
+                            self.vibrationSelection++;
+                            self.proportionalSelection = Math.min(self.proportionalSelection+1, 30);
+                        }
+                        Controllers.Music.setVolume(self.vibrationSelection/30);
+                    }, 500);
+                    this.moving = true;
+                }
+
+            } else {
+                if (!this.moving) {
+                    this.move = setInterval(function() {
+                        if (self.vibrationSelection > 0) {
+                            self.vibrationSelection--;
+                            self.proportionalSelection = Math.max(self.proportionalSelection-1, 0);
+                        }
+                        Controllers.Music.setVolume(self.vibrationSelection/30);
+                    }, 500);
+                    this.moving = true;
+                }
             }
-            Controllers.Music.setVolume(this._getMovementPercentClick(data));
         }
     },
 
     release: function() {
+        clearInterval(this.move);
+        this.moving = false;
         this.clickMotion = false;
     },
 
