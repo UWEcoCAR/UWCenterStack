@@ -145,3 +145,23 @@ $bottomZonesTop: 1177px;
     @include positionRight($bottomIconTop, $rightIconRight);
   }
 }
+
+#gearLeverPositionContent {
+  .gearLeverPositionView {
+    @include positionCenteredHorizontal(300px, 200px, 200px);
+    background-color: $gray;
+    border-radius: 40px;
+    opacity: 0;
+    -webkit-transition: opacity .5s linear;
+
+    .label {
+      @include alrightSans('extrathin', $fontSizeGearLeverPosition, $white);
+      text-align: center;
+      line-height: 200px;
+    }
+
+    &.show {
+      opacity: .5;
+    }
+  }
+}

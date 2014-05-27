@@ -33,6 +33,7 @@ HomeScreen = ScreenLayout.extend({
         this.inputZone2Content.show(this.inputZone2View);
         this.inputZone3Content.show(this.inputZone3View);
         this.inputZone4Content.show(this.inputZone4View);
+        this.gearLeverPositionContent.show(new GearLeverPositionView());
     },
 
     onBeforeClose: function() {
