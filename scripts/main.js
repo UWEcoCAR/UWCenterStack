@@ -125,7 +125,7 @@ window.Controllers = {
     MusicTree: new (require('../scripts/music/usb/MusicTreeController'))(),
     Leap: new LeapController(),
     CanReadWriter: CONFIG.FAKE_CAN ? new CanReadWriter.TestCanEmitter() : new CanReadWriter(),
-    Haptic: new HapticController('/dev/ttyACM0')
+    Haptic: CONFIG.FAKE_HAPTIC ? new FakeHapticController() : new HapticController('/dev/ttyACM0')
 };
 
 centerStack.on('start', function() {

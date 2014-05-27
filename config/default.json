@@ -4,6 +4,7 @@
     "LEAP_ACTIVE_ZONE_SIZE": [200, 200, 200],
     "LEAP_INVERT": false,
     "FAKE_CAN": false,
+    "FAKE_HAPTIC": false,
     "MEDIA_PATH": "~/Downloads",
     "CAN_LOGS_DRIVE": "~/Downloads"
 }
