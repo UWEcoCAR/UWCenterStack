@@ -14,6 +14,7 @@ var ScreenLayout = Backbone.Marionette.Layout.extend({
         inputZone5Content: '#inputZone5Content',
         volumeSliderZoneContent: '#volumeSliderZoneContent',
         playPauseButtonZoneContent: '#playPauseButtonZoneContent',
-        nextButtonZoneContent: '#nextButtonZoneContent'
+        nextButtonZoneContent: '#nextButtonZoneContent',
+        gearLeverPositionContent: '#gearLeverPositionContent'
     }
 });
