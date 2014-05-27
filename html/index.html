@@ -47,9 +47,10 @@
                 win.enterKioskMode();
 
                 $('html').addClass('production');
+                $('html').css('cursor', 'none');
                 win.zoomLevel = 0;
             }
-        </script>
+        </script> 
 
         <script>
             var win = require('nw.gui').Window.get();
