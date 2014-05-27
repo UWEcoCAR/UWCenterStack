@@ -118,14 +118,13 @@ centerStack.addRegions({
 });
 
 var CanReadWriter = require('uwcenterstack-canreadwriter');
-var HapticController = require('uwcenterstack-hapticcontroller');
 window.Controllers = {
     User: new UserController(),
     Music: new MusicController(),
     MusicTree: new (require('../scripts/music/usb/MusicTreeController'))(),
     Leap: new LeapController(),
     CanReadWriter: CONFIG.FAKE_CAN ? new CanReadWriter.TestCanEmitter() : new CanReadWriter(),
-    Haptic: CONFIG.FAKE_HAPTIC ? new FakeHapticController() : new HapticController('/dev/ttyACM0')
+    Haptic: CONFIG.FAKE_HAPTIC ? new FakeHapticController() : new (require('uwcenterstack-hapticcontroller'))('/dev/ttyACM0')
 };
 
 centerStack.on('start', function() {
