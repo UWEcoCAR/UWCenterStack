@@ -156,12 +156,12 @@ ClimateHomeScreen = ScreenLayout.extend({
             var temp = data.model.get('text');
             var tempPercent = Math.round(((Number(temp) - 60)/30) * 100);
             if (selection === 0) {
-                Controllers.CanReadWriter.writeHs('hvacCommand', 1);
+                Controllers.CanReadWriter.write('hvACOn', 1);
                 this.model.set('ac', 1);
                 this.model.set('driverTemp', temp);
                 this.model.set('passengerTemp', temp);
             } else if (this.model.get('ac') === 1) {
-                Controllers.CanReadWriter.writeHs('hvacCommand', 0);
+                Controllers.CanReadWriter.write('hvACOn', 0);
                 this.model.set('ac', 0);
                 this.model.set('driverTemp', temp);
                 Controllers.CanReadWriter.write('driverTemp', tempPercent);

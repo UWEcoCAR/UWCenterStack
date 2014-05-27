@@ -12,10 +12,9 @@ var ListView = Backbone.Marionette.CollectionView.extend({
     
         var self = this;
         this.vent.on(this.eventSource + ':touchMove ' + this.eventSource + ':touchStart', function(data) {
-            //Controllers.Haptic.mainPulse();
             if (self.selection != Math.min(Math.round((this.numLevels+1) * data), this.numLevels)) {
-  Controllers.Haptic.mainPulse();
-}
+                Controllers.Haptic.mainPulse();
+            }
             self.selection = Math.min(Math.round((this.numLevels+1) * data), this.numLevels);
             self.redraw();
         }, this);

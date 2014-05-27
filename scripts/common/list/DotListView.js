@@ -19,7 +19,6 @@ var DotListView = ListView.extend({
         this.vent.on(this.eventSource + ':touchMove ' + this.eventSource + ':touchStart', function(data) {
             var newSelection = Math.round(data * this.numLevels);
             if (Math.round(self.selection / self.numLevels * self.numDots) !== Math.round(newSelection / self.numLevels * self.numDots)) {
-                console.log(self.selection + ' ' + newSelection);
                 Controllers.Haptic.mainPulse();
             }
             self.selection = newSelection;

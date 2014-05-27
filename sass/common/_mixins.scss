@@ -68,7 +68,7 @@
   * {
     stroke: $color;
 
-    &:not([fill="none"]) {
+    &:not([fill="none"]):not([r="22.5"]) {
       fill: $color;
       stroke: none;
     }
