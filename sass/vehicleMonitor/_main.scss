@@ -1,0 +1,7 @@
+@import '../common/import';
+
+#vehicleMonitorMainZone {
+  .content {
+    @include position(300px, 41px, 100%);
+  }
+}

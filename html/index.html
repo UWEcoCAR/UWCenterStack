@@ -35,9 +35,7 @@
             global.Backbone = Backbone;
             global.Marionette = Marionette;
             global.moment = moment;
-            console.log(process.env);
             window.CONFIG = global.CONFIG = require('config');
-            console.log(process.env.NODE_ENV);
         </script>
 
         <!-- Open in Kiosk mode in production -->
@@ -149,6 +147,27 @@
                 <div class="name"><%= name %></div>
                 <div class="artist"><%= artistName %></div>
             </div>
+        </script>
+
+        <script id="vehicleMonitorTemplate" type="text/html">
+            <section class="battery">
+                <div class="sectionTitle">Battery</div>
+                <div class="signal">
+                    <span class="label">Voltage:</span>
+                    <span class="value"><%= batteryVoltage %></span>
+                    <span class="unit">V</span>
+                </div>
+                <div class="signal">
+                    <span class="label">Current:</span>
+                    <span class="value"><%= batteryCurrent %></span>
+                    <span class="unit">A</span>
+                </div>
+                <div class="signal">
+                    <span class="label">SOC:</span>
+                    <span class="value"><%= batterySoc %></span>
+                    <span class="unit">%</span>
+                </div>
+            </section>
         </script>
 
         <script id="currentMusicSelectionTemplate" type="text/html">
@@ -287,6 +306,10 @@
         <script src="../scripts/eve/EveCostMainZoneView.js"></script>
         <script src="../scripts/eve/EveCostMainZone.js"></script>
         <script src="../scripts/eve/EveHomeScreen.js"></script>
+        <script src="../scripts/vehicleMonitor/VehicleMonitorModel.js"></script>
+        <script src="../scripts/vehicleMonitor/VehicleMonitorMainZoneView.js"></script>
+        <script src="../scripts/vehicleMonitor/VehicleMonitorMainZone.js"></script>
+        <script src="../scripts/vehicleMonitor/VehicleMonitorHomeScreen.js"></script>
 
         <!-- Javascript entry point -->
         <script src="../scripts/main.js"></script>
