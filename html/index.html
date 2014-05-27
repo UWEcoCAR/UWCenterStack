@@ -35,7 +35,9 @@
             global.Backbone = Backbone;
             global.Marionette = Marionette;
             global.moment = moment;
+            console.log(process.env);
             window.CONFIG = global.CONFIG = require('config');
+            console.log(process.env.NODE_ENV);
         </script>
 
         <!-- Open in Kiosk mode in production -->

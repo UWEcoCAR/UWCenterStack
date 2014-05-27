@@ -4,7 +4,7 @@ var GearLeverPositionView = Backbone.Marionette.ItemView.extend({
     template: '#gearLeverPositionTemplate',
 
     initialize: function(options) {
-        this.gearPosition = -2;
+        this.gearPosition = 1;
     },
 
     onRender: function() {
@@ -27,10 +27,12 @@ var GearLeverPositionView = Backbone.Marionette.ItemView.extend({
 
         var gearLabel;
         switch (this.gearPosition) {
-            case -2: gearLabel = 'P'; break;
-            case -1: gearLabel = 'R'; break;
-            case 0: gearLabel = 'N'; break;
-            default: gearLabel = 'D'; break;
+            case 1: gearLabel = 'P'; break;
+            case 2: gearLabel = 'R'; break;
+            case 3: gearLabel = 'N'; break;
+            case 4: gearLabel = 'D'; break;
+            case 5: gearLabel = 'M'; break;
+            default: gearLabel = ''; break;
         }
 
         this.$el.find('.label').html(gearLabel);

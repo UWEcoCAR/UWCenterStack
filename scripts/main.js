@@ -128,9 +128,9 @@ window.Controllers = {
 };
 
 centerStack.on('start', function() {
-    Controllers.Haptic.setUp();
     Controllers.Gradient = new GradientController();
-
+    Controllers.Haptic.setUp();
+    
 
 });
 
