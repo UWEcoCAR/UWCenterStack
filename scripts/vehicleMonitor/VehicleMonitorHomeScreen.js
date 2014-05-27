@@ -1,4 +1,4 @@
-ClimateHomeScreen = ScreenLayout.extend({
+VehicleMonitorHomeScreen = ScreenLayout.extend({
 
     initialize: function(options) {
 
@@ -33,9 +33,9 @@ ClimateHomeScreen = ScreenLayout.extend({
 
     onShow: function() {
         this.interval = setInterval(_.bind(function() {
-            this.model.set('batteryVoltage', Controllers.CanReadWriter.getMail('batteryVoltage'));
-            this.model.set('batteryCurrent', Controllers.CanReadWriter.getMail('batteryCurrent'));
-            this.model.set('batterySoc', Controllers.CanReadWriter.getMail('batterySoc'));
+            this.model.set('batteryVoltage', Controllers.CanReadWriter.getMail('batteryVoltage').toFixed(1));
+            this.model.set('batteryCurrent', Controllers.CanReadWriter.getMail('batteryCurrent').toFixed(2));
+            this.model.set('batterySoc', Controllers.CanReadWriter.getMail('batterySoc').toFixed(1));
             this.mainZoneContent.show(this.mainZoneView);
         }, this), 2000);
     },

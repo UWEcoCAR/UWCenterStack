@@ -50,6 +50,11 @@ var CenterStack = Backbone.Marionette.Application.extend({
     eveHome: function() {
         var eveHomeScreen = new EveHomeScreen({model: this.eveModel});
         centerStack.main.show(eveHomeScreen);
+    },
+
+    vehicleMonitor: function() {
+        var vehicleMonitorHomeScreen = new VehicleMonitorHomeScreen();
+        centerStack.main.show(vehicleMonitorHomeScreen);
     }
 
     // Route handlers go here
@@ -75,7 +80,8 @@ centerStack.addInitializer(function() {
             'music/musicUSB/filteredTrackSelect' : 'filteredTrackSelect',
             'music/musicUSB/filteredAlbumTrackSelect' : 'filteredAlbumTrackSelect',
             'music/internetRadio' : 'internetRadio',
-            'eve' : 'eveHome'
+            'eve' : 'eveHome',
+            'vehicleMonitor' : 'vehicleMonitor'
             // Routes go here
         }
     });

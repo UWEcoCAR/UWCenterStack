@@ -50,8 +50,11 @@ HomeScreen = ScreenLayout.extend({
         }, this);
 
         this.vent.on('inputZone3:clickLeft', function() {
-            console.log('hola');
             Backbone.history.navigate('eve', { trigger: true });
+        }, this);
+
+        this.vent.on('inputZone4:clickLeft', function() {
+            Backbone.history.navigate('vehicleMonitor', { trigger: true });
         }, this);
 
 
