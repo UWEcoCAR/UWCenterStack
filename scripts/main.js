@@ -130,8 +130,10 @@ window.Controllers = {
     MusicTree: new (require('../scripts/music/usb/MusicTreeController'))(),
     Leap: new LeapController(),
     CanReadWriter: CONFIG.FAKE_CAN ? new CanReadWriter.TestCanEmitter() : new CanReadWriter(),
-    Haptic: CONFIG.FAKE_HAPTIC ? new FakeHapticController() : new (require('uwcenterstack-hapticcontroller'))('/dev/ttyACM0')
+    Haptic: CONFIG.FAKE_HAPTIC ? new FakeHapticController() : new (require('uwcenterstack-hapticcontroller'))('/dev/ttyACM0'),
 };
+
+Controllers.CanLogger = new CanLoggerController({canEventEmitter: Controllers.CanReadWriter});
 
 centerStack.on('start', function() {
     Controllers.Gradient = new GradientController();

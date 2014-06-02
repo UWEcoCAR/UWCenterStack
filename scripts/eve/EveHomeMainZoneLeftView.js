@@ -12,6 +12,6 @@ var EveHomeMainZoneLeftView = Backbone.Marionette.ItemView.extend({
     		this.$el.find('.leaf' + i).addClass('scored');
     	}
 
-    	this.$el.find('#userImage').attr('src', process.env.MEDIA_PATH + "/" + this.model.get('userImage'));
+    	this.$el.find('#userImage').attr('src', CONFIG.MEDIA_PATH + "/" + this.model.get('userImage'));
     }
 });

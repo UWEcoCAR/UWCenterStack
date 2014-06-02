@@ -9,7 +9,9 @@
 
       .greeting {
         @include alrightSans('bold', 26pt);
-        @include position(194px, 41px, 154px);
+        @include position(194px, 41px);
+        text-transform:lowercase;
+        white-space: nowrap;
       }
 
       .efficiencyScore {
