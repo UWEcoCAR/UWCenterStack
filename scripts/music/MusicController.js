@@ -151,14 +151,10 @@ var MusicController = Marionette.Controller.extend({
             throw "Supplier must be set.";
         }
 
-        if (this.currentlyPlaying && this.currentlyPlaying.element.currentTime > 3) {
-            this.currentlyPlaying.element.currentTime = 0;
-            this.currentlyPlaying.element.play();
-        } else {
+  
             this._play(this.supplier.previous());
             console.log('MUSIC:PREVIOUS ' + this.getTrack().model.get('src'));
             this.trigger('previous', this.getTrack());
-        }
         return this;
     },
 
