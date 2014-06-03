@@ -50,7 +50,7 @@ module.exports = function(grunt) {
         shell: {
             nodeWebkitDev: {
                 command: isPlatform('darwin') ? 'NODE_ENV=' + (grunt.option('nodeEnv') || 'development') + ' open -n -a /Applications/node-webkit.app ""' :
-                         isPlatform('linux') ? 'export NODE_ENV=' + (grunt.option('nodeEnv') || 'development') + ' && sudo ./nw/nw .' :
+                         isPlatform('linux') ? 'export NODE_ENV=' + (grunt.option('nodeEnv') || 'production') + ' && sudo ./nw/nw .' :
                          isPlatform('win64') || isPlatform('win32') ? 'set NODE_ENV=development&&start nw/nw.exe .' : ''
             }
         }
