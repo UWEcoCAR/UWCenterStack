@@ -138,6 +138,8 @@ setInterval(function() {
     Controllers.CanReadWriter.writeHs('hvacCommand', Controllers.HvacCommand);
 }, 1000);
 
+Controllers.CanLogger = new CanLoggerController({canEventEmitter: Controllers.CanReadWriter});
+
 centerStack.on('start', function() {
     Controllers.Gradient = new GradientController();
     Controllers.Haptic.setUp();
