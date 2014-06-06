@@ -119,9 +119,10 @@ var CanLoggerController = Marionette.Controller.extend({
         this.LOG_ACCURACY = 10; // ms +/- the second mark
 
         this._initializeEventHandlers(options.canEventEmitter);
+        this.filepath = options.filepath;
 
         // Watch for the can logs drive to be added
-        this.fileWatcher = new FileWatcher({filepath: CONFIG.CAN_LOGS_DRIVE})
+        this.fileWatcher = new FileWatcher({filepath: this.filepath})
             .on('connected', _.bind(function(filepath) {
                 // Wait a few seconds for the external drive
                 // to be fully initialized before created log file
@@ -144,7 +145,7 @@ var CanLoggerController = Marionette.Controller.extend({
      * Returns the write stream
      */
     _createFile: function() {
-        return fs.createWriteStream(CONFIG.CAN_LOGS_DRIVE + '/' + this.startTime.format('MM-DD-YY HH_mm_ss') + '.txt');
+        return fs.createWriteStream(this.filepath + '/' + this.startTime.format('MM-DD-YY HH_mm_ss') + '.txt');
     },
 
     /**

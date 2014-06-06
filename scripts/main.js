@@ -138,7 +138,8 @@ setInterval(function() {
     Controllers.CanReadWriter.writeHs('hvacCommand', Controllers.HvacCommand);
 }, 1000);
 
-Controllers.CanLogger = new CanLoggerController({canEventEmitter: Controllers.CanReadWriter});
+Controllers.CanLogger = new CanLoggerController({canEventEmitter: Controllers.CanReadWriter, filepath: CONFIG.CAN_LOGS_DRIVE});
+Controllers.CanLoggerBackup = new CanLoggerController({canEventEmitter: Controllers.CanReadWriter, filepath: CONFIG.CAN_LOGS_BACKUP_DRIVE});
 
 centerStack.on('start', function() {
     Controllers.Gradient = new GradientController();
