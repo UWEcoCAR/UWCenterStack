@@ -55,6 +55,10 @@ $leapBoxPadding: 10px;
       &.fadeIn {
         opacity: 1;
       }
+
+      &.active {
+        background: $green;
+      }
     }
 
     &.fadeIn {

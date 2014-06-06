@@ -5,21 +5,17 @@ var LeapView = Backbone.Marionette.ItemView.extend({
 
     initialize: function() {
         this.listenTo(Controllers.Leap, 'enterState:INSIDE_ACTIVE_ZONE', function() {
-            if (Controllers.Music.isPlaying()) {
-                //this.$el.addClass('fadeIn');
-            }
+            this.render();
+            Controllers.Gradient.redraw();
+            this.$el.find('.dot').addClass('fadeIn');
+            this.$el.addClass('fadeIn');
         });
         this.listenTo(Controllers.Leap, 'enterState:GESTURE_MODE', function() {
-            //if (Controllers.Music.isPlaying()) {
-                this.render();
-                Controllers.Gradient.redraw();
-                this.$el.find('.dot').addClass('fadeIn');
-                this.$el.addClass('fadeIn');
-            //}
+            this.$el.find('.dot').addClass('active');
         });
         this.listenTo(Controllers.Leap, 'enterState:OUTSIDE_ACTIVE_ZONE', function() {
             this.$el.removeClass('fadeIn');
-            this.$el.find('.dot').removeClass('fadeIn');
+            this.$el.find('.dot').removeClass('fadeIn').removeClass('active');
         });
         this.listenTo(Controllers.Leap, 'position', function(position) {
             this.$el.find('.dot').css('-webkit-transform', 'translateX(' + position.x * 200 + 'px) translateY(' + -position.y * 200 + 'px) scale(' + (1 + position.z * 0.5) + ')');
@@ -35,6 +31,7 @@ var LeapView = Backbone.Marionette.ItemView.extend({
             }
         });
         this.listenTo(Controllers.Leap, 'gesture:up', function() {
+            console.log('up');
             Controllers.Gradient.toggle();
             console.log('toggle');
 //            if (Controllers.Music.isPlaying()) {
