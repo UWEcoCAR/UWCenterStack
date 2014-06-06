@@ -87,5 +87,11 @@ EveHomeScreen = ScreenLayout.extend({
             self.mainZoneView = new EveCostMainZone();
             self.render();
         }, this);
+
+        this.vent.on('inputZone5:clickLeft', function() {
+            self.mainZoneView = new EveMapMainZone();
+            self.render();
+        }, this);
+
     }
 });
