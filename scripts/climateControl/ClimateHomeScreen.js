@@ -138,16 +138,19 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.vent.on('inputZone2:touchStart', function() {
             this.mainZoneContent.show(this.temperatureListView);
             this.backgroundIconContent.show(new BackgroundIconView({icon: '#temperatureIcon'}));
+            this.volumeSliderZoneContent.close();
         }, this);
 
         this.vent.on('inputZone3:touchStart', function() {
             this.mainZoneContent.show(this.fanSpeedListView);
             this.backgroundIconContent.show(new BackgroundIconView({icon: '#fanIcon'}));
+            this.volumeSliderZoneContent.close();
         }, this);
 
         this.vent.on('inputZone4:touchStart', function() {
             this.mainZoneContent.show(this.airFlowListView);
             this.backgroundIconContent.show(new BackgroundIconView({icon: '#airFlowIcon'}));
+            this.volumeSliderZoneContent.close();
         }, this);
 
         // updating model after temperature selection
@@ -197,6 +200,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.vent.on('inputZone2:touchEnd inputZone3:touchEnd inputZone4:touchEnd', function() {
             this.mainZoneContent.show(this.mainZoneView);
             this.backgroundIconContent.show(this.backgroundIconView);
+            this.volumeSliderZoneContent.show(this.volumeSliderView);
         }, this);
 
         // updating model after driver/passenger selection

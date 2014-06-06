@@ -36,6 +36,7 @@ var LeapView = Backbone.Marionette.ItemView.extend({
         });
         this.listenTo(Controllers.Leap, 'gesture:up', function() {
             Controllers.Gradient.toggle();
+            console.log('toggle');
 //            if (Controllers.Music.isPlaying()) {
 //                Controllers.Music.setVolume(Controllers.Music.getVolume() + 0.25);
 //            }
@@ -53,12 +54,14 @@ var LeapView = Backbone.Marionette.ItemView.extend({
     },
 
     onRender: function() {
+
+        this.$el.find('.iconLeft').html('');
+        this.$el.find('.iconRight').html('');
         if (Controllers.Music.isPlaying()) {
-            this.$el.find('.iconLeft').copyIn('#previousIcon');
+            if (Controllers.Music.hasPrevious()) {
+                this.$el.find('.iconLeft').copyIn('#previousIcon');
+            }
             this.$el.find('.iconRight').copyIn('#nextIcon');
-        } else {
-            this.$el.find('.iconLeft').html('');
-            this.$el.find('.iconRight').html('');
         }
 
         if (Controllers.Music.canPlay()) {

@@ -114,6 +114,7 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
             self.renderedMainZoneView = trackListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#songIcon'});
             self.render();
+            self.volumeSliderZoneContent.close();
         }, this);
 
         this.vent.on('inputZone4:touchEnd', function() {
@@ -138,6 +139,7 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
             self.renderedMainZoneView = albumListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#albumIcon'});
             self.render();
+            self.volumeSliderZoneContent.close();
         }, this);
 
         this.vent.on('inputZone3:touchEnd', function() {

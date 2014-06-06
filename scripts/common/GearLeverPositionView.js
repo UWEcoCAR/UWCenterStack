@@ -4,7 +4,7 @@ var GearLeverPositionView = Backbone.Marionette.ItemView.extend({
     template: '#gearLeverPositionTemplate',
 
     initialize: function(options) {
-        this.gearPosition = 1;
+        this.gearPosition = -1;
     },
 
     onRender: function() {
@@ -13,6 +13,12 @@ var GearLeverPositionView = Backbone.Marionette.ItemView.extend({
 
     onShow:function() {
         Controllers.CanReadWriter.on('transGear', _.bind(function(gearPosition) {
+
+            if (this.gearPosition < 0) {
+                this.gearPosition = gearPosition;
+                return;
+            }
+
             if (gearPosition !== this.gearPosition) {
                 this.gearPosition = gearPosition;
                 this.redraw();
@@ -35,10 +41,12 @@ var GearLeverPositionView = Backbone.Marionette.ItemView.extend({
             default: gearLabel = ''; break;
         }
 
-        this.$el.find('.label').html(gearLabel);
-        this.$el.addClass('show');
-        this.timeout = setTimeout(_.bind(function() {
-            this.$el.removeClass('show');
-        }, this), 2000);
+        if (this.gearPosition > -1) {
+            this.$el.find('.label').html(gearLabel);
+            this.$el.addClass('show');
+            this.timeout = setTimeout(_.bind(function() {
+                this.$el.removeClass('show');
+            }, this), 2000);
+        }
     }
 });

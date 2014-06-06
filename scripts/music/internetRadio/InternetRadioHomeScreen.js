@@ -1,5 +1,7 @@
 InternetRadioHomeScreen = ScreenLayout.extend({
 
+    id: 'internetRadioHomeScreen',
+
     initialize: function() {
 
         // back/home button defaults
@@ -99,16 +101,21 @@ InternetRadioHomeScreen = ScreenLayout.extend({
 
         if (this.supplier) {
             stations = this.supplier.getStations();
-            this.inputZone1View.$el.find('.labelLeft').toggleClass('selected', this.model === stations.at(0));
-            this.inputZone2View.$el.find('.labelLeft').toggleClass('selected', this.model === stations.at(1));
-            this.inputZone3View.$el.find('.labelLeft').toggleClass('selected', this.model === stations.at(2));
-            this.inputZone4View.$el.find('.labelLeft').toggleClass('selected', this.model === stations.at(3));
-            this.inputZone5View.$el.find('.labelLeft').toggleClass('selected', this.model === stations.at(4));
-            this.inputZone1View.$el.find('.labelRight').toggleClass('selected', this.model === stations.at(5));
-            this.inputZone2View.$el.find('.labelRight').toggleClass('selected', this.model === stations.at(6));
-            this.inputZone3View.$el.find('.labelRight').toggleClass('selected', this.model === stations.at(7));
-            this.inputZone4View.$el.find('.labelRight').toggleClass('selected', this.model === stations.at(8));
-            this.inputZone5View.$el.find('.labelRight').toggleClass('selected', this.model === stations.at(9));
+            var currentStation = stations.find(_.bind(function(station) {
+                return this.supplier.getCurrentStation() && this.supplier.getCurrentStation().id === station.id;
+            }, this));
+            if (currentStation) {
+                this.inputZone1View.$el.find('.labelLeft').toggleClass('selected', stations.at(0) && currentStation.id === stations.at(0).id);
+                this.inputZone2View.$el.find('.labelLeft').toggleClass('selected', stations.at(1) && currentStation.id === stations.at(1).id);
+                this.inputZone3View.$el.find('.labelLeft').toggleClass('selected', stations.at(2) && currentStation.id === stations.at(2).id);
+                this.inputZone4View.$el.find('.labelLeft').toggleClass('selected', stations.at(3) && currentStation.id === stations.at(3).id);
+                this.inputZone5View.$el.find('.labelLeft').toggleClass('selected', stations.at(4) && currentStation.id === stations.at(4).id);
+                this.inputZone1View.$el.find('.labelRight').toggleClass('selected', stations.at(5) && currentStation.id === stations.at(5).id);
+                this.inputZone2View.$el.find('.labelRight').toggleClass('selected', stations.at(6) && currentStation.id === stations.at(6).id);
+                this.inputZone3View.$el.find('.labelRight').toggleClass('selected', stations.at(7) && currentStation.id === stations.at(7).id);
+                this.inputZone4View.$el.find('.labelRight').toggleClass('selected', stations.at(8) && currentStation.id === stations.at(8).id);
+                this.inputZone5View.$el.find('.labelRight').toggleClass('selected', stations.at(9) && currentStation.id === stations.at(9).id);
+            }
         } else {
             this.inputZone1View.$el.find('.active').removeClass('active');
         }
@@ -119,17 +126,23 @@ InternetRadioHomeScreen = ScreenLayout.extend({
     },
 
     onShow: function() {
-        this.listenTo(this.connectionChecker, 'connected', function() {
-            var supplier = new FeedSupplier(_.bind(function() {
-                this.supplier = supplier;
-                this.render();
-            }, this));
-        });
-        this.listenTo(this.connectionChecker, 'disconnected', function() {
-            this.supplier = undefined;
+        var supplier = Controllers.Music.getSupplier();
+        if (supplier && supplier.isFeedSupplier) {
+            this.supplier = supplier;
             this.render();
-        });
-        this.connectionChecker.start();
+        } else {
+            this.listenTo(this.connectionChecker, 'connected', function() {
+                var supplier = new FeedSupplier(_.bind(function() {
+                    this.supplier = supplier;
+                    this.render();
+                }, this));
+            });
+            this.listenTo(this.connectionChecker, 'disconnected', function() {
+                this.supplier = undefined;
+                this.render();
+            });
+            this.connectionChecker.start();
+        }
 
         this.vent.on('inputZone1:clickLeft', function() {this._setStation(0);}, this);
         this.vent.on('inputZone2:clickLeft', function() {this._setStation(1);}, this);
@@ -144,8 +157,9 @@ InternetRadioHomeScreen = ScreenLayout.extend({
     },
 
     _setStation: function(index) {
-        if (this.supplier && this.supplier.getStations().length >= index && this.model != this.supplier.getStations().at(index)) {
-            this.model = this.supplier.getStations().at(index);
+        if (this.supplier && this.supplier.getStations().length >= index && this.supplier.getCurrentStation() != this.supplier.getStations().at(index)) {
+            var station = this.supplier.getStations().at(index);
+            this.supplier.setStation(station);
             this.render();
             Controllers.Music.setSupplier(this.supplier).start();
         }

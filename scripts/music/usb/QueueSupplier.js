@@ -25,6 +25,10 @@
         return this._index + 1 < this.queue.length;
     };
 
+    supplier.prototype.hasPrevious = function() {
+        return this._index + 1 > 0;
+    };
+
     // returns the previous item if it exists
     supplier.prototype.previous = function() {
         this._index = Math.max(this._index - 1, 0);

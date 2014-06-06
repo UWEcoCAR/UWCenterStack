@@ -38,8 +38,16 @@ var MusicController = Marionette.Controller.extend({
             throw "Invalid supplier.";
         }
 
+        if (this.supplier) {
+            this.stop();
+        }
+
         this.supplier = newSupplier;
         return this;
+    },
+
+    getSupplier: function() {
+        return this.supplier;
     },
 
     start: function() {
@@ -151,10 +159,11 @@ var MusicController = Marionette.Controller.extend({
             throw "Supplier must be set.";
         }
 
-  
+        if (this.supplier.hasPrevious()) {
             this._play(this.supplier.previous());
             console.log('MUSIC:PREVIOUS ' + this.getTrack().model.get('src'));
             this.trigger('previous', this.getTrack());
+        }
         return this;
     },
 
@@ -185,6 +194,10 @@ var MusicController = Marionette.Controller.extend({
 
     getVolume: function() {
         return this.volume;
+    } ,
+
+    hasPrevious: function() {
+        return this.supplier && this.supplier.hasPrevious();
     }
 
 });

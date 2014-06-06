@@ -148,7 +148,7 @@ $bottomZonesTop: 1177px;
 
 #gearLeverPositionContent {
   .gearLeverPositionView {
-    @include positionCenteredHorizontal(300px, 200px, 200px);
+    @include positionCenteredHorizontal(250px, 200px, 200px);
     background-color: $gray;
     border-radius: 40px;
     opacity: 0;

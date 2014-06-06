@@ -107,6 +107,7 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
             self.renderedMainZoneView = trackListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#songIcon'});
             self.render();
+            self.volumeSliderZoneContent.close();
         }, this);
 
 

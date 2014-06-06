@@ -1,6 +1,7 @@
 window.FeedSupplier = function(callback) {
     this.stations = new Backbone.Collection([]);
     this.currentStation;
+    this.isFeedSupplier = true;
     this._init(callback);
 };
 
@@ -67,6 +68,10 @@ FeedSupplier.prototype.setStation = function(stationModel) {
     this.currentStation = stationModel;
 };
 
+FeedSupplier.prototype.getCurrentStation = function() {
+    return this.currentStation;
+};
+
 /**
  * Creates an api_sig based off your parameters as specified
  * in section 4 of http://www.last.fm/api/mobileauth
@@ -102,6 +107,7 @@ FeedSupplier.prototype.next = function() {
     if (!this.currentStation) {
         this.currentStation = this.stations.at(0);
     }
+    this.waitingForTrack = true;
     $.ajax({
         url: 'https://feed.fm/api/v2/play',
         method: 'POST',
@@ -135,6 +141,10 @@ FeedSupplier.prototype.next = function() {
  */
 FeedSupplier.prototype.hasNext = function() {
     return true;
+};
+
+FeedSupplier.prototype.hasPrevious = function() {
+    return false;
 };
 
 FeedSupplier.prototype._getAuthenticationString = function() {

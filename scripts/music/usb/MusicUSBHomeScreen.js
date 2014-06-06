@@ -191,6 +191,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.renderedMainZoneView = playlistView;
             self.backgroundIconView = new BackgroundIconView({icon: '#playlistIcon'});
             self.render();
+            self.volumeSliderZoneContent.close();
         }, this);
 
         // starting to slide the sliders
@@ -199,6 +200,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.renderedMainZoneView = artistListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#artistIcon'});
             self.render();
+            self.volumeSliderZoneContent.close();
         }, this);
 
         this.vent.on('inputZone3:touchStart', function() {
@@ -206,6 +208,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.renderedMainZoneView = albumListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#albumIcon'});
             self.render();
+            self.volumeSliderZoneContent.close();
         }, this);
 
         this.vent.on('inputZone4:touchStart', function() {
@@ -213,6 +216,7 @@ MusicUSBHomeScreen = ScreenLayout.extend({
             self.renderedMainZoneView = trackListView;
             self.backgroundIconView = new BackgroundIconView({icon: '#songIcon'});
             self.render();
+            self.volumeSliderZoneContent.close();
         }, this);
 
         // update main view back to default music USB
