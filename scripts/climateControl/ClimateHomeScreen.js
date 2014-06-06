@@ -17,8 +17,28 @@ ClimateHomeScreen = ScreenLayout.extend({
         this.nextButtonView = new NextButtonView({vent: this.vent});
         
         // volume slider
-        this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
+        //this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
         
+        this.volumeSliderView = new SliderView({
+            eventId: 'volumeZone',
+            iconLeft: '#volumeDownIcon',
+            iconRight: '#volumeUpIcon',
+            eventCatcher: '#volumeSliderZoneEventCatcher',
+            vent: this.vent
+        });
+
+        var volumeCollection = new Backbone.Collection([]);
+        this.volumeListView = new ListView({
+            eventId: 'volumeList',
+            eventSource: 'volumeZone',
+            collection: volumeCollection,
+            vent: this.vent,
+            numLevels: 30
+        });
+        for (var v = 0; v <= 30; v++) {
+            volumeCollection.push({text: v});
+        }
+
         // driver/passenger and defrost choices
         this.inputZone1View = new SliderButtonsView({
             eventId: 'inputZone1',
@@ -150,6 +170,10 @@ ClimateHomeScreen = ScreenLayout.extend({
             this.backgroundIconContent.show(new BackgroundIconView({icon: '#airFlowIcon'}));
         }, this);
 
+        this.vent.on('volumeZone:touchStart', function() {
+            this.mainZoneContent.show(this.volumeListView);
+        }, this);
+
         // updating model after temperature selection
         this.vent.on('temperatureList:select', function(data, selection) {
 
@@ -178,6 +202,11 @@ ClimateHomeScreen = ScreenLayout.extend({
             }
         }, this);
 
+        this.vent.on('volumeList:select', function(data) {
+            var frac = Number(data.model.get('text'));
+            Controllers.Music.setVolume(frac/30);
+        }, this);   
+
         // updating model after fan speed selection
         this.vent.on('fanSpeedList:select ', function(data) {
             this.model.set('ventFanSpeed', data);
@@ -194,7 +223,7 @@ ClimateHomeScreen = ScreenLayout.extend({
         }, this);
 
         // updatie main view back to default climate control view after sliders have been used
-        this.vent.on('inputZone2:touchEnd inputZone3:touchEnd inputZone4:touchEnd', function() {
+        this.vent.on('inputZone2:touchEnd inputZone3:touchEnd inputZone4:touchEnd volumeZone:touchEnd', function() {
             this.mainZoneContent.show(this.mainZoneView);
             this.backgroundIconContent.show(this.backgroundIconView);
         }, this);

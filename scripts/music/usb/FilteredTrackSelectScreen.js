@@ -17,7 +17,27 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
         this.nextButtonView = new NextButtonView();
         
         // volume slider
-        this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
+        //this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
+        
+        this.volumeSliderView = new SliderView({
+            eventId: 'volumeZone',
+            iconLeft: '#volumeDownIcon',
+            iconRight: '#volumeUpIcon',
+            eventCatcher: '#volumeSliderZoneEventCatcher',
+            vent: this.vent
+        });
+
+        var volumeCollection = new Backbone.Collection([]);
+        this.volumeListView = new ListView({
+            eventId: 'volumeList',
+            eventSource: 'volumeZone',
+            collection: volumeCollection,
+            vent: this.vent,
+            numLevels: 30
+        });
+        for (var v = 0; v <= 30; v++) {
+            volumeCollection.push({text: v});
+        }
 
         this.inputZone4View = new SliderView({
             eventId: 'inputZone4',
@@ -52,6 +72,20 @@ FilteredTrackSelectScreen= ScreenLayout.extend({
 
     onShow: function() {
         var self = this;
+
+        this.vent.on('volumeZone:touchStart', function() {
+            this.mainZoneContent.show(this.volumeListView);
+        }, this);
+
+        this.vent.on('volumeList:select', function(data) {
+            var frac = Number(data.model.get('text'));
+            Controllers.Music.setVolume(frac/30);
+        }, this);  
+
+        this.vent.on('volumeZone:touchEnd', function() {
+            this.mainZoneContent.show(this.mainZoneView);
+            this.backgroundIconContent.show(this.backgroundIconView);
+        }, this);
 
         // whether the artist filter was applied as well
         var artistSelected = false;

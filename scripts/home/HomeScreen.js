@@ -11,7 +11,26 @@ HomeScreen = ScreenLayout.extend({
         this.inputZone2View = new SliderButtonsView({eventId: 'inputZone2', iconLeft: "#fanIcon", iconRight: "#phoneIcon", eventCatcher: "#inputZone2EventCatcher", vent: this.vent});
         this.inputZone3View = new SliderButtonsView({eventId: 'inputZone3', iconLeft: "#leafIcon", iconRight: "#navigationIcon", eventCatcher: "#inputZone3EventCatcher", vent: this.vent});
         this.inputZone4View = new SliderButtonsView({eventId: 'inputZone4', iconLeft: "#settingsIcon", iconRight: "#moreIcon", eventCatcher: "#inputZone4EventCatcher", vent: this.vent});
-        this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
+        
+        this.volumeSliderView = new SliderView({
+            eventId: 'volumeZone',
+            iconLeft: '#volumeDownIcon',
+            iconRight: '#volumeUpIcon',
+            eventCatcher: '#volumeSliderZoneEventCatcher',
+            vent: this.vent
+        });
+
+        var volumeCollection = new Backbone.Collection([]);
+        this.volumeListView = new ListView({
+            eventId: 'volumeList',
+            eventSource: 'volumeZone',
+            collection: volumeCollection,
+            vent: this.vent,
+            numLevels: 30
+        });
+        for (var v = 0; v <= 30; v++) {
+            volumeCollection.push({text: v});
+        }
 
         this.playPauseButtonView = new PreviousButtonView();
         this.nextButtonView = new NextButtonView({vent: this.vent});
@@ -55,6 +74,20 @@ HomeScreen = ScreenLayout.extend({
 
         this.vent.on('inputZone4:clickLeft', function() {
             Backbone.history.navigate('vehicleMonitor', { trigger: true });
+        }, this);
+
+        this.vent.on('volumeZone:touchStart', function() {
+            this.mainZoneContent.show(this.volumeListView);
+        }, this);
+
+        this.vent.on('volumeList:select', function(data) {
+            var frac = Number(data.model.get('text'));
+            Controllers.Music.setVolume(frac/30);
+        }, this);  
+
+        this.vent.on('volumeZone:touchEnd', function() {
+            this.mainZoneContent.show(this.mainZoneView);
+            this.backgroundIconContent.show(this.backgroundIconView);
         }, this);
 
 

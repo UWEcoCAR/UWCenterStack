@@ -122,7 +122,7 @@ $('#eventCatchersWrapper').copyIn('#eventCatchers');
 centerStack.addRegions({
     main: '#appContainer'
 });
-
+console.log(CONFIG.FAKE_CAN);
 var CanReadWriter = require('uwcenterstack-canreadwriter');
 window.Controllers = {
     User: new UserController(),
@@ -138,7 +138,9 @@ setInterval(function() {
     Controllers.CanReadWriter.writeHs('hvacCommand', Controllers.HvacCommand);
 }, 1000);
 
-Controllers.CanLogger = new CanLoggerController({canEventEmitter: Controllers.CanReadWriter});
+if (!CONFIG.FAKE_CAN) {
+    Controllers.CanLogger = new CanLoggerController({canEventEmitter: Controllers.CanReadWriter});
+}
 
 centerStack.on('start', function() {
     Controllers.Gradient = new GradientController();

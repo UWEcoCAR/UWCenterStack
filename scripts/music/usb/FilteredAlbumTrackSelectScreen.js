@@ -19,7 +19,27 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
         this.nextButtonView = new NextButtonView();
         
         // volume slider
-        this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
+        //this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
+
+        this.volumeSliderView = new SliderView({
+            eventId: 'volumeZone',
+            iconLeft: '#volumeDownIcon',
+            iconRight: '#volumeUpIcon',
+            eventCatcher: '#volumeSliderZoneEventCatcher',
+            vent: this.vent
+        });
+
+        var volumeCollection = new Backbone.Collection([]);
+        this.volumeListView = new ListView({
+            eventId: 'volumeList',
+            eventSource: 'volumeZone',
+            collection: volumeCollection,
+            vent: this.vent,
+            numLevels: 30
+        });
+        for (var v = 0; v <= 30; v++) {
+            volumeCollection.push({text: v});
+        }
 
         this.inputZone3View = new SliderView({
             eventId: 'inputZone3',
@@ -69,6 +89,14 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
             window.history.back();
         });
 
+        this.vent.on('volumeZone:touchStart', function() {
+            this.mainZoneContent.show(this.volumeListView);
+        }, this);
+
+        this.vent.on('volumeList:select', function(data) {
+            var frac = Number(data.model.get('text'));
+            Controllers.Music.setVolume(frac/30);
+        }, this);  
 
         // collection and view of tracks
         var trackCollection = new Backbone.Collection([]);
@@ -142,6 +170,11 @@ FilteredAlbumTrackSelectScreen= ScreenLayout.extend({
 
         this.vent.on('inputZone3:touchEnd', function() {
            Backbone.history.navigate('music/musicUSB/filteredTrackSelect', { trigger: true});
+        }, this);
+
+        this.vent.on('volumeZone:touchEnd', function() {
+            this.mainZoneContent.show(this.mainZoneView);
+            this.backgroundIconContent.show(this.backgroundIconView);
         }, this);
 
         this.vent.on('albumList:select ', function(data, selection) {
