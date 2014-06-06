@@ -14,7 +14,27 @@ InternetRadioHomeScreen = ScreenLayout.extend({
         this.nextButtonView = new NextButtonView();
 
         // volume slider
-        this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
+        //this.volumeSliderView = new VolumeSliderView({eventId: 'volume', viewId: '', vent: this.vent});
+
+        this.volumeSliderView = new SliderView({
+            eventId: 'volumeZone',
+            iconLeft: '#volumeDownIcon',
+            iconRight: '#volumeUpIcon',
+            eventCatcher: '#volumeSliderZoneEventCatcher',
+            vent: this.vent
+        });
+
+        var volumeCollection = new Backbone.Collection([]);
+        this.volumeListView = new ListView({
+            eventId: 'volumeList',
+            eventSource: 'volumeZone',
+            collection: volumeCollection,
+            vent: this.vent,
+            numLevels: 30
+        });
+        for (var v = 0; v <= 30; v++) {
+            volumeCollection.push({text: v});
+        }
 
         this.inputZone1View = new SliderButtonsView({
             eventId: 'inputZone1',
@@ -131,6 +151,20 @@ InternetRadioHomeScreen = ScreenLayout.extend({
         });
         this.connectionChecker.start();
 
+        this.vent.on('volumeZone:touchStart', function() {
+            this.mainZoneContent.show(this.volumeListView);
+        }, this);
+
+        this.vent.on('volumeList:select', function(data) {
+            var frac = Number(data.model.get('text'));
+            Controllers.Music.setVolume(frac/30);
+        }, this);  
+
+        this.vent.on('volumeZone:touchEnd', function() {
+            this.mainZoneContent.show(this.mainZoneView);
+            this.backgroundIconContent.show(this.backgroundIconView);
+        }, this);
+        
         this.vent.on('inputZone1:clickLeft', function() {this._setStation(0);}, this);
         this.vent.on('inputZone2:clickLeft', function() {this._setStation(1);}, this);
         this.vent.on('inputZone3:clickLeft', function() {this._setStation(2);}, this);
