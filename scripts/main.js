@@ -53,6 +53,7 @@ var CenterStack = Backbone.Marionette.Application.extend({
     },
 
     vehicleMonitor: function() {
+	Controllers.VehicleMonitorCanLogger = new CanLoggerController({canEventEmitter: Controllers.CanReadWriter});
         var vehicleMonitorHomeScreen = new VehicleMonitorHomeScreen();
         centerStack.main.show(vehicleMonitorHomeScreen);
     }
@@ -139,6 +140,25 @@ setInterval(function() {
 }, 1000);
 
 Controllers.CanLogger = new CanLoggerController({canEventEmitter: Controllers.CanReadWriter});
+
+var EveBackend = require('uwcenterstack-evebackend').EveBackend;
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
+var eveBackend = new EveBackend(Controllers.CanReadWriter, "Mitchell Loeppky", eventEmitter, function(user) {
+    var trips = user.getTrips(function(trips) {
+        _.each(trips, function(trip) {
+            // console.log('trip: ' + trip);
+            console.log("----");
+            console.log("MPGe: " + trip.getMPGe());
+            console.log("Electric Energy Consumption: " + trip.getElectricalEnergyConsumption());
+            console.log("Diesel Energy Consumption: " + trip.getDieselEnergyConsumption());
+            console.log("Kinetic Energy Consumption: " + trip.kinecticEnergy);
+            console.log("Potential Energy Consumption: " + trip.potentialEnergy);
+            console.log("Electric Cost: " + trip.getElectricCost());
+            console.log("Diesel Cost: " + trip.getDieselCost());
+        })
+    });
+});
 
 centerStack.on('start', function() {
     Controllers.Gradient = new GradientController();

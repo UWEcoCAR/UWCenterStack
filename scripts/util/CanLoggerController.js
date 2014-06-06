@@ -29,11 +29,6 @@ var CanLoggerController = Marionette.Controller.extend({
                 value: 0
             },
             {
-                event: 'batteryVoltage',
-                header: 'ESS Voltage (V)',
-                value: 0
-            },
-            {
                 event: 'batteryTemp',
                 header: 'ESS Temp (C)',
                 value: 0
