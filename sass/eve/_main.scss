@@ -65,6 +65,21 @@
       @include position(281px, 0, 315px);
       @include alrightSans('light', 20pt);
     }
+
+    .mpge {
+      @include position(470px, 0, 315px);
+      @include alrightSans('light', 20pt);
+
+      .label {
+        @include alrightSans('bold', 40pt);
+        display: inline-block;
+      }
+
+      .value {
+        @include alrightSans('light', 40pt);
+        display: inline-block;
+      }
+    }
   }
 }
 

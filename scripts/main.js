@@ -145,7 +145,8 @@ Controllers.CanLoggerBackup = new CanLoggerController({canEventEmitter: Controll
 var EveBackend = require('uwcenterstack-evebackend').EveBackend;
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
-var eveBackend = new EveBackend(Controllers.CanReadWriter, "Mitchell Loeppky", eventEmitter, function(user) {
+Controllers.EveBackend = new EveBackend(Controllers.CanReadWriter, "Mitchell Loeppky", eventEmitter, function(user) {
+    Controllers.BackendUser = user;
     var trips = user.getTrips(function(trips) {
         _.each(trips, function(trip) {
             // console.log('trip: ' + trip);
@@ -157,7 +158,7 @@ var eveBackend = new EveBackend(Controllers.CanReadWriter, "Mitchell Loeppky", e
             console.log("Potential Energy Consumption: " + trip.potentialEnergy);
             console.log("Electric Cost: " + trip.getElectricCost());
             console.log("Diesel Cost: " + trip.getDieselCost());
-        })
+        });
     });
 });
 
