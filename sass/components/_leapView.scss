@@ -50,14 +50,14 @@ $leapBoxPadding: 10px;
       background: $white;
       border-radius: $leapIconSize / 2;
       opacity: 0;
-      -webkit-transition: opacity .5s;
+      -webkit-transition: opacity 1s, -webkit-transform .1s;
 
       &.fadeIn {
         opacity: 1;
       }
 
       &.active {
-        background: $green;
+        background: $gradientGreen;
       }
     }
 
