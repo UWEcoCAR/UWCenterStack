@@ -24,6 +24,8 @@ Options should be an object containing:
 }
 
  */
+
+var Maps = require('uwcenterstack-evebackend').Maps;
 var MapManager = function(options) {
     // this.WIDTH = 700;
     // this.HEIGHT = 300;
@@ -200,16 +202,12 @@ var MapManager = function(options) {
         var canvasWidth = me.canvas.get(0).width;
         var canvasHeight = me.canvas.get(0).height;
         console.log(top, bottom, left, right);
-        $.ajax({
-            url: "/getDataPoints",
-            type: 'GET',
-            data: {
-              top: top,
-              bottom: bottom,
-              left: left,
-              right: right
-            }
-        }).done(function (data) {
+        (new Maps()).getDataPoints({
+            top: top,
+            bottom: bottom,
+            left: left,
+            right: right
+        }, function(data) {
             console.log(data);
             console.log(topLeft);
             console.log(bottomRight);
@@ -221,11 +219,11 @@ var MapManager = function(options) {
             var zoom = me.googleMapsMap.getZoom();
             var radius = Math.pow(1.18, zoom);
             _.each(data, function (point) {
-                var latLng = new google.maps.LatLng(point.geo[1], point.geo[0]);
+                var latLng = new google.maps.LatLng(point.geo[0], point.geo[1]);
                 if (bounds.contains(latLng)) { // this point lies in the map, plot it on the canvas!
                     // calculate distance from top left
-                    var fromTop = Math.abs(top - point.geo[1]);
-                    var fromLeft = Math.abs(left - point.geo[0]);
+                    var fromTop = Math.abs(top - point.geo[0]);
+                    var fromLeft = Math.abs(left - point.geo[1]);
                     var ratioTop = fromTop / height;
                     var ratioLeft = fromLeft / width;
 
@@ -234,7 +232,7 @@ var MapManager = function(options) {
 
                     me.context.beginPath();
                     me.context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-                    me.context.fillStyle = me.calculateColor(Math.floor((Math.random() * 10) + 1));
+                    me.context.fillStyle = me.calculateColor(point.efficiency);
                     me.context.fill();
                     me.context.closePath();
                 }
@@ -246,7 +244,7 @@ var MapManager = function(options) {
     this.calculateColor = function (efficiency) {
         efficiency = parseInt(efficiency);
 
-        if (efficiency > 5) {
+        if (efficiency > 50) {
             return 'rgba(208, 221, 40, .1)'; // yellow - good
         } else {
             return 'rgba(102, 45, 145, .1)'; // purple - bad
