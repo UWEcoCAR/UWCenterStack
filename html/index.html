@@ -29,6 +29,9 @@
         <script src="../scripts/external/moment.min.js"></script>
         <script src="../scripts/external/leap.min.js"></script>
         <script src="../scripts/external/highstock.js"></script>
+        <script src="../scripts/external/jquery.activity-indicator-1.0.0.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
         <script>
             global.$ = global.jQuery = $;
             global._ = _;
@@ -38,7 +41,7 @@
             window.CONFIG = global.CONFIG = require('config');
         </script>
 
-        <!-- Open in Kiosk mode in production -->
+        <!-- Open in Kiosk mode in production
         <script>
             if (CONFIG.NODE_ENV !== 'development') {
                 var win = require('nw.gui').Window.get();
@@ -50,7 +53,7 @@
                 $('html').css('cursor', 'none');
                 win.zoomLevel = 0;
             }
-        </script> 
+        </script>  -->
 
         <script>
             var win = require('nw.gui').Window.get();
@@ -207,11 +210,19 @@
             <div class="userImprovement">
                 <div class="improve">LET&#39;S IMPROVE</div>
                 <div class="improveMessage"><%= improveMessage %></div>
+                <div class="mpge">
+                    <div class="label">MPGe: </div>
+                    <div class="value"></div>
+                </div>
             </div>
         </script>
 
         <script id="eveCostScreenTemplate" type="text/html">
             <div id="container" style="height:300px;"></div>
+        </script>
+
+       <script id="eveMapScreenTemplate" type="text/html">
+            <div id="mapAndCanvasContainer" style="height:300px;"></div>
         </script>
 
         <script id="leapTemplate" type="text/html">
@@ -299,6 +310,9 @@
         <script src="../scripts/music/internetRadio/InternetRadioModel.js"></script>
         <script src="../scripts/music/internetRadio/InternetRadioHomeScreen.js"></script>
         <script src="../scripts/music/internetRadio/InternetRadioMainZoneView.js"></script>
+        <script src="../scripts/eve/MapManager.js"></script>
+        <script src="../scripts/eve/EveMapMainZoneView.js"></script>
+        <script src="../scripts/eve/EveMapMainZone.js"></script>
         <script src="../scripts/eve/EveModel.js"></script>
         <script src="../scripts/eve/EveHomeMainZoneLeftView.js"></script>
         <script src="../scripts/eve/EveHomeMainZoneRightView.js"></script>

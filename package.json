@@ -18,7 +18,8 @@
     "leapjs": "~0.5.0",
     "uwcenterstack-canreadwriter": "~1.1.0",
     "config": "~0.4.35",
-    "uwcenterstack-hapticcontroller": "~1.1.0"
+    "uwcenterstack-hapticcontroller": "~1.1.0",
+    "uwcenterstack-evebackend": "~1.0.7"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
