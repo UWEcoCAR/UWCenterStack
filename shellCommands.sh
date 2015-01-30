@@ -11,7 +11,7 @@ else
   # Prepares the repo for running on Linux (Ubuntu 13.10)
   alias uwcs-init='uwcs-global-modules ; uwcs-native-modules ; uwcs ; sudo npm install ; ln -s /lib/x86_64-linux-gnu/libudev.so.1 $NW_HOME/libudev.so.0'
 
-  export NW_HOME=$UWCENTERSTACK_VEHICLE_MONITOR_HOME/nw
+  export NW_HOME=$UWCENTERSTACK_HOME/nw
 
 fi
 
