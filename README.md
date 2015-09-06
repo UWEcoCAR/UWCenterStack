@@ -26,17 +26,15 @@ source $UWCENTERSTACK_HOME/shellCommands.sh
 ```
 5. In a new terminal window, run:
 ```
-uwcs-init-mac
+uwcs-init
 ```
-or
-```
-uwcs-init-linux
-```
+
+It should determine if you are on linux or osx and build
 
 If there are additional environment variables you would like to set to be available in node-webkit scope on a Mac,
 add them following the instructions [here](http://stackoverflow.com/questions/135688/setting-environment-variables-in-os-x).
 
-Shell Commands
+Shell Commands (may be outdated, see shellCommands.sh)
 --------------
 
 After the setup, you should be able to run the following commands:
